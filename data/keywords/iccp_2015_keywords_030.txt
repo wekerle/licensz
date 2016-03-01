@@ -1,0 +1,4 @@
+30
+pedestrian recognition, fusion, kernel descriptors, SVM
+modality pertinence classifier (206), pedestrian recognition (110), pedestrian classifier (100), dynamic modality fusion (95), kernel descriptor (70), non pedestrian (70), modality classifier (70), pedestrian recognition system (63), multi modality (60), dynamic modality fusion model (60), fusion model (60), modality fusion (60), pedestrian detection (50), large feature vector (47), multi modality image (47), modality selection component (47), match kernel (40), pedestrian classification (40), non pedestrian bounding box (40), positive rate (40), majority vote (40), detection rate (40), strong camera calibration setting (40)
+Topics:	

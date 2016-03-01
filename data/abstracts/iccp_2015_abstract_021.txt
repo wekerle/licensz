@@ -1,0 +1,5 @@
+Dynamic modeling and order-up-to inventory management in logistic networks with positive lead time
+
+Przemyslaw Ignaciuk
+
+Abstract: The paper addresses the problem of inventory management and goods flow control in logistic networks. No simplifying assumption regarding the network structure, like serial, or tree-like configuration, is taken. Each network node, in addition to answering external demand, serves internal requests for goods transshipment. The stock is refilled from uncapacited outside sources. The network interconnections, as well as the external supply lines, are subject to delay spanning multiple review periods. A model of dynamic interaction in such networked structure is constructed and efficiency of order-up-to (OUT) inventory policy is evaluated. Faced by the deficiencies of the classical OUT strategy, a new -- networked -- policy is proposed.

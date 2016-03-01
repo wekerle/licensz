@@ -1,0 +1,5 @@
+A comparison between Extreme Learning Machine, Support Vector Machine classifiers
+
+Mihai Bucurica, Radu Dogaru, Ioana Dogaru
+
+Abstract: The comparison of two classifiers, the Extreme Learning Machine (ELM) and the Support Vector Machine (SVM) is considered for performance, resources used (neurons or support vector kernels) and computational complexity (speed). Both implementations are of similar type (C++ compiled as Octave .mex files) to have a better evaluation of speed and computational complexity. Our results indicate that ELM has similar performance to SVM in terms of speed while having the advantage of a smaller number of resources used.

@@ -1,0 +1,5 @@
+Deduplicated Distributed File System Using Lightweight Cryptography
+
+Alecsandru P\u{a}tra\cb{s}cu, Mihai Togan, Victor-Valeriu Patriciu
+
+Abstract: Current user demands from a storage service increase every day in complexity and availability. Together with the expansion of Cloud Computing services we find an important problem existing in nowadays datacenters - the problem of efficient, secure and reliable storage backbone that can serve both virtual infrastructures and users. In this paper we present a different approach in the design of a file system. We propose the ELightFS file system, that meets the requirements needed to be installed and run over a Cloud Service Provider infrastructure - it has a native and transparent implementation that can be run on top of various hardware infrastructures, ARM or x86, it is distributed, has a file deduplication feature and stores data in encrypted form.

@@ -1,0 +1,4 @@
+17
+Bioarchaeology, Stature prediction, Machine learning, Radial basis function networks, Locally-weighted regression
+radial basis function network (240), phase learning (197), instance based learning (158), locally weighted regression (142), radial basis function (126), human skeletal remain (110), stature prediction (110), phase learning scheme (110), data set (110), second case study (95), bone measurement (90), training data (90), query point (70), machine learning (70), model performance measure (63), better result (50), cross validation (50), regression formula (50), standard error (50), basis function (50), local approximation (50), see value (50), learning scheme (50), cross validation process (47), learning method (40), skeletal remain (40), nstance based l earning (40), instance based learning method (40), der feature (40), scaling parameter (40)
+Topics:

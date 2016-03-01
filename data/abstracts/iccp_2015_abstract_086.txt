@@ -1,0 +1,5 @@
+Emotion Identification by Facial Landmarks Dynamics Analysis
+
+Alessandra Bandrabur, Laura Florea, Corneliu Florea, Matei Mancas
+
+Abstract: In this paper we concentrate our efforts on the analysis of the face landmarks dynamics as being a relevant method to access the subject’s emotion. Given the person facial landmarks we describe their trajectory with respect to the neutral pose and out of this trajectory we extract relevant features that are subsequently entered into a classification system for the actual recognition of emotion. This procedure provides a robust estimation, that has little sensibility with respect to landmark accuracy. Moreover it brings promising results for complex emotions classes. The approach is extensively tested on the factum emotion database, namely Cohn-Kanade+. The reached performance is comparable with state of the art, but on the complete palette of possible emotions.

@@ -1,0 +1,4 @@
+8
+stereo-vision, intensity, depth, motion, superpixels, pedestrian hypotheses, shape description
+pedestrian hypothesis (540), pedestrian detection (190), ground truth (145), obstacle detection (140), area coverage (140), pedestrian hypothesis contour (110), urban traffic scenario (110), stereo vision (100), superpixel based pedestrian hypothesis (100), intelligent vehicle (100), traffic scene (80), computer vision (80), matching score (80), pedestrian hypothesis generation (79), pattern matching (75), motion information (70), truth pedestrian hypothesis (63), shape description (60), scene obstacle (60), obstacle segmentation (50), point grouping (50), optical flow (50), contour extraction (50), reconstructed point (50), contour tracing algorithm (47), pattern matching technique (47), ground truth contour (47), pedestrian hypothesis area (47), high quality shape (47), collision avoidance (40)
+Topics:

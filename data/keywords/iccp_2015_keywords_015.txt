@@ -1,0 +1,4 @@
+15
+language independent word auto-completion, user adaptation, probabilistic and inverted index models
+user oriented index (316), inverted index (190), user oriented (170), user written document (142), auto completion (126), user document (110), bidirectional group boundary identification (100), word position (90), user oriented simple user (80), auto completion system (79), query processing time (79), data model (70), occurrence threshold (70), information retrieval (60), data set (60), desired word (60), linear distance (50), software product (50), food recipe (50), bgbi algorithm (50), posting list (50), word auto completion (47), user occ th (47), common document (40), binary search (40), facebook message (40), autocompletion system (40), writing style (40), word retrieval (40)
+Topics:	Intelligent Systems

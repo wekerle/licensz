@@ -1,0 +1,4 @@
+40
+OSPF weights, traffic engineering, graph algorithms, onePK, Software Defined Networking
+genetic algorithm (170), maximum flow (120), ospf weight (120), evaluation function (110), node topology (80), genetic algorithm solution id (80), traffic flow (70), next generation (70), software defined networking (63), cisco onepk api (47), random key genetic algorithm (40), traffic engineering (40)
+Topics:	

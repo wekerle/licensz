@@ -1,0 +1,5 @@
+A Q-learning Approach for Aligning Protein Sequences
+
+Ioan-Gabriel Mircea, Gabriela Czibula, Maria-Iuliana Bocicor
+
+Abstract: Protein multiple sequence alignment is significant in the field of bioinformatics as it may reveal important information about the protein sequences' functional, structural or evolutionary relationships. It involves the alignment of three or more biological protein sequences and represents a real challenge both from a biological and a computational point of view. Q-learning is a reinforcement learning technique in which an artificial agent learns to find an optimal sequence of actions to achieve a goal by receiving rewards for its chosen actions. This paper investigates a \$Q\$-learning based model for the multiple sequence alignment problem applied on protein sequences. The experimental evaluation of the model is performed on two artificial data sets and on benchmark problem sets selected from the BAliBASE database. The obtained results show the effectiveness of using reinforcement learning for determining the optimal alignment of multiple protein sequences.

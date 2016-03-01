@@ -1,0 +1,4 @@
+13
+Pedestrian detection, Normalized Autobinomial Markov Channels, Channel Features, Boosted Trees
+normalized autobinomial markov channel (220), pedestrian detection (195), caltech pedestrian dataset (158), computer vision (140), aspect ratio (80), channel feature (80), test scenario (70), boosted tree caltech (63), heavy occlusion (60), pattern recognition (50), namc algorithm (50), british machine vision (47), pedestrian detection algorithm (47), gradient magnitude (40), performance testing (40), object detection (40)
+Topics:	Computer Vision

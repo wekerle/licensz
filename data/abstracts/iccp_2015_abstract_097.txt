@@ -1,0 +1,5 @@
+Cloud based Privacy Preserving Efficient Document Storage and Retrieval Framework
+
+Gandeevan Raghuraman, Pooja Nilangekar, Pallavi Vijay, Kavya Premkumar, Saswati Mukherjee
+
+Abstract: The amount of data in the digital universe is growing at a rate of forty percent annually. This growth coupled with the power of the internet motivates several individuals and enterprises to store their data on the cloud. The cloud guarantees reliable storage and provides computational capabilities at low costs. However, the cloud also exposes the data and its users to various privacy and security vulnerabilities. We propose a document retrieval framework which searches on the encrypted data stored on the cloud while ensuring that the confidentiality of the data is not compromised . The privacy of the data during search and retrieval is ensured by deploying Privacy Preserving n-keyword search scheme. We have also investigated and implemented a Key Exchange Mechanism to ensure access control, thus providing a holistic solution encompassing authorization, access control and data privacy.

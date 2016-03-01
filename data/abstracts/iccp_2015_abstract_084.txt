@@ -1,0 +1,5 @@
+Concept Extraction from Medical Documents. A Contextual Approach
+
+Gyorgy Szenasi, Camelia Lemnaru, Ioana Barbantan
+
+Abstract: Efficient and precise medical information identification from Electronic Health Records (EHRs) is an important subject for both the knowledge extraction and medical communities. This paper presents an approach for medical concept identification and categorization which applies a series of Natural Language Processing methods on unstructured EHRs, queries the SNOMED-CT medical ontology and applies three filtering rules on the query result set. The strength of our approach is that it considers contextual information from the input documents together with the hierarchical information from the medical ontology to filter out irrelevant concepts while maintaining a high accuracy for the medical concept identification. We have performed a series of evaluations on the Medline abstracts dataset. Our method reaches an average recall of 88.77\% and a precision of 89.69\% on this data.

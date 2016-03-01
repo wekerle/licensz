@@ -1,0 +1,5 @@
+Generating accuracy and integrity aware train movement maps using GNSS and MEMS sensors
+
+Vlad Doru Colceriu, Teodor Stefanut, Victor Bacu, Dorian Gorgan
+
+Abstract: The current paper presents a methodology for generating kinematic sensor maps of train journeys on railway tracks, by using a crowdsourced approach to data collection. In order to create uniform data representation and accuracy oriented maps of railway tracks, different concepts relating to satellite imagery analysis belonging to the domain Earth Sciences have been used. Additionally by optimizing the way in which single receiver GNSS localization data is collected, the accuracy and integrity of positioning subsystems of mobile phone-based devices has been brought under a manageable and quantifiable safety hazard rate.

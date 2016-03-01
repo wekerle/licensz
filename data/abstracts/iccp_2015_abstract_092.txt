@@ -1,0 +1,21 @@
+Semantic Investigation of a Control-Flow Subset of BPMN 2.0
+
+Eneia Nicolae Todoran, Paulina Mitrea
+
+Abstract: Business Process Model and Notation (BPMN), now at version 2.0.2, provides a standard graphical 
+representation for specifying business processes. In this paper we report on the first stage of a semantic 
+investigation of BPMN, using methods in the tradition of programming languages semantics. We consider a 
+control-flow subset of BPMN and an execution architecture based on an intermediate language that we name 
+$\cal{L}$$_{BPMN}$. 
+The execution architecture comprises two main components: a translator which 
+takes as input a BPMN model and generates $\cal{L}$$_{BPMN}$ code, and an interpreter 
+for $\cal{L}$$_{BPMN}$. $\cal{L}$$_{BPMN}$ is a process oriented imperative language providing a combination of 
+concepts, including maximal parallelism and durational activities. 
+We employ the mathematical methodology of metric semantics in designing 
+and relating an operational semantics $\cal{O}$ and a denotational semantics $\cal{D}$ for $\cal{L}$$_{BPMN}$. 
+We establish the formal relation between $\cal{O}$ and $\cal{D}$ by using an 
+abstraction operator and a fixed point argument. In this way we prove the 
+correctness of the denotational semantics with respect to the operational 
+semantics. We focus on the semantic investigation of BPMN. We also explain 
+how the operational semantics can serve as a blueprint for an implementation 
+on a client-server architecture.

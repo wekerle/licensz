@@ -1,0 +1,4 @@
+25
+deep learning, convolutional neural networks, image processing, tunnel inspection
+high level feature (110), level feature (102), low level feature (95), deep learning (95), learning model (80), feature vector (70), convolutional neural network (63), non defect class (63), semi supervised learning (63), feature extraction algorithm (63), pixel pxy (60), convolutional layer (60), classification accuracy (50), feature extraction (50), defect detection (50), image edge (50), scale invariance (50), raw image data (47), max pooling layer (47), second convolutional layer (47), support vector machine (47), deep learning architecture (47), conventional pattern recognition (47), complex handcrafted feature (47), gabor filter (40), edge detection (40), low level feature extraction (40), visual information (40), performance metric (40), sewer closed circuit television (40)
+Topics:

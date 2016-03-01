@@ -1,0 +1,4 @@
+21
+logistic networks, inventory control, time-delay systems, multiple time delays
+networked policy (80), logistic network (60), lead time (50), inventory management (50), stock replenishment signal (47), bullwhip effect (40)
+Topics:	Networking

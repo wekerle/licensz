@@ -1,0 +1,4 @@
+19
+Bioinformatics, Protein Multiple Sequence Alignment, Machine Learning, Q-learning
+protein sequence (266), protein multiple sequence alignment (240), multiple sequence alignment (221), q learning algorithm (221), first artificial data (142), artificial data (140), reinforcement learning (135), data set (135), optimal alignment (130), perfectly matched column (126), sequence alignment (125), multiple sequence alignment problem (120), artificial data second artificial data (92), running time (90), column score (80), pmsa problem (80), artificial data set (79), benchmark problem set (79), multiple protein sequence (79), amino acid (70), gap penalty (70), reference alignment (70), multiple sequence (65), em exact match (63), amino acid symbol (63), amino acid sequence (63), cs column score (63), computational time (60), scoring matrix (60), dynamic programming (55)
+Topics:

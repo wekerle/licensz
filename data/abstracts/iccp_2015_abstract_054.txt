@@ -1,0 +1,5 @@
+Improving AGV Systems: Integration of Advanced Sensing and Control Technologies
+
+Fabio Oleari, Massimiliano Magnani, Davide Ronzoni, Lorenzo Sabattini, Elena Cardarelli, Valerio Digani, Cristian Secchi, Cesare Fantuzzi
+
+Abstract: This paper focuses on the integration of advances sensing and control technologies into advanced systems of multiple Automated Guided Vehicles (AGVs). In particular, we focus on the key technologies developed within Plug-and-Navigate Robots (PAN-Robots) project, highlighting how those results contribute in improving the performance of AGV systems.

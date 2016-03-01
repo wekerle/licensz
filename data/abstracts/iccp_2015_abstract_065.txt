@@ -1,0 +1,5 @@
+A Measure of Similarity for Binary Programs with a Hierarchical Structure
+
+Ciprian Oprisa, Nicolae Ignat
+
+Abstract: Finding similar binary programs is a challenging task, as there is no best way to compute this kind of similarity. The approach in the current paper is based on the fact that some programs retain structural information from the source code, like the division into packages, classes and methods. Using such a hierarchical structure, comparison algorithms based on OpCode n-grams can be enriched in order to produce more meaningful results. The method was implemented in order to detect plagiarism cases in a collection of Android applications written in Java. By employing the new techniques, the plagiarism detector exceeded 95\% in terms of both precision and recall. The algorithm performance is also better if we use the new information about the program hierarchy, as the proposed system managed to compare large applications of over 7000 methods in about 15 seconds. By automatically detecting plagiarism cases from an early stage, our framework can limit the loss in financial revenue for the legitimate developers.

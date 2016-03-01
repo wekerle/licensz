@@ -1,0 +1,5 @@
+Fusion of Stereo and Structure from Motion for enhancing PatchMatch Stereo
+
+Claudiu Decean, Sergiu Nedevschi
+
+Abstract: The main issues with classic disparity estimation methods are the limitations of cost fitting for estimating subpixel disparity values and the frequent violations of the fronto-parallel assumption during support window matching. Modern stereo correspondence algorithms model the scene as a collection of 3D planes and estimate the real-valued parameters of each plane in order to obtain a more accurate disparity map. Such an algorithm is PatchMatch stereo that overcomes the problem of searching in an infinite, high dimensional solution space by efficiently traversing the space based on the assumption that planes are similar in a neighborhood region. This work presents a method that integrates structure from motion information with stereo for increasing the robustness of the original PatchMatch stereo method on difficult scenarios. Evaluations of our method on the HCI and Kitti datasets show that our method returns an accurate, denser disparity map.

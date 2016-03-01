@@ -1,0 +1,4 @@
+4
+Eyeglasses Extraction, Fourier coefficients, Genetic Algorithms
+genetic algorithm (220), fourier descriptor (70), fourier coefficient (70), distance transform (60), contour extraction (50), facial image (50), pattern recognition (50), monte carlo sampling (47), eyeglass extraction problem (47), linear morphing procedure (47), efficient shape description (47), canny edge detection (47), mutation operator (40), pattern analysis (40), arithmetic crossover (40)
+Topics:

@@ -1,0 +1,5 @@
+Direct formulas for stereo-based visual odometry error modeling
+
+Catalin Golban, Petru\cb{t} Cob\^{a}rzan, Sergiu Nedevschi
+
+Abstract: Visual odometry is the most suitable method for recovering the camera motion in the context of video processing applications. The main advantages it brings are the accuracy of the estimation, the computation efficiency, and the elimination of the need to synchronize a video processing system with other odometry sensors. There is a large amount of visual odometry methods published recently, but they don't provide reliable error models for the estimation. The goal of this paper is to present an analytical computation of the covariance matrix for a stereo-based visual odometry method and to analyze its performance and quality by using both synthetic data and real world video sequences acquired in urban traffic scenarios.

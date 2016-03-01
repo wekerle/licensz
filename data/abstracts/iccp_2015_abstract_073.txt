@@ -1,0 +1,5 @@
+Traffic Light Detection on Mobile Devices
+
+Florin Oniga, Sergiu Prodan, Sergiu Nedevschi
+
+Abstract: The opportunity of using smart mobile devices (e.g. smartphones) for traffic light detection, on-board of vehicles, is investigated in this paper. We focus on developing an algorithm suitable for the processing capabilities of a mobile device, with promising detection capabilities. Candidate points for traffic lights are extracted using Gaussian distributions for hue, saturation and lightness with parameters learned from training images. Candidate regions are built by clustering connected candidate points. These regions are then filtered by using shape information. For each candidate region we perform a fast circularity check based on the image gradient in the area. Finally, we evaluate the algorithm using manually labeled images. The detection rates (80\%-85\%) show that, with future refinement, the system can be used in real traffic scenarios.

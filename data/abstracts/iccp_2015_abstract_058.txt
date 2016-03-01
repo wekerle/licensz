@@ -1,0 +1,5 @@
+Tools for Mapping Ontologies to Relational Databases: A Comparative Evaluation
+
+Dorin Moldovan, Marcel Antal, Dan Valea, Claudia Pop, Cioara Tudor, Ionut Anghel, Ioan Salomie
+
+Abstract: This paper presents an analysis of the state of the art solutions for mapping a relational database and an ontology by adding reasoning capabilities and offering the possibility to query the inferred information. We analyzed four approaches: Jena with D2RQ, Jena with R2RML, KAON2 and OWL API. In order to highlight the differences between the four approaches, we used a nutrition diagnostics related ontology for the definition of the concepts and of the rules, and a relational database for the storage of the individuals. As performance evaluation, we focused on the time required to map the relational database to the ontology, and the time required to retrieve the information that is inferred about the diagnostics of a number of persons. The obtained results show that the best performance in both cases is given by KAON2.

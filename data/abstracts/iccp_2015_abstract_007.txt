@@ -1,0 +1,5 @@
+A learning-based Approach for Romanian Syllabification and Stress Assignment
+
+Diana Balc, Anamaria Beleiu, Rodica Potolea, Camelia Lemnaru
+
+Abstract: This paper tackles the Romanian syllabification and stress assignment problems, and proposes an efficient machine learning based solution. We show that by designing the appropriate feature sets for each specific problem, learning algorithms achieve satisfactory accuracy rates for both problems ($\sim$92 \% for syllabification, $\sim$85\% for stress assignment), even for relatively small training set sizes. We have found that unigram-based features are powerful enough to characterize these problems, and therefore the introduction of bi-gram or tri-gram features (often utilized in syllabification problems for other languages) is unnecessary.

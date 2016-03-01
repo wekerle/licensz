@@ -1,0 +1,4 @@
+27
+height restriction barriers, intensity information, depth information, detection, height estimation, tracking
+height restriction barrier (578), height restriction (272), restriction barrier (216), restriction barrier detection (174), candidate line (110), barrier detection (100), detected barrier (100), barrier bounding rectangle (95), obstacle detection (80), bounding rectangle (80), driving assistance system (79), repetitive textural pattern (79), stereo vision (70), detected height restriction barrier (60), stereo reconstruction (60), road surface (60), left image (50), tracking procedure (50), height barrier (50), sort sgm algorithm (47), detected barrier line (47), traffic height restriction (47), intensity image (40), computer vision (40), reconstructed point (40), tracked height restriction barrier (40), key point (40), ego vehicle (40), dense stereo (40), traffic scene (40)
+Topics:	Computer Vision

@@ -1,0 +1,5 @@
+Pre-Processing Flow for Enhancing Learning from Medical Data
+
+Sebastian Muresan, Ioana Faloba, Camelia Lemnaru, Rodica Potolea
+
+Abstract: Data enhancement is an essential operation when dealing with incomplete and imbalanced data sets. Further classification on such data might prove to be a difficult task. This paper tackles such issues in a specific learning context -- medical treatment prediction for breast cancer. We process the problem specific medical data starting from the preparation phase. We apply several data cleaning and selection steps. The resulting data proved to possess an insufficient quality for the learning process. Therefore, we propose and apply several data enhancement steps, such as imputation for handling missing values, feature selection for reducing the dimensionality of the attribute space and a modified version of the SMOTE oversampling algorithm to tackle data imbalance in conjunction with incompleteness. Evaluations of the entire pre-processing flow, performed on the available medical data, have indicated significant improvements in classification performance.

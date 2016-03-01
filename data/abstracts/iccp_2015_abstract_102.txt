@@ -1,0 +1,5 @@
+Adaptive Processing of Earth Observation Data on Cloud Infrastructures Based on Workflow Description
+
+Victor Bacu, Teodor Stefanut, Dorian Gorgan
+
+Abstract: The analysis of Earth Observation data is a challenging task due to the variety, velocity and volume of incoming data from various sources. As storing all the raw data is almost impossible, knowledge extraction would be a recommended approach in reducing data size without losing valuable information. For describing the complex processing required to extract knowledge we propose a flexible solution based on workflows and an adaptive execution platform. The main focus of this paper is the Executor component that is oriented on scalability and isolation from the virtual resources management that can be dedicated to a specific cloud infrastructure.

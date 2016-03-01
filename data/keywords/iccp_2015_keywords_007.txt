@@ -1,0 +1,4 @@
+7
+syllabification, stress assignment, Romanian language, machine learning
+stress assignment (230), word level (150), smo naive baye ada (100), feature vector (90), romanian language (80), random forest smo (79), machine learning (70), training set (70), natural language processing (63), training set size (63), stress information (60), syllable boundary (60), test set (50), computational linguistic (40)
+Topics:	Intelligent Systems

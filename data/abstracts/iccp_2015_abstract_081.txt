@@ -1,0 +1,9 @@
+Association Rules Mining with Categories and Regular Expressions based Pruning
+
+Radu Razvan Slavescu, Raul Alexandru Persa, Kinga Cristina Slavescu
+
+Abstract: 
+We present an extended version of the well known Apriori algorithm used for mining association rules. 
+Its novelty consists in employing regular expressions in order to specify the form of the rules intended to be generated.
+These are further used for pruning in the rule generation step, thus speeding up the process. 
+We show that the new version of the algorithm was used for generating medical hypotheses for some problems in the field without risking to loose generality.

@@ -1,0 +1,5 @@
+Analysis of Pap Smear Images with Iso- and Edge-Contours
+
+Christoph Rasche, Serban Oprisescu, Alina Sultana, Tiberiu Radulescu
+
+Abstract: A novel method for the detection and segmentation of nuclei and cells in Pap smear images is introduced. The method is based on a geometric analysis of iso- and edge-contours. For nuclei detection we employ isocontours taken at different levels of intensity and we report best detection (object) recall values as well as best segmentation precision values. For cell outline detection, we employ traditional edge-based contours and show that with a simple radial analysis one can detect the outline even in agglomerated cells - which so far has been approached rather hesitantly. The system was tested on three different databases.

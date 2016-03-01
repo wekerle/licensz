@@ -1,0 +1,5 @@
+Movie Recommender System Using the User's Psychological Profile
+
+Costin-Gabriel Chiru, Vladimir-Nicolae Dinu, Catalina Preda, Matei Macri
+
+Abstract: In this paper we present Movie Recommender, a system which provides movie recommendations based on the information known about the users. These recommendations are done using the analysis of the users' psychological profile, their watching history and the movies scores from other websites. They are based on aggregate similarity calculation. The system uses both collaborative filtering and content filtering (using an approach based on different features of the movies from the database). Although there are similar applications available, they tend to ignore the data specific to the user, which in our opinion is essential for his/her behavior.

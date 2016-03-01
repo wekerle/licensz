@@ -1,0 +1,4 @@
+45
+Ship detection, Support Vector Machine, High-resolution images, Color features, Texture features
+non ship block (459), non ship (362), texture feature (360), short range image (206), ship block (200), ship detection (200), color feature (150), reconstruction algorithm (140), classified image (130), first order statistic (126), block division (120), cie lab color (110), wrong classified block (110), cie lab (105), ship recall (105), block size (100), standard deviation (100), remote sensing (95), glcm precision ship (95), non ship recall (79), lab color space (79), cie lab component (63), support vector machine (63), ship area (60), color space (60), ship wake (50), sar image (50), accurate classification (50), supervised learning (50), gray level (50)
+Topics:	Computer Vision

@@ -1,0 +1,5 @@
+Interacting with a Multi AGV System
+
+Elena Cardarelli, Lorenzo Sabattini, Valerio Digani, Cristian Secchi, Cesare Fantuzzi
+
+Abstract: This paper introduces a novel Human Machine Interface (HMI) that allows users to interact with a fleet of Automated Guided Vehicles (AGVs) used for logistics operations in industrial environments. The interface is developed for providing operators with information regarding the fleet of AGVs, and the status of the industrial environment. Information is provided in an intuitive manner, utilizing a three-dimensional representation of the elements in the environment. The HMI also allows operators to influence the behavior of the fleet of AGVs, manually inserting missions to be accomplished.

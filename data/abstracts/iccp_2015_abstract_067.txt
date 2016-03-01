@@ -1,0 +1,5 @@
+A Multi-Objective Evolutionary Approach to Imbalanced Classification Problems
+
+Camelia Chira, Camelia Lemnaru
+
+Abstract: Classification problems for imbalanced data distribution pose many challenges to standard learning algorithms as at least one class is under-represented relative to others. In this paper, we present a new approach to deal with this kind of problems, in which a multi-objective evolutionary algorithm is engaged to detect the best cost matrix to be further used by the learning algorithm in the classification task. Two objectives are set for the evolutionary algorithm as follows: maximize the true positive rate and maximize precision on the minority class. A multi-objective search algorithm is used for this optimization problem and the detected optimal costs are then used in the classifier. Experiments are performed for several imbalanced datasets and the results obtained support a competitive performance of the proposed approach.

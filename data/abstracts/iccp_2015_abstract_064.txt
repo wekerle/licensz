@@ -1,0 +1,5 @@
+Improved Autonomous Load Handling with Stereo Cameras
+
+Robert Varga, Arthur Costea, Sergiu Nedevschi
+
+Abstract: We present newly added modules for our autonomous load handling system. The stereo camera system provides information about the scene in front of the automated forklift. A new alternative module for pallet detection is described. Several processing modules for unloading operations are also presented. Our system is evaluated by means of detection rate and by performing field tests. The tests show that it is capable of providing an accurate enough position of the pallets in order to perform several types of operations.

@@ -1,0 +1,5 @@
+Developing intelligent blind spot detection system for Heavy Goods Vehicles
+
+Pasi Pyyk\"{o}nen, Ari Virtanen, Arto Kyytinen
+
+Abstract: Collisions between Heavy Goods Vehicle and Vulnerable Road Users such as cyclists or pedestrians often result in severe injuries of the weaker road users. Blind Spot Mirrors and advanced Blind Spot Detection systems assist in avoiding collisions. Blind Spot Mirrors are however only useful if the drivers are trained to use them. The paper describes the development of a monitoring solution for assist in truck driver training. The system also can be used as a blind spot detection system to warn truck drivers. The work is performed within the DESERVE project, which aims at designing and developing a Tool Platform for embedded Advanced Driver Assistance Systems (ADAS) to exploit the benefits of cross-domain software reuse, standardised interfaces, and easy and safety-compliant integration of heterogeneous modules to cope with the expected increase of functions complexity and the impellent need of cost reduction.

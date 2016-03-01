@@ -1,0 +1,5 @@
+Building Annotation Rules for Text Description of Endoscopies in Romanian - an NLP-free approach
+
+Radu Razvan Slavescu, Alexandra Bali, Kinga Cristina Slavescu
+
+Abstract: This paper presents an approach for building annotation rules for texts containing natural language descriptions of the endoscopies, in Romanian. The annotation rule extraction relies on running the Apriori algorithm over some previously annotated texts. It does not employ any Natural Language Processing tools. We show by experiments that, for the relatively small vocabulary employed by those descriptions, the solution proves to offer quite good performance.

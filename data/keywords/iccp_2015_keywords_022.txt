@@ -1,0 +1,4 @@
+22
+Internet of Things, Software Defined Networking, resilience, anomaly, Denial of Service
+communication line (235), software defined networking (158), sdn enabled switch (142), network topology (140), communication edge (130), iot platform (120), redundant communication line (110), switching operation (110), communication performance (100), openflow controller (100), non sdn network topology (80), bandwidth requirement (80), iot platform architecture (79), redundant entry point (79), delivery time (70), iot traffic (70), sdn enabled component (63), communication line switching (63), hybrid network topology (63), laboratory scale experiment (63), network anomaly (60), switching algorithm (60), performance metric (60), communication metric (60), getn extoutput (50), client platform (50), communication endpoint (50), large scale (50), performance degradation (50), sdn management line (47)
+Topics:	Networking

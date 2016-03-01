@@ -1,0 +1,5 @@
+Cooperative Application for Lane Change Maneuver on Smart Mobile Devices
+
+Anca Marginean, Andra Petrovai, Mihai Negru, Sergiu Nedevschi
+
+Abstract: This paper presents a cooperative advanced driving assistance application for lane change maneuver. The application is deployed on a smart mobile device equipped with a stereo imagining system, that implements the image processing tasks, and performs the fuzzy logic reasoning for lane departure. Since cooperative driving assistance systems have gained extreme importance in the last decade, they will become an important factor to increase the road safety and traffic efficiency. Our application incorporates not only relevant vehicle dynamics information, such as: vehicle speed, yaw rate and other CAN bus specific parameters, but also external sensors’ data, such as: high accuracy GPS position and localization and vehicle to vehicle (V2V) communication. The application has been tested in both simulators and real driving scenarios.

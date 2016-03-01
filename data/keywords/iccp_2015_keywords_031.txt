@@ -1,0 +1,4 @@
+31
+local stereo correspondance, dense stereo reconstruction, block matching, slanted and fronto-parallel surfaces, disparity at sub-pixel level, binary descriptors, smoothness costraint
+block matching (231), matching window (150), disparity map (135), binary descriptor (130), slanted surface (90), smoothness constraint (80), matching block (70), shifted window (70), mean variation (70), local stereo (66), semi global (65), semi global matching (63), local block matching (63), resulted disparity map (63), block matching method (63), fronto parallel surface (63), middlebury data (60), running time (60), neighboring pixel (60), best result (50), gradient fusion (50), real time (50), semi global method (47), stereo correspondence algorithm (47), modified census transform (47), stereo reconstruction algorithm (47), obtained disparity map (47), real time performance (47), classical block matching (47), stereo block matching (47)
+Topics:	Computer Vision

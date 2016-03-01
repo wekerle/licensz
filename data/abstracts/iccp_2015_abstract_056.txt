@@ -1,0 +1,5 @@
+Fisheye optics for omnidirectional stereo camera
+
+Aki M\"{a}yr\"{a}, Mika Aikio, Kai Ojala, Szilard Mandici, Andrei Vatavu, Sergiu Nedevschi
+
+Abstract: Omnidirectional stereo cameras have been proposed to be applied as a safety sensor in automated guided vehicles. As a part of the EC-funded PAN-Robots project a custom designed high performance omnidirectional stereo camera with fisheye objectives was designed and manufactured. This paper shows the results of the optical and environmental tests which were done for the fisheye objectives and for the omnidirectional stereo camera system.

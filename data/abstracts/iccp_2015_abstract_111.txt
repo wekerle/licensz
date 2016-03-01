@@ -1,0 +1,5 @@
+Graph SLAM based Mapping for AGV Localization in Large-Scale Warehouses
+
+Patric Beinschob, Christoph Reinke
+
+Abstract: The operation of industrial Automated Guided Vehicles (AGV) today requires designated infrastructure and readily available maps for their localization. In logistics, high effort and investment is necessary to enable the introduction of AGVs. Within the SICK AG coordinated EU funded research project PAN Robots we aim to reduce the installation time and costs dramatically by semi-automated plant exploration and localization based optionally on natural landmarks. In this paper, we present our current mapping and localization results based on measurement data acquired at the site of our project partner Coca Cola Iberian Partners in Bilbao, Spain. We evaluate our solution in terms of accuracy of the map, i.e. comparing landmark position estimates with a millimeter ground truth map. The localization results are shown based on artificial landmarks as well as natural landmarks (gridmaps) based on the same graph based optimization solution.

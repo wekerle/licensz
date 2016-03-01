@@ -1,0 +1,5 @@
+Routing Enhancements based on Evolutionary Algorithm
+
+Iulia Maria Florea, Laura Gheorghe, Mihai Carabas, Nicolae Tapus
+
+Abstract: OSPF is one of the most commonly used interior gateway protocols due to the ability to run between pieces of equipment produced by different vendors and its capacity of splitting the network into areas and fast convergence. In this paper, we propose an approach for setting OSPF weights, using Cisco onePK API, in order to minimize congestion in small networks. It is based on a genetic algorithm, combined with two evaluation functions. The first evaluation function is based on getting loads on links depending on costs, while the other is based on getting the maximum flow in the network. Information about link load is obtained through onePK SDK, a Software Defined Networking solution developed by Cisco.
