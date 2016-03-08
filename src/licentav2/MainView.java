@@ -29,8 +29,10 @@ public class MainView extends ScrollPane {
     private double scrollDirection = 0;
     private VBox verticalLayout =  new VBox();
     private AplicationModel am=null;
+    private static Timeline scrolltimeline = new Timeline();
     
     private void dragScroll() {
+        
             ScrollBar sb = getVerticalScrollbar();
             if (sb != null) {
                 double newValue = sb.getValue() + scrollDirection;
@@ -59,11 +61,12 @@ public class MainView extends ScrollPane {
         
         Converter c=new Converter();
         
-        GlobalVaribles.getScrollTimeline().setCycleCount(Timeline.INDEFINITE);
+        scrolltimeline.setCycleCount(Timeline.INDEFINITE);
        // GlobalVaribles.getScrollTimeline().setCycleCount(10);
-        GlobalVaribles.getScrollTimeline().getKeyFrames().add(new KeyFrame(Duration.millis(20), "Scoll", (ActionEvent) -> { dragScroll();}));
+        scrolltimeline.getKeyFrames().add(new KeyFrame(Duration.millis(20), "Scoll", (ActionEvent) -> { dragScroll();}));
         this.setOnDragExited(event -> {
             if (event.getY() > 0) {
+                
                // scrollDirection = 1.0 / tree.getExpandedItemCount();
                 //el kell oszam a magassagal az oszesnek
                  scrollDirection = 0.01;
@@ -71,13 +74,13 @@ public class MainView extends ScrollPane {
             else {
                 scrollDirection = -0.01;
             }
-            GlobalVaribles.playScrollTimeline();
+            scrolltimeline.play();
         });
         this.setOnDragEntered(event -> {
-            GlobalVaribles.stopScrollTimeline();
+            scrolltimeline.stop();
         });
         this.setOnDragDone(event -> {
-            GlobalVaribles.stopScrollTimeline();
+            scrolltimeline.stop();
         });
        // this.setOnDragDropped(event -> {
         //    GlobalVaribles.stopScrollTimeline();

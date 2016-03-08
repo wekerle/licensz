@@ -27,6 +27,10 @@ public class DragLecture {
     private TextEditor authorView=new TextEditor();
     private VBox container=new VBox();
     private int lectureNumber;
+
+    public int getLectureNumber() {
+        return lectureNumber;
+    }
     
     private String createListSeparateComma(ArrayList<String> authors)
     {
@@ -104,4 +108,12 @@ public class DragLecture {
         });
          
      }
+     
+    public boolean isEqual(DragLecture dl){
+      if(dl.getLectureNumber()==this.lectureNumber)
+      {
+          return true;
+      }
+      return false;
+    }
 }

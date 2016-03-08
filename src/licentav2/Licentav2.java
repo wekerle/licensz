@@ -42,18 +42,13 @@ public class Licentav2 extends Application {
         
        // sp.setContent(mainVb);  
         
-       Scene scene = new Scene(mw, 500, 250);
+       Scene scene = new Scene(mw, 800, 600);
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    
-    private void setupScrolling() {
-                 
-    }
-    
-     
+       
     /**
      * @param args the command line arguments
      */

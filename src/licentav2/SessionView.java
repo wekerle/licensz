@@ -13,6 +13,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 
 /**
@@ -21,17 +22,27 @@ import javafx.scene.text.Font;
  */
 public class SessionView {
     private VBox contentNode=new VBox();
-    //private Text titleView=new Text();
     private TextEditor titleView=new TextEditor();
+    private TextEditor chair1View=new TextEditor();
+    private TextEditor chair2View=new TextEditor();
     private VBox containerNode=new VBox();
     
     public SessionView(String title)
     {
         titleView.setText(title);
+        chair1View.setText("chair1");
+        chair2View.setText("chair2");
+        
         containerNode.getChildren().add(titleView);
+        containerNode.getChildren().add(chair1View);
+        containerNode.getChildren().add(chair2View);
+        
         containerNode.getChildren().add(contentNode);
         
-        titleView.setFont(new Font(18));
+        titleView.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,18));
+        chair2View.setFont(new Font(18));
+        chair1View.setFont(new Font(18));
+        
         containerNode.setPadding(new Insets(10));
         contentNode.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {               
@@ -72,11 +83,21 @@ public class SessionView {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {
-
-                    DragLecture dl= GlobalVaribles.getElementByNumber(Integer.parseInt(db.getString()));
-                    addDragLecture(dl);
-                    GlobalVaribles.getAllSelected();
                     
+                    boolean exist=false;
+                    DragLecture dl= GlobalVaribles.getElementByNumber(Integer.parseInt(db.getString()));
+                    for(DragLecture dragLec: GlobalVaribles.getAllSelected())
+                    {
+                        // comparam  numerele
+                        if(dragLec.isEqual(dl)){
+                            exist = true;
+                        }
+                    }
+                    if(!exist)
+                    {
+                        addDragLecture(dl);
+                    }
+                                        
                     for(DragLecture dragLec: GlobalVaribles.getAllSelected())
                     {
                         addDragLecture(dragLec);
@@ -109,5 +130,5 @@ public class SessionView {
      public void addDragLecture(DragLecture dl) {
         this.contentNode.getChildren().add(dl.getNode());
     }
-     
+          
 }

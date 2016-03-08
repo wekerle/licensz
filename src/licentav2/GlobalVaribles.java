@@ -18,8 +18,7 @@ public final class GlobalVaribles {
     private static int lectureNumber=0;
     private static  Dictionary dragLectureList=new Hashtable();
     private static  ArrayList<DragLecture> selectedDragLectures=new ArrayList<DragLecture>();
-    private static Timeline scrolltimeline = new Timeline();
-
+    
     public static int getLectureNumber() {
         return lectureNumber;
     }
@@ -56,18 +55,5 @@ public final class GlobalVaribles {
     
     public static ArrayList<DragLecture> getAllSelected() {
       return  selectedDragLectures;
-    }
-    
-    public static Timeline getScrollTimeline() {
-      return  scrolltimeline;
-    }
-    
-    public static void stopScrollTimeline() {
-      scrolltimeline.stop();
-    }
-    
-    public static void playScrollTimeline() {
-      scrolltimeline.play();
-    }
-    
+    }   
 }
