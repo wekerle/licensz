@@ -12,21 +12,11 @@ import java.util.ArrayList;
  * @author Ronaldo
  */
 public class AplicationModel {
-    private ArrayList<Session> sessions=new ArrayList<Session>();
     private ArrayList<Part> parts=new ArrayList<Part>();
-    
-    public void setSessions(ArrayList<Session> sessions)
-    {
-        this.sessions=sessions;
-    }
-    
+        
     public void setParts(ArrayList<Part> parts)
     {
         this.parts=parts;
-    }
-
-    public ArrayList<Session> getSessions() {
-        return this.sessions;
     }
     
     public ArrayList<Part> getParts() {

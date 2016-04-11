@@ -26,23 +26,15 @@ public class Licentav2 extends Application {
         DataCollector dc= new DataCollector();
         
         AplicationModel am=new AplicationModel();
-       // am.setSessions(dc.getSessions());
-        
+
         am.setParts(dc.getParts());
         MainView mw=new MainView(am);
         
-          // mainVb.setStyle("-fx-background-color:green");
+        TableView tw=new TableView(am);
+                         
+        //Scene scene = new Scene(mw, 800, 600);
         
-        
-        
-        
-       // TextField tf=new TextField();
-       // mainVb.getChildren().add(tf);
-        
-        
-       // sp.setContent(mainVb);  
-        
-       Scene scene = new Scene(mw, 800, 600);
+        Scene scene = new Scene(mw, 800, 600);
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);

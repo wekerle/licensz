@@ -5,11 +5,18 @@
  */
 package DataProcessing;
 
+import Models.KeyWord;
 import Models.Session;
 import Models.Part;
 import Models.Lecture;
 import Models.LectureWithDetails;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Map.Entry;
 
 /**
  *
@@ -26,8 +33,7 @@ public class DataCollector{
     private ArrayList<LectureWithDetails>  getLecturesFromfiles()
     {
         ArrayList<LectureWithDetails> lectures=new ArrayList<LectureWithDetails>();
-        
-        LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\Ronaldo\\Documents\\NetBeansProjects\\licentav2\\data\\abstracts","C:\\Users\\Ronaldo\\Documents\\NetBeansProjects\\licentav2\\data\\keywords");
+        LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\Ronaldo\\Desktop\\licensGit\\licensz\\data\\generated");
         while(lrff.readNext())
         {
             LectureWithDetails lecture = lrff.getCurrent();
@@ -36,11 +42,43 @@ public class DataCollector{
         return lectures;
     }
     
+    private void groupByKeyWord(ArrayList<LectureWithDetails> lectures)
+    {
+        HashMap<String,ArrayList<LectureWithDetails>> map=new HashMap();
+        HashMap<String,ArrayList<LectureWithDetails>> map2=new HashMap();
+        for(LectureWithDetails lwd :lectures)
+        {                      
+            for(KeyWord kw:lwd.getGeneratedKeyWords())
+            {
+                 if(!map.containsKey(kw.getKeyWord()))
+                 {
+                     map.put(kw.getKeyWord(), new ArrayList<LectureWithDetails>());
+                 }
+                 map.get(kw.getKeyWord()).add(lwd);
+            }
+           
+        }
+        
+        HashSet<LectureWithDetails> hs=new HashSet();
+        for(Entry<String,ArrayList<LectureWithDetails>> entry : map.entrySet())
+        {
+            if(entry.getValue().size()>1)
+            {
+                map2.put(entry.getKey(), entry.getValue());
+                hs.addAll(entry.getValue());
+            }
+        }
+               
+        int x=0;
+        
+    }
+    
     public ArrayList<Session> getSessions()
     {
         ArrayList<Session> sessions =new ArrayList<Session>();        
         //ArrayList<Lecture> lectures=getLectures();
         ArrayList<LectureWithDetails> lectures=getLecturesFromfiles();
+        groupByKeyWord(lectures);  
         
         Session s1= new Session();
         s1.setTitle("Inteligent System 1");

@@ -11,6 +11,7 @@ import Models.Part;
 import Models.Session;
 import java.util.ArrayList;
 import licentav2.DragLecture;
+import licentav2.MinimalSessionView;
 import licentav2.PartView;
 import licentav2.SessionView;
 
@@ -33,6 +34,12 @@ public class Converter {
             sw.addDragLecture(lectureToDragLecture(l));
         }
        return sw;
+    }
+    
+    public MinimalSessionView sessionToMinimalSessionView(Session s)
+    {
+        MinimalSessionView msw=new MinimalSessionView(s.getTitle());
+        return msw;
     }
     
     public PartView partToPartView(Part p)

@@ -24,8 +24,7 @@ import java.util.Scanner;
  */
 public class LectureReaderFromFile implements LectureReader{
 
-    private ArrayList<File> listOfFilesIdTitleAuthors = new ArrayList<File>();
-    private ArrayList<File> listOfFilesKeywordsAbtrsct = new ArrayList<File>();
+    private ArrayList<File> listOfFiles = new ArrayList<File>();
     private LectureWithDetails currentLecture=null;
     private int index=-1;
         
@@ -43,39 +42,24 @@ public class LectureReaderFromFile implements LectureReader{
         }
         return files;
     }
-    public LectureReaderFromFile(String idTitleAuthors,String abstractKeywords) {
+    public LectureReaderFromFile(String pathToFiles) {
                
-        ArrayList<File> files1 = getAllFilesFromDir(idTitleAuthors);
-        ArrayList<File> files2 = getAllFilesFromDir(abstractKeywords);
-        
-        
-        for (File f1:files1)
+        ArrayList<File> files = getAllFilesFromDir(pathToFiles);
+             
+        for (File f:files)
         {
-            File fileToRemove=null;
-            for(File f2:files2)
-            {
-                String[] nameSplit1=f1.getName().split("_");
-                String[] nameSplit2=f2.getName().split("_");
-                if(nameSplit1[nameSplit1.length-1].compareTo(nameSplit2[nameSplit2.length-1])==0)
-                {
-                    listOfFilesIdTitleAuthors.add(f1);
-                    listOfFilesKeywordsAbtrsct.add(f2);
-                    fileToRemove=f2;
-                }
-            }
-            // cerejem ki a listakat hogy lehgyenek lancolt listak
-            files2.remove(fileToRemove);
+            listOfFiles.add(f);
         }        
     }
     
     @Override
     public boolean readNext() {
         index++;
-        if(index>=listOfFilesIdTitleAuthors.size())
+        if(index>=listOfFiles.size())
         {
             return false;
         }
-        currentLecture=readLectureDetailsFromFiles(listOfFilesIdTitleAuthors.get(index), listOfFilesKeywordsAbtrsct.get(index));
+        currentLecture=readLectureDetailsFromFiles(listOfFiles.get(index));
         return true;
     }
 
@@ -84,26 +68,34 @@ public class LectureReaderFromFile implements LectureReader{
        return currentLecture;
     }
 
-    private LectureWithDetails readLectureDetailsFromFiles(File titleAuthorsAbstract, File idKeywords) {
+    private LectureWithDetails readLectureDetailsFromFiles(File file) {
         
         //roszul neveztem el a fileokat mindehol 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(idKeywords));
+            BufferedReader br = new BufferedReader(new FileReader(file));
             String line = br.readLine();
-            
-             BufferedReader br2 = new BufferedReader(new FileReader(titleAuthorsAbstract));
-            String line2 = br2.readLine();
-            
-            int id=0;
+
             ArrayList<String> keyWords=new ArrayList<String>();
             ArrayList<String> authors=new ArrayList<String>();
             ArrayList<String> generatedKeyWords=new ArrayList<String>();
             ArrayList<KeyWord> listOfKeyWords=new ArrayList<KeyWord>();
             String title="";
+            String topic="";
             String abstarct="";          
+            int pageNr=0;
+            String type="";          
             
-            while (line != null) {
-                id=Integer.parseInt(line);               
+            while (line != null) {          
+                title=line;
+                line = br.readLine();
+                
+                authors=new ArrayList<String>(Arrays.asList(line.split(",")));
+                line = br.readLine();
+                
+                pageNr=Integer.parseInt(line);
+                line = br.readLine();
+                                 
+                type=line;
                 line = br.readLine();
                 
                 keyWords=new ArrayList<String>(Arrays.asList(line.split(",")));
@@ -118,28 +110,13 @@ public class LectureReaderFromFile implements LectureReader{
                 }
                 line = br.readLine();
                 
-                //azert tettem ide 2 redline-ot mert most szandekosan at akarok szokni
-                //azzon a soron ahol irja azt hogy Topic
-                //majd amikor arra szukseg lesz majd azt is be kell olvassam
+                topic=line;
+                line = br.readLine();
+                
+                abstarct=line;
                 line = br.readLine();
             }
-            
-            while (line2 != null) {
-                title=line2;   
-                // ide pedig azert tettem 2 redline-ot mert a tanar ugy adta a bementi fajlot hogy ott van meg egy ures sor
-                line2 = br2.readLine();
-                line2 = br2.readLine();
-                
-                
-                authors=new ArrayList<String>(Arrays.asList(line2.split(",")));
-                
-                //ide is pont az az ok mint az elobinnel
-                line2 = br2.readLine();
-                 line2 = br2.readLine();
-                abstarct=line2;
-                line2 = br2.readLine();
-            }
-           return new LectureWithDetails(id, title, authors,  abstarct,  keyWords,  listOfKeyWords);
+           return new LectureWithDetails(title, authors, pageNr,type, keyWords,  listOfKeyWords,topic,abstarct);
         } catch(Exception e) {
            // br.close();
             }

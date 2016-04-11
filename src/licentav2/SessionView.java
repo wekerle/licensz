@@ -122,7 +122,6 @@ public class SessionView {
         });
         
     }
-
     
     public VBox getContainerNode() {
         return containerNode;

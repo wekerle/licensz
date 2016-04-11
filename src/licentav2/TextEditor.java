@@ -62,6 +62,12 @@ public class TextEditor extends VBox {
             }
         });
     }
+    
+    public TextEditor(String text)
+    {
+        this();
+        this.setText(text);
+    }
 
     public String getText() {
         return text.getText();
