@@ -1,0 +1,5 @@
+A framework for testing stealthy attacks in Energy Grids
+Istv\'{a}n Kiss, Bela Genge, Piroska Haller, Gheorghe Sebestyen
+8
+F
+Distributed Computing

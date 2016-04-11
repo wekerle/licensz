@@ -1,0 +1,5 @@
+Deduplicated Distributed File System Using Lightweight Cryptography
+Alecsandru Patrascu, Mihai Togan, Victor-Valeriu Patriciu
+6
+F
+Distributed Computing

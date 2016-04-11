@@ -1,0 +1,5 @@
+Pedestrian Detection in the context of Multiple-Sensor Data Alignment for Far-Infrared, Stereo Vision Sensors
+Raluca Brehar, Cristian Cosmin Vancea, Tiberiu Marita, Ion Giosan, Sergiu Nedevschi
+8
+F
+Computer Vision

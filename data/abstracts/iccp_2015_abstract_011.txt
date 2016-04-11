@@ -1,5 +1,1 @@
-Immune System Modeling and Analysis using Bio-PEPA
-
-Roxana Moldovan, Eneia Nicolae Todoran
-
-Abstract: By using membrane computing patterns and the stochastic process algebra Bio-PEPA we develop and analyze a model of the immune system response against virus attacks. We identify formal conditions expressed based on Bio-PEPA functional rates for successful immune responses.
+By using membrane computing patterns and the stochastic process algebra Bio-PEPA we develop and analyze a model of the immune system response against virus attacks. We identify formal conditions expressed based on Bio-PEPA functional rates for successful immune responses.

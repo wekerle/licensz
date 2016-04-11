@@ -1,0 +1,5 @@
+Eyeglasses contour extraction using genetic algorithms
+Diana Borza, Radu Danescu, Adrian Sergiu Darabant
+7
+F
+Computer Vision

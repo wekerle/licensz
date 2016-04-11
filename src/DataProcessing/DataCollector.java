@@ -10,12 +10,11 @@ import Models.Session;
 import Models.Part;
 import Models.Lecture;
 import Models.LectureWithDetails;
-import java.lang.reflect.Array;
+import Models.TermModel;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.Map.Entry;
 
 /**
@@ -33,7 +32,12 @@ public class DataCollector{
     private ArrayList<LectureWithDetails>  getLecturesFromfiles()
     {
         ArrayList<LectureWithDetails> lectures=new ArrayList<LectureWithDetails>();
-        LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\Ronaldo\\Desktop\\licensGit\\licensz\\data\\generated");
+        // laptop
+        //LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\Ronaldo\\Desktop\\licensGit\\licensz\\data\\generated");
+        
+        //munkaba
+        LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\generated");
+        
         while(lrff.readNext())
         {
             LectureWithDetails lecture = lrff.getCurrent();
@@ -157,10 +161,56 @@ public class DataCollector{
     }
     public ArrayList<Part> getParts()
     {
+        HashMap<String,TermModel> terms=getTermModelsFromfile();
         ArrayList<Part> parts =new ArrayList<Part>();        
-        ArrayList<Session> sessions=getSessions();
-        
-        Part p1= new Part();
+       // ArrayList<Session> sessions=getSessions();
+       
+       ArrayList<String> topics=new ArrayList<String>();       
+       ArrayList<LectureWithDetails> lectures=getLecturesFromfiles();
+       
+       for(LectureWithDetails lwd:lectures)
+       {
+           if(!topics.contains(lwd.getTopic()))
+           {
+               topics.add(lwd.getTopic());
+           }
+       }
+       
+       for(String topic:topics)
+       {
+           Part p= new Part();
+           p.setTitle(topic);
+           parts.add(p);
+       }
+       
+       for(Part p :parts)
+       {
+           ArrayList<Session> sessions=new ArrayList<Session>();
+           Session s=new Session();
+           int i=1;
+           s.setTitle(p.getTitle()+" "+i);
+           
+           for(LectureWithDetails lwd:lectures)
+            {                
+                if(lwd.getTopic().equals(p.getTitle()))
+                {                                                        
+                    if(s.getLectures().size()<4){
+                        s.getLectures().add(lwd);
+                    }else
+                    {
+                        sessions.add(s);
+                        s=new Session();
+                        i++;
+                        s.setTitle(p.getTitle()+" "+i);
+                    }
+                }
+            }
+           sessions.add(s);
+           
+           p.setSessions(sessions);
+       }
+       
+       /* Part p1= new Part();
         Part p2= new Part();
         Part p3= new Part();
         int i=0;
@@ -186,8 +236,21 @@ public class DataCollector{
          
          parts.add(p1);
          parts.add(p2);
-         parts.add(p3);
+         parts.add(p3);*/
          
         return parts;
+    }
+
+    private HashMap<String,TermModel>  getTermModelsFromfile()
+    {
+        HashMap<String,TermModel> terms=new HashMap<String,TermModel>();
+        // laptop
+        //File file = new File("");
+        
+        //munkaba
+        File file = new File("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\ieee_thesaurus_2013.txt");
+        terms=new TermReaderFromFile().readTermsFromFile(file);
+        
+        return terms;
     }    
 }

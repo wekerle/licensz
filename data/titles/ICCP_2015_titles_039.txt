@@ -1,0 +1,5 @@
+Route Assignment using Multi-Objective Evolutionary Search
+Camelia Chira, Ana Bazzan
+8
+F
+Intelligent Systems

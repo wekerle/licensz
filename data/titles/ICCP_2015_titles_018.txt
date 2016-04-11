@@ -1,0 +1,5 @@
+An Enhanced Approach to Dynamic Power Management for the Linux cpuidle Subsystem
+Andrei Roba, Zoltan Baruch
+7
+F
+Distributed Computing

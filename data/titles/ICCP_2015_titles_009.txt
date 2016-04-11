@@ -1,0 +1,5 @@
+Body gesture validation using multi-dimensional dynamic time warping on Kinect data
+Lorenzo Patras, Ion Giosan, Sergiu Nedevschi
+7
+F
+Computer Vision

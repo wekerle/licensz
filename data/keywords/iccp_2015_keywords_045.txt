@@ -1,4 +1,2 @@
-42
-medical image processing, region detection, contour detection, Pap smear images
-pap smear image (110), level set method (95), intensity level (80), cell outline (80), radial signature (60), isolated cell (60), potential nucleus (50), cellness value (50), overlapping cell (50), cell nucleus (50), cell outline segmentation (47), foreground background segregation (47), equally spaced intensity level (40), black top hat transform (40), plissiti database (40), nucleus detection (40), recall value (40), candidate nucleus (40), span value (40), nucleus center (40)
-Topics:	
+Ship detection, Support Vector Machine, High-resolution images, Color features, Texture features
+non ship block (459), non ship (362), texture feature (360), short range image (206), ship block (200), ship detection (200), color feature (150), reconstruction algorithm (140), classified image (130), first order statistic (126), block division (120), cie lab color (110), wrong classified block (110), cie lab (105), ship recall (105), block size (100), standard deviation (100), remote sensing (95), glcm precision ship (95), non ship recall (79), lab color space (79), cie lab component (63), support vector machine (63), ship area (60), color space (60), ship wake (50), sar image (50), accurate classification (50), supervised learning (50), gray level (50),

@@ -1,4 +1,2 @@
-26
 Neural networks, extreme learning machine, support vector machine, classifiers
-neural network (150), extreme learning machine (126), support vector (126), hidden neuron (90), best accuracy (70), mex file (70), testing time (70), support vector machine (63), fast support vector classifier (60), testing accuracy (50), training time (50), guang bin (50), hidden layer (50), diabetes heart usp (47), computational complexity (40), training algorithm (40)
-Topics: Other
+neural network (150), extreme learning machine (126), support vector (126), hidden neuron (90), best accuracy (70), mex file (70), testing time (70), support vector machine (63), fast support vector classifier (60), testing accuracy (50), training time (50), guang bin (50), hidden layer (50), diabetes heart usp (47), computational complexity (40), training algorithm (40),

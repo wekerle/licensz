@@ -1,0 +1,5 @@
+Sensing the Driving Environment with Smart Mobile Devices
+Radu Danescu, Razvan Itu, Andra Petrovai
+8
+F
+Computer Vision

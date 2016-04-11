@@ -1,0 +1,5 @@
+Shape improvement of traffic pedestrian hypotheses by means of stereo-vision and superpixels
+Ion Giosan, Sergiu Nedevschi, Ciprian Pocol
+6
+F
+Computer Vision

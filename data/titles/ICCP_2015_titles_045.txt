@@ -1,0 +1,5 @@
+Ship Detection Based on SVM Using Color, Texture Features
+Juan Ram\'{o}n Ant\'{o}n Morillas, Irene Camino Garc\'{\i}a, Udo Z\"{o}lzer
+8
+F
+Computer Vision

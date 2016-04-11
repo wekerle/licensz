@@ -1,0 +1,5 @@
+Towards a realistic traffic, driving simulation using 3D rendering
+Alexander Paz, Hanns De La Fuente, Naveen Veeramisti, Luiza Modorcea, Heather Monteiro
+6
+F
+Computer Vision

@@ -1,0 +1,5 @@
+Circulating Tumor Cells Classification, Characterization in Dark Field Microscopic Images of Unstained Blood
+Anca Ciurte, Tiberiu Marita, Rares Buiga
+8
+F
+Computer Vision

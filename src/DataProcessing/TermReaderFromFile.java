@@ -5,20 +5,12 @@
  */
 package DataProcessing;
 
-import Models.KeyWord;
-import Models.Session;
-import Models.Part;
-import Models.Lecture;
-import Models.LectureWithDetails;
 import Models.TermModel;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Scanner;
+
 
 /**
  *
@@ -35,7 +27,7 @@ public class TermReaderFromFile{
         NT
         
     }
-    private HashMap<String,TermModel> readTermsFromFile(File file) {
+    public HashMap<String,TermModel> readTermsFromFile(File file) {
         
         HashMap<String,TermModel> hm=new HashMap<String,TermModel>();
         try {
@@ -107,14 +99,13 @@ public class TermReaderFromFile{
                     case USE:
                         context.setUSE(term);
                         break;
-                }
-               
+                }    
+                 line = br.readLine();
             }
-          // return new LectureWithDetails(title, authors, pageNr,type, keyWords,  listOfKeyWords,topic,abstarct);
         } catch(Exception e) {
-           // br.close();
+
             }
-        return null;
+        return hm;
        
     }
 }

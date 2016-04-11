@@ -1,0 +1,5 @@
+Verification of protocol specifications with separation logic
+Tibor Kiss, Florin Cr\u{a}ciun, Bazil P\^{a}rv
+8
+F
+Intelligent Systems

@@ -1,0 +1,5 @@
+New Sub-Pixel Interpolation Functions for Accurate Real-Time Stereo-Matching Algorithms
+Vlad Miclea, Cristian Cosmin Vancea, Sergiu Nedevschi
+6
+F
+Computer Vision

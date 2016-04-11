@@ -1,4 +1,2 @@
-2
 Smart Metering, RPL, LOADng, LOADng-CTP, Performance Simulation, Contiki OS, Cooja
 end delay (190), collection tree (186), routing protocol (175), loadng ctp loadng (142), packet delivery ratio (110), low power (110), lossy network (110), loadng ctp extension (79), distance vector routing (79), loadng protocol (70), node number (70), vector routing protocol (63), loadng ctp protocol (63), loadng collection tree (63), routing table (50), smart metering (50), traffic flow (50), vs node number (47), manar university tuni (47), el manar university (47), tuni el manar (47), delivery ratio (45), traffic pattern (40), downward direction (40), delay function (40), smart grid (40), loadngctp packet (40), routing set (40), national school (40), return true (40)
-Topics:

@@ -1,0 +1,5 @@
+Height restriction barriers detection from traffic scenarios using stereo-vision
+Maria-Irina Barbu, Ion Giosan, Tiberiu Marita, Sergiu Nedevschi
+7
+F
+Computer Vision

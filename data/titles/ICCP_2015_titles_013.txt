@@ -1,0 +1,5 @@
+Performance testing, functional limitations of Normalized Autobinomial Markov Channels
+Cosmin Toca, Carmen Patrascu, Mihai Ciuc
+5
+F
+Computer Vision

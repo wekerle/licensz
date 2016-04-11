@@ -1,5 +1,1 @@
-Eyeglasses contour extraction using genetic algorithms
-
-Diana Borza, Radu Danescu, Adrian Sergiu Darabant
-
-Abstract: This paper presents an eyeglasses contour extraction method that uses genetic algorithms to find the exact shape of the lenses. An efficient shape description, based on Fourier coefficients, is used to represent the shape of the eyeglasses, allowing a wide range of shapes to be represented with a small number of parameters. The proposed method does not require the position of the eyes to be known in advance. The conducted experiments demonstrate the effectiveness of the proposed solution.
+This paper presents an eyeglasses contour extraction method that uses genetic algorithms to find the exact shape of the lenses. An efficient shape description, based on Fourier coefficients, is used to represent the shape of the eyeglasses, allowing a wide range of shapes to be represented with a small number of parameters. The proposed method does not require the position of the eyes to be known in advance. The conducted experiments demonstrate the effectiveness of the proposed solution.

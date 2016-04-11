@@ -1,4 +1,2 @@
-16
 distributed file system, lightweight cryptography, file deduplication
 file system (320), distributed file system (110), operating system (110), storage layer (90), block cipher (70), lightweight cryptography (70), lightweight cryptographic algorithm (63), encrypted file (60), linux kernel (40), file storage (40), encrypted form (40), hash value (40), file indexer (40), stored file (40)
-Topics:

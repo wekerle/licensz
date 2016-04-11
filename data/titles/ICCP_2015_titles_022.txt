@@ -1,0 +1,5 @@
+Resilience in the Internet of Things: The Software Defined Networking Approach
+Hunor Sandor, Bela Genge, Gheorghe Sebestyen
+8
+F
+Distributed Computing

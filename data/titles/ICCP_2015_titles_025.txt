@@ -1,0 +1,5 @@
+Deep Convolutional Neural Networks for Efficient Vision Based Tunnel Inspection
+Konstantinos Makantasis, Eftychios Protopapadakis, Anastasios Doulamis, Nikolaos Doulamis, Constantinos Loupos
+8
+F
+Computer Vision

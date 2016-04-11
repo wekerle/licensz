@@ -1,0 +1,5 @@
+Gesture Recognition Toolkit Using a Kinect Sensor
+Marius-Cristian Giuroiu, Tiberiu Marita
+8
+F
+Computer Vision

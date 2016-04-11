@@ -1,0 +1,5 @@
+Pedestrian recognition using a dynamic modality fusion approach
+Adela-Maria Rus, Alexandrina Rogozan, Laura Diosan, Abdelaziz Bensrhair
+8
+F
+Computer Vision

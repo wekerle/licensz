@@ -1,0 +1,5 @@
+Movie Recommender System Using the User's Psychological Profile
+Costin-Gabriel Chiru, Vladimir-Nicolae Dinu, Catalina Preda, Matei Macri
+7
+F
+Intelligent Systems

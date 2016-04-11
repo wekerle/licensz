@@ -1,0 +1,5 @@
+A Comparative Performance Study of the Routing Protocols RPL, LOADng, LOADng-CTP with Bidirectional Traffic for AMI scenario
+Saida Elyengui, Riadh Bouhouchi, Tahar Ezzedine
+8
+F
+Distributed Computing

@@ -1,4 +1,2 @@
-10
 obstacle detection, monocular vision, camera calibration, mobile device
 mobile device (256), host vehicle (170), horizon line (140), obstacle detection (120), ipm image (110), particle based occupancy grid (100), yaw rate (100), inverse perspective mapping (79), occupancy grid (75), extrinsic parameter (70), speed vector (70), coordinate system (60), intrinsic parameter (60), pitch angle (60), real time (60), camera calibration (50), driving environment (50), monocular vision (50), calibration toolbox (50), intelligent vehicle (50), obstacle area (50), standard deviation (50), android mobile device (47), quad core processor (47), obstacle separation point (47), samsung galaxy s5 (47), average frame rate (47), intelligent transportation system (47), bird eye view (47), megapixel camera (40)
-Topics:

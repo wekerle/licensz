@@ -1,4 +1,2 @@
-34
 stereo, disparity, semi-global matching, census, radiometric differences, review, evaluation
-semi global matching (190), penalty function (150), matching cost (140), disparity map (90), computer vision (90), matching error (80), radiometric difference (80), stereo matching (70), census transformed image (63), stereo matching algorithm (63), optimal parameter value (63), cost function (60), pattern recognition (60), radiometric change (50), semiglobal matching (50), census based cost (47), cost aggregation (40), illumination change (40), middlebury college (40), exposure change (40)
-Topics:	Computer Vision
+semi global matching (190), penalty function (150), matching cost (140), disparity map (90), computer vision (90), matching error (80), radiometric difference (80), stereo matching (70), census transformed image (63), stereo matching algorithm (63), optimal parameter value (63), cost function (60), pattern recognition (60), radiometric change (50), semiglobal matching (50), census based cost (47), cost aggregation (40), illumination change (40), middlebury college (40), exposure change (40),

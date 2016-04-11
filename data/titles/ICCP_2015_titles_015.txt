@@ -1,0 +1,5 @@
+A multilingual user adaptable approach to auto-completion systems
+Stefan Prisca, Rodica Potolea, Mihaela Dinsoreanu
+7
+F
+Intelligent Systems

@@ -1,0 +1,5 @@
+A review, evaluation of penalty functions for Semi-Global Matching
+Christos Stentoumis, Elli Karkalou, George Karras
+6
+F
+Computer Vision

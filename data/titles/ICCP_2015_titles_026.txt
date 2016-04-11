@@ -1,0 +1,5 @@
+A comparison between Extreme Learning Machine, Support Vector Machine classifiers
+Mihai Bucurica, Radu Dogaru, Ioana Dogaru
+4
+F
+Networking

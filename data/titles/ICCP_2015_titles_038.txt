@@ -1,0 +1,5 @@
+Pedestrian detection, vehicle type recognition using CENTROG features for nighttime thermal images
+Martins E. Irhebhude, Mohammad A. Ali, Eran A. Edirisinghe
+6
+F
+Computer Vision

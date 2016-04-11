@@ -1,0 +1,5 @@
+Dynamic modeling, order-up-to inventory management in logistic networks with positive lead time
+Przemyslaw Ignaciuk
+4
+F
+Distributed Computing

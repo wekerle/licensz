@@ -1,0 +1,5 @@
+Improving local stereo algorithms using binary shifted windows, fusion, smoothness constraint
+Mircea Paul Muresan, Sergiu Nedevschi, Mihai Negru
+7
+F
+Computer Vision

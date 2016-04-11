@@ -1,0 +1,5 @@
+A Q-learning Approach for Aligning Protein Sequences
+Ioan-Gabriel Mircea, Gabriela Czibula, Maria-Iuliana Bocicor
+8
+F
+Intelligent Systems
