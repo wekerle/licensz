@@ -16,13 +16,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
+//lista a halmaz mindegyiknek kulon
+//lovercase a hasonlitasnal es trim
+//test similarity
 /**
  *
  * @author Ronaldo
  */
 public class DataCollector{
     private ArrayList<Lecture> lectures =new ArrayList<Lecture>();
+    private HashMap<String,TermModel> terms= new  HashMap<String,TermModel>();
+    
+    //lazy loading
+    public HashMap<String,TermModel> getTerms()
+    {
+        if(terms==null)
+        {
+            terms=getTermModelsFromfile();
+        }
+        return terms;
+    }
     
     public ArrayList<Lecture> getLectures()
     {
@@ -33,10 +49,10 @@ public class DataCollector{
     {
         ArrayList<LectureWithDetails> lectures=new ArrayList<LectureWithDetails>();
         // laptop
-        //LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\Ronaldo\\Desktop\\licensGit\\licensz\\data\\generated");
+        LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\Ronaldo\\Desktop\\licenszGit2\\licensz\\data\\generated");
         
         //munkaba
-        LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\generated");
+       // LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\generated");
         
         while(lrff.readNext())
         {
@@ -159,9 +175,78 @@ public class DataCollector{
         
         return sessions;
     }
+    
+    public ArrayList<String> getLectureSimiliratySet(LectureWithDetails lwd)
+    {
+        TreeSet<String> set=new TreeSet<String>();
+        HashMap<String,TermModel> terms=getTerms();
+        
+        for(String keyword:lwd.getKeyWords())
+        {
+            set.add(keyword);
+            if(terms.containsKey(keyword))
+            {
+                TermModel term=terms.get(keyword);
+                if(term.getUSE()!=null)
+                {
+                    term=term.getUSE();
+                    keyword=term.getName();
+                }
+                
+                for(TermModel tm=term;tm!=null;tm=tm.getBroaderTerm())
+                {
+                    set.add(tm.getName());
+                }
+            }
+        }
+        
+        return new ArrayList<String>(set);
+    }
+    
+    public float similarity(LectureWithDetails lwd1,LectureWithDetails lwd2)
+    {
+        
+        ArrayList<String> set1=getLectureSimiliratySet(lwd1);
+        ArrayList<String> set2=getLectureSimiliratySet(lwd2);
+        int inter=0,unio=0,index1=0,index2=0;
+        
+        while(index1<set1.size() && index2<set2.size())
+        {
+            int comparResult=set1.get(index1).compareTo(set2.get(index2));
+            if(comparResult<0)
+            {
+                index1++;
+            }else if(comparResult==0)
+            {
+                index1++;
+                index2++;
+                inter++;
+            }else
+            {
+                index2++;
+            }
+            unio++;
+        }
+        
+        if(set1.size()-1==index1){
+            unio+=set2.size()-index2;
+        }
+        if(set2.size()-1==index2)
+        {
+            unio+=set1.size()-index1;
+        }
+        
+        return (float)inter/unio;
+    }
+    
+    public Part groupSessions()
+    {
+        return null;
+    }
+    
     public ArrayList<Part> getParts()
     {
-        HashMap<String,TermModel> terms=getTermModelsFromfile();
+        
         ArrayList<Part> parts =new ArrayList<Part>();        
        // ArrayList<Session> sessions=getSessions();
        
@@ -245,10 +330,9 @@ public class DataCollector{
     {
         HashMap<String,TermModel> terms=new HashMap<String,TermModel>();
         // laptop
-        //File file = new File("");
-        
+        File file = new File("C:\\Users\\Ronaldo\\Desktop\\licenszGit2\\licensz\\data\\ieee_thesaurus_2013.txt");
         //munkaba
-        File file = new File("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\ieee_thesaurus_2013.txt");
+       // File file = new File("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\ieee_thesaurus_2013.txt");
         terms=new TermReaderFromFile().readTermsFromFile(file);
         
         return terms;

@@ -20,6 +20,18 @@ public class TermModel {
      private TermModel use;
      private ArrayList<TermModel> useFor;
      private String name;
+
+    public TermModel getUse() {
+        return use;
+    }
+
+    public void setUse(TermModel use) {
+        this.use = use;
+    }
+
+    public String getName() {
+        return name;
+    }
      
      public TermModel(String name){
          this.name=name;
