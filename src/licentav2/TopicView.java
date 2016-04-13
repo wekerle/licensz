@@ -15,12 +15,12 @@ import javafx.scene.text.FontWeight;
  *
  * @author Ronaldo
  */
-public class PartView {
+public class TopicView {
     private VBox contentNode=new VBox();
     private TextEditor titleView=new TextEditor();
     private VBox containerNode=new VBox();
     
-    public PartView(String title)
+    public TopicView(String title)
     {
         titleView.setText(title);
         containerNode.getChildren().add(titleView);

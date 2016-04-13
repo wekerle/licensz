@@ -103,9 +103,9 @@ public class MainView extends ScrollPane {
             }
         });
         
-         ArrayList<PartView> pwl= c.partListToPartViewList(am.getParts());
+         ArrayList<TopicView> pwl= c.topicListToTopicViewList(am.getTopics());
         
-        for(PartView pw : pwl)
+        for(TopicView pw : pwl)
         {
             verticalLayout.getChildren().add(pw.getContainerNode());
         }

@@ -7,7 +7,7 @@ package DataProcessing;
 
 import Models.KeyWord;
 import Models.Session;
-import Models.Part;
+import Models.Topic;
 import Models.Lecture;
 import Models.LectureWithDetails;
 import Models.TermModel;
@@ -16,43 +16,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
-//lista a halmaz mindegyiknek kulon
-//lovercase a hasonlitasnal es trim
+//lista a halmaz mindegyiknek kulon --> done
+//lovercase a hasonlitasnal es trim --> termreaderfromfile,getLectureSimiliratySet
+//generated keyword a similarity listaba-->done
 //test similarity
 /**
  *
  * @author Ronaldo
  */
 public class DataCollector{
-    private ArrayList<Lecture> lectures =new ArrayList<Lecture>();
+    
+    // <editor-fold desc="private region" defaultstate="collapsed">
     private HashMap<String,TermModel> terms= new  HashMap<String,TermModel>();
-    
-    //lazy loading
-    public HashMap<String,TermModel> getTerms()
-    {
-        if(terms==null)
-        {
-            terms=getTermModelsFromfile();
-        }
-        return terms;
-    }
-    
-    public ArrayList<Lecture> getLectures()
-    {
-       return lectures;
-    }
+    private HashMap<LectureWithDetails,ArrayList<String>> lectureWithSimilaritySet= new  HashMap<LectureWithDetails,ArrayList<String>>();
+    private ArrayList<LectureWithDetails> lectures = new  ArrayList<LectureWithDetails>();
     
     private ArrayList<LectureWithDetails>  getLecturesFromfiles()
     {
         ArrayList<LectureWithDetails> lectures=new ArrayList<LectureWithDetails>();
         // laptop
-        LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\Ronaldo\\Desktop\\licenszGit2\\licensz\\data\\generated");
+       // LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\Ronaldo\\Desktop\\licenszGit2\\licensz\\data\\generated");
         
         //munkaba
-       // LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\generated");
+        LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\generated");
         
         while(lrff.readNext())
         {
@@ -62,6 +50,95 @@ public class DataCollector{
         return lectures;
     }
     
+    private ArrayList<String> getLectureSimiliratySet(LectureWithDetails lwd)
+    {
+        TreeSet<String> set=new TreeSet<String>();
+        HashMap<String,TermModel> terms=getTerms();
+        
+        for(String keyword:lwd.getKeyWords())
+        {
+            set.add(keyword);
+            if(terms.containsKey(keyword.toLowerCase()))
+            {
+                TermModel term=terms.get(keyword);
+                if(term.getUSE()!=null)
+                {
+                    term=term.getUSE();
+                    keyword=term.getName();
+                }
+                
+                for(TermModel tm=term;tm!=null;tm=tm.getBroaderTerm())
+                {
+                    set.add(tm.getName());
+                }
+            }
+        }
+        
+        for(KeyWord kw :lwd.getGeneratedKeyWords())
+        {
+            set.add(kw.getKeyWord());
+            if(terms.containsKey(kw.getKeyWord()))
+            {
+                TermModel term=terms.get(kw.getKeyWord());
+                if(term.getUSE()!=null)
+                {
+                    term=term.getUSE();
+                    kw=new KeyWord(term.getName(),0);
+                }
+                
+                for(TermModel tm=term;tm!=null;tm=tm.getBroaderTerm())
+                {
+                    set.add(tm.getName());
+                }
+            }        
+        }
+        
+        return new ArrayList<String>(set);
+    }
+    
+    // </editor-fold>
+        
+    // <editor-fold desc="lazy loading region" defaultstate="collapsed">
+    public HashMap<String,TermModel> getTerms()
+    {
+        if(terms==null)
+        {
+            HashMap<String,TermModel> terms=new HashMap<String,TermModel>();
+            // laptop
+                // File file = new File("C:\\Users\\Ronaldo\\Desktop\\licenszGit2\\licensz\\data\\ieee_thesaurus_2013.txt");
+            //munkaba
+            File file = new File("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\ieee_thesaurus_2013.txt");
+            terms=new TermReaderFromFile().readTermsFromFile(file);
+        
+        }
+        return terms;
+    }
+    
+    public ArrayList<LectureWithDetails> getLectures()
+    {
+        if(lectures==null)
+        {
+            lectures=getLecturesFromfiles();        
+        }
+        return lectures;
+    }
+    
+    public HashMap<LectureWithDetails,ArrayList<String>> getLecturesWithSimilaritySets()
+    {
+        if(lectureWithSimilaritySet==null)
+        {
+            lectureWithSimilaritySet=new HashMap<LectureWithDetails,ArrayList<String>>();
+            
+            for(LectureWithDetails lwd : lectures)
+            {
+                lectureWithSimilaritySet.put(lwd, getLectureSimiliratySet(lwd));
+            }
+        }
+        return lectureWithSimilaritySet;
+    }
+     // </editor-fold>   
+    
+
     private void groupByKeyWord(ArrayList<LectureWithDetails> lectures)
     {
         HashMap<String,ArrayList<LectureWithDetails>> map=new HashMap();
@@ -92,122 +169,13 @@ public class DataCollector{
         int x=0;
         
     }
-    
-    public ArrayList<Session> getSessions()
-    {
-        ArrayList<Session> sessions =new ArrayList<Session>();        
-        //ArrayList<Lecture> lectures=getLectures();
-        ArrayList<LectureWithDetails> lectures=getLecturesFromfiles();
-        groupByKeyWord(lectures);  
-        
-        Session s1= new Session();
-        s1.setTitle("Inteligent System 1");
-        
-        Session s2= new Session();
-        s2.setTitle("Inteligent System 2");
-        
-        Session s3= new Session();
-        s3.setTitle("Inteligent System 3");
-        
-        Session s4= new Session();
-        s4.setTitle("Inteligent System 4");
-        
-        Session s5= new Session();
-        s5.setTitle("Inteligent System 5");
-        
-        Session s6= new Session();
-        s6.setTitle("Inteligent System 6");
-        
-        Session s7= new Session();
-        s7.setTitle("Inteligent System 7");
-        
-        Session s8= new Session();
-        s8.setTitle("Inteligent System 8");
-        
-        Session s9= new Session();
-        s9.setTitle("Inteligent System 9");
-        
-        int i=0;
-        for (LectureWithDetails l : lectures)
-        {
-            if(i<4)
-            {
-                s1.getLectures().add(l);
-            }
-            else if(i<8)
-            {
-                s2.getLectures().add(l);
-            }else if(i<12)
-            {
-                s3.getLectures().add(l);
-            }else if(i<16)
-            {
-                s4.getLectures().add(l);
-            }else if(i<20)
-            {
-                s5.getLectures().add(l);
-            }else if(i<24)
-            {
-                s6.getLectures().add(l);
-            }else if(i<28)
-            {
-                s7.getLectures().add(l);
-            }
-            else if(i<32)
-            {
-                s8.getLectures().add(l);
-            }
-            else if(i<36)
-            {
-                s9.getLectures().add(l);
-            }
-            i++;
-        }
-        sessions.add(s1);
-        sessions.add(s2);
-        sessions.add(s3);
-        sessions.add(s4);
-        sessions.add(s5);       
-        sessions.add(s6);
-        sessions.add(s7);
-        sessions.add(s8);
-        sessions.add(s9);
-        
-        return sessions;
-    }
-    
-    public ArrayList<String> getLectureSimiliratySet(LectureWithDetails lwd)
-    {
-        TreeSet<String> set=new TreeSet<String>();
-        HashMap<String,TermModel> terms=getTerms();
-        
-        for(String keyword:lwd.getKeyWords())
-        {
-            set.add(keyword);
-            if(terms.containsKey(keyword))
-            {
-                TermModel term=terms.get(keyword);
-                if(term.getUSE()!=null)
-                {
-                    term=term.getUSE();
-                    keyword=term.getName();
-                }
-                
-                for(TermModel tm=term;tm!=null;tm=tm.getBroaderTerm())
-                {
-                    set.add(tm.getName());
-                }
-            }
-        }
-        
-        return new ArrayList<String>(set);
-    }
-    
+            
     public float similarity(LectureWithDetails lwd1,LectureWithDetails lwd2)
     {
+        HashMap<LectureWithDetails,ArrayList<String>> hm=getLecturesWithSimilaritySets();
         
-        ArrayList<String> set1=getLectureSimiliratySet(lwd1);
-        ArrayList<String> set2=getLectureSimiliratySet(lwd2);
+        ArrayList<String> set1=hm.get(lwd1);
+        ArrayList<String> set2=hm.get(lwd2);
         int inter=0,unio=0,index1=0,index2=0;
         
         while(index1<set1.size() && index2<set2.size())
@@ -239,45 +207,45 @@ public class DataCollector{
         return (float)inter/unio;
     }
     
-    public Part groupSessions()
+    public Topic groupSessions()
     {
         return null;
     }
     
-    public ArrayList<Part> getParts()
+    public ArrayList<Topic> getTopics()
     {
         
-        ArrayList<Part> parts =new ArrayList<Part>();        
+        ArrayList<Topic> topics =new ArrayList<Topic>();        
        // ArrayList<Session> sessions=getSessions();
        
-       ArrayList<String> topics=new ArrayList<String>();       
+       ArrayList<String> topicsName=new ArrayList<String>();       
        ArrayList<LectureWithDetails> lectures=getLecturesFromfiles();
        
        for(LectureWithDetails lwd:lectures)
        {
-           if(!topics.contains(lwd.getTopic()))
+           if(!topicsName.contains(lwd.getTopic()))
            {
-               topics.add(lwd.getTopic());
+               topicsName.add(lwd.getTopic());
            }
        }
        
-       for(String topic:topics)
+       for(String topic:topicsName)
        {
-           Part p= new Part();
+           Topic p= new Topic();
            p.setTitle(topic);
-           parts.add(p);
+           topics.add(p);
        }
        
-       for(Part p :parts)
+       for(Topic t :topics)
        {
            ArrayList<Session> sessions=new ArrayList<Session>();
            Session s=new Session();
            int i=1;
-           s.setTitle(p.getTitle()+" "+i);
+           s.setTitle(t.getTitle()+" "+i);
            
            for(LectureWithDetails lwd:lectures)
             {                
-                if(lwd.getTopic().equals(p.getTitle()))
+                if(lwd.getTopic().equals(t.getTitle()))
                 {                                                        
                     if(s.getLectures().size()<4){
                         s.getLectures().add(lwd);
@@ -286,55 +254,15 @@ public class DataCollector{
                         sessions.add(s);
                         s=new Session();
                         i++;
-                        s.setTitle(p.getTitle()+" "+i);
+                        s.setTitle(t.getTitle()+" "+i);
                     }
                 }
             }
            sessions.add(s);
            
-           p.setSessions(sessions);
-       }
-       
-       /* Part p1= new Part();
-        Part p2= new Part();
-        Part p3= new Part();
-        int i=0;
-         for (Session s : sessions)
-        {
-            if(i<4)
-            {
-                 p1.getSessions().add(s);
-            }else if(i<7)
-            {
-                 p2.getSessions().add(s);
-            }else
-            {
-                 p3.getSessions().add(s);
-            }
-            i++;
-           
-        }
-        
-         p1.setTitle("Part I");
-         p2.setTitle("Part II");
-         p3.setTitle("Part III");
-         
-         parts.add(p1);
-         parts.add(p2);
-         parts.add(p3);*/
-         
-        return parts;
+           t.setSessions(sessions);
+       }         
+        return topics;
     }
 
-    private HashMap<String,TermModel>  getTermModelsFromfile()
-    {
-        HashMap<String,TermModel> terms=new HashMap<String,TermModel>();
-        // laptop
-        File file = new File("C:\\Users\\Ronaldo\\Desktop\\licenszGit2\\licensz\\data\\ieee_thesaurus_2013.txt");
-        //munkaba
-       // File file = new File("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\ieee_thesaurus_2013.txt");
-        terms=new TermReaderFromFile().readTermsFromFile(file);
-        
-        return terms;
-    }    
 }

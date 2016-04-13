@@ -12,15 +12,15 @@ import java.util.ArrayList;
  * @author Ronaldo
  */
 public class AplicationModel {
-    private ArrayList<Part> parts=new ArrayList<Part>();
+    private ArrayList<Topic> topics=new ArrayList<Topic>();
         
-    public void setParts(ArrayList<Part> parts)
+    public void setTopics(ArrayList<Topic> topics)
     {
-        this.parts=parts;
+        this.topics=topics;
     }
     
-    public ArrayList<Part> getParts() {
-        return this.parts;
+    public ArrayList<Topic> getTopics() {
+        return this.topics;
     }
     
 }

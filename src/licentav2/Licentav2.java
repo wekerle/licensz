@@ -53,7 +53,7 @@ public class Licentav2 extends Application {
         
         AplicationModel am=new AplicationModel();
 
-        am.setParts(dc.getParts());
+        am.setTopics(dc.getTopics());
         MainView mw=new MainView(am);
         
         TableView tw=new TableView(am);

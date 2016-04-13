@@ -7,7 +7,7 @@ package DataProcessing;
 
 import Models.KeyWord;
 import Models.Session;
-import Models.Part;
+import Models.Topic;
 import Models.Lecture;
 import Models.LectureWithDetails;
 import java.io.BufferedReader;

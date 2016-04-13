@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Ronaldo
  */
-public class Part {
+public class Topic {
     private String title;
     private ArrayList<Session> sessions=new ArrayList<Session>();
 

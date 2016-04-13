@@ -7,12 +7,12 @@ package Adaptor;
 
 import Models.Lecture;
 import Models.LectureWithDetails;
-import Models.Part;
+import Models.Topic;
 import Models.Session;
 import java.util.ArrayList;
 import licentav2.DragLecture;
 import licentav2.MinimalSessionView;
-import licentav2.PartView;
+import licentav2.TopicView;
 import licentav2.SessionView;
 
 /**
@@ -42,9 +42,9 @@ public class Converter {
         return msw;
     }
     
-    public PartView partToPartView(Part p)
+    public TopicView topicToTopicView(Topic p)
     {
-        PartView pw=new PartView(p.getTitle());
+        TopicView pw=new TopicView(p.getTitle());
         for(Session s : p.getSessions())
         {
             pw.addSessionView(sessionToSessionView(s));
@@ -63,13 +63,13 @@ public class Converter {
        return swl;
     }
     
-    public ArrayList<PartView> partListToPartViewList(ArrayList<Part> parts)
+    public ArrayList<TopicView> topicListToTopicViewList(ArrayList<Topic> topics)
     {
-        ArrayList<PartView> pwl=new ArrayList<PartView>();
+        ArrayList<TopicView> pwl=new ArrayList<TopicView>();
         
-        for(Part p : parts)
+        for(Topic p : topics)
         {
-            pwl.add(partToPartView(p));
+            pwl.add(topicToTopicView(p));
         }
        return pwl;
     }

@@ -42,32 +42,32 @@ public class TermReaderFromFile{
                 
                 if(line.startsWith(" USE: "))
                 {   
-                    name=line.substring(5).trim();
+                    name=line.substring(5).trim().toLowerCase();
                     flag=ParserState.USE;
                     
                 }else if(line.startsWith(" BT: "))
                 {
-                    name=line.substring(4).trim();
+                    name=line.substring(4).trim().toLowerCase();
                     flag=ParserState.BT;
                     
                 }else if(line.startsWith(" RT: "))
                 {
-                    name=line.substring(4).trim();
+                    name=line.substring(4).trim().toLowerCase();
                     flag=ParserState.RT;
                 }else if(line.startsWith(" UF: "))
                 {
-                    name=line.substring(4).trim();
+                    name=line.substring(4).trim().toLowerCase();
                     flag=ParserState.UF;
                 }else if(line.startsWith(" NT: "))
                 {
-                    name=line.substring(4).trim();
+                    name=line.substring(4).trim().toLowerCase();
                     flag=ParserState.NT;
                 }else if(line.startsWith(" "))
                 {
-                    name=line.trim();
+                    name=line.trim().toLowerCase();
                 }else
                 {
-                    name=line.trim();
+                    name=line.trim().toLowerCase();
                     flag=ParserState.NONE;
                 }
                 

@@ -7,7 +7,7 @@ package licentav2;
 
 import Adaptor.Converter;
 import Models.AplicationModel;
-import Models.Part;
+import Models.Topic;
 import Models.Session;
 import java.util.ArrayList;
 import javafx.scene.layout.GridPane;
@@ -24,15 +24,15 @@ public class TableView extends GridPane{
     {
         super();
         this.am=am;
-        populateContent(am.getParts());
+        populateContent(am.getTopics());
     }
     
-    private void populateContent(ArrayList<Part> parts)
+    private void populateContent(ArrayList<Topic> topics)
     {
         int colNum=1;
         int maxRow=0;
         Converter c=new Converter();
-        for(Part p : parts)
+        for(Topic p : topics)
         {
             int rowNum=1;
             if(maxRow<p.getSessions().size())
@@ -48,7 +48,7 @@ public class TableView extends GridPane{
             colNum++;
         }
         
-        for(int i=0;i<parts.size();i++)
+        for(int i=0;i<topics.size();i++)
         {
             this.add(new TextEditor("Sala"+i), i+1, 0);
         }
