@@ -19,6 +19,8 @@ public final class GlobalVaribles {
     private static  Dictionary dragLectureList=new Hashtable();
     private static  ArrayList<DragLecture> selectedDragLectures=new ArrayList<DragLecture>();
     
+    public static MinimalSessionView dragMinimalSessionView=null;
+    
     public static int getLectureNumber() {
         return lectureNumber;
     }

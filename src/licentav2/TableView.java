@@ -10,6 +10,10 @@ import Models.AplicationModel;
 import Models.Topic;
 import Models.Session;
 import java.util.ArrayList;
+import javafx.event.EventHandler;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -25,6 +29,49 @@ public class TableView extends GridPane{
         super();
         this.am=am;
         populateContent(am.getTopics());
+        
+        this.setOnDragOver(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {               
+                if (event.getGestureSource() != this &&
+                        event.getDragboard().hasString()) {
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
+
+              //  event.consume();
+            }
+        });
+        
+        this.setOnDragEntered(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+            /* the drag-and-drop gesture entered the target */
+            /* show to the user that it is an actual gesture target */
+                 if (event.getGestureSource() != this &&
+                         event.getDragboard().hasString()) {
+                    // contentNode.setStyle("-fx-background-color:white");
+                 }
+
+                // event.consume();
+            }
+        });
+        
+        this.setOnDragDropped(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+                /* data dropped */
+                /* if there is a string data on dragboard, read it and use it */
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasString()) {
+                    
+                    
+                   success = true;
+                }
+                /* let the source know whether the string was successfully 
+                 * transferred and used */
+                event.setDropCompleted(success);
+
+              //  event.consume();
+             }
+        });
     }
     
     private void populateContent(ArrayList<Topic> topics)

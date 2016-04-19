@@ -3,24 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/licentav2/DragLecture.java</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/licentav2/Licentav2.java</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/DataProcessing/TermReaderFromFile.java</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Styling/layoutstyles.css</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/LICENSE</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Models/LectureWithDetails.java</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Adaptor/Converter.java</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/DataProcessing/LectureReaderFromFile.java</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Models/TermModel.java</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/DataProcessing/LectureReader.java</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Models/Session.java</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Models/AplicationModel.java</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/nbproject/build-impl.xml</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/DataProcessing/DataCollector.java</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Models/Topic.java</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/licentav2/TopicView.java</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/licentav2/MainView.java</file>
-            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/licentav2/TableView.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit2/licensz/src/Models/AplicationModel.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit2/licensz/src/licentav2/GlobalVaribles.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit2/licensz/src/licentav2/TableView.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit2/licensz/src/licentav2/MinimalSessionView.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit2/licensz/src/licentav2/TopicView.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit2/licensz/src/DataProcessing/LectureReaderFromFile.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit2/licensz/src/DataProcessing/TermReaderFromFile.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit2/licensz/src/DataProcessing/DataCollector.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit2/licensz/src/licentav2/DragLecture.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit2/licensz/src/licentav2/TextEditor.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit2/licensz/src/licentav2/Licentav2.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit2/licensz/src/Models/TermModel.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit2/licensz/src/Styling/layoutstyles.css</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit2/licensz/src/licentav2/SessionView.java</file>
         </group>
     </open-files>
 </project-private>

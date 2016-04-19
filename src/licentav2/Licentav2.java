@@ -60,7 +60,7 @@ public class Licentav2 extends Application {
                          
         //Scene scene = new Scene(mw, 800, 600);
         
-        Scene scene = new Scene(mw, 800, 600);
+        Scene scene = new Scene(tw, 800, 600);
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);

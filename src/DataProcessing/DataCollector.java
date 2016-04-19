@@ -18,9 +18,7 @@ import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.TreeSet;
 
-//lista a halmaz mindegyiknek kulon --> done
-//lovercase a hasonlitasnal es trim --> termreaderfromfile,getLectureSimiliratySet
-//generated keyword a similarity listaba-->done
+//loveercase es trim a similarty setbe
 //test similarity
 /**
  *
@@ -105,7 +103,7 @@ public class DataCollector{
         {
             HashMap<String,TermModel> terms=new HashMap<String,TermModel>();
             // laptop
-                // File file = new File("C:\\Users\\Ronaldo\\Desktop\\licenszGit2\\licensz\\data\\ieee_thesaurus_2013.txt");
+               //  File file = new File("C:\\Users\\Ronaldo\\Desktop\\licenszGit2\\licensz\\data\\ieee_thesaurus_2013.txt");
             //munkaba
             File file = new File("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\ieee_thesaurus_2013.txt");
             terms=new TermReaderFromFile().readTermsFromFile(file);
