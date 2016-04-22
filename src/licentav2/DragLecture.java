@@ -51,7 +51,7 @@ public class DragLecture {
      public DragLecture(String title,ArrayList<String> authors)
      {
          lectureNumber=GlobalVaribles.getLectureNumber();
-         GlobalVaribles.addElementToDictionary(lectureNumber, this);
+         GlobalVaribles.addElementToDragLectureAndNumberMap(lectureNumber, this);
          GlobalVaribles.setLectureNumber(GlobalVaribles.getLectureNumber()+1);                
          
          titleView.setText(title);

@@ -85,7 +85,7 @@ public class SessionView {
                 if (db.hasString()) {
                     
                     boolean exist=false;
-                    DragLecture dl= GlobalVaribles.getElementByNumber(Integer.parseInt(db.getString()));
+                    DragLecture dl= GlobalVaribles.getDragLectureByNumber(Integer.parseInt(db.getString()));
                     for(DragLecture dragLec: GlobalVaribles.getAllSelected())
                     {
                         // comparam  numerele

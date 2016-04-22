@@ -38,7 +38,7 @@ public class Converter {
     
     public MinimalSessionView sessionToMinimalSessionView(Session s)
     {
-        MinimalSessionView msw=new MinimalSessionView(s.getTitle());
+        MinimalSessionView msw=new MinimalSessionView(s.getTitle(),s.getId());
         return msw;
     }
     

@@ -5,8 +5,11 @@
  */
 package licentav2;
 
+import Models.Session;
+import Models.Topic;
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
 import javafx.animation.Timeline;
 
@@ -16,25 +19,64 @@ import javafx.animation.Timeline;
  */
 public final class GlobalVaribles {
     private static int lectureNumber=0;
-    private static  Dictionary dragLectureList=new Hashtable();
+    private static int sessionNumber=0;
+    private static int topicNumber=0;
+    
+    private static HashMap<Integer,Session> sessionAndNumberMap=new HashMap<Integer,Session>();        
+    private static  HashMap<Integer,DragLecture> dragLectureAndNumberMap=new HashMap<Integer,DragLecture>();
+    private static  HashMap<Integer,Topic> topicAndNumberMap=new HashMap<Integer,Topic>();
+    
     private static  ArrayList<DragLecture> selectedDragLectures=new ArrayList<DragLecture>();
     
-    public static MinimalSessionView dragMinimalSessionView=null;
-    
+    public static MinimalSessionView mini=null;   
+    public static MinimalSessionView destMini=null;
+        
     public static int getLectureNumber() {
         return lectureNumber;
     }
+    
+    public static int getSessionNumber() {
+        return sessionNumber;
+    }
+    
+    public static int getTopicNumber() {
+        return topicNumber;
+    }
 
-    public static void setLectureNumber(int aLectureNumber) {
-        lectureNumber = aLectureNumber;
+    public static void setLectureNumber(int ln) {
+        lectureNumber = ln;
     }
     
-    public static void addElementToDictionary(int lectureNumber, DragLecture dl) {
-        dragLectureList.put(lectureNumber, dl);
+    public static void setSessionNumber(int sn) {
+        sessionNumber = sn;
     }
     
-    public static DragLecture getElementByNumber(int lectureNumber) {
-        return (DragLecture)dragLectureList.get(lectureNumber);
+    public static void setTopicNumber(int tn) {
+        topicNumber = tn;
+    }
+        
+    public static void addElementToDragLectureAndNumberMap(int lectureNumber, DragLecture dl) {
+        dragLectureAndNumberMap.put(lectureNumber, dl);
+    }
+    
+    public static void addElementToSessionAndNumberMap(int sessionNumber, Session s) {
+        sessionAndNumberMap.put(sessionNumber, s);
+    }
+    
+    public static void addElementToTopicAndNumberMap(int sessionNumber, Topic t) {
+        topicAndNumberMap.put(sessionNumber, t);
+    }
+    
+    public static DragLecture getDragLectureByNumber(int lectureNumber) {
+        return dragLectureAndNumberMap.get(lectureNumber);
+    }
+    
+    public static DragLecture getTopicByNumber(int lectureNumber) {
+        return dragLectureAndNumberMap.get(lectureNumber);
+    }
+    
+    public static Session getSessionByNumber(int sessionNumber) {
+        return sessionAndNumberMap.get(sessionNumber);
     }
     
     public static void removeAllSelected() {

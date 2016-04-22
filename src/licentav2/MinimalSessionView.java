@@ -24,13 +24,16 @@ public class MinimalSessionView {
     private VBox contentNode=new VBox();
     private TextEditor titleView=new TextEditor();
     private VBox containerNode=new VBox();
+    private int id=0;
     
-    public MinimalSessionView(String title)
+    public MinimalSessionView(String title,int id)
     {
-        titleView.setText(title);        
+        this.id=id;
+        titleView.setText(title);  
         containerNode.getChildren().add(titleView);
         containerNode.getChildren().add(contentNode);
         containerNode.setPadding(new Insets(10.0));
+        
         
         titleView.setFont(Font.font("TimesNewRoman",18));
                 
@@ -38,32 +41,43 @@ public class MinimalSessionView {
              public void handle(MouseEvent event)
              {
                 
-                 Dragboard db =containerNode.startDragAndDrop(TransferMode.MOVE);
+                 Dragboard db =containerNode.startDragAndDrop(TransferMode.MOVE);                
+                 ClipboardContent cc =new ClipboardContent();    
                  
-                 ClipboardContent cc =new ClipboardContent();
-                  // ki kell cserelni valami normlisabbra az 1est                
-                 cc.putString(Integer.toString(1));
-                 GlobalVaribles.dragMinimalSessionView=MinimalSessionView.this;
+                 GlobalVaribles.mini=MinimalSessionView.this;
+                 
+                 cc.putString(Integer.toString(id));
                  db.setContent(cc);
+                 System.out.println(id);
               //   event.consume();
 
              }
          });
         
-        containerNode.setOnDragDone(new EventHandler<DragEvent>() {
+        containerNode.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
 
                 if (event.getTransferMode() == TransferMode.MOVE) {
-                  GlobalVaribles.dragMinimalSessionView=null;
+                 GlobalVaribles.destMini=MinimalSessionView.this;
                 }
                // event.consume();
             }
         });
-        
+        containerNode.setOnDragEntered(new EventHandler<DragEvent>()              
+                {
+                    @Override
+                    public void handle(DragEvent arg0) {
+                         System.out.println(123);
+                    }}
+                );                 
     }
     
     public VBox getContainerNode() {
         return containerNode;
+    }
+    
+    public int getId(){
+        return this.id;
     }
     
 }

@@ -6,6 +6,7 @@
 package Models;
 
 import java.util.ArrayList;
+import licentav2.GlobalVaribles;
 
 /**
  *
@@ -14,9 +15,21 @@ import java.util.ArrayList;
 public class Topic {
     private String title;
     private ArrayList<Session> sessions=new ArrayList<Session>();
-
+    private int id;
+    
+    public Topic()
+    {
+         id=GlobalVaribles.getTopicNumber();
+         GlobalVaribles.addElementToTopicAndNumberMap(id, this);
+         GlobalVaribles.setSessionNumber(GlobalVaribles.getTopicNumber()+1);
+    }
+    
     public String getTitle() {
         return title;
+    }
+    
+    public int getId() {
+        return id;
     }
 
     public void setTitle(String title) {
