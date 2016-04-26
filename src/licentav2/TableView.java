@@ -112,32 +112,64 @@ public class TableView extends GridPane{
     {
         int colNum=1;
         int maxRow=0;
-        Converter c=new Converter();
-        getChildren().clear();
+        int maxCol=topics.size();
+        
         for(Topic p : topics)
         {
-            int rowNum=1;
             if(maxRow<p.getSessions().size())
             {
                 maxRow=p.getSessions().size();
             }
+        }
+        
+        TableCellView[][] matrix=new  TableCellView[maxRow+1][maxCol+1];
+        
+        for(int i=0;i<maxRow+1;i++)
+        {
+            for(int j=0; j<maxCol+1;j++)
+            {
+                TableCellView tcw =new TableCellView(i,j);
+                this.add(tcw, i, j);
+                matrix[i][j]=tcw;
+            }       
+        }
+        
+        Converter c=new Converter();
+        getChildren().clear();
+        for(Topic p : topics)
+        {
+            int rowNum=1;           
             for(Session s : p.getSessions())
             {
                 MinimalSessionView sw=c.sessionToMinimalSessionView(s);
-                this.add(sw.getContainerNode(),colNum,rowNum);
-                rowNum++;
+                
+                TableCellView tcw=matrix[rowNum][colNum];
+                
+                tcw.getChildren().add(sw.getContainerNode());
+                
+                this.add(tcw,rowNum,colNum);
+                colNum++;
             }
-            colNum++;
+            rowNum++;
         }
         
         for(int i=0;i<topics.size();i++)
         {
-            this.add(new TextEditor("Sala"+i), i+1, 0);
+             TextEditor te=new TextEditor("Sala"+i);
+             
+             TableCellView tcw=matrix[0][i];
+             tcw.getChildren().add(te);
+             
+            this.add(tcw, i+1, 0);
         }
         
          for(int i=0;i<maxRow; i++)
         {
-            this.add(new TextEditor("10:00-10:00"), 0, i+1);
+            TextEditor te=new TextEditor("10:00-10:00");
+            TableCellView tcw=matrix[i][0];
+             tcw.getChildren().add(te);
+            this.add(tcw, 0, i+1);
         }
     }
+
 }
