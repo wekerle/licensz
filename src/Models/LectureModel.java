@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Ronaldo
  */
-public class Lecture {
+public class LectureModel {
     private ArrayList<String> authors;
     private String title;
 

@@ -5,11 +5,11 @@
  */
 package DataProcessing;
 
-import Models.KeyWord;
-import Models.Session;
-import Models.Topic;
-import Models.Lecture;
-import Models.LectureWithDetails;
+import Models.KeyWordModel;
+import Models.SessionModel;
+import Models.TopicModel;
+import Models.LectureModel;
+import Models.LectureWithDetailsModel;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,7 +25,7 @@ import java.util.Scanner;
 public class LectureReaderFromFile implements LectureReader{
 
     private ArrayList<File> listOfFiles = new ArrayList<File>();
-    private LectureWithDetails currentLecture=null;
+    private LectureWithDetailsModel currentLecture=null;
     private int index=-1;
         
     private ArrayList<File> getAllFilesFromDir(String path)
@@ -64,11 +64,11 @@ public class LectureReaderFromFile implements LectureReader{
     }
 
     @Override
-    public LectureWithDetails getCurrent() {
+    public LectureWithDetailsModel getCurrent() {
        return currentLecture;
     }
 
-    private LectureWithDetails readLectureDetailsFromFiles(File file) {
+    private LectureWithDetailsModel readLectureDetailsFromFiles(File file) {
         
         //roszul neveztem el a fileokat mindehol 
         try {
@@ -78,7 +78,7 @@ public class LectureReaderFromFile implements LectureReader{
             ArrayList<String> keyWords=new ArrayList<String>();
             ArrayList<String> authors=new ArrayList<String>();
             ArrayList<String> generatedKeyWords=new ArrayList<String>();
-            ArrayList<KeyWord> listOfKeyWords=new ArrayList<KeyWord>();
+            ArrayList<KeyWordModel> listOfKeyWords=new ArrayList<KeyWordModel>();
             String title="";
             String topic="";
             String abstarct="";          
@@ -105,7 +105,7 @@ public class LectureReaderFromFile implements LectureReader{
                 for (String s : generatedKeyWords)
                 {
                     String[] keywordSplit= s.split("\\s*[\\(\\)]");
-                    KeyWord kw=new KeyWord(keywordSplit[0],Integer.parseInt(keywordSplit[1]));
+                    KeyWordModel kw=new KeyWordModel(keywordSplit[0],Integer.parseInt(keywordSplit[1]));
                     listOfKeyWords.add(kw);
                 }
                 line = br.readLine();
@@ -116,7 +116,7 @@ public class LectureReaderFromFile implements LectureReader{
                 abstarct=line;
                 line = br.readLine();
             }
-           return new LectureWithDetails(title, authors, pageNr,type, keyWords,  listOfKeyWords,topic,abstarct);
+           return new LectureWithDetailsModel(title, authors, pageNr,type, keyWords,  listOfKeyWords,topic,abstarct);
         } catch(Exception e) {
            // br.close();
             }

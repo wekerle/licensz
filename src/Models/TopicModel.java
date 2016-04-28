@@ -12,12 +12,12 @@ import licentav2.GlobalVaribles;
  *
  * @author Ronaldo
  */
-public class Topic {
+public class TopicModel {
     private String title;
-    private ArrayList<Session> sessions=new ArrayList<Session>();
+    private ArrayList<SessionModel> sessions=new ArrayList<SessionModel>();
     private int id;
     
-    public Topic()
+    public TopicModel()
     {
          id=GlobalVaribles.getTopicNumber();
          GlobalVaribles.addElementToTopicAndNumberMap(id, this);
@@ -36,11 +36,11 @@ public class Topic {
         this.title = title;
     }
 
-    public ArrayList<Session> getSessions() {
+    public ArrayList<SessionModel> getSessions() {
         return sessions;
     }
 
-    public void setSessions(ArrayList<Session> sessions) {
+    public void setSessions(ArrayList<SessionModel> sessions) {
         this.sessions = sessions;
     }
 }

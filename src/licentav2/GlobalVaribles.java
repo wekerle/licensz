@@ -5,8 +5,8 @@
  */
 package licentav2;
 
-import Models.Session;
-import Models.Topic;
+import Models.SessionModel;
+import Models.TopicModel;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
@@ -22,15 +22,12 @@ public final class GlobalVaribles {
     private static int sessionNumber=0;
     private static int topicNumber=0;
     
-    private static HashMap<Integer,Session> sessionAndNumberMap=new HashMap<Integer,Session>();        
+    private static HashMap<Integer,SessionModel> sessionAndNumberMap=new HashMap<Integer,SessionModel>();        
     private static  HashMap<Integer,DragLecture> dragLectureAndNumberMap=new HashMap<Integer,DragLecture>();
-    private static  HashMap<Integer,Topic> topicAndNumberMap=new HashMap<Integer,Topic>();
+    private static  HashMap<Integer,TopicModel> topicAndNumberMap=new HashMap<Integer,TopicModel>();
     
     private static  ArrayList<DragLecture> selectedDragLectures=new ArrayList<DragLecture>();
-    
-    public static MinimalSessionView mini=null;   
-    public static MinimalSessionView destMini=null;
-        
+            
     public static int getLectureNumber() {
         return lectureNumber;
     }
@@ -59,11 +56,11 @@ public final class GlobalVaribles {
         dragLectureAndNumberMap.put(lectureNumber, dl);
     }
     
-    public static void addElementToSessionAndNumberMap(int sessionNumber, Session s) {
+    public static void addElementToSessionAndNumberMap(int sessionNumber, SessionModel s) {
         sessionAndNumberMap.put(sessionNumber, s);
     }
     
-    public static void addElementToTopicAndNumberMap(int sessionNumber, Topic t) {
+    public static void addElementToTopicAndNumberMap(int sessionNumber, TopicModel t) {
         topicAndNumberMap.put(sessionNumber, t);
     }
     
@@ -75,7 +72,7 @@ public final class GlobalVaribles {
         return dragLectureAndNumberMap.get(lectureNumber);
     }
     
-    public static Session getSessionByNumber(int sessionNumber) {
+    public static SessionModel getSessionByNumber(int sessionNumber) {
         return sessionAndNumberMap.get(sessionNumber);
     }
     

@@ -12,12 +12,12 @@ import licentav2.GlobalVaribles;
  *
  * @author Ronaldo
  */
-public class Session {
+public class SessionModel {
     private String title;
-    private ArrayList<LectureWithDetails> LectureWithDetails=new  ArrayList<LectureWithDetails>();
+    private ArrayList<LectureWithDetailsModel> LectureWithDetails=new  ArrayList<LectureWithDetailsModel>();
     private int id;
     
-    public Session()
+    public SessionModel()
     {
          id=GlobalVaribles.getSessionNumber();
          GlobalVaribles.addElementToSessionAndNumberMap(id, this);
@@ -35,7 +35,7 @@ public class Session {
         this.title = title;
     }
 
-    public ArrayList<LectureWithDetails> getLectures() {
+    public ArrayList<LectureWithDetailsModel> getLectures() {
         return LectureWithDetails;
     }
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Ronaldo
  */
-public class LectureWithDetails{
+public class LectureWithDetailsModel{
     private int pageNr;
     private String title;
     private String topic;
@@ -19,7 +19,7 @@ public class LectureWithDetails{
     private ArrayList<String> authors;
     private String abstarct;
     private ArrayList<String> keyWords;
-    private ArrayList<KeyWord> generatedKeyWords;
+    private ArrayList<KeyWordModel> generatedKeyWords;
 
 
     public int getPageNr() {
@@ -50,10 +50,10 @@ public class LectureWithDetails{
         return keyWords;
     }
 
-    public ArrayList<KeyWord> getGeneratedKeyWords() {
+    public ArrayList<KeyWordModel> getGeneratedKeyWords() {
         return generatedKeyWords;
     }
-    public LectureWithDetails(String title, ArrayList<String> authors, int pageNr, String type, ArrayList<String> keyWords, ArrayList<KeyWord> generatedKeyWords,String topic,String abstarct) {
+    public LectureWithDetailsModel(String title, ArrayList<String> authors, int pageNr, String type, ArrayList<String> keyWords, ArrayList<KeyWordModel> generatedKeyWords,String topic,String abstarct) {
         this.pageNr = pageNr;
         this.title = title;
         this.authors = authors;

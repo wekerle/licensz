@@ -12,14 +12,14 @@ import java.util.ArrayList;
  * @author Ronaldo
  */
 public class AplicationModel {
-    private ArrayList<Topic> topics=new ArrayList<Topic>();
+    private ArrayList<TopicModel> topics=new ArrayList<TopicModel>();
         
-    public void setTopics(ArrayList<Topic> topics)
+    public void setTopics(ArrayList<TopicModel> topics)
     {
         this.topics=topics;
     }
     
-    public ArrayList<Topic> getTopics() {
+    public ArrayList<TopicModel> getTopics() {
         return this.topics;
     }
     

@@ -5,7 +5,7 @@
  */
 package DataProcessing;
 
-import Models.LectureWithDetails;
+import Models.LectureWithDetailsModel;
 
 /**
  *
@@ -13,5 +13,5 @@ import Models.LectureWithDetails;
  */
 public interface LectureReader {
     boolean readNext();
-    LectureWithDetails getCurrent();
+    LectureWithDetailsModel getCurrent();
 }

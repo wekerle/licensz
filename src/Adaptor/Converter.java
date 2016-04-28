@@ -5,10 +5,10 @@
  */
 package Adaptor;
 
-import Models.Lecture;
-import Models.LectureWithDetails;
-import Models.Topic;
-import Models.Session;
+import Models.LectureModel;
+import Models.LectureWithDetailsModel;
+import Models.TopicModel;
+import Models.SessionModel;
 import java.util.ArrayList;
 import licentav2.DragLecture;
 import licentav2.MinimalSessionView;
@@ -21,53 +21,53 @@ import licentav2.SessionView;
  */
 public class Converter {
     
-    public DragLecture lectureToDragLecture(LectureWithDetails l)
+    public DragLecture lectureToDragLecture(LectureWithDetailsModel l)
     {
        return new DragLecture(l.getTitle(),l.getAuthors());
     }
     
-    public SessionView sessionToSessionView(Session s)
+    public SessionView sessionToSessionView(SessionModel s)
     {
         SessionView sw=new SessionView(s.getTitle());
-        for(LectureWithDetails l : s.getLectures())
+        for(LectureWithDetailsModel l : s.getLectures())
         {
             sw.addDragLecture(lectureToDragLecture(l));
         }
        return sw;
     }
     
-    public MinimalSessionView sessionToMinimalSessionView(Session s)
+    public MinimalSessionView sessionToMinimalSessionView(SessionModel s)
     {
         MinimalSessionView msw=new MinimalSessionView(s.getTitle(),s.getId());
         return msw;
     }
     
-    public TopicView topicToTopicView(Topic p)
+    public TopicView topicToTopicView(TopicModel p)
     {
         TopicView pw=new TopicView(p.getTitle());
-        for(Session s : p.getSessions())
+        for(SessionModel s : p.getSessions())
         {
             pw.addSessionView(sessionToSessionView(s));
         }
        return pw;
     }
     
-    public ArrayList<SessionView> sessionListToSessionViewList(ArrayList<Session> sessions)
+    public ArrayList<SessionView> sessionListToSessionViewList(ArrayList<SessionModel> sessions)
     {
         ArrayList<SessionView> swl=new ArrayList<SessionView>();
         
-        for(Session s : sessions)
+        for(SessionModel s : sessions)
         {
             swl.add(sessionToSessionView(s));
         }
        return swl;
     }
     
-    public ArrayList<TopicView> topicListToTopicViewList(ArrayList<Topic> topics)
+    public ArrayList<TopicView> topicListToTopicViewList(ArrayList<TopicModel> topics)
     {
         ArrayList<TopicView> pwl=new ArrayList<TopicView>();
         
-        for(Topic p : topics)
+        for(TopicModel p : topics)
         {
             pwl.add(topicToTopicView(p));
         }

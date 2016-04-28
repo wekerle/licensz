@@ -9,11 +9,11 @@ package Models;
  *
  * @author Ronaldo
  */
-public class KeyWord {
+public class KeyWordModel {
      private String keyWord;
      private int nrApparances;
 
-    public KeyWord(String keyWord, int nrApparances) {
+    public KeyWordModel(String keyWord, int nrApparances) {
         this.keyWord = keyWord;
         this.nrApparances = nrApparances;
     }

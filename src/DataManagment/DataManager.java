@@ -6,8 +6,8 @@
 package DataManagment;
 
 import Models.AplicationModel;
-import Models.Session;
-import Models.Topic;
+import Models.SessionModel;
+import Models.TopicModel;
 import licentav2.GlobalVaribles;
 
 /**
@@ -18,11 +18,11 @@ public class DataManager {
     
     // <editor-fold desc="private region" defaultstate="collapsed">
     
-    private Topic GetTopicIdBySessionId(AplicationModel am,int sessionId)
+    private TopicModel GetTopicIdBySessionId(AplicationModel am,int sessionId)
     {
-        for(Topic t :am.getTopics())
+        for(TopicModel t :am.getTopics())
         {
-            for(Session s:t.getSessions())
+            for(SessionModel s:t.getSessions())
             {
                 if(s.getId()==sessionId)
                 {
@@ -35,9 +35,9 @@ public class DataManager {
         
     //</editor-fold>
     
-    public AplicationModel addSessionToTopic(AplicationModel am, Topic topic,Session s, int position)
+    public AplicationModel addSessionToTopic(AplicationModel am, TopicModel topic,SessionModel s, int position)
     {               
-        for(Topic t :am.getTopics())
+        for(TopicModel t :am.getTopics())
         {
             if(t.getTitle()==topic.getTitle())
             {
@@ -48,9 +48,9 @@ public class DataManager {
         return am;
     }
     
-    public AplicationModel removeSessionFromTopic(AplicationModel am, Topic topic, Session session)
+    public AplicationModel removeSessionFromTopic(AplicationModel am, TopicModel topic, SessionModel session)
     {     
-        for(Topic t :am.getTopics())
+        for(TopicModel t :am.getTopics())
         {
             if(t.getTitle()==topic.getTitle())
             {
@@ -61,10 +61,10 @@ public class DataManager {
         return am;
     }
     
-    public AplicationModel moveSession(AplicationModel am,  Session s1,Session s2)
+    public AplicationModel moveSession(AplicationModel am,  SessionModel s1,SessionModel s2)
     {               
-        Topic t1=GetTopicIdBySessionId(am, s1.getId());
-        Topic t2=GetTopicIdBySessionId(am, s2.getId());
+        TopicModel t1=GetTopicIdBySessionId(am, s1.getId());
+        TopicModel t2=GetTopicIdBySessionId(am, s2.getId());
         
         am=addSessionToTopic(am, t1, s2, 0);
         am=removeSessionFromTopic(am, t2, s2);
