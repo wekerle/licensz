@@ -25,6 +25,7 @@ public class TableCellView extends VBox {
     private int rowIndex=0;
     private TableView table;
     private Node contentNode=null;
+    private MinimalSessionView msw=null;
     
     public int getColIndex() {
         return colIndex;
@@ -46,7 +47,17 @@ public class TableCellView extends VBox {
         this.contentNode = contentNode;
         this.getChildren().add(contentNode);
     }
-             
+    
+    public void setMinimalSessionView(MinimalSessionView msw) {
+        this.msw = msw;
+        setContentNode(msw);
+    }
+
+    public MinimalSessionView getMinimalSessionView() {
+        return msw;
+    }
+     
+    
      public TableCellView(TableView table, int rowIndex,int colIndex)
      {
         this.rowIndex=rowIndex;
@@ -101,13 +112,12 @@ public class TableCellView extends VBox {
                 if (db.hasString()) {                 
                     DataManager dm=new DataManager();
                     int sourceSessionId=Integer.parseInt(db.getString());
-                   // int destinationSessionId=TableCellView.this.;
-                   //Node n= TableCellView.this.contentNode.Se;
+                    int destinationSessionId=TableCellView.this.getMinimalSessionView().getSessionId();
                     
                     SessionModel s1=GlobalVaribles.getSessionByNumber(sourceSessionId);
-                    SessionModel s2=GlobalVaribles.getSessionByNumber(sourceSessionId);
+                    SessionModel s2=GlobalVaribles.getSessionByNumber(destinationSessionId);
                     
-                   // table.populateContent(dm.moveSession(table.getAplicationModel(),s2,s1).getTopics());
+                    table.populateContent(dm.moveSession(table.getAplicationModel(),s2,s1).getTopics());
                  
                     System.out.println(TableCellView.this.rowIndex+","+TableCellView.this.colIndex);
                    success = true;

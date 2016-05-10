@@ -9,14 +9,20 @@ import DataProcessing.DataCollector;
 import Models.AplicationModel;
 import java.io.File;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -30,15 +36,15 @@ import javafx.stage.Stage;
  */
 public class Licentav2 extends Application {
     
-    
+    BorderPane border = new BorderPane();
+    AplicationModel am=new AplicationModel();
     
     @Override
     public void start(Stage primaryStage) {
         
-      /*  BorderPane border = new BorderPane();
+        MenuBar mb=createMenu();
         
-        HBox hbox = addHBox(primaryStage);
-        border.setTop(hbox);
+        border.setTop(mb);
                   
         border.setCenter(addAnchorPane(addGridPane()));
 
@@ -47,20 +53,30 @@ public class Licentav2 extends Application {
         scene.getStylesheets().add("Styling/layoutstyles.css");
         primaryStage.setScene(scene);
         primaryStage.setTitle("Layout Sample");
-        primaryStage.show();*/
+        primaryStage.show();
                  
         DataCollector dc= new DataCollector();
-        
-        AplicationModel am=new AplicationModel();
+          
 
         am.setTopics(dc.getTopics());
-        MainView mw=new MainView(am);
+       // MainView mw=new MainView(am);
         
-        TableView tw=new TableView(am);
+        //TableView tw=new TableView(am);
                          
         //Scene scene = new Scene(mw, 800, 600);
         
-        Scene scene = new Scene(tw, 800, 600);
+       // Scene scene = new Scene(tw, 800, 600);
+        
+        
+        
+        //((VBox) scene.getRoot()).getChildren().addAll(mb);
+        
+        
+        
+        
+        
+        
+        
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
@@ -75,39 +91,52 @@ public class Licentav2 extends Application {
     }
     
     
+    private MenuBar createMenu()
+    { 
+        MenuBar menuBar = new MenuBar();
+ 
+        // --- Menu File
+        Menu menuFile = new Menu("File");
+        
+        MenuItem newMenuItem = new MenuItem("New");
+        MenuItem loadMenuItem = new MenuItem("Load");
+        MenuItem saveMenuItem = new MenuItem("Save");
+        MenuItem exitMenuItem = new MenuItem("Exit");
+        exitMenuItem.setOnAction(actionEvent -> Platform.exit());
+        
+        menuFile.getItems().addAll(newMenuItem,loadMenuItem, saveMenuItem,
+        new SeparatorMenuItem(), exitMenuItem);
     
-     private HBox addHBox(Stage primaryStage) {
+        // --- Menu Edit
+        Menu menuEdit = new Menu("Edit");
+ 
+        // --- Menu View
+        Menu menuView = new Menu("View");
+        MenuItem tableMenuItem = new MenuItem("Time Table");
+        MenuItem listMenuItem = new MenuItem("Summary");
+        
+        tableMenuItem.setOnAction(actionEvent -> clickViewTimeTable());
+        listMenuItem.setOnAction(actionEvent -> clickViewSummary());
+        
+        menuView.getItems().addAll(tableMenuItem,listMenuItem);
+ 
+        menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
+ 
+        return menuBar;
 
-        HBox hbox = new HBox();
-//        hbox.setPadding(new Insets(15, 12, 15, 12));
-//        hbox.setSpacing(10);   // Gap between nodes
-//        hbox.setStyle("-fx-background-color: #336699;");
-// Use style class to set properties previously set above (with some changes)      
-        hbox.getStyleClass().add("hbox");
-
-        Button buttonCurrent = new Button("Import from txt file");
-        buttonCurrent.setPrefSize(150, 20);
-        
-        buttonCurrent.setOnAction(new EventHandler<ActionEvent>(){
-             @Override
-            public void handle(ActionEvent arg0) {
-                FileChooser fileChooser = new FileChooser();
-                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-                fileChooser.getExtensionFilters().add(extFilter);
-                File file = fileChooser.showOpenDialog(primaryStage);
-                System.out.println(file);
-            }
-        });
-        
-        
-        Button buttonProjected = new Button("Import saved datas");
-        buttonProjected.setPrefSize(150, 20);
-        
-        hbox.getChildren().addAll(buttonCurrent, buttonProjected);
-        
-        return hbox;
     }
-
+    
+    private void clickViewTimeTable(){
+        
+        TableView tw=new TableView(am);
+         border.setCenter(tw);
+    }
+    
+    private void clickViewSummary(){
+        MainView mw=new MainView(am);
+         border.setCenter(mw);
+    }
+    
     private GridPane addGridPane() {
 
         GridPane grid = new GridPane();   

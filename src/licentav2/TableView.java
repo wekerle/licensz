@@ -80,7 +80,7 @@ public class TableView extends GridPane{
                 MinimalSessionView sw=c.sessionToMinimalSessionView(s);
                 
                 TableCellView tcw=matrix[colNum][rowNum];               
-                tcw.setContentNode(sw.getContainerNode());
+                tcw.setMinimalSessionView(sw);
                 
                 this.add(tcw,rowNum,colNum);
                 colNum++;
