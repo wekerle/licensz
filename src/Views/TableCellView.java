@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package licentav2;
+package Views;
 
+import Views.TableView;
 import DataManagment.DataManager;
 import Models.SessionModel;
 import javafx.event.EventHandler;
@@ -14,6 +15,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import licentav2.GlobalVaribles;
 
 /**
  *
@@ -25,7 +27,7 @@ public class TableCellView extends VBox {
     private int rowIndex=0;
     private TableView table;
     private Node contentNode=null;
-    private MinimalSessionView msw=null;
+    private MinimalSessionView minimalSessionView=null;
     
     public int getColIndex() {
         return colIndex;
@@ -48,16 +50,15 @@ public class TableCellView extends VBox {
         this.getChildren().add(contentNode);
     }
     
-    public void setMinimalSessionView(MinimalSessionView msw) {
-        this.msw = msw;
-        setContentNode(msw);
+    public void setMinimalSessionView(MinimalSessionView minimalSessionView) {
+        this.minimalSessionView = minimalSessionView;
+        setContentNode(minimalSessionView);
     }
 
     public MinimalSessionView getMinimalSessionView() {
-        return msw;
+        return minimalSessionView;
     }
      
-    
      public TableCellView(TableView table, int rowIndex,int colIndex)
      {
         this.rowIndex=rowIndex;
@@ -69,7 +70,20 @@ public class TableCellView extends VBox {
                 if (event.getGestureSource() != this &&
                         event.getDragboard().hasString()) {
                     event.acceptTransferModes(TransferMode.MOVE);
+                    
+                    double centerY=TableCellView.this.getLayoutBounds().getMinY()+TableCellView.this.getHeight()/2;
+                    
+                    if(centerY>event.getY() && !TableCellView.this.getStyleClass().contains("tableCellDragOverBorderTop"))
+                    {
+                        TableCellView.this.getStyleClass().add("tableCellDragOverBorderTop");
+                        TableCellView.this.getStyleClass().remove("tableCellDragOverBorderBottom");
+                    } else if(centerY<=event.getY() && !TableCellView.this.getStyleClass().contains("tableCellDragOverBorderBottom") )
+                    {
+                        TableCellView.this.getStyleClass().add("tableCellDragOverBorderBottom");
+                        TableCellView.this.getStyleClass().remove("tableCellDragOverBorderTop");
+                    }
                 }
+                event.consume();
             }
         });
         
@@ -77,15 +91,9 @@ public class TableCellView extends VBox {
             public void handle(DragEvent event) {
                  if (event.getGestureSource() != this &&
                          event.getDragboard().hasString()) {
-                    TableCellView.this.setStyle("-fx-background-color:white");
-                    TableCellView.this.setStyle("-fx-border-color: blue");
-                    TableCellView.this.setStyle("-fx-border-insets: 5");
-                    TableCellView.this.setStyle("-fx-border-width: 3");
-                    TableCellView.this.setStyle("-fx-border-style: dashed");
-                    //System.out.println(1);
+                 // TableCellView.this.getStyleClass().add("tableCellDragOverBorderTop");
                  }
-
-                // event.consume();
+              //  event.consume();
             }
         });
         
@@ -93,15 +101,13 @@ public class TableCellView extends VBox {
             public void handle(DragEvent event) {
                  if (event.getGestureSource() != this &&
                          event.getDragboard().hasString()) {
-                   
-                   // TableCellView.this.setStyle("-fx-border-color: inherited");
-                   // TableCellView.this.setStyle("-fx-border-width: inherited");
-                  //  TableCellView.this.setStyle("-fx-border-width: inherited");
-                    TableCellView.this.setStyle("-fx-border-style: none");
-                    //System.out.println(1);
+
+                         TableCellView.this.getStyleClass().remove("tableCellDragOverBorderTop");
+                         TableCellView.this.getStyleClass().remove("tableCellDragOverBorderBottom");
+
                  }
 
-                // event.consume();
+                 event.consume();
             }
         });
         
@@ -117,14 +123,20 @@ public class TableCellView extends VBox {
                     SessionModel s1=GlobalVaribles.getSessionByNumber(sourceSessionId);
                     SessionModel s2=GlobalVaribles.getSessionByNumber(destinationSessionId);
                     
-                    table.populateContent(dm.moveSession(table.getAplicationModel(),s2,s1).getTopics());
-                 
-                    System.out.println(TableCellView.this.rowIndex+","+TableCellView.this.colIndex);
+                    double centerY=TableCellView.this.getLayoutBounds().getMinY()+TableCellView.this.getHeight()/2;
+                    
+                    if(centerY>event.getY()){
+                         table.populateContent(dm.moveSession2BeforeSession1(table.getAplicationModel(),s2,s1).getTopics());
+                    }else
+                    {
+                        table.populateContent(dm.moveSession2AfterSession1(table.getAplicationModel(),s2,s1).getTopics());
+                    }
+                    
                    success = true;
                 }
                 event.setDropCompleted(success);
 
-              //  event.consume();
+                event.consume();
              }
         });
                   

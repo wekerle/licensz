@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package licentav2;
+package Views;
 
+import Views.SessionView;
+import Views.TextEditor;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
@@ -15,12 +17,12 @@ import javafx.scene.text.FontWeight;
  *
  * @author Ronaldo
  */
-public class PartView {
+public class TopicView {
     private VBox contentNode=new VBox();
     private TextEditor titleView=new TextEditor();
     private VBox containerNode=new VBox();
     
-    public PartView(String title)
+    public TopicView(String title)
     {
         titleView.setText(title);
         containerNode.getChildren().add(titleView);
@@ -38,5 +40,3 @@ public class PartView {
         this.contentNode.getChildren().add(sw.getContainerNode());
     }
 }
-
-

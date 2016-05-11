@@ -14,6 +14,8 @@ import licentav2.GlobalVaribles;
  */
 public class SessionModel {
     private String title;
+    private ArrayList<String> chairs=new  ArrayList<String>();
+    
     private ArrayList<LectureWithDetailsModel> LectureWithDetails=new  ArrayList<LectureWithDetailsModel>();
     private int id;
     
@@ -22,6 +24,8 @@ public class SessionModel {
          id=GlobalVaribles.getSessionNumber();
          GlobalVaribles.addElementToSessionAndNumberMap(id, this);
          GlobalVaribles.setSessionNumber(GlobalVaribles.getSessionNumber()+1);
+         chairs.add("chair1");
+         chairs.add("chair2");
     }
     public String getTitle() {
         return title;
@@ -37,5 +41,9 @@ public class SessionModel {
 
     public ArrayList<LectureWithDetailsModel> getLectures() {
         return LectureWithDetails;
+    }
+
+    public ArrayList<String> getChairs() {
+        return chairs;
     }
 }

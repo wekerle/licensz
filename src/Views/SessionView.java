@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package licentav2;
+package Views;
 
+import Views.TextEditor;
+import java.util.ArrayList;
+import java.util.StringJoiner;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,6 +17,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import licentav2.GlobalVaribles;
 
 
 /**
@@ -23,25 +27,33 @@ import javafx.scene.text.FontWeight;
 public class SessionView {
     private VBox contentNode=new VBox();
     private TextEditor titleView=new TextEditor();
-    private TextEditor chair1View=new TextEditor();
-    private TextEditor chair2View=new TextEditor();
     private VBox containerNode=new VBox();
+    private TextEditor chairView=new TextEditor();
     
-    public SessionView(String title)
+    private String createListSeparateComma(ArrayList<String> chairs)
+    {
+        //ez csak java 8 -al megy
+        StringJoiner stringJoiner =new StringJoiner(", ");
+        
+        for(String chair : chairs)
+        {
+            stringJoiner.add(chair);
+        }
+        return stringJoiner.toString();
+    }
+    
+    public SessionView(String title,ArrayList<String> chairs)
     {
         titleView.setText(title);
-        chair1View.setText("chair1");
-        chair2View.setText("chair2");
+        chairView.setText(createListSeparateComma(chairs));
         
         containerNode.getChildren().add(titleView);
-        containerNode.getChildren().add(chair1View);
-        containerNode.getChildren().add(chair2View);
+        containerNode.getChildren().add(chairView);
         
         containerNode.getChildren().add(contentNode);
         
         titleView.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,18));
-        chair2View.setFont(new Font(18));
-        chair1View.setFont(new Font(18));
+        chairView.setFont(new Font(18));
         
         containerNode.setPadding(new Insets(10));
         contentNode.setOnDragOver(new EventHandler<DragEvent>() {
@@ -66,15 +78,6 @@ public class SessionView {
                 // event.consume();
             }
         });
-        // ====== ez akkor tortenik amikor kihuzza az elemtet a sessionview-on kivulre,
-        //==== en aszem ez nem kell nekem a proiectbe
-        /*contentNode.setOnDragExited(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                contentNode.setStyle("-fx-background-color:blue");
-
-                event.consume();
-            }
-        });*/
         
         contentNode.setOnDragDropped(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
@@ -85,8 +88,8 @@ public class SessionView {
                 if (db.hasString()) {
                     
                     boolean exist=false;
-                    DragLecture dl= GlobalVaribles.getDragLectureByNumber(Integer.parseInt(db.getString()));
-                    for(DragLecture dragLec: GlobalVaribles.getAllSelected())
+                    LectureView dl= GlobalVaribles.getDragLectureByNumber(Integer.parseInt(db.getString()));
+                    for(LectureView dragLec: GlobalVaribles.getAllSelected())
                     {
                         // comparam  numerele
                         if(dragLec.isEqual(dl)){
@@ -98,7 +101,7 @@ public class SessionView {
                         addDragLecture(dl);
                     }
                                         
-                    for(DragLecture dragLec: GlobalVaribles.getAllSelected())
+                    for(LectureView dragLec: GlobalVaribles.getAllSelected())
                     {
                         addDragLecture(dragLec);
                     }
@@ -111,23 +114,13 @@ public class SessionView {
 
               //  event.consume();
              }
-        });
-        
-        contentNode.setOnScroll(new EventHandler() {
-            @Override
-            public void handle(Event event) {
-                System.out.println("scroll dwon");
-                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
-        
+        });        
     }
     
     public VBox getContainerNode() {
         return containerNode;
     }
-     public void addDragLecture(DragLecture dl) {
+     public void addDragLecture(LectureView dl) {
         this.contentNode.getChildren().add(dl.getNode());
-    }
-          
+    }             
 }

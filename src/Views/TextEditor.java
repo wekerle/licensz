@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package licentav2;
+package Views;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,7 +20,7 @@ import javafx.scene.text.Text;
  * @author Ronaldo
  */
 public class TextEditor extends VBox {
-    private TextField tf=new TextField();
+    private TextField textField=new TextField();
     private Text text=new Text();
 
     public TextEditor()
@@ -33,30 +33,28 @@ public class TextEditor extends VBox {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() == 2){
                     //System.out.println("Double clicked");
-                    tf.setText(text.getText());
+                    textField.setText(text.getText());
                     TextEditor.this.getChildren().remove(text);
-                    TextEditor.this.getChildren().add(tf);
-                    tf.requestFocus();
+                    TextEditor.this.getChildren().add(textField);
+                    textField.requestFocus();                                        
                 }
             }
         }
         });
         
-        tf.focusedProperty().addListener(new ChangeListener<Boolean>()
+        textField.focusedProperty().addListener(new ChangeListener<Boolean>()
         {
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
-            {
-                 
-                    
+            {                                    
                 if (newPropertyValue)
                 {
                     System.out.println("Textfield on focus");
                 }
                 else
                 {
-                    text.setText(tf.getText());
-                    TextEditor.this.getChildren().remove(tf);
+                    text.setText(textField.getText());
+                    TextEditor.this.getChildren().remove(textField);
                     TextEditor.this.getChildren().add(text);
                 }
             }
@@ -75,13 +73,12 @@ public class TextEditor extends VBox {
 
     public void setText(String text) {
         this.text.setText(text);
-        this.tf.setText(text);
+        this.textField.setText(text);
     }
 
-    void setFont(Font font) {
+    public void setFont(Font font) {
         this.text.setFont(font);
-        this.tf.setFont(font);
+        this.textField.setFont(font);
     }
-    
     
 }

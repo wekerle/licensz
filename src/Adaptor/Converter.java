@@ -10,10 +10,10 @@ import Models.LectureWithDetailsModel;
 import Models.TopicModel;
 import Models.SessionModel;
 import java.util.ArrayList;
-import licentav2.DragLecture;
-import licentav2.MinimalSessionView;
-import licentav2.TopicView;
-import licentav2.SessionView;
+import Views.LectureView;
+import Views.MinimalSessionView;
+import Views.TopicView;
+import Views.SessionView;
 
 /**
  *
@@ -21,56 +21,56 @@ import licentav2.SessionView;
  */
 public class Converter {
     
-    public DragLecture lectureToDragLecture(LectureWithDetailsModel l)
+    public LectureView lectureToDragLecture(LectureWithDetailsModel lectureWithDetails)
     {
-       return new DragLecture(l.getTitle(),l.getAuthors());
+       return new LectureView(lectureWithDetails.getTitle(),lectureWithDetails.getAuthors());
     }
     
-    public SessionView sessionToSessionView(SessionModel s)
+    public SessionView sessionToSessionView(SessionModel session)
     {
-        SessionView sw=new SessionView(s.getTitle());
-        for(LectureWithDetailsModel l : s.getLectures())
+        SessionView sessionView=new SessionView(session.getTitle(),session.getChairs());
+        for(LectureWithDetailsModel lecture : session.getLectures())
         {
-            sw.addDragLecture(lectureToDragLecture(l));
+            sessionView.addDragLecture(lectureToDragLecture(lecture));
         }
-       return sw;
+       return sessionView;
     }
     
-    public MinimalSessionView sessionToMinimalSessionView(SessionModel s)
+    public MinimalSessionView sessionToMinimalSessionView(SessionModel session)
     {
-        MinimalSessionView msw=new MinimalSessionView(s.getTitle(),s.getId());
-        return msw;
+        MinimalSessionView minimalSessionView=new MinimalSessionView(session.getTitle(),session.getId());
+        return minimalSessionView;
     }
     
-    public TopicView topicToTopicView(TopicModel p)
+    public TopicView topicToTopicView(TopicModel topic)
     {
-        TopicView pw=new TopicView(p.getTitle());
-        for(SessionModel s : p.getSessions())
+        TopicView topicView=new TopicView(topic.getTitle());
+        for(SessionModel session : topic.getSessions())
         {
-            pw.addSessionView(sessionToSessionView(s));
+            topicView.addSessionView(sessionToSessionView(session));
         }
-       return pw;
+       return topicView;
     }
     
     public ArrayList<SessionView> sessionListToSessionViewList(ArrayList<SessionModel> sessions)
     {
-        ArrayList<SessionView> swl=new ArrayList<SessionView>();
+        ArrayList<SessionView> sessionViewList=new ArrayList<SessionView>();
         
-        for(SessionModel s : sessions)
+        for(SessionModel session : sessions)
         {
-            swl.add(sessionToSessionView(s));
+            sessionViewList.add(sessionToSessionView(session));
         }
-       return swl;
+       return sessionViewList;
     }
     
     public ArrayList<TopicView> topicListToTopicViewList(ArrayList<TopicModel> topics)
     {
-        ArrayList<TopicView> pwl=new ArrayList<TopicView>();
+        ArrayList<TopicView> topicViewList=new ArrayList<TopicView>();
         
-        for(TopicModel p : topics)
+        for(TopicModel topic : topics)
         {
-            pwl.add(topicToTopicView(p));
+            topicViewList.add(topicToTopicView(topic));
         }
-       return pwl;
+       return topicViewList;
     }
 }

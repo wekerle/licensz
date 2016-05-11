@@ -32,6 +32,21 @@ public class DataManager {
         }
         return null;
     }
+    
+    private int GetSessionPositionIdBySessionId(AplicationModel am,int sessionId)
+    {
+        for(TopicModel t :am.getTopics())
+        {
+            for(SessionModel s:t.getSessions())
+            {
+                if(s.getId()==sessionId)
+                {
+                   return t.getSessions().indexOf(s);
+                }
+            }
+        }
+        return 0;
+    }
         
     //</editor-fold>
     
@@ -41,7 +56,13 @@ public class DataManager {
         {
             if(t.getTitle()==topic.getTitle())
             {
-                t.getSessions().add(position, s);
+                if(t.getSessions().size()<=position)
+                {
+                    t.getSessions().add(s);
+                }else
+                {
+                    t.getSessions().add(position, s);
+                }
             }
         }
         
@@ -61,13 +82,26 @@ public class DataManager {
         return am;
     }
     
-    public AplicationModel moveSession(AplicationModel am,  SessionModel s1,SessionModel s2)
+    public AplicationModel moveSession2BeforeSession1(AplicationModel am,  SessionModel s1,SessionModel s2)
     {               
         TopicModel t1=GetTopicIdBySessionId(am, s1.getId());
         TopicModel t2=GetTopicIdBySessionId(am, s2.getId());
+        int session1Position=GetSessionPositionIdBySessionId(am, s1.getId());
         
-        am=addSessionToTopic(am, t1, s2, 0);
         am=removeSessionFromTopic(am, t2, s2);
+        am=addSessionToTopic(am, t1, s2, session1Position);
+        
+        return am;
+    }
+    
+    public AplicationModel moveSession2AfterSession1(AplicationModel am,  SessionModel s1,SessionModel s2)
+    {               
+        TopicModel t1=GetTopicIdBySessionId(am, s1.getId());
+        TopicModel t2=GetTopicIdBySessionId(am, s2.getId());
+        int session1Position=GetSessionPositionIdBySessionId(am, s1.getId());
+        
+        am=removeSessionFromTopic(am, t2, s2);
+        am=addSessionToTopic(am, t1, s2, session1Position+1);
         
         return am;
     }

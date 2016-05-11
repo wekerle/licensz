@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package licentav2;
+package Views;
 
+import Views.TextEditor;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 import javafx.event.EventHandler;
@@ -17,12 +18,13 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import licentav2.GlobalVaribles;
 
 /**
  *
  * @author Ronaldo
  */
-public class DragLecture {
+public class LectureView {
     private TextEditor titleView=new TextEditor();
     private TextEditor authorView=new TextEditor();
     private VBox container=new VBox();
@@ -31,24 +33,24 @@ public class DragLecture {
     public int getLectureNumber() {
         return lectureNumber;
     }
-    
+    // ez fugveny 2szer van...... meg kell kerdezzem petert
     private String createListSeparateComma(ArrayList<String> authors)
     {
         //ez csak java 8 -al megy
-        StringJoiner sj =new StringJoiner(", ");
+        StringJoiner stringJoiner =new StringJoiner(", ");
         
-        for(String s : authors)
+        for(String author : authors)
         {
-            sj.add(s);
+            stringJoiner.add(author);
         }
-        return sj.toString();
+        return stringJoiner.toString();
     }
 
     public VBox getNode() {
         return container;
     }
      
-     public DragLecture(String title,ArrayList<String> authors)
+     public LectureView(String title,ArrayList<String> authors)
      {
          lectureNumber=GlobalVaribles.getLectureNumber();
          GlobalVaribles.addElementToDragLectureAndNumberMap(lectureNumber, this);
@@ -62,13 +64,11 @@ public class DragLecture {
          
          titleView.setFont(new Font(16));
          container.setPadding(new Insets(10.0));
-         
-         //authorView.setP(new Insets(10.0));
-         
+                  
          container.setOnDragDetected(new EventHandler<MouseEvent>(){
              public void handle(MouseEvent event)
              {
-                 if(!GlobalVaribles.isSelected(DragLecture.this))
+                 if(!GlobalVaribles.isSelected(LectureView.this))
                  {
                       GlobalVaribles.removeAllSelected();
                  }
@@ -82,23 +82,13 @@ public class DragLecture {
 
              }
          });
-         
-         container.setOnDragDone(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-
-                if (event.getTransferMode() == TransferMode.MOVE) {
-                  //  container.setText("");
-                }
-               // event.consume();
-            }
-        });
-         
+                  
          container.setOnMouseClicked(new EventHandler<MouseEvent>() {          
              @Override
              public void handle(MouseEvent event) {
                  if(event.isControlDown())
                  {
-                     GlobalVaribles.addSelected(DragLecture.this);
+                     GlobalVaribles.addSelected(LectureView.this);
                  }
                  else
                  {
@@ -109,7 +99,7 @@ public class DragLecture {
          
      }
      
-    public boolean isEqual(DragLecture dl){
+    public boolean isEqual(LectureView dl){
       if(dl.getLectureNumber()==this.lectureNumber)
       {
           return true;

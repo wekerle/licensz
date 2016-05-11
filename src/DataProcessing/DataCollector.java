@@ -35,10 +35,10 @@ public class DataCollector{
     {
         ArrayList<LectureWithDetailsModel> lectures=new ArrayList<LectureWithDetailsModel>();
         // laptop
-        LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\Ronaldo\\Desktop\\licenszGit2\\licensz\\data\\generated");
+       // LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\Ronaldo\\Desktop\\licenszGit2\\licensz\\data\\generated");
         
         //munkaba
-      //  LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\generated");
+        LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\generated");
         
         while(lrff.readNext())
         {
@@ -103,9 +103,9 @@ public class DataCollector{
         {
             HashMap<String,TermModel> terms=new HashMap<String,TermModel>();
             // laptop
-                 File file = new File("C:\\Users\\Ronaldo\\Desktop\\licenszGit2\\licensz\\data\\ieee_thesaurus_2013.txt");
+               //  File file = new File("C:\\Users\\Ronaldo\\Desktop\\licenszGit2\\licensz\\data\\ieee_thesaurus_2013.txt");
             //munkaba
-           // File file = new File("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\ieee_thesaurus_2013.txt");
+            File file = new File("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\ieee_thesaurus_2013.txt");
             terms=new TermReaderFromFile().readTermsFromFile(file);
         
         }

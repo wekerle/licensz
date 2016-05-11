@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package licentav2;
+package Views;
 
 import Adaptor.Converter;
 import DataProcessing.DataCollector;
@@ -24,21 +24,21 @@ import javafx.util.Duration;
  *
  * @author Ronaldo
  */
-public class MainView extends ScrollPane {
+public class SummaryView extends ScrollPane {
         
     private double scrollDirection = 0;
     private VBox verticalLayout =  new VBox();
     private AplicationModel am=null;
-    private static Timeline scrolltimeline = new Timeline();
+    private  Timeline scrolltimeline = new Timeline();
     
     private void dragScroll() {
         
-            ScrollBar sb = getVerticalScrollbar();
-            if (sb != null) {
-                double newValue = sb.getValue() + scrollDirection;
+            ScrollBar scrollBar = getVerticalScrollbar();
+            if (scrollBar != null) {
+                double newValue = scrollBar.getValue() + scrollDirection;
                 newValue = Math.min(newValue, 1.0);
                 newValue = Math.max(newValue, 0.0);
-                sb.setValue(newValue);
+                scrollBar.setValue(newValue);
             }
         }
      private ScrollBar getVerticalScrollbar() {
@@ -56,13 +56,10 @@ public class MainView extends ScrollPane {
      
     private void SetupView()
     {
-                //VBox mainVb=new VBox();
-        //ScrollPane sp=new ScrollPane();
         
         Converter c=new Converter();
         
         scrolltimeline.setCycleCount(Timeline.INDEFINITE);
-       // GlobalVaribles.getScrollTimeline().setCycleCount(10);
         scrolltimeline.getKeyFrames().add(new KeyFrame(Duration.millis(20), "Scoll", (ActionEvent) -> { dragScroll();}));
         this.setOnDragExited(event -> {
             if (event.getY() > 0) {
@@ -82,20 +79,17 @@ public class MainView extends ScrollPane {
         this.setOnDragDone(event -> {
             scrolltimeline.stop();
         });
-       // this.setOnDragDropped(event -> {
-        //    GlobalVaribles.stopScrollTimeline();
-       // });
  
         this.setOnMouseMoved(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) { 
-                System.out.println(MainView.this.getVvalue());
-                System.out.println(MainView.this.getHeight());
+                System.out.println(SummaryView.this.getVvalue());
+                System.out.println(SummaryView.this.getHeight());
                 System.out.println(event.getSceneX());
-                if(event.getSceneX()<MainView.this.getHeight()*0.05)
+                if(event.getSceneX()<SummaryView.this.getHeight()*0.05)
                 {
-                    MainView.this.setVvalue(MainView.this.getVvalue());
-                     System.out.println(MainView.this.getVvalue());
-                } else if(event.getSceneX()>MainView.this.getHeight()*0.95)
+                    SummaryView.this.setVvalue(SummaryView.this.getVvalue());
+                     System.out.println(SummaryView.this.getVvalue());
+                } else if(event.getSceneX()>SummaryView.this.getHeight()*0.95)
                 {
                     
                 }
@@ -110,14 +104,8 @@ public class MainView extends ScrollPane {
             verticalLayout.getChildren().add(pw.getContainerNode());
         }
         
-       // ArrayList<SessionView> swl= c.sessionListToSessionViewList(am.getSessions());
-        
-        //for(SessionView sw : swl)
-       // {
-       //     verticalLayout.getChildren().add(sw.getContainerNode());
-       // }
     }
-    public MainView(AplicationModel am)
+    public SummaryView(AplicationModel am)
     {
         this.am=am;
         SetupView();

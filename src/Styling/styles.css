@@ -13,9 +13,6 @@
 }
 
 .vbox {
-/*    -fx-background-image: url("graphics/arrow_t_up_right.png");
-    -fx-background-size: 96, 205;
-    -fx-background-repeat: no-repeat;*/
     -fx-border-color: #2e8b57;
     -fx-border-width: 2px;
     -fx-padding: 10;
@@ -28,21 +25,24 @@
     -fx-spacing: 10;
 }
 
-#hbox-custom {
-/*    -fx-background-image: url("graphics/cloud.png");
-    -fx-background-size: 60,69;
-    -fx-padding: 18 3 18 6;*/
-    -fx-padding: 8;
-    -fx-background-radius: 5.0; 
-}
-
 .flow-tile {
     -fx-padding: 10.0 3.0 5.0 0.0;
     -fx-hgap: 4;
     -fx-vgap: 4;
 }
 
-#button-custom {
-/*    -fx-rotate: 45;*/
-    -fx-text-alignment: center;
+.tableCellDragOverBorderTop {
+    -fx-border-color: lightskyblue;
+    -fx-border-width: 1 0 0 0
+}
+
+.tableCellDragOverBorderBottom {
+    -fx-border-color: lightskyblue;
+    -fx-border-width: 0 0 1 0
+}
+.tableCellSala{
+    -fx-text-alignment:center;
+}
+.tableCellSala TextField{
+    -fx-text-alignment:center;
 }

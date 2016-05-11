@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package licentav2;
+package Views;
 
+import Views.TextEditor;
 import Adaptor.Converter;
 import DataManagment.DataManager;
 import Models.AplicationModel;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import static javafx.application.ConditionalFeature.FXML;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -27,18 +29,18 @@ import javafx.scene.layout.VBox;
  * @author Ronaldo
  */
 public class TableView extends GridPane{
-    private AplicationModel am=null;
-    private DataManager dm=new DataManager();
+    private AplicationModel aplicationModel=null;
+    private DataManager dataManager=new DataManager();
 
     public AplicationModel getAplicationModel() {
-        return am;
+        return aplicationModel;
     }
          
-    public TableView(AplicationModel am)
+    public TableView(AplicationModel aplicationModel)
     {
         super();
-        this.am=am;
-        populateContent(am.getTopics());             
+        this.aplicationModel=aplicationModel;
+        populateContent(aplicationModel.getTopics());             
     }
     
     public void populateContent(ArrayList<TopicModel> topics)
@@ -60,13 +62,13 @@ public class TableView extends GridPane{
         {
             for(int j=0; j<maxCol+1;j++)
             {
-                TableCellView tcw =new TableCellView(this,i,j);
-                this.add(tcw, i, j);
-                matrix[i][j]=tcw;
+                TableCellView tableCellView =new TableCellView(this,i,j);
+                this.add(tableCellView, i, j);
+                matrix[i][j]=tableCellView;
             }       
         }
         
-        Converter c=new Converter();
+        Converter converter=new Converter();
         getChildren().clear();
         
         int colNum=1;
@@ -77,12 +79,12 @@ public class TableView extends GridPane{
             colNum=1;
             for(SessionModel s : p.getSessions())
             {
-                MinimalSessionView sw=c.sessionToMinimalSessionView(s);
+                MinimalSessionView sw=converter.sessionToMinimalSessionView(s);
                 
-                TableCellView tcw=matrix[colNum][rowNum];               
-                tcw.setMinimalSessionView(sw);
+                TableCellView tableCellView=matrix[colNum][rowNum];               
+                tableCellView.setMinimalSessionView(sw);
                 
-                this.add(tcw,rowNum,colNum);
+                this.add(tableCellView,rowNum,colNum);
                 colNum++;
             }
             rowNum++;
@@ -90,20 +92,32 @@ public class TableView extends GridPane{
         
         for(int i=0;i<topics.size();i++)
         {
-             TextEditor te=new TextEditor("Sala"+i);
+             TextEditor textEditor=new TextEditor("Sala"+i);
              
-             TableCellView tcw=matrix[0][i+1];
-             tcw.setContentNode(te);
+             TableCellView tableCellView=matrix[0][i+1];
+             tableCellView.setContentNode(textEditor);
              
-            this.add(tcw, i+1, 0);
+            // textEditor.getStyleClass().add("tableCellSala");
+             textEditor.setAlignment(Pos.CENTER);
+             textEditor.setStyle("-fx-text-fill:white;");
+             //tableCellView.getStyleClass().add("tableCellSala");
+             
+            this.add(tableCellView, i+1, 0);
         }
         
          for(int i=0;i<maxRow; i++)
         {
-            TextEditor te=new TextEditor("10:00-10:00");
-            TableCellView tcw=matrix[i+1][0];
-            tcw.setContentNode(te);
-            this.add(tcw,0,i+1 );
+            TextEditor textEditor=new TextEditor("10:00-10:00");
+            TableCellView tableCellView=matrix[i+1][0];
+            
+          //  textEditor.setStyle("-fx-text-fill:red");
+            tableCellView.setContentNode(textEditor);
+
+            tableCellView.setAlignment(Pos.CENTER);
+          //  tableCellView.setStyle("-fx-background-color: black");
+            //textEditor.setStyle("-fx-text-fill: ladder(background, white 49%, black 50%)");
+            
+            this.add(tableCellView,0,i+1 );
         }
     }
 

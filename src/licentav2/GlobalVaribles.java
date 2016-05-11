@@ -5,6 +5,7 @@
  */
 package licentav2;
 
+import Views.LectureView;
 import Models.SessionModel;
 import Models.TopicModel;
 import java.util.ArrayList;
@@ -23,10 +24,10 @@ public final class GlobalVaribles {
     private static int topicNumber=0;
     
     private static HashMap<Integer,SessionModel> sessionAndNumberMap=new HashMap<Integer,SessionModel>();        
-    private static  HashMap<Integer,DragLecture> dragLectureAndNumberMap=new HashMap<Integer,DragLecture>();
+    private static  HashMap<Integer,LectureView> dragLectureAndNumberMap=new HashMap<Integer,LectureView>();
     private static  HashMap<Integer,TopicModel> topicAndNumberMap=new HashMap<Integer,TopicModel>();
     
-    private static  ArrayList<DragLecture> selectedDragLectures=new ArrayList<DragLecture>();
+    private static  ArrayList<LectureView> selectedDragLectures=new ArrayList<LectureView>();
             
     public static int getLectureNumber() {
         return lectureNumber;
@@ -52,7 +53,7 @@ public final class GlobalVaribles {
         topicNumber = tn;
     }
         
-    public static void addElementToDragLectureAndNumberMap(int lectureNumber, DragLecture dl) {
+    public static void addElementToDragLectureAndNumberMap(int lectureNumber, LectureView dl) {
         dragLectureAndNumberMap.put(lectureNumber, dl);
     }
     
@@ -64,11 +65,11 @@ public final class GlobalVaribles {
         topicAndNumberMap.put(sessionNumber, t);
     }
     
-    public static DragLecture getDragLectureByNumber(int lectureNumber) {
+    public static LectureView getDragLectureByNumber(int lectureNumber) {
         return dragLectureAndNumberMap.get(lectureNumber);
     }
     
-    public static DragLecture getTopicByNumber(int lectureNumber) {
+    public static LectureView getTopicByNumber(int lectureNumber) {
         return dragLectureAndNumberMap.get(lectureNumber);
     }
     
@@ -77,7 +78,7 @@ public final class GlobalVaribles {
     }
     
     public static void removeAllSelected() {
-        for(DragLecture dl:selectedDragLectures)
+        for(LectureView dl:selectedDragLectures)
         {
             dl.getNode().setStyle("-fx-background-color:inherit");
         }
@@ -85,16 +86,16 @@ public final class GlobalVaribles {
         
     }
     
-    public static void addSelected(DragLecture dragLecture) {
+    public static void addSelected(LectureView dragLecture) {
         dragLecture.getNode().setStyle("-fx-background-color:#d6c9c9");
         selectedDragLectures.add(dragLecture);
     }
     
-    public static boolean isSelected(DragLecture dragLecture) {
+    public static boolean isSelected(LectureView dragLecture) {
       return  selectedDragLectures.contains(dragLecture);
     }
     
-    public static ArrayList<DragLecture> getAllSelected() {
+    public static ArrayList<LectureView> getAllSelected() {
       return  selectedDragLectures;
     }   
 }

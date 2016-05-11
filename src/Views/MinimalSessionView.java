@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package licentav2;
+package Views;
 
+import Views.TextEditor;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.input.ClipboardContent;

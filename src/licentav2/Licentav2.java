@@ -5,6 +5,8 @@
  */
 package licentav2;
 
+import Views.TableView;
+import Views.SummaryView;
 import DataProcessing.DataCollector;
 import Models.AplicationModel;
 import java.io.File;
@@ -36,47 +38,29 @@ import javafx.stage.Stage;
  */
 public class Licentav2 extends Application {
     
-    BorderPane border = new BorderPane();
-    AplicationModel am=new AplicationModel();
+    BorderPane borderPane = new BorderPane();
+    AplicationModel aplicationModel=new AplicationModel();
+    Scene scene;
     
     @Override
     public void start(Stage primaryStage) {
         
-        MenuBar mb=createMenu();
-        
-        border.setTop(mb);
-                  
-        border.setCenter(addAnchorPane(addGridPane()));
+        MenuBar menuBar=createMenu();       
+        borderPane.setTop(menuBar);                 
+        borderPane.setCenter(addAnchorPane(addGridPane()));
 
-        Scene scene = new Scene(border);
-// Add a style sheet to the scene        
+        scene = new Scene(borderPane);     
         scene.getStylesheets().add("Styling/layoutstyles.css");
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Layout Sample");
-        primaryStage.show();
                  
-        DataCollector dc= new DataCollector();
+        DataCollector dataCollector= new DataCollector();
           
-
-        am.setTopics(dc.getTopics());
-       // MainView mw=new MainView(am);
-        
-        //TableView tw=new TableView(am);
+        aplicationModel.setTopics(dataCollector.getTopics());
                          
-        //Scene scene = new Scene(mw, 800, 600);
-        
+        //Scene scene = new Scene(mw, 800, 600);        
        // Scene scene = new Scene(tw, 800, 600);
-        
-        
-        
-        //((VBox) scene.getRoot()).getChildren().addAll(mb);
-        
-        
-        
-        
-        
-        
-        
+       
+        primaryStage.setWidth(800);
+        primaryStage.setHeight(600);
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
@@ -128,13 +112,13 @@ public class Licentav2 extends Application {
     
     private void clickViewTimeTable(){
         
-        TableView tw=new TableView(am);
-         border.setCenter(tw);
+        TableView tableView=new TableView(aplicationModel);
+        borderPane.setCenter(tableView);        
     }
     
     private void clickViewSummary(){
-        MainView mw=new MainView(am);
-         border.setCenter(mw);
+        SummaryView mainView=new SummaryView(aplicationModel);
+         borderPane.setCenter(mainView);
     }
     
     private GridPane addGridPane() {
@@ -166,23 +150,7 @@ public class Licentav2 extends Application {
         AnchorPane anchorpane = new AnchorPane();
         anchorpane.getStyleClass().add("pane");
         
-        Button buttonSave = new Button("Save");
-        buttonSave.setId("button-custom");
-        Button buttonCancel = new Button("Exit");
-        buttonCancel.setId("button-custom");
-
-        HBox hb = new HBox();
-//        hb.setPadding(new Insets(0, 10, 10, 10));
-//        hb.setSpacing(10);
-// Use style classes to set properties previously set above (with some changes)        
-        hb.getStyleClass().add("hbox");
-        hb.setId("hbox-custom");
-        hb.getChildren().addAll(buttonSave, buttonCancel);
-
-        anchorpane.getChildren().addAll(grid,hb);
-        // Anchor buttons to bottom right, anchor grid to top
-        AnchorPane.setBottomAnchor(hb, 8.0);
-        AnchorPane.setRightAnchor(hb, 5.0);
+        anchorpane.getChildren().add(grid);
         AnchorPane.setTopAnchor(grid, 10.0);
 
         return anchorpane;
