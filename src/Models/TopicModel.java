@@ -20,8 +20,7 @@ public class TopicModel {
     public TopicModel()
     {
          id=GlobalVaribles.getTopicNumber();
-         GlobalVaribles.addElementToTopicAndNumberMap(id, this);
-         GlobalVaribles.setSessionNumber(GlobalVaribles.getTopicNumber()+1);
+         GlobalVaribles.setTopicNumber(id+1);
     }
     
     public String getTitle() {

@@ -5,24 +5,14 @@
  */
 package Views;
 
-import Views.TextEditor;
 import Adaptor.Converter;
 import DataManagment.DataManager;
 import Models.AplicationModel;
 import Models.TopicModel;
 import Models.SessionModel;
 import java.util.ArrayList;
-import static javafx.application.ConditionalFeature.FXML;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 
 /**
  *

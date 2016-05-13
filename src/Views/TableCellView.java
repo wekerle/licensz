@@ -5,7 +5,6 @@
  */
 package Views;
 
-import Views.TableView;
 import DataManagment.DataManager;
 import Models.SessionModel;
 import javafx.event.EventHandler;
@@ -13,9 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import licentav2.GlobalVaribles;
 
 /**
  *
@@ -120,8 +117,8 @@ public class TableCellView extends VBox {
                     int sourceSessionId=Integer.parseInt(db.getString());
                     int destinationSessionId=TableCellView.this.getMinimalSessionView().getSessionId();
                     
-                    SessionModel s1=GlobalVaribles.getSessionByNumber(sourceSessionId);
-                    SessionModel s2=GlobalVaribles.getSessionByNumber(destinationSessionId);
+                    SessionModel s1=dm.getSessionBySessionId(table.getAplicationModel(),sourceSessionId);
+                    SessionModel s2=dm.getSessionBySessionId(table.getAplicationModel(),destinationSessionId);
                     
                     double centerY=TableCellView.this.getLayoutBounds().getMinY()+TableCellView.this.getHeight()/2;
                     

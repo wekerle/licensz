@@ -32,7 +32,6 @@ public class TextEditor extends VBox {
         public void handle(MouseEvent mouseEvent) {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() == 2){
-                    //System.out.println("Double clicked");
                     textField.setText(text.getText());
                     TextEditor.this.getChildren().remove(text);
                     TextEditor.this.getChildren().add(textField);

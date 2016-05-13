@@ -6,6 +6,7 @@
 package Models;
 
 import java.util.ArrayList;
+import licentav2.GlobalVaribles;
 
 /**
  *
@@ -20,10 +21,15 @@ public class LectureWithDetailsModel{
     private String abstarct;
     private ArrayList<String> keyWords;
     private ArrayList<KeyWordModel> generatedKeyWords;
+    private int id;
 
 
     public int getPageNr() {
         return pageNr;
+    }
+    
+    public int getId() {
+        return id;
     }
 
     public String getTopic() {
@@ -62,9 +68,8 @@ public class LectureWithDetailsModel{
         this.generatedKeyWords = generatedKeyWords;
         this.type=type;
         this.topic=topic;
-    }
-
-
-
-    
+        
+        id=GlobalVaribles.getLectureNumber();
+        GlobalVaribles.setLectureNumber(id+1);
+    }   
 }

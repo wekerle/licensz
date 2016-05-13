@@ -8,7 +8,6 @@ package DataProcessing;
 import Models.KeyWordModel;
 import Models.SessionModel;
 import Models.TopicModel;
-import Models.LectureModel;
 import Models.LectureWithDetailsModel;
 import Models.TermModel;
 import java.io.File;

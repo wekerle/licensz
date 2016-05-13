@@ -5,8 +5,6 @@
  */
 package Views;
 
-import Views.SessionView;
-import Views.TextEditor;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
@@ -21,9 +19,11 @@ public class TopicView {
     private VBox contentNode=new VBox();
     private TextEditor titleView=new TextEditor();
     private VBox containerNode=new VBox();
+    private int id;
     
-    public TopicView(String title)
+    public TopicView(String title,int id)
     {
+        this.id=id;
         titleView.setText(title);
         containerNode.getChildren().add(titleView);
         containerNode.getChildren().add(contentNode);
@@ -36,7 +36,7 @@ public class TopicView {
      public VBox getContainerNode() {
         return containerNode;
     }
-     public void addSessionView(SessionView sw) {
-        this.contentNode.getChildren().add(sw.getContainerNode());
+     public void addSessionView(SessionView sessionView) {
+        this.contentNode.getChildren().add(sessionView.getContainerNode());
     }
 }

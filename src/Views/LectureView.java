@@ -5,19 +5,16 @@
  */
 package Views;
 
-import Views.TextEditor;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import licentav2.GlobalVaribles;
 
 /**
@@ -28,10 +25,10 @@ public class LectureView {
     private TextEditor titleView=new TextEditor();
     private TextEditor authorView=new TextEditor();
     private VBox container=new VBox();
-    private int lectureNumber;
+    private int id;
 
     public int getLectureNumber() {
-        return lectureNumber;
+        return id;
     }
     // ez fugveny 2szer van...... meg kell kerdezzem petert
     private String createListSeparateComma(ArrayList<String> authors)
@@ -50,11 +47,11 @@ public class LectureView {
         return container;
     }
      
-     public LectureView(String title,ArrayList<String> authors)
+     public LectureView(String title,ArrayList<String> authors,int id)
      {
-         lectureNumber=GlobalVaribles.getLectureNumber();
-         GlobalVaribles.addElementToDragLectureAndNumberMap(lectureNumber, this);
-         GlobalVaribles.setLectureNumber(GlobalVaribles.getLectureNumber()+1);                
+         this.id=id;
+         GlobalVaribles.addElementToDragLectureAndNumberMap(id, this);
+         GlobalVaribles.setLectureNumber(id+1);                
          
          titleView.setText(title);
          authorView.setText(createListSeparateComma(authors));
@@ -76,7 +73,7 @@ public class LectureView {
                  
                  ClipboardContent cc =new ClipboardContent();
                                   
-                 cc.putString(Integer.toString(lectureNumber));
+                 cc.putString(Integer.toString(id));
                  db.setContent(cc);
               //   event.consume();
 
@@ -100,7 +97,7 @@ public class LectureView {
      }
      
     public boolean isEqual(LectureView dl){
-      if(dl.getLectureNumber()==this.lectureNumber)
+      if(dl.getLectureNumber()==this.id)
       {
           return true;
       }

@@ -5,17 +5,14 @@
  */
 package Views;
 
-import Views.TextEditor;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 /**
  *
@@ -46,7 +43,6 @@ public class MinimalSessionView extends VBox {
                                   
                  cc.putString(Integer.toString(id));
                  db.setContent(cc);
-                 System.out.println(id);
               //   event.consume();
 
              }

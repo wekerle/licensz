@@ -9,13 +9,9 @@ import Views.TableView;
 import Views.SummaryView;
 import DataProcessing.DataCollector;
 import Models.AplicationModel;
-import java.io.File;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -23,12 +19,9 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
@@ -50,7 +43,7 @@ public class Licentav2 extends Application {
         borderPane.setCenter(addAnchorPane(addGridPane()));
 
         scene = new Scene(borderPane);     
-        scene.getStylesheets().add("Styling/layoutstyles.css");
+        scene.getStylesheets().add("Styling/styles.css");
                  
         DataCollector dataCollector= new DataCollector();
           
@@ -96,15 +89,21 @@ public class Licentav2 extends Application {
  
         // --- Menu View
         Menu menuView = new Menu("View");
-        MenuItem tableMenuItem = new MenuItem("Time Table");
+        MenuItem timeTableMenuItem = new MenuItem("Time Table");
         MenuItem listMenuItem = new MenuItem("Summary");
         
-        tableMenuItem.setOnAction(actionEvent -> clickViewTimeTable());
+        timeTableMenuItem.setOnAction(actionEvent -> clickViewTimeTable());
         listMenuItem.setOnAction(actionEvent -> clickViewSummary());
         
-        menuView.getItems().addAll(tableMenuItem,listMenuItem);
- 
-        menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
+        menuView.getItems().addAll(timeTableMenuItem,listMenuItem);
+        
+        // --- Menu Generate
+        Menu menuGenerate = new Menu("Generate");
+        MenuItem generateHtmlMenuItem = new MenuItem("Generate Html");
+        MenuItem generateLatexMenuItem = new MenuItem("Generate Latex");
+        
+        menuGenerate.getItems().addAll(generateHtmlMenuItem,generateLatexMenuItem);
+        menuBar.getMenus().addAll(menuFile, menuEdit, menuView,menuGenerate);
  
         return menuBar;
 

@@ -6,17 +6,12 @@
 package DataProcessing;
 
 import Models.KeyWordModel;
-import Models.SessionModel;
-import Models.TopicModel;
-import Models.LectureModel;
 import Models.LectureWithDetailsModel;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 /**
  *
@@ -36,7 +31,6 @@ public class LectureReaderFromFile implements LectureReader{
 
         for (int i = 0; i < listOfFiles.length; i++) {
           if (listOfFiles[i].isFile()) {
-            //System.out.println("File " + listOfFiles[i].getName());
             files.add(listOfFiles[i]);
           } 
         }

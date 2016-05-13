@@ -6,13 +6,8 @@
 package licentav2;
 
 import Views.LectureView;
-import Models.SessionModel;
-import Models.TopicModel;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Hashtable;
-import javafx.animation.Timeline;
 
 /**
  *
@@ -22,10 +17,8 @@ public final class GlobalVaribles {
     private static int lectureNumber=0;
     private static int sessionNumber=0;
     private static int topicNumber=0;
-    
-    private static HashMap<Integer,SessionModel> sessionAndNumberMap=new HashMap<Integer,SessionModel>();        
-    private static  HashMap<Integer,LectureView> dragLectureAndNumberMap=new HashMap<Integer,LectureView>();
-    private static  HashMap<Integer,TopicModel> topicAndNumberMap=new HashMap<Integer,TopicModel>();
+          
+    private static HashMap<Integer,LectureView> dragLectureAndNumberMap=new HashMap<Integer,LectureView>();
     
     private static  ArrayList<LectureView> selectedDragLectures=new ArrayList<LectureView>();
             
@@ -53,30 +46,14 @@ public final class GlobalVaribles {
         topicNumber = tn;
     }
         
-    public static void addElementToDragLectureAndNumberMap(int lectureNumber, LectureView dl) {
-        dragLectureAndNumberMap.put(lectureNumber, dl);
+    public static void addElementToDragLectureAndNumberMap(int lectureNumber, LectureView lectureView) {
+        dragLectureAndNumberMap.put(lectureNumber, lectureView);
     }
-    
-    public static void addElementToSessionAndNumberMap(int sessionNumber, SessionModel s) {
-        sessionAndNumberMap.put(sessionNumber, s);
-    }
-    
-    public static void addElementToTopicAndNumberMap(int sessionNumber, TopicModel t) {
-        topicAndNumberMap.put(sessionNumber, t);
-    }
-    
+            
     public static LectureView getDragLectureByNumber(int lectureNumber) {
         return dragLectureAndNumberMap.get(lectureNumber);
     }
-    
-    public static LectureView getTopicByNumber(int lectureNumber) {
-        return dragLectureAndNumberMap.get(lectureNumber);
-    }
-    
-    public static SessionModel getSessionByNumber(int sessionNumber) {
-        return sessionAndNumberMap.get(sessionNumber);
-    }
-    
+            
     public static void removeAllSelected() {
         for(LectureView dl:selectedDragLectures)
         {

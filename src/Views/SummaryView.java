@@ -6,7 +6,6 @@
 package Views;
 
 import Adaptor.Converter;
-import DataProcessing.DataCollector;
 import Models.AplicationModel;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
@@ -82,13 +81,9 @@ public class SummaryView extends ScrollPane {
  
         this.setOnMouseMoved(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) { 
-                System.out.println(SummaryView.this.getVvalue());
-                System.out.println(SummaryView.this.getHeight());
-                System.out.println(event.getSceneX());
                 if(event.getSceneX()<SummaryView.this.getHeight()*0.05)
                 {
                     SummaryView.this.setVvalue(SummaryView.this.getVvalue());
-                     System.out.println(SummaryView.this.getVvalue());
                 } else if(event.getSceneX()>SummaryView.this.getHeight()*0.95)
                 {
                     

@@ -5,10 +5,8 @@
  */
 package Views;
 
-import Views.TextEditor;
 import java.util.ArrayList;
 import java.util.StringJoiner;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.input.DragEvent;
@@ -29,6 +27,7 @@ public class SessionView {
     private TextEditor titleView=new TextEditor();
     private VBox containerNode=new VBox();
     private TextEditor chairView=new TextEditor();
+    private int id;
     
     private String createListSeparateComma(ArrayList<String> chairs)
     {
@@ -42,10 +41,11 @@ public class SessionView {
         return stringJoiner.toString();
     }
     
-    public SessionView(String title,ArrayList<String> chairs)
+    public SessionView(String title,ArrayList<String> chairs,int id)
     {
         titleView.setText(title);
         chairView.setText(createListSeparateComma(chairs));
+        this.id=id;
         
         containerNode.getChildren().add(titleView);
         containerNode.getChildren().add(chairView);
@@ -123,4 +123,8 @@ public class SessionView {
      public void addDragLecture(LectureView dl) {
         this.contentNode.getChildren().add(dl.getNode());
     }             
+
+    public int getId() {
+        return id;
+    }
 }

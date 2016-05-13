@@ -5,7 +5,6 @@
  */
 package Adaptor;
 
-import Models.LectureModel;
 import Models.LectureWithDetailsModel;
 import Models.TopicModel;
 import Models.SessionModel;
@@ -23,12 +22,12 @@ public class Converter {
     
     public LectureView lectureToDragLecture(LectureWithDetailsModel lectureWithDetails)
     {
-       return new LectureView(lectureWithDetails.getTitle(),lectureWithDetails.getAuthors());
+       return new LectureView(lectureWithDetails.getTitle(),lectureWithDetails.getAuthors(),lectureWithDetails.getId());
     }
     
     public SessionView sessionToSessionView(SessionModel session)
     {
-        SessionView sessionView=new SessionView(session.getTitle(),session.getChairs());
+        SessionView sessionView=new SessionView(session.getTitle(),session.getChairs(),session.getId());
         for(LectureWithDetailsModel lecture : session.getLectures())
         {
             sessionView.addDragLecture(lectureToDragLecture(lecture));
@@ -44,7 +43,7 @@ public class Converter {
     
     public TopicView topicToTopicView(TopicModel topic)
     {
-        TopicView topicView=new TopicView(topic.getTitle());
+        TopicView topicView=new TopicView(topic.getTitle(),topic.getId());
         for(SessionModel session : topic.getSessions())
         {
             topicView.addSessionView(sessionToSessionView(session));
