@@ -5,11 +5,13 @@
  */
 package Views;
 
+import Models.TopicModel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import licentav2.TextChangeObserver;
 
 /**
  *
@@ -20,17 +22,26 @@ public class TopicView {
     private TextEditor titleView=new TextEditor();
     private VBox containerNode=new VBox();
     private int id;
+    private TopicModel model;
     
-    public TopicView(String title,int id)
+    public TopicView(TopicModel model)
     {
-        this.id=id;
-        titleView.setText(title);
+        this.model=model;
+        this.id=model.getId();
+        titleView.setText(model.getTitle());
         containerNode.getChildren().add(titleView);
         containerNode.getChildren().add(contentNode);
         
         titleView.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,32));
         titleView.setAlignment(Pos.CENTER);
         containerNode.setPadding(new Insets(16));
+        
+        titleView.setTextChangeObserver(new TextChangeObserver() {
+            @Override
+            public void notifyTextChange() {
+                model.setTitle(titleView.getText());
+            }
+        });
     }
     
      public VBox getContainerNode() {

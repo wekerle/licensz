@@ -40,6 +40,11 @@
     -fx-border-color: lightskyblue;
     -fx-border-width: 0 0 1 0
 }
+
+.backGroundWhite {
+    -fx-background-color: white;
+}
+
 .tableCellSala{
     -fx-text-alignment:center;
 }

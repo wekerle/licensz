@@ -45,4 +45,8 @@ public class SessionModel {
     public ArrayList<String> getChairs() {
         return chairs;
     }
+
+    public void setChairs(ArrayList<String> chairs) {
+        this.chairs = chairs;
+    }
 }

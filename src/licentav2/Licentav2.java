@@ -55,7 +55,7 @@ public class Licentav2 extends Application {
         primaryStage.setWidth(800);
         primaryStage.setHeight(600);
         
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("IEEE Conference Manager");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

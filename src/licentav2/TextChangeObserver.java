@@ -10,6 +10,5 @@ package licentav2;
  * @author Ronaldo
  */
 public interface TextChangeObserver {
-    void notifyTextChange();
-    
+    void notifyTextChange();  
 }

@@ -5,18 +5,23 @@
  */
 package Views;
 
+import Helpers.StringHelper;
+import Models.SessionModel;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.PickResult;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import licentav2.GlobalVaribles;
+import licentav2.TextChangeObserver;
 
 
 /**
@@ -29,24 +34,15 @@ public class SessionView {
     private VBox containerNode=new VBox();
     private TextEditor chairView=new TextEditor();
     private int id;
+    private StringHelper stringHelper=new StringHelper();
+    private SessionModel model;
     
-    private String createListSeparateComma(ArrayList<String> chairs)
+    public SessionView(SessionModel model)
     {
-        //ez csak java 8 -al megy
-        StringJoiner stringJoiner =new StringJoiner(", ");
-        
-        for(String chair : chairs)
-        {
-            stringJoiner.add(chair);
-        }
-        return stringJoiner.toString();
-    }
-    
-    public SessionView(String title,ArrayList<String> chairs,int id)
-    {
-        titleView.setText(title);
-        chairView.setText(createListSeparateComma(chairs));
-        this.id=id;
+        this.model=model;
+        titleView.setText(model.getTitle());
+        chairView.setText(stringHelper.createListSeparateComma(model.getChairs()));
+        this.id=model.getId();
         
         containerNode.getChildren().add(titleView);
         containerNode.getChildren().add(chairView);
@@ -57,35 +53,62 @@ public class SessionView {
         chairView.setFont(new Font(18));
         
         containerNode.setPadding(new Insets(10));
+        
+        titleView.setTextChangeObserver(new TextChangeObserver() {
+            @Override
+            public void notifyTextChange() {
+                model.setTitle(titleView.getText());
+            }
+        });
+        
+        chairView.setTextChangeObserver(new TextChangeObserver(){
+             
+             @Override
+             public void notifyTextChange() {
+                 String text=SessionView.this.chairView.getText();
+                 if(text.contains(";")){
+                     SessionView.this.chairView.setText(stringHelper.createListSeparateComma(SessionView.this.model.getChairs()));
+                     Alert alert=new Alert(Alert.AlertType.ERROR, "The authors name's must be separate with comma");
+                     alert.showAndWait();
+                 } else {
+                    SessionView.this.model.setChairs(stringHelper.createArralyListFromListSeparateComma(SessionView.this.chairView.getText()));
+                 }              
+             }
+         });
+        
         contentNode.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {               
                 if (event.getGestureSource() != contentNode &&
                         event.getDragboard().hasString()) {
                     event.acceptTransferModes(TransferMode.MOVE);
+                    
+                    if(!SessionView.this.containerNode.getStyleClass().contains("backGroundWhite"))
+                    {
+                        SessionView.this.containerNode.getStyleClass().add("backGroundWhite");
+                    }
                 }
-
-              //  event.consume();
             }
         });
-        contentNode.setOnDragEntered(new EventHandler<DragEvent>() {
+        
+        contentNode.setOnDragExited(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
-            /* the drag-and-drop gesture entered the target */
-            /* show to the user that it is an actual gesture target */
-                 if (event.getGestureSource() != contentNode &&
+                 if (event.getGestureSource() != this &&
                          event.getDragboard().hasString()) {
-                    // contentNode.setStyle("-fx-background-color:white");
+
+                         SessionView.this.containerNode.getStyleClass().remove("backGroundWhite");
+
                  }
 
-                // event.consume();
+                 event.consume();
             }
         });
+        
         contentNode.setOnDragDetected(new EventHandler<MouseEvent>() {
 
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("ASDGASDG");
-                
-                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
             }
         });
         contentNode.setOnDragDropped(new EventHandler<DragEvent>() {

@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Helpers.StringHelper;
 import Models.LectureWithDetailsModel;
 import java.util.ArrayList;
 import java.util.StringJoiner;
@@ -31,21 +32,10 @@ public class LectureView {
     private VBox container=new VBox();
     private int id;
     private LectureWithDetailsModel model;
+    private StringHelper stringHelper=new StringHelper();
     
     public int getLectureNumber() {
         return id;
-    }
-    // ez fugveny 2szer van...... meg kell kerdezzem petert
-    private String createListSeparateComma(ArrayList<String> authors)
-    {
-        //ez csak java 8 -al megy
-        StringJoiner stringJoiner =new StringJoiner(", ");
-        
-        for(String author : authors)
-        {
-            stringJoiner.add(author);
-        }
-        return stringJoiner.toString();
     }
 
     public VBox getNode() {
@@ -60,7 +50,7 @@ public class LectureView {
          GlobalVaribles.setLectureNumber(id+1);                
          
          titleView.setText(model.getTitle());
-         authorView.setText(createListSeparateComma(model.getAuthors()));
+         authorView.setText(stringHelper.createListSeparateComma(model.getAuthors()));
          
          container.getChildren().add(titleView);
          container.getChildren().add(authorView);
@@ -81,18 +71,12 @@ public class LectureView {
              @Override
              public void notifyTextChange() {
                  String text=LectureView.this.authorView.getText();
-                 if(text.contains("www")){
-                     //ez az error
-                     LectureView.this.authorView.setText(LectureView.this.model.getAuthors().toString());
-                     Alert alert=new Alert(AlertType.ERROR, "Huje vagy");
+                 if(text.contains(";")){
+                     LectureView.this.authorView.setText(stringHelper.createListSeparateComma(LectureView.this.model.getAuthors()));
+                     Alert alert=new Alert(AlertType.ERROR, "The authors name's must be separate with comma");
                      alert.showAndWait();
                  } else {
-                     // ok
-                     ArrayList<String> test=new ArrayList<String>();
-                     test.add("sanyika");
-                     test.add("tibisor");
-                     test.add("malac");
-                    LectureView.this.model.setAuthors(test);
+                    LectureView.this.model.setAuthors(stringHelper.createArralyListFromListSeparateComma(LectureView.this.authorView.getText()));
                  }              
              }
          });

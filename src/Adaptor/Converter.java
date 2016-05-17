@@ -27,7 +27,7 @@ public class Converter {
     
     public SessionView sessionToSessionView(SessionModel session)
     {
-        SessionView sessionView=new SessionView(session.getTitle(),session.getChairs(),session.getId());
+        SessionView sessionView=new SessionView(session);
         for(LectureWithDetailsModel lecture : session.getLectures())
         {
             sessionView.addLectureView(lectureToLectureView(lecture));
@@ -37,13 +37,13 @@ public class Converter {
     
     public MinimalSessionView sessionToMinimalSessionView(SessionModel session)
     {
-        MinimalSessionView minimalSessionView=new MinimalSessionView(session.getTitle(),session.getId());
+        MinimalSessionView minimalSessionView=new MinimalSessionView(session);
         return minimalSessionView;
     }
     
     public TopicView topicToTopicView(TopicModel topic)
     {
-        TopicView topicView=new TopicView(topic.getTitle(),topic.getId());
+        TopicView topicView=new TopicView(topic);
         for(SessionModel session : topic.getSessions())
         {
             topicView.addSessionView(sessionToSessionView(session));
