@@ -11,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -78,7 +79,15 @@ public class SessionView {
                 // event.consume();
             }
         });
-        
+        contentNode.setOnDragDetected(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("ASDGASDG");
+                
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
         contentNode.setOnDragDropped(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 /* data dropped */
@@ -98,12 +107,12 @@ public class SessionView {
                     }
                     if(!exist)
                     {
-                        addDragLecture(dl);
+                        addLectureView(dl);
                     }
                                         
                     for(LectureView dragLec: GlobalVaribles.getAllSelected())
                     {
-                        addDragLecture(dragLec);
+                        addLectureView(dragLec);
                     }
                     GlobalVaribles.removeAllSelected();
                    success = true;
@@ -120,7 +129,7 @@ public class SessionView {
     public VBox getContainerNode() {
         return containerNode;
     }
-     public void addDragLecture(LectureView dl) {
+     public void addLectureView(LectureView dl) {
         this.contentNode.getChildren().add(dl.getNode());
     }             
 

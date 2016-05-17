@@ -20,9 +20,9 @@ import Views.SessionView;
  */
 public class Converter {
     
-    public LectureView lectureToDragLecture(LectureWithDetailsModel lectureWithDetails)
+    public LectureView lectureToLectureView(LectureWithDetailsModel model)
     {
-       return new LectureView(lectureWithDetails.getTitle(),lectureWithDetails.getAuthors(),lectureWithDetails.getId());
+       return new LectureView(model);
     }
     
     public SessionView sessionToSessionView(SessionModel session)
@@ -30,7 +30,7 @@ public class Converter {
         SessionView sessionView=new SessionView(session.getTitle(),session.getChairs(),session.getId());
         for(LectureWithDetailsModel lecture : session.getLectures())
         {
-            sessionView.addDragLecture(lectureToDragLecture(lecture));
+            sessionView.addLectureView(lectureToLectureView(lecture));
         }
        return sessionView;
     }

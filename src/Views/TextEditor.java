@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import licentav2.TextChangeObserver;
 
 /**
  *
@@ -22,6 +23,11 @@ import javafx.scene.text.Text;
 public class TextEditor extends VBox {
     private TextField textField=new TextField();
     private Text text=new Text();
+    private TextChangeObserver textChangeObserver;
+
+    public void setTextChangeObserver(TextChangeObserver textChangeObserver) {
+        this.textChangeObserver = textChangeObserver;
+    }
 
     public TextEditor()
     {
@@ -55,6 +61,10 @@ public class TextEditor extends VBox {
                     text.setText(textField.getText());
                     TextEditor.this.getChildren().remove(textField);
                     TextEditor.this.getChildren().add(text);
+                    if(textChangeObserver!=null)
+                    {
+                        textChangeObserver.notifyTextChange();
+                    }
                 }
             }
         });

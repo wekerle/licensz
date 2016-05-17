@@ -72,4 +72,12 @@ public class LectureWithDetailsModel{
         id=GlobalVaribles.getLectureNumber();
         GlobalVaribles.setLectureNumber(id+1);
     }   
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthors(ArrayList<String> authors) {
+        this.authors = authors;
+    }
 }
