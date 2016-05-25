@@ -9,6 +9,12 @@ import Views.TableView;
 import Views.SummaryView;
 import DataProcessing.DataCollector;
 import Models.AplicationModel;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -22,6 +28,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
@@ -33,7 +41,9 @@ public class Licentav2 extends Application {
     
     BorderPane borderPane = new BorderPane();
     AplicationModel aplicationModel=new AplicationModel();
+    DataCollector dataCollector= new DataCollector(); 
     Scene scene;
+    Stage stage=null;
     
     @Override
     public void start(Stage primaryStage) {
@@ -41,17 +51,11 @@ public class Licentav2 extends Application {
         MenuBar menuBar=createMenu();       
         borderPane.setTop(menuBar);                 
         borderPane.setCenter(addAnchorPane(addGridPane()));
+        stage=primaryStage;
 
         scene = new Scene(borderPane);     
         scene.getStylesheets().add("Styling/styles.css");
-                 
-        DataCollector dataCollector= new DataCollector();
-          
-        aplicationModel.setTopics(dataCollector.getTopics());
-                         
-        //Scene scene = new Scene(mw, 800, 600);        
-       // Scene scene = new Scene(tw, 800, 600);
-       
+                                                     
         primaryStage.setWidth(800);
         primaryStage.setHeight(600);
         
@@ -81,12 +85,25 @@ public class Licentav2 extends Application {
         MenuItem exitMenuItem = new MenuItem("Exit");
         exitMenuItem.setOnAction(actionEvent -> Platform.exit());
         
+        if(dataCollector.getPathToThesaurus()==null)
+        {
+            newMenuItem.setDisable(true);
+        }
+       
         menuFile.getItems().addAll(newMenuItem,loadMenuItem, saveMenuItem,
         new SeparatorMenuItem(), exitMenuItem);
-    
-        // --- Menu Edit
-        Menu menuEdit = new Menu("Edit");
- 
+        
+        newMenuItem.setOnAction(actionEvent -> clickNew());
+        saveMenuItem.setOnAction(actionEvent -> clickSave());
+        loadMenuItem.setOnAction(actionEvent -> clickLoad());
+        
+        // --- Menu Settings
+        Menu menuSettings = new Menu("Settings");
+        MenuItem pathToThesaurusMenuItem = new MenuItem("Path to thesaurus");
+        
+        menuSettings.getItems().add(pathToThesaurusMenuItem);
+        pathToThesaurusMenuItem.setOnAction(actionEvent -> clickPathToThesaurus(newMenuItem));
+                
         // --- Menu View
         Menu menuView = new Menu("View");
         MenuItem timeTableMenuItem = new MenuItem("Time Table");
@@ -103,7 +120,7 @@ public class Licentav2 extends Application {
         MenuItem generateLatexMenuItem = new MenuItem("Generate Latex");
         
         menuGenerate.getItems().addAll(generateHtmlMenuItem,generateLatexMenuItem);
-        menuBar.getMenus().addAll(menuFile, menuEdit, menuView,menuGenerate);
+        menuBar.getMenus().addAll(menuFile,menuSettings, menuView,menuGenerate);
  
         return menuBar;
 
@@ -118,6 +135,94 @@ public class Licentav2 extends Application {
     private void clickViewSummary(){
         SummaryView mainView=new SummaryView(aplicationModel);
          borderPane.setCenter(mainView);
+    }
+    
+    private void clickNew(){
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            directoryChooser.setTitle("IEEE Conference");
+                        
+            File file = directoryChooser.showDialog(stage);
+            if (file != null) {
+                
+                String path=file.getPath();                                      
+                dataCollector.setPathToFolderWithFiles(path);                
+                aplicationModel.setTopics(dataCollector.getTopics());
+            }
+    }
+    
+     private void clickSave(){       
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save IEEE Conference");
+            
+            fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("ser", "*.ser")
+            );
+            
+            File file = fileChooser.showSaveDialog(stage);
+            if (file != null) {
+                try {
+                    String path=file.getPath();
+                    
+                    FileOutputStream fileOut = new FileOutputStream(path);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    
+                    out.writeObject(aplicationModel);
+                    out.close();
+                    
+                    fileOut.close();
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }      
+    }
+     
+    private void clickLoad(){       
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Load IEEE Conference");
+            
+            fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("ser", "*.ser")
+            );
+            
+            File file = fileChooser.showOpenDialog(stage);
+            if (file != null) {
+                String path=file.getPath();
+                AplicationModel aplicationModel = null;
+                try
+                {
+                   FileInputStream fileIn = new FileInputStream(path);
+                   ObjectInputStream in = new ObjectInputStream(fileIn);
+                   aplicationModel = (AplicationModel) in.readObject();
+                   this.aplicationModel=aplicationModel;
+                   
+                   in.close();
+                   fileIn.close();
+                }catch(IOException i)
+                {
+                   i.printStackTrace();
+                   return;
+                }catch(ClassNotFoundException c)
+                {
+                   System.out.println("Employee class not found");
+                   c.printStackTrace();
+                   return;
+                }
+            }      
+    }
+    
+    private void clickPathToThesaurus(MenuItem newMenuItem){       
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Path to thesaurus");
+            
+            fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("txt", "*.txt")
+            );
+            
+            File file = fileChooser.showOpenDialog(stage);
+            if (file != null) {
+                dataCollector.setPathToThesaurus(file.getPath());
+                newMenuItem.setDisable(false);
+            }      
     }
     
     private GridPane addGridPane() {
@@ -138,7 +243,10 @@ public class Licentav2 extends Application {
                 +"-5th row: keywords separated with comma\n"
                 +"-6th row: generated keywords separated with comma\n"
                 +"-7th row: topic\n"
-                +"-8th row: the abstract\n");
+                +"-8th row: the abstract\n"
+                +"\n"
+                +"Note:\n"
+                +"If you want to select 'new' from 'file' menu, first you must select the path to file iie_thesaurus in the 'settings' menu\n");
         grid.add(chartSubtitle, 1, 1, 2, 1);
         
         return grid;

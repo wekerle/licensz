@@ -17,7 +17,7 @@ public final class GlobalVaribles {
     private static int lectureNumber=0;
     private static int sessionNumber=0;
     private static int topicNumber=0;
-          
+   
     private static HashMap<Integer,LectureView> dragLectureAndNumberMap=new HashMap<Integer,LectureView>();
     
     private static  ArrayList<LectureView> selectedDragLectures=new ArrayList<LectureView>();
@@ -75,4 +75,5 @@ public final class GlobalVaribles {
     public static ArrayList<LectureView> getAllSelected() {
       return  selectedDragLectures;
     }   
+       
 }

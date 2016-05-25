@@ -5,6 +5,7 @@
  */
 package Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import licentav2.GlobalVaribles;
 
@@ -12,7 +13,7 @@ import licentav2.GlobalVaribles;
  *
  * @author Ronaldo
  */
-public class TopicModel {
+public class TopicModel implements Serializable{
     private String title;
     private ArrayList<SessionModel> sessions=new ArrayList<SessionModel>();
     private int id;

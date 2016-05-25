@@ -29,15 +29,14 @@ public class DataCollector{
     private HashMap<String,TermModel> terms= new  HashMap<String,TermModel>();
     private HashMap<LectureWithDetailsModel,ArrayList<String>> lectureWithSimilaritySet= new  HashMap<LectureWithDetailsModel,ArrayList<String>>();
     private ArrayList<LectureWithDetailsModel> lectures = new  ArrayList<LectureWithDetailsModel>();
+    private String pathToFolderWithFiles=null;
+    private String pathToThesaurus=null;
     
     private ArrayList<LectureWithDetailsModel>  getLecturesFromfiles()
     {
         ArrayList<LectureWithDetailsModel> lectures=new ArrayList<LectureWithDetailsModel>();
-        // laptop
-       // LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\Ronaldo\\Desktop\\licenszGit2\\licensz\\data\\generated");
-        
-        //munkaba
-        LectureReaderFromFile lrff=new LectureReaderFromFile("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\generated");
+
+        LectureReaderFromFile lrff=new LectureReaderFromFile(this.pathToFolderWithFiles);
         
         while(lrff.readNext())
         {
@@ -101,10 +100,8 @@ public class DataCollector{
         if(terms==null)
         {
             HashMap<String,TermModel> terms=new HashMap<String,TermModel>();
-            // laptop
-              //   File file = new File("C:\\Users\\Ronaldo\\Desktop\\licenszGit2\\licensz\\data\\ieee_thesaurus_2013.txt");
-            //munkaba
-            File file = new File("C:\\Users\\tibor.wekerle\\Desktop\\licenszeGit\\licensz\\data\\ieee_thesaurus_2013.txt");
+            
+            File file = new File(this.pathToThesaurus);
             terms=new TermReaderFromFile().readTermsFromFile(file);
         
         }
@@ -262,4 +259,15 @@ public class DataCollector{
         return topics;
     }
 
+    public void setPathToFolderWithFiles(String pathToFolderWithFiles) {
+        this.pathToFolderWithFiles = pathToFolderWithFiles;
+    }
+
+    public String getPathToThesaurus() {
+        return pathToThesaurus;
+    }
+
+    public void setPathToThesaurus(String pathToThesaurus) {
+        this.pathToThesaurus = pathToThesaurus;
+    }      
 }

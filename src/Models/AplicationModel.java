@@ -5,13 +5,14 @@
  */
 package Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Ronaldo
  */
-public class AplicationModel {
+public class AplicationModel implements Serializable {
     private ArrayList<TopicModel> topics=new ArrayList<TopicModel>();
         
     public void setTopics(ArrayList<TopicModel> topics)

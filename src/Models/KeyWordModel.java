@@ -5,11 +5,13 @@
  */
 package Models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ronaldo
  */
-public class KeyWordModel {
+public class KeyWordModel implements Serializable{
      private String keyWord;
      private int nrApparances;
 
