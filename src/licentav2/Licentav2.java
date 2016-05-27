@@ -15,9 +15,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Optional;
 import javafx.application.Application;
-import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -30,7 +34,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 /**
@@ -42,7 +48,7 @@ public class Licentav2 extends Application {
     BorderPane borderPane = new BorderPane();
     AplicationModel aplicationModel=new AplicationModel();
     DataCollector dataCollector= new DataCollector(); 
-    Scene scene;
+    Scene scene=new Scene(borderPane);
     Stage stage=null;
     
     @Override
@@ -52,8 +58,7 @@ public class Licentav2 extends Application {
         borderPane.setTop(menuBar);                 
         borderPane.setCenter(addAnchorPane(addGridPane()));
         stage=primaryStage;
-
-        scene = new Scene(borderPane);     
+    
         scene.getStylesheets().add("Styling/styles.css");
                                                      
         primaryStage.setWidth(800);
@@ -62,8 +67,35 @@ public class Licentav2 extends Application {
         primaryStage.setTitle("IEEE Conference Manager");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        stage.setOnCloseRequest(confirmCloseEventHandler);
+                
     }
-       
+    
+    private EventHandler<WindowEvent> confirmCloseEventHandler = event -> {
+        if(aplicationModel.hasModification())
+        {
+            Alert closeConfirmation = new Alert(
+                Alert.AlertType.CONFIRMATION,                
+                        "Press Exit to close the application, or press Cancel to say on and go to save it."
+            );
+            Button exitButton = (Button) closeConfirmation.getDialogPane().lookupButton(
+                    ButtonType.OK
+            );
+            exitButton.setText("Exit");
+            closeConfirmation.setHeaderText(" You have some unsaved changes that will be lost if you decide to exit.\n Are you sure you want to exit?\n");
+            closeConfirmation.initModality(Modality.APPLICATION_MODAL);
+            closeConfirmation.initOwner(stage);
+
+            Optional<ButtonType> closeResponse = closeConfirmation.showAndWait();
+            if (!ButtonType.OK.equals(closeResponse.get())) {
+                event.consume();
+            }
+        }
+        
+    };
+
+    
     /**
      * @param args the command line arguments
      */
@@ -83,7 +115,13 @@ public class Licentav2 extends Application {
         MenuItem loadMenuItem = new MenuItem("Load");
         MenuItem saveMenuItem = new MenuItem("Save");
         MenuItem exitMenuItem = new MenuItem("Exit");
-        exitMenuItem.setOnAction(actionEvent -> Platform.exit());
+        exitMenuItem.setOnAction(actionEvent ->
+                stage.fireEvent(
+                        new WindowEvent(
+                                stage,
+                                WindowEvent.WINDOW_CLOSE_REQUEST
+                        )
+                ));
         
         if(dataCollector.getPathToThesaurus()==null)
         {
@@ -108,20 +146,22 @@ public class Licentav2 extends Application {
         Menu menuView = new Menu("View");
         MenuItem timeTableMenuItem = new MenuItem("Time Table");
         MenuItem listMenuItem = new MenuItem("Summary");
+        MenuItem homeMenuItem = new MenuItem("Home");
         
         timeTableMenuItem.setOnAction(actionEvent -> clickViewTimeTable());
         listMenuItem.setOnAction(actionEvent -> clickViewSummary());
+        homeMenuItem.setOnAction(actionEvent -> start(stage));
         
-        menuView.getItems().addAll(timeTableMenuItem,listMenuItem);
+        menuView.getItems().addAll(timeTableMenuItem,listMenuItem,new SeparatorMenuItem(),homeMenuItem);
         
         // --- Menu Generate
         Menu menuGenerate = new Menu("Generate");
         MenuItem generateHtmlMenuItem = new MenuItem("Generate Html");
         MenuItem generateLatexMenuItem = new MenuItem("Generate Latex");
-        
+                
         menuGenerate.getItems().addAll(generateHtmlMenuItem,generateLatexMenuItem);
         menuBar.getMenus().addAll(menuFile,menuSettings, menuView,menuGenerate);
- 
+                  
         return menuBar;
 
     }

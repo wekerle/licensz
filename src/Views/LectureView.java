@@ -7,8 +7,6 @@ package Views;
 
 import Helpers.StringHelper;
 import Models.LectureWithDetailsModel;
-import java.util.ArrayList;
-import java.util.StringJoiner;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;

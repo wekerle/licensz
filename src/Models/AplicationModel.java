@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 public class AplicationModel implements Serializable {
     private ArrayList<TopicModel> topics=new ArrayList<TopicModel>();
+    private boolean hasModification=true;
         
     public void setTopics(ArrayList<TopicModel> topics)
     {
@@ -23,5 +24,12 @@ public class AplicationModel implements Serializable {
     public ArrayList<TopicModel> getTopics() {
         return this.topics;
     }
-    
+
+    public boolean hasModification() {
+        return hasModification;
+    }
+
+    public void setHasModification(boolean hasModification) {
+        this.hasModification = hasModification;
+    }        
 }

@@ -7,15 +7,12 @@ package Views;
 
 import Helpers.StringHelper;
 import Models.SessionModel;
-import java.util.ArrayList;
-import java.util.StringJoiner;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.PickResult;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
