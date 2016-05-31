@@ -13,6 +13,7 @@ import Views.LectureView;
 import Views.MinimalSessionView;
 import Views.TopicView;
 import Views.SessionView;
+import licentav2.LectureDragEventListener;
 
 /**
  *
@@ -25,12 +26,13 @@ public class Converter {
        return new LectureView(model);
     }
     
-    public SessionView sessionToSessionView(SessionModel session)
+    public SessionView sessionToSessionView(SessionModel session,LectureDragEventListener lectureDragEvent)
     {
         SessionView sessionView=new SessionView(session);
+        sessionView.setLectureDragEvent(lectureDragEvent);
         for(LectureWithDetailsModel lecture : session.getLectures())
         {
-            sessionView.addLectureView(lectureToLectureView(lecture));
+            sessionView.addLectureView(lectureToLectureView(lecture));           
         }
        return sessionView;
     }
@@ -41,34 +43,24 @@ public class Converter {
         return minimalSessionView;
     }
     
-    public TopicView topicToTopicView(TopicModel topic)
+    public TopicView topicToTopicView(TopicModel topic,LectureDragEventListener lectureDragEvent)
     {
         TopicView topicView=new TopicView(topic);
+        topicView.setLectureDragEvent(lectureDragEvent);
         for(SessionModel session : topic.getSessions())
         {
-            topicView.addSessionView(sessionToSessionView(session));
+            topicView.addSessionView(sessionToSessionView(session,topicView));
         }
        return topicView;
     }
     
-    public ArrayList<SessionView> sessionListToSessionViewList(ArrayList<SessionModel> sessions)
-    {
-        ArrayList<SessionView> sessionViewList=new ArrayList<SessionView>();
-        
-        for(SessionModel session : sessions)
-        {
-            sessionViewList.add(sessionToSessionView(session));
-        }
-       return sessionViewList;
-    }
-    
-    public ArrayList<TopicView> topicListToTopicViewList(ArrayList<TopicModel> topics)
+    public ArrayList<TopicView> topicListToTopicViewList(ArrayList<TopicModel> topics,LectureDragEventListener lectureDragEvent)
     {
         ArrayList<TopicView> topicViewList=new ArrayList<TopicView>();
         
         for(TopicModel topic : topics)
         {
-            topicViewList.add(topicToTopicView(topic));
+            topicViewList.add(topicToTopicView(topic,lectureDragEvent));
         }
        return topicViewList;
     }

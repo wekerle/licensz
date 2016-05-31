@@ -42,7 +42,13 @@ public class TextEditor extends VBox {
                     TextEditor.this.getChildren().remove(text);
                     TextEditor.this.getChildren().add(textField);
                     textField.requestFocus();                                        
+                }else
+                {
+                    // azert csinaltam hogy veszitse el a texteditor a focust
+                    text.requestFocus();
                 }
+            }else{
+                text.requestFocus();
             }
         }
         });

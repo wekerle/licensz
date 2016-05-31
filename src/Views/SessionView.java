@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import licentav2.GlobalVaribles;
+import licentav2.LectureDragEventListener;
 import licentav2.TextChangeObserver;
 
 
@@ -33,6 +34,11 @@ public class SessionView {
     private int id;
     private StringHelper stringHelper=new StringHelper();
     private SessionModel model;
+    private LectureDragEventListener lectureDragEvent;
+
+    public void setLectureDragEvent(LectureDragEventListener lectureDragEvent) {
+        this.lectureDragEvent = lectureDragEvent;
+    }
     
     public SessionView(SessionModel model)
     {
@@ -117,6 +123,15 @@ public class SessionView {
                 if (db.hasString()) {
                     
                     boolean exist=false;
+                    
+                    
+                    int lectureId=Integer.parseInt(db.getString());
+                    int sessionId=SessionView.this.id;
+                    
+                    if(SessionView.this.lectureDragEvent!=null){
+                        lectureDragEvent.notify(sessionId, lectureId);
+                    }
+                    
                     LectureView dl= GlobalVaribles.getDragLectureByNumber(Integer.parseInt(db.getString()));
                     for(LectureView dragLec: GlobalVaribles.getAllSelected())
                     {

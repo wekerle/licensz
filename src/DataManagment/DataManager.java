@@ -142,4 +142,9 @@ public class DataManager {
         return null;
     }
     
+    public void moveLectureToSession(AplicationModel am,int sessionId,int lectureId)
+    {               
+        int x=0;
+    }
+    
 }

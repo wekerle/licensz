@@ -80,20 +80,9 @@ public class TableCellView extends VBox {
                         TableCellView.this.getStyleClass().remove("tableCellDragOverBorderTop");
                     }
                 }
-                event.consume();
             }
         });
-        
-        this.setOnDragEntered(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                 if (event.getGestureSource() != this &&
-                         event.getDragboard().hasString()) {
-                 // TableCellView.this.getStyleClass().add("tableCellDragOverBorderTop");
-                 }
-              //  event.consume();
-            }
-        });
-        
+                
         this.setOnDragExited(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                  if (event.getGestureSource() != this &&
@@ -103,8 +92,6 @@ public class TableCellView extends VBox {
                          TableCellView.this.getStyleClass().remove("tableCellDragOverBorderBottom");
 
                  }
-
-                 event.consume();
             }
         });
         
@@ -132,8 +119,6 @@ public class TableCellView extends VBox {
                    success = true;
                 }
                 event.setDropCompleted(success);
-
-                event.consume();
              }
         });
                   

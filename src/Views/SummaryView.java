@@ -6,6 +6,7 @@
 package Views;
 
 import Adaptor.Converter;
+import DataManagment.DataManager;
 import Models.AplicationModel;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
@@ -18,12 +19,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import licentav2.LectureDragEventListener;
 
 /**
  *
  * @author Ronaldo
  */
-public class SummaryView extends ScrollPane {
+public class SummaryView extends ScrollPane implements LectureDragEventListener{
         
     private double scrollDirection = 0;
     private VBox verticalLayout =  new VBox();
@@ -92,7 +94,7 @@ public class SummaryView extends ScrollPane {
             }
         });
         
-         ArrayList<TopicView> pwl= c.topicListToTopicViewList(am.getTopics());
+         ArrayList<TopicView> pwl= c.topicListToTopicViewList(am.getTopics(),this);
         
         for(TopicView pw : pwl)
         {
@@ -105,6 +107,11 @@ public class SummaryView extends ScrollPane {
         this.am=am;
         SetupView();
         this.setContent(verticalLayout);
+    }
+
+    @Override
+    public void notify(int sessionId, int lectureId) {
+        new DataManager().moveLectureToSession(am, sessionId, lectureId);
     }
     
 }
