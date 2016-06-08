@@ -14,9 +14,9 @@ import java.util.HashMap;
  * @author Ronaldo
  */
 public final class GlobalVaribles {
-    private static int lectureNumber=0;
-    private static int sessionNumber=0;
-    private static int topicNumber=0;
+    private static int lectureNumber=1;
+    private static int sessionNumber=1;
+    private static int topicNumber=1;
    
     private static HashMap<Integer,LectureView> dragLectureAndNumberMap=new HashMap<Integer,LectureView>();
     

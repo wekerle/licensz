@@ -20,7 +20,7 @@ import javafx.scene.layout.GridPane;
  */
 public class TableView extends GridPane{
     private AplicationModel aplicationModel=null;
-    private DataManager dataManager=new DataManager();
+    private DataManager dataManager=null;
 
     public AplicationModel getAplicationModel() {
         return aplicationModel;
@@ -30,6 +30,7 @@ public class TableView extends GridPane{
     {
         super();
         this.aplicationModel=aplicationModel;
+        dataManager=new DataManager(aplicationModel);
         populateContent(aplicationModel.getTopics());             
     }
     

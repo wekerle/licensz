@@ -5,14 +5,12 @@
  */
 package Views;
 
-import Models.TopicModel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import licentav2.LectureDragEventListener;
-import licentav2.TextChangeObserver;
+import Observer.LectureDragEventListener;
 
 /**
  *
@@ -22,19 +20,17 @@ public class TopicView implements LectureDragEventListener {
     private VBox contentNode=new VBox();
     private TextEditor titleView=new TextEditor();
     private VBox containerNode=new VBox();
-    private int id;
-    private TopicModel model;
+    private int topicId;
     private LectureDragEventListener lectureDragEvent;
 
     public void setLectureDragEvent(LectureDragEventListener lectureDragEvent) {
         this.lectureDragEvent = lectureDragEvent;
     }
     
-    public TopicView(TopicModel model)
+    public TopicView(String title,int id)
     {
-        this.model=model;
-        this.id=model.getId();
-        titleView.setText(model.getTitle());
+        this.topicId=id;
+        titleView.setText(title);
         containerNode.getChildren().add(titleView);
         containerNode.getChildren().add(contentNode);
         
@@ -42,12 +38,12 @@ public class TopicView implements LectureDragEventListener {
         titleView.setAlignment(Pos.CENTER);
         containerNode.setPadding(new Insets(16));
         
-        titleView.setTextChangeObserver(new TextChangeObserver() {
+        /*titleView.setTextChangeObserver(new TextChangeLectureAuthorsObserver() {
             @Override
             public void notifyTextChange() {
                 model.setTitle(titleView.getText());
             }
-        });
+        });*/
     }
     
      public VBox getContainerNode() {

@@ -16,9 +16,11 @@ import Models.TopicModel;
  */
 public class DataManager {
     
+    private AplicationModel aplicationModel=null;
+    
     // <editor-fold desc="private region" defaultstate="collapsed">
     
-    private TopicModel getTopicIdBySessionId(AplicationModel aplicationModel,int sessionId)
+    private TopicModel getTopicIdBySessionId(int sessionId)
     {
         for(TopicModel topic :aplicationModel.getTopics())
         {
@@ -33,7 +35,68 @@ public class DataManager {
         return null;
     }
     
-    private int getSessionPositionIdBySessionId(AplicationModel aplicationModel,int sessionId)
+    private SessionModel getSessionById(int sessionId)
+    {
+        for(TopicModel topic :aplicationModel.getTopics())
+        {
+            for(SessionModel session:topic.getSessions())
+            {
+                if(session.getId()==sessionId)
+                {
+                    return session;
+                }
+            }
+        }
+        return null;
+    }
+    
+    private SessionModel getSessionByLectureId(int lectureId)
+    {
+        for(TopicModel topic :aplicationModel.getTopics())
+        {
+            for(SessionModel session:topic.getSessions())
+            {
+                for(LectureWithDetailsModel lecture:session.getLectures())
+                {
+                    if(lecture.getId()==lectureId)
+                    {
+                        return session;
+                    }
+                }                
+            }
+        }
+        return null;
+    }
+    
+    private LectureWithDetailsModel getLectureById(int lectureId)
+    {
+        for(TopicModel topic :aplicationModel.getTopics())
+        {
+            for(SessionModel session:topic.getSessions())
+            {
+                for(LectureWithDetailsModel lecture:session.getLectures())
+                {
+                    if(lecture.getId()==lectureId)
+                    {
+                        return lecture;
+                    }
+                }                
+            }
+        }
+        return null;
+    }
+    
+    private void addLectureToSession(SessionModel session,LectureWithDetailsModel lecture)
+    {
+        session.getLectures().add(lecture);
+    }
+    
+    private void removeLectureFromSession(SessionModel session,LectureWithDetailsModel lecture)
+    {
+        session.getLectures().remove(lecture);
+    }
+    
+    private int getSessionPositionIdBySessionId(int sessionId)
     {
         for(TopicModel topic :aplicationModel.getTopics())
         {
@@ -50,7 +113,12 @@ public class DataManager {
         
     //</editor-fold>
     
-    public AplicationModel addSessionToTopic(AplicationModel aplicationModel, TopicModel topicModel,SessionModel session, int position)
+    public DataManager(AplicationModel aplicationModel)
+    {
+        this.aplicationModel=aplicationModel;
+    }
+    
+    public void addSessionToTopic(TopicModel topicModel,SessionModel session, int position)
     {               
         for(TopicModel topic :aplicationModel.getTopics())
         {
@@ -64,12 +132,10 @@ public class DataManager {
                     topic.getSessions().add(position, session);
                 }
             }
-        }
-        
-        return aplicationModel;
+        }       
     }
     
-    public AplicationModel removeSessionFromTopic(AplicationModel aplicationModel, TopicModel topicModel, SessionModel session)
+    public void removeSessionFromTopic(TopicModel topicModel, SessionModel session)
     {     
         for(TopicModel topic :aplicationModel.getTopics())
         {
@@ -78,37 +144,33 @@ public class DataManager {
                 topic.getSessions().remove(session);
             }
         }
-        
-        return aplicationModel;
     }
     
-    public AplicationModel moveSession2BeforeSession1(AplicationModel am,  SessionModel s1,SessionModel s2)
+    public void moveSession2BeforeSession1(SessionModel s1,SessionModel s2)
     {               
-        TopicModel t1=getTopicIdBySessionId(am, s1.getId());
-        TopicModel t2=getTopicIdBySessionId(am, s2.getId());
-        int session1Position=getSessionPositionIdBySessionId(am, s1.getId());
+        TopicModel t1=getTopicIdBySessionId(s1.getId());
+        TopicModel t2=getTopicIdBySessionId(s2.getId());
+        int session1Position=getSessionPositionIdBySessionId(s1.getId());
         
-        am=removeSessionFromTopic(am, t2, s2);
-        am=addSessionToTopic(am, t1, s2, session1Position);
+        removeSessionFromTopic(t2, s2);
+        addSessionToTopic(t1, s2, session1Position);
         
-        return am;
     }
     
-    public AplicationModel moveSession2AfterSession1(AplicationModel am,  SessionModel s1,SessionModel s2)
+    public void moveSession2AfterSession1(SessionModel s1,SessionModel s2)
     {               
-        TopicModel t1=getTopicIdBySessionId(am, s1.getId());
-        TopicModel t2=getTopicIdBySessionId(am, s2.getId());
-        int session1Position=getSessionPositionIdBySessionId(am, s1.getId());
+        TopicModel t1=getTopicIdBySessionId(s1.getId());
+        TopicModel t2=getTopicIdBySessionId(s2.getId());
+        int session1Position=getSessionPositionIdBySessionId(s1.getId());
         
-        am=removeSessionFromTopic(am, t2, s2);
-        am=addSessionToTopic(am, t1, s2, session1Position+1);
+        removeSessionFromTopic(t2, s2);
+        addSessionToTopic(t1, s2, session1Position+1);
         
-        return am;
     }
     
-    public boolean checkIfLectureExistInSession(AplicationModel am,  int sessionId,int lectureId)
+    public boolean checkIfLectureExistInSession(int sessionId,int lectureId)
     {               
-        for(TopicModel topic :am.getTopics())
+        for(TopicModel topic :aplicationModel.getTopics())
         {
             for(SessionModel session:topic.getSessions())
             {
@@ -127,9 +189,9 @@ public class DataManager {
         return false;
     }
     
-    public SessionModel getSessionBySessionId(AplicationModel am,  int sessionId)
+    public SessionModel getSessionBySessionId(int sessionId)
     {               
-        for(TopicModel topic :am.getTopics())
+        for(TopicModel topic :aplicationModel.getTopics())
         {
             for(SessionModel session:topic.getSessions())
             {
@@ -142,9 +204,23 @@ public class DataManager {
         return null;
     }
     
-    public void moveLectureToSession(AplicationModel am,int sessionId,int lectureId)
+    public void moveLectureToSession(int sessionId,int lectureId)
     {               
-        int x=0;
-    }
+        if(!checkIfLectureExistInSession(sessionId,lectureId)){
+            SessionModel destinationSession=getSessionById(sessionId);
+            SessionModel sourceSession=getSessionByLectureId(lectureId);
+            
+            LectureWithDetailsModel lecture=getLectureById(lectureId);
+        
+            this.removeLectureFromSession(sourceSession, lecture);
+            this.addLectureToSession(destinationSession, lecture);
+
+        };
+    } 
     
+    public void changeSessionTitleBySessionId(int sessionId,String newTitle)
+    {               
+        SessionModel session=getSessionById(sessionId);
+        session.setTitle(newTitle);
+    }
 }

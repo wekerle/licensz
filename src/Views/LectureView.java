@@ -6,11 +6,9 @@
 package Views;
 
 import Helpers.StringHelper;
-import Models.LectureWithDetailsModel;
+import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
@@ -18,7 +16,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import licentav2.GlobalVaribles;
-import licentav2.TextChangeObserver;
 
 /**
  *
@@ -29,7 +26,6 @@ public class LectureView {
     private TextEditor authorView=new TextEditor();
     private VBox container=new VBox();
     private int id;
-    private LectureWithDetailsModel model;
     private StringHelper stringHelper=new StringHelper();
     
     public int getLectureNumber() {
@@ -40,15 +36,14 @@ public class LectureView {
         return container;
     }
      
-     public LectureView(LectureWithDetailsModel model)
+     public LectureView(String title,ArrayList<String> authors,int id)
      {
-         this.model=model;
-         this.id=model.getId();
-         GlobalVaribles.addElementToDragLectureAndNumberMap(model.getId(), this);
+         this.id=id;
+         GlobalVaribles.addElementToDragLectureAndNumberMap(id, this);
          GlobalVaribles.setLectureNumber(id+1);                
          
-         titleView.setText(model.getTitle());
-         authorView.setText(stringHelper.createListSeparateComma(model.getAuthors()));
+         titleView.setText(title);
+         authorView.setText(stringHelper.createListSeparateComma(authors));
          
          container.getChildren().add(titleView);
          container.getChildren().add(authorView);
@@ -56,7 +51,7 @@ public class LectureView {
          titleView.setFont(new Font(16));
          container.setPadding(new Insets(10.0));
                   
-         titleView.setTextChangeObserver(new TextChangeObserver(){
+       /*  titleView.setTextChangeObserver(new TextChangeObserver(){
 
              @Override
              public void notifyTextChange() {
@@ -77,7 +72,7 @@ public class LectureView {
                     LectureView.this.model.setAuthors(stringHelper.createArralyListFromListSeparateComma(LectureView.this.authorView.getText()));
                  }              
              }
-         });
+         });*/
          
          container.setOnDragDetected(new EventHandler<MouseEvent>(){
              public void handle(MouseEvent event)

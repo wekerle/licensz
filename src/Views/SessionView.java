@@ -6,10 +6,9 @@
 package Views;
 
 import Helpers.StringHelper;
-import Models.SessionModel;
+import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
@@ -18,8 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import licentav2.GlobalVaribles;
-import licentav2.LectureDragEventListener;
-import licentav2.TextChangeObserver;
+import Observer.LectureDragEventListener;
+import Observer.SessionTitleTextChangeListener;
 
 
 /**
@@ -31,21 +30,19 @@ public class SessionView {
     private TextEditor titleView=new TextEditor();
     private VBox containerNode=new VBox();
     private TextEditor chairView=new TextEditor();
-    private int id;
+    private int sessionId;
     private StringHelper stringHelper=new StringHelper();
-    private SessionModel model;
     private LectureDragEventListener lectureDragEvent;
 
     public void setLectureDragEvent(LectureDragEventListener lectureDragEvent) {
         this.lectureDragEvent = lectureDragEvent;
     }
-    
-    public SessionView(SessionModel model)
+        
+    public SessionView(String title,ArrayList<String> chairs,int id)
     {
-        this.model=model;
-        titleView.setText(model.getTitle());
-        chairView.setText(stringHelper.createListSeparateComma(model.getChairs()));
-        this.id=model.getId();
+        this.sessionId=id;
+        titleView.setText(title);
+        chairView.setText(stringHelper.createListSeparateComma(chairs));
         
         containerNode.getChildren().add(titleView);
         containerNode.getChildren().add(chairView);
@@ -57,7 +54,7 @@ public class SessionView {
         
         containerNode.setPadding(new Insets(10));
         
-        titleView.setTextChangeObserver(new TextChangeObserver() {
+       /* titleView.setTextChangeObserver(new TextChangeObserver() {
             @Override
             public void notifyTextChange() {
                 model.setTitle(titleView.getText());
@@ -77,7 +74,7 @@ public class SessionView {
                     SessionView.this.model.setChairs(stringHelper.createArralyListFromListSeparateComma(SessionView.this.chairView.getText()));
                  }              
              }
-         });
+         });*/
         
         contentNode.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {               
@@ -106,49 +103,29 @@ public class SessionView {
             }
         });
         
-        contentNode.setOnDragDetected(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("ASDGASDG");
-
-            }
-        });
         contentNode.setOnDragDropped(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 /* data dropped */
                 /* if there is a string data on dragboard, read it and use it */
                 Dragboard db = event.getDragboard();
-                boolean success = false;
+                boolean success = false; 
                 if (db.hasString()) {
-                    
-                    boolean exist=false;
-                    
-                    
+                                      
                     int lectureId=Integer.parseInt(db.getString());
-                    int sessionId=SessionView.this.id;
+                    int sessionId=SessionView.this.sessionId;
                     
                     if(SessionView.this.lectureDragEvent!=null){
                         lectureDragEvent.notify(sessionId, lectureId);
-                    }
-                    
-                    LectureView dl= GlobalVaribles.getDragLectureByNumber(Integer.parseInt(db.getString()));
-                    for(LectureView dragLec: GlobalVaribles.getAllSelected())
-                    {
-                        // comparam  numerele
-                        if(dragLec.isEqual(dl)){
-                            exist = true;
-                        }
-                    }
-                    if(!exist)
-                    {
+                        
+                        LectureView dl= GlobalVaribles.getDragLectureByNumber(Integer.parseInt(db.getString()));
                         addLectureView(dl);
-                    }
-                                        
-                    for(LectureView dragLec: GlobalVaribles.getAllSelected())
-                    {
-                        addLectureView(dragLec);
-                    }
+                        
+                        for(LectureView dragLec: GlobalVaribles.getAllSelected())
+                        {
+                            lectureDragEvent.notify(sessionId, dragLec.getLectureNumber());
+                            addLectureView(dragLec);
+                        }
+                    }                                                          
                     GlobalVaribles.removeAllSelected();
                    success = true;
                 }
@@ -169,6 +146,6 @@ public class SessionView {
     }             
 
     public int getId() {
-        return id;
+        return this.sessionId;
     }
 }

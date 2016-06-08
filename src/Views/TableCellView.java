@@ -100,20 +100,23 @@ public class TableCellView extends VBox {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {                 
-                    DataManager dm=new DataManager();
+                    DataManager dm=new DataManager(table.getAplicationModel());
+                    
                     int sourceSessionId=Integer.parseInt(db.getString());
                     int destinationSessionId=TableCellView.this.getMinimalSessionView().getSessionId();
                     
-                    SessionModel s1=dm.getSessionBySessionId(table.getAplicationModel(),sourceSessionId);
-                    SessionModel s2=dm.getSessionBySessionId(table.getAplicationModel(),destinationSessionId);
+                    SessionModel s1=dm.getSessionBySessionId(sourceSessionId);
+                    SessionModel s2=dm.getSessionBySessionId(destinationSessionId);
                     
                     double centerY=TableCellView.this.getLayoutBounds().getMinY()+TableCellView.this.getHeight()/2;
                     
                     if(centerY>event.getY()){
-                         table.populateContent(dm.moveSession2BeforeSession1(table.getAplicationModel(),s2,s1).getTopics());
+                         dm.moveSession2BeforeSession1(s2,s1);
+                         table.populateContent(table.getAplicationModel().getTopics());
                     }else
                     {
-                        table.populateContent(dm.moveSession2AfterSession1(table.getAplicationModel(),s2,s1).getTopics());
+                        dm.moveSession2AfterSession1(s2,s1);
+                        table.populateContent(table.getAplicationModel().getTopics());
                     }
                     
                    success = true;

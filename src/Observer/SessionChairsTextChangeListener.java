@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package licentav2;
+package Observer;
 
 /**
  *
- * @author tibor.wekerle
+ * @author Ronaldo
  */
-public interface ModificationObserver {
-    void notifyModification();
+public interface SessionChairsTextChangeListener extends TextChangeObserver{
+    void notifyTextChangeSessionChairs(int sesionId,String chairs);
 }

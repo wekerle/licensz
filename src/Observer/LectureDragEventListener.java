@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package licentav2;
+package Observer;
 
 /**
  *
  * @author Ronaldo
  */
-public interface TextChangeObserver {
-    void notifyTextChange();  
+public interface LectureDragEventListener {
+    void notify(int sessionId,int lectureId);
 }

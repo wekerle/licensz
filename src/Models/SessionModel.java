@@ -50,4 +50,9 @@ public class SessionModel implements Serializable{
     public void setChairs(ArrayList<String> chairs) {
         this.chairs = chairs;
     }
+
+    public void setLectureWithDetails(ArrayList<LectureWithDetailsModel> LectureWithDetails) {
+        this.LectureWithDetails = LectureWithDetails;
+    }
+    
 }

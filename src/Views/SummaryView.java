@@ -19,7 +19,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import licentav2.LectureDragEventListener;
+import Observer.LectureDragEventListener;
+import Observer.SessionTitleTextChangeListener;
 
 /**
  *
@@ -29,8 +30,9 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener{
         
     private double scrollDirection = 0;
     private VBox verticalLayout =  new VBox();
-    private AplicationModel am=null;
+    private AplicationModel aplicationModel=null;
     private  Timeline scrolltimeline = new Timeline();
+    private  DataManager dataManager;
     
     private void dragScroll() {
         
@@ -94,24 +96,24 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener{
             }
         });
         
-         ArrayList<TopicView> pwl= c.topicListToTopicViewList(am.getTopics(),this);
+         ArrayList<TopicView> topicViewList= c.topicListToTopicViewList(aplicationModel.getTopics(),this);
         
-        for(TopicView pw : pwl)
+        for(TopicView pw : topicViewList)
         {
             verticalLayout.getChildren().add(pw.getContainerNode());
         }
         
     }
-    public SummaryView(AplicationModel am)
+    public SummaryView(AplicationModel model)
     {
-        this.am=am;
+        this.aplicationModel=model;
+        this.dataManager=new DataManager(aplicationModel);
         SetupView();
         this.setContent(verticalLayout);
     }
 
     @Override
-    public void notify(int sessionId, int lectureId) {
-        new DataManager().moveLectureToSession(am, sessionId, lectureId);
-    }
-    
+    public void notify(int sessionId, int lectureId) {       
+        this.dataManager.moveLectureToSession(sessionId, lectureId);
+    }   
 }
