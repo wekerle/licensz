@@ -10,7 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import Observer.LectureDragEventListener;
+import Listener.LectureDragEventListener;
 
 /**
  *

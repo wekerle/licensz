@@ -35,6 +35,18 @@ public class DataManager {
         return null;
     }
     
+    private TopicModel getTopicIdById(int topicId)
+    {
+        for(TopicModel topic :aplicationModel.getTopics())
+        {
+            if(topic.getId()==topicId)
+            {
+                 return topic;
+            }
+        }
+        return null;
+    }
+    
     private SessionModel getSessionById(int sessionId)
     {
         for(TopicModel topic :aplicationModel.getTopics())
@@ -222,5 +234,11 @@ public class DataManager {
     {               
         SessionModel session=getSessionById(sessionId);
         session.setTitle(newTitle);
+    }
+    
+    public void changeTopicTitleByTopicId(int topicId,String newTitle)
+    {               
+        TopicModel topic=getTopicIdById(topicId);
+        topic.setTitle(newTitle);
     }
 }

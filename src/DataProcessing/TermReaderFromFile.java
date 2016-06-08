@@ -5,6 +5,7 @@
  */
 package DataProcessing;
 
+import Helpers.Enums.ParserState;
 import Models.TermModel;
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,15 +19,6 @@ import java.util.HashMap;
  */
 public class TermReaderFromFile{
           
-    enum ParserState{
-        NONE,
-        USE,
-        BT,
-        RT,
-        UF,
-        NT
-        
-    }
     public HashMap<String,TermModel> readTermsFromFile(File file) {
         
         HashMap<String,TermModel> hm=new HashMap<String,TermModel>();

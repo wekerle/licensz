@@ -7,6 +7,7 @@ package Views;
 
 import Adaptor.Converter;
 import DataManagment.DataManager;
+import Helpers.Enums;
 import Models.AplicationModel;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
@@ -19,14 +20,14 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import Observer.LectureDragEventListener;
-import Observer.SessionTitleTextChangeListener;
+import Listener.LectureDragEventListener;
+import Listener.TextChangeEventListener;
 
 /**
  *
  * @author Ronaldo
  */
-public class SummaryView extends ScrollPane implements LectureDragEventListener{
+public class SummaryView extends ScrollPane implements LectureDragEventListener,TextChangeEventListener{
         
     private double scrollDirection = 0;
     private VBox verticalLayout =  new VBox();
@@ -116,4 +117,37 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener{
     public void notify(int sessionId, int lectureId) {       
         this.dataManager.moveLectureToSession(sessionId, lectureId);
     }   
+
+    @Override
+    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+        if(type==Enums.TextType.NOTHING || category==Enums.TextCategory.NOTHING || id==0)
+        {
+            return;
+        }
+        switch(category){
+            case LECTURE:
+                switch(type){
+                    case AUTHORS:
+                        this.dataManager.changeSessionTitleBySessionId(id, newValue);
+                    case TITLE:
+                        this.dataManager.changeSessionTitleBySessionId(id, newValue);
+                    default:break;
+                }
+                break;
+            case SESSION:
+                switch(type){
+                    case CHAIRS:
+                        this.dataManager.changeSessionTitleBySessionId(id, newValue);
+                    case TITLE:
+                        this.dataManager.changeSessionTitleBySessionId(id, newValue);
+                    default:break;
+                }
+                break;
+            case TOPIC:
+                this.dataManager.changeTopicTitleByTopicId(id, newValue);
+                break;
+            default:break;
+                
+        }             
+    }
 }

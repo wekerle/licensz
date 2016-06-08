@@ -5,6 +5,8 @@
  */
 package Views;
 
+import Helpers.Enums;
+import Listener.TextChangeEventListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -14,8 +16,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import Observer.LectureTitleTextChangeListener;
-
 /**
  *
  * @author Ronaldo
@@ -23,12 +23,12 @@ import Observer.LectureTitleTextChangeListener;
 public class TextEditor extends VBox {
     private TextField textField=new TextField();
     private Text text=new Text();
-    private LectureTitleTextChangeListener textChangeObserver;
+    private TextChangeEventListener textChangeListener;
 
-    public void setTextChangeObserver(LectureTitleTextChangeListener textChangeObserver) {
-        this.textChangeObserver = textChangeObserver;
+    public void setTextChangeEventListener(TextChangeEventListener textChangeListener){
+        this.textChangeListener=textChangeListener;
     }
-
+    
     public TextEditor()
     {
         this.getChildren().add(text);
@@ -39,6 +39,7 @@ public class TextEditor extends VBox {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() == 2){
                     textField.setText(text.getText());
+                    textChangeListener.modifyText(Enums.TextType.NOTHING, Enums.TextCategory.NOTHING, 0, text.getText());
                     TextEditor.this.getChildren().remove(text);
                     TextEditor.this.getChildren().add(textField);
                     textField.requestFocus();                                        
@@ -67,10 +68,6 @@ public class TextEditor extends VBox {
                     text.setText(textField.getText());
                     TextEditor.this.getChildren().remove(textField);
                     TextEditor.this.getChildren().add(text);
-                    if(textChangeObserver!=null)
-                    {
-                       // textChangeObserver.notifyTextChange();
-                    }
                 }
             }
         });

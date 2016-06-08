@@ -17,8 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import licentav2.GlobalVaribles;
-import Observer.LectureDragEventListener;
-import Observer.SessionTitleTextChangeListener;
+import Listener.LectureDragEventListener;
+import Listener.TextChangeEventListener;
 
 
 /**
@@ -33,9 +33,14 @@ public class SessionView {
     private int sessionId;
     private StringHelper stringHelper=new StringHelper();
     private LectureDragEventListener lectureDragEvent;
+    private TextChangeEventListener textChangeEvent;
 
     public void setLectureDragEvent(LectureDragEventListener lectureDragEvent) {
         this.lectureDragEvent = lectureDragEvent;
+    }
+    
+    public void setTextChangeEvent(TextChangeEventListener textChangeEvent) {
+        this.textChangeEvent = textChangeEvent;
     }
         
     public SessionView(String title,ArrayList<String> chairs,int id)

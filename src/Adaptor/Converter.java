@@ -13,8 +13,7 @@ import Views.LectureView;
 import Views.MinimalSessionView;
 import Views.TopicView;
 import Views.SessionView;
-import Observer.LectureDragEventListener;
-import Observer.SessionTitleTextChangeListener;
+import Listener.LectureDragEventListener;
 
 /**
  *

@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Observer;
+package Listener;
+
+import Helpers.Enums.TextCategory;
+import Helpers.Enums.TextType;
 
 /**
  *
  * @author tibor.wekerle
  */
-public interface TextChangeObserver {
-    
+public interface TextChangeEventListener {
+    void modifyText(TextType type,TextCategory category,int id,String newValue);
 }
