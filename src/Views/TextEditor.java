@@ -39,7 +39,6 @@ public class TextEditor extends VBox {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() == 2){
                     textField.setText(text.getText());
-                    textChangeListener.modifyText(Enums.TextType.NOTHING, Enums.TextCategory.NOTHING, 0, text.getText());
                     TextEditor.this.getChildren().remove(text);
                     TextEditor.this.getChildren().add(textField);
                     textField.requestFocus();                                        
@@ -68,6 +67,7 @@ public class TextEditor extends VBox {
                     text.setText(textField.getText());
                     TextEditor.this.getChildren().remove(textField);
                     TextEditor.this.getChildren().add(text);
+                    textChangeListener.modifyText(Enums.TextType.NOTHING, Enums.TextCategory.NOTHING, 0, text.getText());
                 }
             }
         });

@@ -97,7 +97,7 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
             }
         });
         
-         ArrayList<TopicView> topicViewList= c.topicListToTopicViewList(aplicationModel.getTopics(),this);
+         ArrayList<TopicView> topicViewList= c.topicListToTopicViewList(aplicationModel.getTopics(),this,this);
         
         for(TopicView pw : topicViewList)
         {
