@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Helpers.Enums;
 import Helpers.StringHelper;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
@@ -49,6 +50,50 @@ public class SessionView {
         titleView.setText(title);
         chairView.setText(stringHelper.createListSeparateComma(chairs));
         
+        titleView.setTextChangeEventListener(new TextChangeEventListener() {
+
+             @Override
+             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+                 if(type==Enums.TextType.NOTHING)
+                 {
+                     type=Enums.TextType.TITLE;
+                 }
+                 
+                 if(category==Enums.TextCategory.NOTHING)
+                 {
+                     category=Enums.TextCategory.SESSION;
+                 }
+                 
+                 if(id==0)
+                 {
+                     id=SessionView.this.sessionId;
+                 }
+                 SessionView.this.textChangeEvent.modifyText(type, category, id, newValue);
+             }
+         });
+        
+        chairView.setTextChangeEventListener(new TextChangeEventListener() {
+
+             @Override
+             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+                 if(type==Enums.TextType.NOTHING)
+                 {
+                     type=Enums.TextType.CHAIRS;
+                 }
+                 
+                 if(category==Enums.TextCategory.NOTHING)
+                 {
+                     category=Enums.TextCategory.SESSION;
+                 }
+                 
+                 if(id==0)
+                 {
+                     id=SessionView.this.sessionId;
+                 }
+                 SessionView.this.textChangeEvent.modifyText(type, category, id, newValue);
+             }
+         });
+        
         containerNode.getChildren().add(titleView);
         containerNode.getChildren().add(chairView);
         
@@ -58,29 +103,7 @@ public class SessionView {
         chairView.setFont(new Font(18));
         
         containerNode.setPadding(new Insets(10));
-        
-       /* titleView.setTextChangeObserver(new TextChangeObserver() {
-            @Override
-            public void notifyTextChange() {
-                model.setTitle(titleView.getText());
-            }
-        });
-        
-        chairView.setTextChangeObserver(new TextChangeObserver(){
-             
-             @Override
-             public void notifyTextChange() {
-                 String text=SessionView.this.chairView.getText();
-                 if(text.contains(";")){
-                     SessionView.this.chairView.setText(stringHelper.createListSeparateComma(SessionView.this.model.getChairs()));
-                     Alert alert=new Alert(Alert.AlertType.ERROR, "The authors name's must be separate with comma");
-                     alert.showAndWait();
-                 } else {
-                    SessionView.this.model.setChairs(stringHelper.createArralyListFromListSeparateComma(SessionView.this.chairView.getText()));
-                 }              
-             }
-         });*/
-        
+                
         contentNode.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {               
                 if (event.getGestureSource() != contentNode &&
@@ -146,8 +169,9 @@ public class SessionView {
     public VBox getContainerNode() {
         return containerNode;
     }
-     public void addLectureView(LectureView dl) {
-        this.contentNode.getChildren().add(dl.getNode());
+     public void addLectureView(LectureView lectureView) {
+        lectureView.setTextChange(textChangeEvent);
+        this.contentNode.getChildren().add(lectureView.getNode());
     }             
 
     public int getId() {

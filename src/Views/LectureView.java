@@ -5,7 +5,9 @@
  */
 package Views;
 
+import Helpers.Enums;
 import Helpers.StringHelper;
+import Listener.TextChangeEventListener;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -21,12 +23,17 @@ import licentav2.GlobalVaribles;
  *
  * @author Ronaldo
  */
-public class LectureView {
+public class LectureView{
     private TextEditor titleView=new TextEditor();
     private TextEditor authorView=new TextEditor();
     private VBox container=new VBox();
     private int id;
     private StringHelper stringHelper=new StringHelper();
+    private TextChangeEventListener textChangeEvent;
+
+    public void setTextChange(TextChangeEventListener textChange) {
+        this.textChangeEvent = textChange;
+    }
     
     public int getLectureNumber() {
         return id;
@@ -45,35 +52,56 @@ public class LectureView {
          titleView.setText(title);
          authorView.setText(stringHelper.createListSeparateComma(authors));
          
+         titleView.setTextChangeEventListener(new TextChangeEventListener() {
+
+             @Override
+             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+                 if(type==Enums.TextType.NOTHING)
+                 {
+                     type=Enums.TextType.TITLE;
+                 }
+                 
+                 if(category==Enums.TextCategory.NOTHING)
+                 {
+                     category=Enums.TextCategory.LECTURE;
+                 }
+                 
+                 if(id==0)
+                 {
+                     id=LectureView.this.id;
+                 }
+                 LectureView.this.textChangeEvent.modifyText(type, category, id, newValue);
+             }
+         });
+         
+         authorView.setTextChangeEventListener(new TextChangeEventListener() {
+
+             @Override
+             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+                 if(type==Enums.TextType.NOTHING)
+                 {
+                     type=Enums.TextType.AUTHORS;
+                 }
+                 
+                 if(category==Enums.TextCategory.NOTHING)
+                 {
+                     category=Enums.TextCategory.LECTURE;
+                 }
+                 
+                 if(id==0)
+                 {
+                     id=LectureView.this.id;
+                 }
+                 LectureView.this.textChangeEvent.modifyText(type, category, id, newValue);
+             }
+         });
+         
          container.getChildren().add(titleView);
          container.getChildren().add(authorView);
          
          titleView.setFont(new Font(16));
          container.setPadding(new Insets(10.0));
-                  
-       /*  titleView.setTextChangeObserver(new TextChangeObserver(){
-
-             @Override
-             public void notifyTextChange() {
-                 LectureView.this.model.setTitle(LectureView.this.titleView.getText());              
-             }
-         });
-         
-         authorView.setTextChangeObserver(new TextChangeObserver(){
-             
-             @Override
-             public void notifyTextChange() {
-                 String text=LectureView.this.authorView.getText();
-                 if(text.contains(";")){
-                     LectureView.this.authorView.setText(stringHelper.createListSeparateComma(LectureView.this.model.getAuthors()));
-                     Alert alert=new Alert(AlertType.ERROR, "The authors name's must be separate with comma");
-                     alert.showAndWait();
-                 } else {
-                    LectureView.this.model.setAuthors(stringHelper.createArralyListFromListSeparateComma(LectureView.this.authorView.getText()));
-                 }              
-             }
-         });*/
-         
+                           
          container.setOnDragDetected(new EventHandler<MouseEvent>(){
              public void handle(MouseEvent event)
              {
@@ -87,8 +115,6 @@ public class LectureView {
                                   
                  cc.putString(Integer.toString(id));
                  db.setContent(cc);
-              //   event.consume();
-
              }
          });
                   

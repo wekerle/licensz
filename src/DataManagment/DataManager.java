@@ -9,6 +9,7 @@ import Models.AplicationModel;
 import Models.LectureWithDetailsModel;
 import Models.SessionModel;
 import Models.TopicModel;
+import java.util.ArrayList;
 
 /**
  *
@@ -230,6 +231,12 @@ public class DataManager {
         };
     } 
     
+    public void changeLectureTitleByLectureId(int lectureId,String newTitle)
+    {               
+        LectureWithDetailsModel lecture=getLectureById(lectureId);
+        lecture.setTitle(newTitle);
+    }
+    
     public void changeSessionTitleBySessionId(int sessionId,String newTitle)
     {               
         SessionModel session=getSessionById(sessionId);
@@ -240,5 +247,17 @@ public class DataManager {
     {               
         TopicModel topic=getTopicIdById(topicId);
         topic.setTitle(newTitle);
+    }
+    
+    public void setSessionChairsBySessionId(int sessionId,ArrayList<String> chairs)
+    {               
+        SessionModel session=getSessionBySessionId(sessionId);
+        session.setChairs(chairs);
+    }
+    
+    public void setLectureAuthorsByLectureId(int lectureId,ArrayList<String> authors)
+    {               
+        LectureWithDetailsModel lecture=getLectureById(lectureId);
+        lecture.setAuthors(authors);
     }
 }

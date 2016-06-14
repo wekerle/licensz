@@ -8,6 +8,7 @@ package Views;
 import Adaptor.Converter;
 import DataManagment.DataManager;
 import Helpers.Enums;
+import Helpers.StringHelper;
 import Models.AplicationModel;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
@@ -34,6 +35,7 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
     private AplicationModel aplicationModel=null;
     private  Timeline scrolltimeline = new Timeline();
     private  DataManager dataManager;
+    private StringHelper stringHelper=new StringHelper();
     
     private void dragScroll() {
         
@@ -128,18 +130,24 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
             case LECTURE:
                 switch(type){
                     case AUTHORS:
-                        this.dataManager.changeSessionTitleBySessionId(id, newValue);
+                        ArrayList<String> authors=stringHelper.createArralyListFromListSeparateComma(newValue);
+                        this.dataManager.setLectureAuthorsByLectureId(id, authors);
+                        break;
                     case TITLE:
-                        this.dataManager.changeSessionTitleBySessionId(id, newValue);
+                        this.dataManager.changeLectureTitleByLectureId(id, newValue);
+                        break;
                     default:break;
                 }
                 break;
             case SESSION:
                 switch(type){
                     case CHAIRS:
-                        this.dataManager.changeSessionTitleBySessionId(id, newValue);
+                        ArrayList<String> chairs=stringHelper.createArralyListFromListSeparateComma(newValue);
+                        this.dataManager.setSessionChairsBySessionId(id, chairs);
+                        break;
                     case TITLE:
                         this.dataManager.changeSessionTitleBySessionId(id, newValue);
+                        break;
                     default:break;
                 }
                 break;

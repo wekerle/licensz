@@ -39,6 +39,7 @@ public class TextEditor extends VBox {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() == 2){
                     textField.setText(text.getText());
+                    textField.setText(text.getText());                  
                     TextEditor.this.getChildren().remove(text);
                     TextEditor.this.getChildren().add(textField);
                     textField.requestFocus();                                        

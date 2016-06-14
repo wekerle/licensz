@@ -23,7 +23,6 @@ public class TableCellView extends VBox {
     private int colIndex=0;
     private int rowIndex=0;
     private TableView table;
-    private Node contentNode=null;
     private MinimalSessionView minimalSessionView=null;
     
     public int getColIndex() {
@@ -43,7 +42,6 @@ public class TableCellView extends VBox {
     }
 
     public void setContentNode(Node contentNode) {
-        this.contentNode = contentNode;
         this.getChildren().add(contentNode);
     }
     
