@@ -97,7 +97,7 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
             }
         });
         
-         ArrayList<TopicView> topicViewList= c.topicListToTopicViewList(aplicationModel.getTopics(),this);
+         ArrayList<TopicView> topicViewList= c.topicListToTopicViewList(aplicationModel.getTopics(),this,this);
         
         for(TopicView pw : topicViewList)
         {
@@ -129,8 +129,10 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
                 switch(type){
                     case AUTHORS:
                         this.dataManager.changeSessionTitleBySessionId(id, newValue);
+                        break;
                     case TITLE:
                         this.dataManager.changeSessionTitleBySessionId(id, newValue);
+                        break;
                     default:break;
                 }
                 break;
@@ -138,8 +140,10 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
                 switch(type){
                     case CHAIRS:
                         this.dataManager.changeSessionTitleBySessionId(id, newValue);
+                        break;
                     case TITLE:
                         this.dataManager.changeSessionTitleBySessionId(id, newValue);
+                        break;
                     default:break;
                 }
                 break;

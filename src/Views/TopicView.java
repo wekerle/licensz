@@ -5,12 +5,14 @@
  */
 package Views;
 
+import Helpers.Enums;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import Listener.LectureDragEventListener;
+import Listener.TextChangeEventListener;
 
 /**
  *
@@ -22,15 +24,43 @@ public class TopicView implements LectureDragEventListener {
     private VBox containerNode=new VBox();
     private int topicId;
     private LectureDragEventListener lectureDragEvent;
+    private TextChangeEventListener textChangeEvent;
 
     public void setLectureDragEvent(LectureDragEventListener lectureDragEvent) {
         this.lectureDragEvent = lectureDragEvent;
+    }
+    
+    public void setTextChangeEvent(TextChangeEventListener textChangeEvent) {
+        this.textChangeEvent = textChangeEvent;
     }
     
     public TopicView(String title,int id)
     {
         this.topicId=id;
         titleView.setText(title);
+        
+        titleView.setTextChangeEventListener(new TextChangeEventListener() {
+
+             @Override
+             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+                 if(type==Enums.TextType.NOTHING)
+                 {
+                     type=Enums.TextType.TITLE;
+                 }
+                 
+                 if(category==Enums.TextCategory.NOTHING)
+                 {
+                     category=Enums.TextCategory.TOPIC;
+                 }
+                 
+                 if(id==0)
+                 {
+                     id=TopicView.this.topicId;
+                 }
+                 TopicView.this.textChangeEvent.modifyText(type, category, id, newValue);
+             }
+         });
+        
         containerNode.getChildren().add(titleView);
         containerNode.getChildren().add(contentNode);
         
@@ -38,12 +68,6 @@ public class TopicView implements LectureDragEventListener {
         titleView.setAlignment(Pos.CENTER);
         containerNode.setPadding(new Insets(16));
         
-        /*titleView.setTextChangeObserver(new TextChangeLectureAuthorsObserver() {
-            @Override
-            public void notifyTextChange() {
-                model.setTitle(titleView.getText());
-            }
-        });*/
     }
     
      public VBox getContainerNode() {
