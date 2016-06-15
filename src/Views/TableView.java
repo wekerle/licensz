@@ -10,9 +10,14 @@ import DataManagment.DataManager;
 import Models.AplicationModel;
 import Models.TopicModel;
 import Models.SessionModel;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 /**
  *
@@ -21,6 +26,7 @@ import javafx.scene.layout.GridPane;
 public class TableView extends GridPane{
     private AplicationModel aplicationModel=null;
     private DataManager dataManager=null;
+    private DayEditor dayView=new DayEditor();
 
     public AplicationModel getAplicationModel() {
         return aplicationModel;
@@ -29,6 +35,15 @@ public class TableView extends GridPane{
     public TableView(AplicationModel aplicationModel)
     {
         super();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+        String currentDate=LocalDate.now().format(dateFormatter);
+        
+        dayView.setText(currentDate);
+        
+        dayView.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,22));
+        dayView.setAlignment(Pos.CENTER);
+        dayView.setPadding(new Insets(16));
+        
         this.aplicationModel=aplicationModel;
         dataManager=new DataManager(aplicationModel);
         populateContent(aplicationModel.getTopics());             
@@ -61,19 +76,24 @@ public class TableView extends GridPane{
         
         Converter converter=new Converter();
         getChildren().clear();
-        
+                
         int colNum=1;
         int rowNum=1; 
-        for(TopicModel p : topics)
+               
+        for(TopicModel topic : topics)
         {
+            if(!this.getChildren().contains(dayView))
+            {
+                this.getChildren().add(dayView);
+            }
             
             colNum=1;
-            for(SessionModel s : p.getSessions())
+            for(SessionModel session : topic.getSessions())
             {
-                MinimalSessionView sw=converter.sessionToMinimalSessionView(s);
+                MinimalSessionView sessionView=converter.sessionToMinimalSessionView(session);
                 
                 TableCellView tableCellView=matrix[colNum][rowNum];               
-                tableCellView.setMinimalSessionView(sw);
+                tableCellView.setMinimalSessionView(sessionView);
                 
                 this.add(tableCellView,rowNum,colNum);
                 colNum++;

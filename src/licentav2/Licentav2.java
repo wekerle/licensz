@@ -5,10 +5,10 @@
  */
 package licentav2;
 
-import Views.TableView;
 import Views.SummaryView;
 import DataProcessing.DataCollector;
 import Models.AplicationModel;
+import Views.ScheduleView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -144,11 +144,11 @@ public class Licentav2 extends Application {
                 
         // --- Menu View
         Menu menuView = new Menu("View");
-        MenuItem timeTableMenuItem = new MenuItem("Time Table");
+        MenuItem timeTableMenuItem = new MenuItem("Schedule");
         MenuItem listMenuItem = new MenuItem("Summary");
         MenuItem homeMenuItem = new MenuItem("Home");
         
-        timeTableMenuItem.setOnAction(actionEvent -> clickViewTimeTable());
+        timeTableMenuItem.setOnAction(actionEvent -> clickViewSchedule());
         listMenuItem.setOnAction(actionEvent -> clickViewSummary());
         homeMenuItem.setOnAction(actionEvent -> start(stage));
         
@@ -166,10 +166,10 @@ public class Licentav2 extends Application {
 
     }
     
-    private void clickViewTimeTable(){
-        
-        TableView tableView=new TableView(aplicationModel);
-        borderPane.setCenter(tableView);        
+    private void clickViewSchedule(){
+              
+        ScheduleView scheduleView=new ScheduleView(aplicationModel);
+        borderPane.setCenter(scheduleView);
     }
     
     private void clickViewSummary(){

@@ -33,32 +33,33 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
     private double scrollDirection = 0;
     private VBox verticalLayout =  new VBox();
     private AplicationModel aplicationModel=null;
-    private  Timeline scrolltimeline = new Timeline();
-    private  DataManager dataManager;
+    private Timeline scrolltimeline = new Timeline();
+    private DataManager dataManager;
     private StringHelper stringHelper=new StringHelper();
     
-    private void dragScroll() {
-        
-            ScrollBar scrollBar = getVerticalScrollbar();
-            if (scrollBar != null) {
-                double newValue = scrollBar.getValue() + scrollDirection;
-                newValue = Math.min(newValue, 1.0);
-                newValue = Math.max(newValue, 0.0);
-                scrollBar.setValue(newValue);
-            }
+    private void dragScroll() 
+    {        
+        ScrollBar scrollBar = getVerticalScrollbar();
+        if (scrollBar != null) {
+            double newValue = scrollBar.getValue() + scrollDirection;
+            newValue = Math.min(newValue, 1.0);
+            newValue = Math.max(newValue, 0.0);
+            scrollBar.setValue(newValue);
         }
-     private ScrollBar getVerticalScrollbar() {
-            ScrollBar result = null;
-            for (Node n : this.lookupAll(".scroll-bar")) {
-                if (n instanceof ScrollBar) {
-                    ScrollBar bar = (ScrollBar) n;
-                    if (bar.getOrientation().equals(Orientation.VERTICAL)) {
-                        result = bar;
-                    }
+    }
+     private ScrollBar getVerticalScrollbar() 
+     {
+        ScrollBar result = null;
+        for (Node n : this.lookupAll(".scroll-bar")) {
+            if (n instanceof ScrollBar) {
+                ScrollBar bar = (ScrollBar) n;
+                if (bar.getOrientation().equals(Orientation.VERTICAL)) {
+                    result = bar;
                 }
-            }        
-            return result;
-        }
+            }
+        }        
+        return result;
+    }
      
     private void SetupView()
     {
@@ -95,15 +96,14 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
                 {
                     
                 }
-               // event.consume();
             }
         });
         
          ArrayList<TopicView> topicViewList= c.topicListToTopicViewList(aplicationModel.getTopics(),this,this);
         
-        for(TopicView pw : topicViewList)
+        for(TopicView topicView : topicViewList)
         {
-            verticalLayout.getChildren().add(pw.getContainerNode());
+            verticalLayout.getChildren().add(topicView.getContainerNode());
         }
         
     }
