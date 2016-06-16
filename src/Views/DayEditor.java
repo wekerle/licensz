@@ -31,17 +31,9 @@ public class DayEditor extends VBox {
     private DatePicker datePicker=new DatePicker();
     private final String pattern = "yyyy-MMM-dd";
     
-    public DayEditor()
+    private StringConverter getConverter()
     {
-        this.getChildren().add(text);
-        
-        text.setOnMouseClicked(new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent mouseEvent) {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() == 2){
-                                        
-                    StringConverter converter = new StringConverter<LocalDate>() {
+        StringConverter converter = new StringConverter<LocalDate>() {
                         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
                         @Override
                         public String toString(LocalDate date) {
@@ -60,6 +52,20 @@ public class DayEditor extends VBox {
                             }
                         }
                     }; 
+        return converter;
+    }
+    
+    public DayEditor()
+    {
+        this.getChildren().add(text);
+        
+        text.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent mouseEvent) {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() == 2){
+                                        
+                    StringConverter converter = DayEditor.this.getConverter();
                     datePicker.setConverter(converter);
                   
                     String dateString=converter.toString(datePicker.getValue());
@@ -117,30 +123,11 @@ public class DayEditor extends VBox {
     public void setText(String text) {
         this.text.setText(text);
         
-        StringConverter converter = new StringConverter<LocalDate>() {
-                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
-                        @Override
-                        public String toString(LocalDate date) {
-                            if (date != null) {
-                                return dateFormatter.format(date);
-                            } else {
-                                return "";
-                            }
-                        }
-                        @Override
-                        public LocalDate fromString(String string) {
-                            if (string != null && !string.isEmpty()) {
-                                return LocalDate.parse(string, dateFormatter);
-                            } else {
-                                return null;
-                            }
-                        }
-                    }; 
-                    datePicker.setConverter(converter);
-                    
-                    LocalDate dateLocalDate =(LocalDate) converter.fromString(text);
-                    
-                    datePicker.setValue(dateLocalDate);
+        StringConverter converter=this.getConverter();     
+        datePicker.setConverter(converter);
+        LocalDate dateLocalDate =(LocalDate) converter.fromString(text);
+        
+        datePicker.setValue(dateLocalDate);
     }
     
     public void setFont(Font font) {                       
