@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -23,11 +24,12 @@ import javafx.scene.text.FontWeight;
  *
  * @author Ronaldo
  */
-public class TableView extends GridPane{
+public class TableView extends VBox{
     private AplicationModel aplicationModel=null;
     private DataManager dataManager=null;
     private DayEditor dayView=new DayEditor();
-
+    private GridPane table=new GridPane();
+    
     public AplicationModel getAplicationModel() {
         return aplicationModel;
     }
@@ -46,6 +48,8 @@ public class TableView extends GridPane{
         
         this.aplicationModel=aplicationModel;
         dataManager=new DataManager(aplicationModel);
+        
+        this.getChildren().add(dayView);
         populateContent(aplicationModel.getTopics());             
     }
     
@@ -69,24 +73,19 @@ public class TableView extends GridPane{
             for(int j=0; j<maxCol+1;j++)
             {
                 TableCellView tableCellView =new TableCellView(this,i,j);
-                this.add(tableCellView, i, j);
+                this.table.add(tableCellView, i, j);
                 matrix[i][j]=tableCellView;
             }       
         }
         
         Converter converter=new Converter();
-        getChildren().clear();
+        this.table.getChildren().clear();
                 
         int colNum=1;
         int rowNum=1; 
                
         for(TopicModel topic : topics)
-        {
-            if(!this.getChildren().contains(dayView))
-            {
-                this.getChildren().add(dayView);
-            }
-            
+        {            
             colNum=1;
             for(SessionModel session : topic.getSessions())
             {
@@ -95,7 +94,7 @@ public class TableView extends GridPane{
                 TableCellView tableCellView=matrix[colNum][rowNum];               
                 tableCellView.setMinimalSessionView(sessionView);
                 
-                this.add(tableCellView,rowNum,colNum);
+                this.table.add(tableCellView,rowNum,colNum);
                 colNum++;
             }
             rowNum++;
@@ -113,7 +112,7 @@ public class TableView extends GridPane{
              textEditor.setStyle("-fx-text-fill:white;");
              //tableCellView.getStyleClass().add("tableCellSala");
              
-            this.add(tableCellView, i+1, 0);
+            this.table.add(tableCellView, i+1, 0);
         }
         
          for(int i=0;i<maxRow; i++)
@@ -128,8 +127,9 @@ public class TableView extends GridPane{
           //  tableCellView.setStyle("-fx-background-color: black");
             //textEditor.setStyle("-fx-text-fill: ladder(background, white 49%, black 50%)");
             
-            this.add(tableCellView,0,i+1 );
+            this.table.add(tableCellView,0,i+1 );
         }
+         this.getChildren().add(table);
     }
 
 }

@@ -91,17 +91,9 @@ public class ScheduleView extends ScrollPane{
         tableViewList.add(new TableView(aplicationModel));
         tableViewList.add(new TableView(aplicationModel));
         tableViewList.add(new TableView(aplicationModel));
-        
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
-        String currentDate=LocalDate.now().format(dateFormatter);
-        
+                
         for(TableView tableview : tableViewList)
-        {           
-            DayEditor dayView=new DayEditor();
-            dayView.setText(currentDate);
-            
-            verticalLayout.getChildren().add(dayView);
-            
+        {                       
             verticalLayout.getChildren().add(tableview);
         }
                       

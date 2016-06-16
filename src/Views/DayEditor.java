@@ -69,9 +69,6 @@ public class DayEditor extends VBox {
                     datePicker.setConverter(converter);
                   
                     String dateString=converter.toString(datePicker.getValue());
-                   // LocalDate dateLocalDate =(LocalDate) converter.fromString(dateString);
-                    
-                   // datePicker.setValue(dateLocalDate);
                     text.setText(dateString);    
                     
                     DayEditor.this.getChildren().remove(text);
@@ -102,7 +99,10 @@ public class DayEditor extends VBox {
                 }
                 else
                 {
-                    text.setText(datePicker.getValue().toString());
+                    StringConverter converter=DayEditor.this.getConverter();
+                    String dateString=converter.toString(datePicker.getValue());
+                    text.setText(dateString); 
+                    
                     DayEditor.this.getChildren().remove(datePicker);
                     DayEditor.this.getChildren().add(text);
                 }
