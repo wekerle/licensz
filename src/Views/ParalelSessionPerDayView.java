@@ -8,6 +8,8 @@ package Views;
 import Helpers.Enums;
 import Listener.TextChangeEventListener;
 import Models.AplicationModel;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -41,7 +43,7 @@ public class ParalelSessionPerDayView extends GridPane implements TextChangeEven
         text.setFont(Font.font("TimesNewRoman", FontWeight.BOLD, 20));
         titleView.setFont(Font.font("TimesNewRoman", FontWeight.BOLD, 20));
         grid.getChildren().add(text);
-        
+                       
         this.getChildren().add(grid);                                       
     }
 

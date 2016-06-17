@@ -10,26 +10,27 @@ import Listener.TextChangeEventListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 /**
  *
  * @author Ronaldo
  */
-public class TextEditor extends VBox {
-    private TextField textField=new TextField();
+public class HourEditor extends VBox {
+    private TimePicker timePicker=new TimePicker();
     private Text text=new Text();
-    private TextChangeEventListener textChangeListener;
-
-    public void setTextChangeEventListener(TextChangeEventListener textChangeListener){
-        this.textChangeListener=textChangeListener;
-    }
     
-    public TextEditor()
+    public HourEditor()
     {
         this.getChildren().add(text);
         
@@ -37,11 +38,23 @@ public class TextEditor extends VBox {
         @Override
         public void handle(MouseEvent mouseEvent) {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() == 2){
-                    textField.setText(text.getText());                  
-                    TextEditor.this.getChildren().remove(text);
-                    TextEditor.this.getChildren().add(textField);
-                    textField.requestFocus();                                        
+                if(mouseEvent.getClickCount() == 2){ 
+                    
+                    Dialog dialog = new Dialog<>();
+                    dialog.setTitle("Set the time");
+                    dialog.setHeaderText("Set the hour and minute");
+                    dialog.getDialogPane().setPrefSize(200, 150);
+                    
+                    dialog.getDialogPane().setContent(timePicker);
+                    
+                    dialog.show();
+                    
+                    ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
+                    ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+                    dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+                    dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
+
+                    timePicker.requestFocus();                                        
                 }else
                 {
                     text.requestFocus();
@@ -52,7 +65,7 @@ public class TextEditor extends VBox {
         }
         });
         
-        textField.focusedProperty().addListener(new ChangeListener<Boolean>()
+        timePicker.focusedProperty().addListener(new ChangeListener<Boolean>()
         {
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
@@ -63,16 +76,16 @@ public class TextEditor extends VBox {
                 }
                 else
                 {
-                    text.setText(textField.getText());
-                    TextEditor.this.getChildren().remove(textField);
-                    TextEditor.this.getChildren().add(text);
-                    textChangeListener.modifyText(Enums.TextType.NOTHING, Enums.TextCategory.NOTHING, 0, text.getText());
+                    //text.setText(textField.getText());
+                    //TextEditor.this.getChildren().remove(textField);
+                   // TextEditor.this.getChildren().add(text);
+                   // textChangeListener.modifyText(Enums.TextType.NOTHING, Enums.TextCategory.NOTHING, 0, text.getText());
                 }
             }
         });
     }
     
-    public TextEditor(String text)
+    public HourEditor(String text)
     {
         this();
         this.setText(text);
@@ -84,12 +97,12 @@ public class TextEditor extends VBox {
 
     public void setText(String text) {
         this.text.setText(text);
-        this.textField.setText(text);
+        //this.textField.setText(text);
     }
 
     public void setFont(Font font) {
         this.text.setFont(font);
-        this.textField.setFont(font);
+        //this.textField.setFont(font);
     }
     
 }

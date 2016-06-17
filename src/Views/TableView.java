@@ -17,9 +17,11 @@ import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -114,17 +116,25 @@ public class TableView extends VBox{
         
          for(int i=0;i<maxRow; i++)
         {
-            TextEditor textEditor=new TextEditor("10:00-10:00");
+            HourEditor hourEditor=new HourEditor("10:00-10:00");
             TableCellView tableCellView=matrix[i+1][0];
             
           //  textEditor.setStyle("-fx-text-fill:red");
-            tableCellView.setContentNode(textEditor);
+            tableCellView.setContentNode(hourEditor);
 
             tableCellView.setAlignment(Pos.CENTER);
           //  tableCellView.setStyle("-fx-background-color: black");
             //textEditor.setStyle("-fx-text-fill: ladder(background, white 49%, black 50%)");
             
             this.table.add(tableCellView,0,i+1 );
+            
+            Text t= new Text("asd sfdg dfg hg sfds dsf sfdg ");
+            HBox hb=new HBox();
+            hb.setStyle("-fx-background-color: #ffc0cb");
+            
+            hb.getChildren().add(t);
+            hb.setAlignment(Pos.CENTER);
+            this.table.add(hb, 1, 2, 4, 1);
         }
          this.getChildren().add(table);
     }
