@@ -131,8 +131,8 @@ public class DataManager {
         this.aplicationModel=aplicationModel;
     }
     
-    public void addSessionToTopic(TopicModel topicModel,SessionModel session, int position)
-    {               
+    public void addSessionToTopicBySessionId(TopicModel topicModel,SessionModel session, int position)
+    {                      
         for(TopicModel topic :aplicationModel.getTopics())
         {
             if(topic.getId()==topicModel.getId())
@@ -148,8 +148,9 @@ public class DataManager {
         }       
     }
     
-    public void removeSessionFromTopic(TopicModel topicModel, SessionModel session)
-    {     
+    public void removeSessionFromTopicBySessionId(TopicModel topicModel, int sessionId)
+    {   
+        SessionModel session=getSessionById(sessionId);
         for(TopicModel topic :aplicationModel.getTopics())
         {
             if(topic.getId()==topicModel.getId())
@@ -159,25 +160,27 @@ public class DataManager {
         }
     }
     
-    public void moveSession2BeforeSession1(SessionModel s1,SessionModel s2)
+    public void moveDestinationSessionBeforeSourceSession(int destinationSessionId,int sourceSessionId)
     {               
-        TopicModel t1=getTopicIdBySessionId(s1.getId());
-        TopicModel t2=getTopicIdBySessionId(s2.getId());
-        int session1Position=getSessionPositionIdBySessionId(s1.getId());
+        TopicModel t1=getTopicIdBySessionId(destinationSessionId);
+        TopicModel t2=getTopicIdBySessionId(sourceSessionId);
+        int session1Position=getSessionPositionIdBySessionId(destinationSessionId);
+        SessionModel session=getSessionById(sourceSessionId);
         
-        removeSessionFromTopic(t2, s2);
-        addSessionToTopic(t1, s2, session1Position);
+        removeSessionFromTopicBySessionId(t2, sourceSessionId);
+        addSessionToTopicBySessionId(t1, session, session1Position);
         
     }
     
-    public void moveSession2AfterSession1(SessionModel s1,SessionModel s2)
+    public void moveDestinationSessionAfterSourceSession(int destinationSessionId,int sourceSessionId)
     {               
-        TopicModel t1=getTopicIdBySessionId(s1.getId());
-        TopicModel t2=getTopicIdBySessionId(s2.getId());
-        int session1Position=getSessionPositionIdBySessionId(s1.getId());
+        TopicModel t1=getTopicIdBySessionId(destinationSessionId);
+        TopicModel t2=getTopicIdBySessionId(sourceSessionId);
+        int session1Position=getSessionPositionIdBySessionId(destinationSessionId);
+        SessionModel session=getSessionById(sourceSessionId);
         
-        removeSessionFromTopic(t2, s2);
-        addSessionToTopic(t1, s2, session1Position+1);
+        removeSessionFromTopicBySessionId(t2, sourceSessionId);
+        addSessionToTopicBySessionId(t1, session, session1Position+1);
         
     }
     

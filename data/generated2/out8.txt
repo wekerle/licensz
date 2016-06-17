@@ -1,0 +1,8 @@
+Immune System Modeling, Analysis using Bio-PEPA
+Roxana Moldovan, Eneia Nicolae Todoran
+8
+F
+immune system, membrane computing, process algebra, Bio-PEPA, stochastic simulation, ODE simulation
+immune system (423), kinetic law (286), bio pepa (263), bio pepa eclipse (206), pepa eclipse plug (206), membrane computing (185), functional rate (140), skin membrane (110), membrane computing pattern (110), bio pepa model (110), process algebra (93), virus species (90), immune response (85), ode simulation (80), virus neutralization process (79), biochemical reaction (70), virus attack (70), immune system model (63), general kinetic law (63), antibody population (60), formal condition (60), pepa immune response model (60), species concentration (50), stochastic simulation (50), membrane structure (50), maturity period (50), virus propagation (50), successful immune response (47), time series analysis (47), pepa functional rate (47)
+Networking
+By using membrane computing patterns and the stochastic process algebra Bio-PEPA we develop and analyze a model of the immune system response against virus attacks. We identify formal conditions expressed based on Bio-PEPA functional rates for successful immune responses.

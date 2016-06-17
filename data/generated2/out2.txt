@@ -1,0 +1,8 @@
+Eyeglasses contour extraction using genetic algorithms
+Diana Borza, Radu Danescu, Adrian Sergiu Darabant
+7
+F
+Eyeglasses Extraction, Fourier coefficients, Genetic Algorithms
+genetic algorithm (220), fourier descriptor (70), fourier coefficient (70), distance transform (60), contour extraction (50), facial image (50), pattern recognition (50), monte carlo sampling (47), eyeglass extraction problem (47), linear morphing procedure (47), efficient shape description (47), canny edge detection (47), mutation operator (40), pattern analysis (40), arithmetic crossover (40)
+Computer Vision
+This paper presents an eyeglasses contour extraction method that uses genetic algorithms to find the exact shape of the lenses. An efficient shape description, based on Fourier coefficients, is used to represent the shape of the eyeglasses, allowing a wide range of shapes to be represented with a small number of parameters. The proposed method does not require the position of the eyes to be known in advance. The conducted experiments demonstrate the effectiveness of the proposed solution.

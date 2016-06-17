@@ -30,4 +30,9 @@ public class Enums {
         SESSION,
         LECTURE   
     }
+    
+    public enum Position{
+        BEFORE,
+        AFTER 
+    }
 }

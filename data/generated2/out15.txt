@@ -1,0 +1,8 @@
+An Enhanced Approach to Dynamic Power Management for the Linux cpuidle Subsystem
+Andrei Roba, Zoltan Baruch
+7
+F
+dynamic power management, processor idle states prediction, reinforcement learning
+idle state (173), power consumption (145), reinforcement learning (110), dynamic power management (95), power management (80), recent history (80), hit rate (80), cpuidle subsystem (50), processor idle state (47), markov decision process (47), computer aided design (47), intel developer zone (47), reinforcement learning technique (47), reduced power consumption (47), phoronix test suite (47), processor idle state management (40), menu governor (40), prediction rate (40), cpu core (40), real workload (40), linux kernel (40), existing implementation (40), power measurement (40)
+Distributed Computing
+This paper presents an enhanced approach for improving the prediction efficiency of the processor idle state selection of the cpuidle subsystem in the Linux kernel. Two methods for improving the prediction rate of processor idle states are proposed. The first is based on reinforcement learning and the second is based on the recent history of idle states. Their individual performance upon real workloads is analyzed and a comparison between them and the existing implementation is performed. A variant of the history based approach is implemented and benchmarked using a modified kernel. The obtained results show that there is room for improvement regarding the processor idle state management. These results suggest that with little overhead the hit rate of the predictor can be boosted and thus less power consumption can be achieved.

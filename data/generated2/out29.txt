@@ -1,0 +1,8 @@
+Optimized Retargetable Compiler for Embedded Processors – GCC vs LLVM
+Lavinia Ghica, Nicolae Tapus
+6
+F
+optimized retargetable compiler, GCC, LLVM, retargetable code generation, retargetable optimizations
+code generation (120), machine description (120), retargetable compiler (100), register class (100), instruction selection (100), register allocation (90), live range (70), optimized retargetable compiler (63), target specific optimization (63), linear scan (60), european union (60), virtual register (60), general reg (50), instruction selector (50), davidson fraser model (47), physical register (40), calling convention (40), certain register (40), register information (40), register allocator (40), instruction scheduling (40), ssa form (40),
+Intelligent Systems
+Retargetable compilers become more and more popular as they are involved even in the processors design phase. The reduced time-to-market period puts a challenge on optimized retargetable compilers. An optimized retargetable compiler gives a reliable feedback to tailor processors towards a certain application domain. First choice can be an open-source retargetable compiler. This paper aims to compare two well-known open-source compilers: GCC and LLVM. The first is a mature compiler, retargeted for more than 100 processors, while the second is a new one, retargeted for less than 10 processors, but built on a very promising approach, one big plus being the latest release of Redhat (linux operating system) which replaced the old GCC with LLVM. The paper compares the two compilers from both retargetability easiness and the target specific optimizations enablement.

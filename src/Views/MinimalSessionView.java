@@ -32,14 +32,7 @@ public class MinimalSessionView extends VBox {
         this.setPadding(new Insets(10.0));
                 
         titleView.setFont(Font.font("TimesNewRoman",18));
-
-        /*titleView.setTextChangeObserver(new TextChangeObserver() {
-            @Override
-            public void notifyTextChange() {
-                model.setTitle(titleView.getText());
-            }
-        });*/        
-        
+          
         this.setOnDragDetected(new EventHandler<MouseEvent>(){
              public void handle(MouseEvent event)
              {

@@ -7,7 +7,8 @@ package Views;
 
 import Adaptor.Converter;
 import DataManagment.DataManager;
-import Models.AplicationModel;
+import Helpers.Enums;
+import Listener.SessionDragEventListener;
 import Models.TopicModel;
 import Models.SessionModel;
 import java.time.LocalDate;
@@ -25,16 +26,12 @@ import javafx.scene.text.FontWeight;
  * @author Ronaldo
  */
 public class TableView extends VBox{
-    private AplicationModel aplicationModel=null;
     private DataManager dataManager=null;
     private DayEditor dayView=new DayEditor();
     private GridPane table=new GridPane();
-    
-    public AplicationModel getAplicationModel() {
-        return aplicationModel;
-    }
-         
-    public TableView(AplicationModel aplicationModel)
+    private SessionDragEventListener sessionDragEvent;
+        
+    public TableView(ArrayList<TopicModel> topics,SessionDragEventListener seessionDragEventListener)
     {
         super();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
@@ -45,12 +42,10 @@ public class TableView extends VBox{
         dayView.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,22));
         dayView.setAlignment(Pos.CENTER);
         dayView.setPadding(new Insets(16));
-        
-        this.aplicationModel=aplicationModel;
-        dataManager=new DataManager(aplicationModel);
-        
+                
         this.getChildren().add(dayView);
-        populateContent(aplicationModel.getTopics());             
+        this.sessionDragEvent=seessionDragEventListener;
+        populateContent(topics);             
     }
     
     public void populateContent(ArrayList<TopicModel> topics)
@@ -73,6 +68,8 @@ public class TableView extends VBox{
             for(int j=0; j<maxCol+1;j++)
             {
                 TableCellView tableCellView =new TableCellView(this,i,j);
+                tableCellView.setSessionDragEventListener(sessionDragEvent);
+                
                 this.table.add(tableCellView, i, j);
                 matrix[i][j]=tableCellView;
             }       
@@ -131,5 +128,9 @@ public class TableView extends VBox{
         }
          this.getChildren().add(table);
     }
-
+    
+    public void notifySessionDragEvent(int firstSessionId,int secondSessionId, Enums.Position position)
+    {
+        sessionDragEvent.notify(firstSessionId, secondSessionId, position);
+    }
 }

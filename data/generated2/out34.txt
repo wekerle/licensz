@@ -1,0 +1,8 @@
+Analysis of Pap Smear Images with Iso-, Edge-Contours
+Christoph Rasche, Serban Oprisescu, Alina Sultana, Tiberiu Radulescu
+4
+F
+medical image processing, region detection, contour detection, Pap smear images
+pap smear image (110), level set method (95), intensity level (80), cell outline (80), radial signature (60), isolated cell (60), potential nucleus (50), cellness value (50), overlapping cell (50), cell nucleus (50), cell outline segmentation (47), foreground background segregation (47), equally spaced intensity level (40), black top hat transform (40), plissiti database (40), nucleus detection (40), recall value (40), candidate nucleus (40), span value (40), nucleus center (40),
+Computer Vision
+A novel method for the detection and segmentation of nuclei and cells in Pap smear images is introduced. The method is based on a geometric analysis of iso- and edge-contours. For nuclei detection we employ isocontours taken at different levels of intensity and we report best detection (object) recall values as well as best segmentation precision values. For cell outline detection, we employ traditional edge-based contours and show that with a simple radial analysis one can detect the outline even in agglomerated cells - which so far has been approached rather hesitantly. The system was tested on three different databases.

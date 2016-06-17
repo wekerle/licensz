@@ -5,14 +5,14 @@
  */
 package Views;
 
-import DataManagment.DataManager;
-import Models.SessionModel;
+import Helpers.Enums;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
+import Listener.SessionDragEventListener;
 
 /**
  *
@@ -22,8 +22,13 @@ public class TableCellView extends VBox {
 
     private int colIndex=0;
     private int rowIndex=0;
-    private TableView table;
     private MinimalSessionView minimalSessionView=null;
+    private SessionDragEventListener sessionDragEvent;
+    
+    public void setSessionDragEventListener(SessionDragEventListener sessionDragEvent)
+    {
+        this.sessionDragEvent=sessionDragEvent;
+    }
     
     public int getColIndex() {
         return colIndex;
@@ -58,7 +63,6 @@ public class TableCellView extends VBox {
      {
         this.rowIndex=rowIndex;
         this.colIndex=colIndex;
-        this.table=table;
          
         this.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {               
@@ -98,23 +102,18 @@ public class TableCellView extends VBox {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {                 
-                    DataManager dm=new DataManager(table.getAplicationModel());
                     
                     int sourceSessionId=Integer.parseInt(db.getString());
                     int destinationSessionId=TableCellView.this.getMinimalSessionView().getSessionId();
                     
-                    SessionModel s1=dm.getSessionBySessionId(sourceSessionId);
-                    SessionModel s2=dm.getSessionBySessionId(destinationSessionId);
-                    
                     double centerY=TableCellView.this.getLayoutBounds().getMinY()+TableCellView.this.getHeight()/2;
                     
                     if(centerY>event.getY()){
-                         dm.moveSession2BeforeSession1(s2,s1);
-                         table.populateContent(table.getAplicationModel().getTopics());
+                        
+                        sessionDragEvent.notify(destinationSessionId,sourceSessionId,Enums.Position.BEFORE);                    
                     }else
                     {
-                        dm.moveSession2AfterSession1(s2,s1);
-                        table.populateContent(table.getAplicationModel().getTopics());
+                        sessionDragEvent.notify(destinationSessionId,sourceSessionId,Enums.Position.AFTER);
                     }
                     
                    success = true;

@@ -15,6 +15,15 @@ import java.util.ArrayList;
 public class AplicationModel implements Serializable {
     private ArrayList<TopicModel> topics=new ArrayList<TopicModel>();
     private boolean hasModification=true;
+    private int maxNumberSessionPerDay=5;
+
+    public int getMaxNumberSessionPerDay() {
+        return maxNumberSessionPerDay;
+    }
+
+    public void setMaxNumberSessionPerDay(int maxNumberSessionPerDay) {
+        this.maxNumberSessionPerDay = maxNumberSessionPerDay;
+    }
         
     public void setTopics(ArrayList<TopicModel> topics)
     {

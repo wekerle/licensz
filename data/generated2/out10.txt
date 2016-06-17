@@ -1,0 +1,8 @@
+Performance testing, functional limitations of Normalized Autobinomial Markov Channels
+Cosmin Toca, Carmen Patrascu, Mihai Ciuc
+5
+F
+Pedestrian detection, Normalized Autobinomial Markov Channels, Channel Features, Boosted Trees
+normalized autobinomial markov channel (220), pedestrian detection (195), caltech pedestrian dataset (158), computer vision (140), aspect ratio (80), channel feature (80), test scenario (70), boosted tree caltech (63), heavy occlusion (60), pattern recognition (50), namc algorithm (50), british machine vision (47), pedestrian detection algorithm (47), gradient magnitude (40), performance testing (40), object detection (40)
+Computer Vision
+The field of pedestrian detection has gained momentum in recent years, due to a large range of applications, including advanced robotics, aided surveillance and automotive safety. Its importance in the field of computer vision is confirmed by the large number of available algorithms, as well as the increased complexity of the public databases used for testing. To comply with the increased demands of the field, we perform extensive performance testing of the proposed Normalized Autobinomial Markov Channels (NAMC) algorithm using the Caltech Pedestrian Dataset. The proposed solution aims at isolating easily distinguishable body characteristics by learning contextual probabilistic dependencies. The functional limitations of the algorithm are derived by separately analyzing three test scenarios: scale, occlusion, aspect ratio. The obtained results demonstrate the efficiency of our approach, especially in the case of heavy occlusions, where the algorithm ranks first among the tested state-of-the art solutions.

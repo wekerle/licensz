@@ -8,6 +8,7 @@ package licentav2;
 import Views.SummaryView;
 import DataProcessing.DataCollector;
 import Models.AplicationModel;
+import Views.ParalelSessionPerDayView;
 import Views.ScheduleView;
 import java.io.File;
 import java.io.FileInputStream;
@@ -138,10 +139,13 @@ public class Licentav2 extends Application {
         // --- Menu Settings
         Menu menuSettings = new Menu("Settings");
         MenuItem pathToThesaurusMenuItem = new MenuItem("Path to thesaurus");
-        
-        menuSettings.getItems().add(pathToThesaurusMenuItem);
         pathToThesaurusMenuItem.setOnAction(actionEvent -> clickPathToThesaurus(newMenuItem));
-                
+        
+        MenuItem  numberOfSessionsPerDayMenuItem = new MenuItem ("Number of paralel session per day");
+        numberOfSessionsPerDayMenuItem.setOnAction(actionEvent -> clickNumberOfSessionsPerDay());
+                                                       
+        menuSettings.getItems().addAll(pathToThesaurusMenuItem,numberOfSessionsPerDayMenuItem);
+        
         // --- Menu View
         Menu menuView = new Menu("View");
         MenuItem timeTableMenuItem = new MenuItem("Schedule");
@@ -166,6 +170,11 @@ public class Licentav2 extends Application {
 
     }
     
+    private void clickNumberOfSessionsPerDay(){
+        ParalelSessionPerDayView paralelSessionPerDayView=new ParalelSessionPerDayView(aplicationModel);
+        borderPane.setCenter(addAnchorPane(paralelSessionPerDayView));
+    }
+    
     private void clickViewSchedule(){
               
         ScheduleView scheduleView=new ScheduleView(aplicationModel);
@@ -173,8 +182,8 @@ public class Licentav2 extends Application {
     }
     
     private void clickViewSummary(){
-        SummaryView mainView=new SummaryView(aplicationModel);
-         borderPane.setCenter(mainView);
+        SummaryView summaryView=new SummaryView(aplicationModel);
+         borderPane.setCenter(summaryView);
     }
     
     private void clickNew(){
@@ -270,9 +279,9 @@ public class Licentav2 extends Application {
         GridPane grid = new GridPane();   
         grid.getStyleClass().add("grid");
 
-        Text category = new Text("Lets start");
-        category.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        grid.add(category, 1, 0); 
+        Text title = new Text("Lets start");
+        title.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        grid.add(title, 1, 0); 
                 
         Text chartSubtitle = new Text("In order to work with this program you need to import datas from txt files or you can continue an earlier saved work.\n"
                 + "If you choose to import from txt files, you need to set the path to the folder where are the txt files. The datas in txt\n files should respect "
@@ -284,6 +293,9 @@ public class Licentav2 extends Application {
                 +"-6th row: generated keywords separated with comma\n"
                 +"-7th row: topic\n"
                 +"-8th row: the abstract\n"
+                +"\n"
+                +"You can save your work, and load it in the file menu\n"
+                +"The number of paralel session per day can be selected under settings menu\n"
                 +"\n"
                 +"Note:\n"
                 +"If you want to select 'new' from 'file' menu, first you must select the path to file iie_thesaurus in the 'settings' menu\n");

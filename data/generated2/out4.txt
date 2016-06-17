@@ -1,0 +1,8 @@
+A learning-based Approach for Romanian Syllabification, Stress Assignment
+Diana Balc, Anamaria Beleiu, Rodica Potolea, Camelia Lemnaru
+6
+F
+syllabification, stress assignment, Romanian language, machine learning
+stress assignment (230), word level (150), smo naive baye ada (100), feature vector (90), romanian language (80), random forest smo (79), machine learning (70), training set (70), natural language processing (63), training set size (63), stress information (60), syllable boundary (60), test set (50), computational linguistic (40)
+Intelligent Systems
+This paper tackles the Romanian syllabification and stress assignment problems, and proposes an efficient machine learning based solution. We show that by designing the appropriate feature sets for each specific problem, learning algorithms achieve satisfactory accuracy rates for both problems ($\sim$92 \% for syllabification, $\sim$85\% for stress assignment), even for relatively small training set sizes. We have found that unigram-based features are powerful enough to characterize these problems, and therefore the introduction of bi-gram or tri-gram features (often utilized in syllabification problems for other languages) is unnecessary.

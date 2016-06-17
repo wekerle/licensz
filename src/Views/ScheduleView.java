@@ -7,10 +7,10 @@ package Views;
 
 import Adaptor.Converter;
 import DataManagment.DataManager;
+import Helpers.Enums;
 import Helpers.StringHelper;
+import Listener.SessionDragEventListener;
 import Models.AplicationModel;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,7 +25,7 @@ import javafx.util.Duration;
  *
  * @author tibor.wekerle
  */
-public class ScheduleView extends ScrollPane{
+public class ScheduleView extends ScrollPane implements SessionDragEventListener{
     
     private double scrollDirection = 0;
     private VBox verticalLayout =  new VBox();
@@ -88,9 +88,14 @@ public class ScheduleView extends ScrollPane{
         
         
         ArrayList<TableView> tableViewList= new ArrayList<TableView>();
-        tableViewList.add(new TableView(aplicationModel));
-        tableViewList.add(new TableView(aplicationModel));
-        tableViewList.add(new TableView(aplicationModel));
+        
+        TableView tableView1=new TableView(aplicationModel.getTopics(),this);
+        TableView tableView2=new TableView(aplicationModel.getTopics(),this);
+        TableView tableView3=new TableView(aplicationModel.getTopics(),this);
+                
+        tableViewList.add(tableView1);
+        tableViewList.add(tableView2);
+        tableViewList.add(tableView3);
                 
         for(TableView tableview : tableViewList)
         {                       
@@ -105,5 +110,16 @@ public class ScheduleView extends ScrollPane{
         this.dataManager=new DataManager(aplicationModel);
         SetupView();
         this.setContent(verticalLayout);
+    }
+
+    @Override
+    public void notify(int destinationSessionId, int sourceSessionId, Enums.Position position) {
+        if(position==Enums.Position.AFTER)
+        {
+            this.dataManager.moveDestinationSessionAfterSourceSession(destinationSessionId,sourceSessionId);
+        }else
+        {
+            this.dataManager.moveDestinationSessionBeforeSourceSession(destinationSessionId,sourceSessionId);
+        }        
     }
 }

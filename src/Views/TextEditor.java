@@ -45,7 +45,6 @@ public class TextEditor extends VBox {
                     textField.requestFocus();                                        
                 }else
                 {
-                    // azert csinaltam hogy veszitse el a texteditor a focust
                     text.requestFocus();
                 }
             }else{
