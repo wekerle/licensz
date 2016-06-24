@@ -32,7 +32,12 @@ public class TableView extends VBox{
     private DayEditor dayView=new DayEditor();
     private GridPane table=new GridPane();
     private SessionDragEventListener sessionDragEvent;
-        
+    
+    public void setSessionDragEventListener(SessionDragEventListener sessionDragEvent)
+    {
+        this.sessionDragEvent=sessionDragEvent;
+    }    
+    
     public TableView(ArrayList<TopicModel> topics,SessionDragEventListener seessionDragEventListener)
     {
         super();
@@ -71,7 +76,7 @@ public class TableView extends VBox{
             {
                 TableCellView tableCellView =new TableCellView(this,i,j);
                 tableCellView.setSessionDragEventListener(sessionDragEvent);
-                
+                                
                 this.table.add(tableCellView, i, j);
                 matrix[i][j]=tableCellView;
             }       
@@ -92,7 +97,7 @@ public class TableView extends VBox{
                 
                 TableCellView tableCellView=matrix[colNum][rowNum];               
                 tableCellView.setMinimalSessionView(sessionView);
-                
+                                
                 this.table.add(tableCellView,rowNum,colNum);
                 colNum++;
             }
@@ -138,9 +143,9 @@ public class TableView extends VBox{
         }
          this.getChildren().add(table);
     }
-    
+          
     public void notifySessionDragEvent(int firstSessionId,int secondSessionId, Enums.Position position)
-    {
-        sessionDragEvent.notify(firstSessionId, secondSessionId, position);
-    }
+   {
+        sessionDragEvent.notifyDataManager(firstSessionId, secondSessionId, position);
+   }
 }

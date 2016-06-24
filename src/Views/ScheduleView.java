@@ -111,15 +111,37 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         SetupView();
         this.setContent(verticalLayout);
     }
+    
+    public void addMinimalSessionViewToTable(TableView table, MinimalSessionView session,int colNumber, int rowNumber)
+    {
+        for (Node node : verticalLayout.getChildren())
+        {
+          TableView tableView=(TableView)node;
+          if(tableView==table)
+          {
+              int x=1;
+          }
+          
+        }
+       // for (TableView tableView : (TableView)verticalLayout.getChildren())
+        {
+            
+        }
+    }
 
     @Override
-    public void notify(int destinationSessionId, int sourceSessionId, Enums.Position position) {
+    public void notifyDataManager(int destinationSessionId, int sourceSessionId, Enums.Position position) {
         if(position==Enums.Position.AFTER)
-        {
+        {            
             this.dataManager.moveDestinationSessionAfterSourceSession(destinationSessionId,sourceSessionId);
         }else
         {
             this.dataManager.moveDestinationSessionBeforeSourceSession(destinationSessionId,sourceSessionId);
         }        
+    }
+
+    @Override
+    public void notifyView(TableView table, MinimalSessionView session, int colNumber, int rowNumber) {
+        addMinimalSessionViewToTable(table, session, colNumber, rowNumber);
     }
 }

@@ -6,11 +6,14 @@
 package Listener;
 
 import Helpers.Enums;
+import Views.MinimalSessionView;
+import Views.TableView;
 
 /**
  *
  * @author tibor.wekerle
  */
 public interface SessionDragEventListener {
-     void notify(int destinationSessionId,int sourceSessionId,Enums.Position position);
+     void notifyDataManager(int destinationSessionId,int sourceSessionId,Enums.Position position);
+     void notifyView(TableView table, MinimalSessionView session,int colNumber, int rowNumber);
 }

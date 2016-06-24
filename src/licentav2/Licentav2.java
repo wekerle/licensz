@@ -7,9 +7,10 @@ package licentav2;
 
 import Views.SummaryView;
 import DataProcessing.DataCollector;
+import Helpers.Enums;
 import Models.AplicationModel;
-import Views.ParalelSessionPerDayView;
 import Views.ScheduleView;
+import Views.TextEditor;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -22,7 +23,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -171,8 +174,26 @@ public class Licentav2 extends Application {
     }
     
     private void clickNumberOfSessionsPerDay(){
-        ParalelSessionPerDayView paralelSessionPerDayView=new ParalelSessionPerDayView(aplicationModel);
-        borderPane.setCenter(addAnchorPane(paralelSessionPerDayView));
+      TextEditor numberOfSessions=new TextEditor();
+      
+      numberOfSessions.setText(Integer.toString(aplicationModel.getMaxNumberSessionPerDay()));
+        Dialog dialog = new Dialog<>();
+                    dialog.setHeaderText("Insert the number of paralel sessions per day:");
+                    dialog.getDialogPane().setPrefSize(200, 150);
+                    
+                    dialog.getDialogPane().setContent(numberOfSessions);
+                    
+                    dialog.show();
+                    
+    //                    @Override
+   // public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+    //    aplicationModel.setMaxNumberSessionPerDay(Integer.parseInt(newValue));
+   // }
+                    
+                    ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+                    ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+                    dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
     }
     
     private void clickViewSchedule(){
