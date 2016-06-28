@@ -7,6 +7,7 @@ package Views;
 
 import Helpers.Enums;
 import Listener.TextChangeEventListener;
+import Models.LocalTimeRange;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -27,12 +28,17 @@ import javafx.util.Callback;
  * @author Ronaldo
  */
 public class HourEditor extends VBox {
-    private TimePicker timePicker=new TimePicker();
+    private TimePicker startTimePicker;
+    private TimePicker endTimePicker;
     private Text text=new Text();
     
-    public HourEditor()
+    public HourEditor(LocalTimeRange time)
     {
         this.getChildren().add(text);
+        startTimePicker=new TimePicker(time.getStartTime());
+        endTimePicker=new TimePicker(time.getEndTime());
+        
+        text.setText(time.toString());
         
         text.setOnMouseClicked(new EventHandler<MouseEvent>() {
         @Override
@@ -45,7 +51,9 @@ public class HourEditor extends VBox {
                     dialog.setHeaderText("Set the hour and minute");
                     dialog.getDialogPane().setPrefSize(200, 150);
                     
-                    dialog.getDialogPane().setContent(timePicker);
+                  //  dialog.getDialogPane().setContent(timePicker);
+                    
+                    dialog.getDialogPane().getChildren().addAll(startTimePicker,endTimePicker);
                     
                     dialog.show();
                     
@@ -54,7 +62,7 @@ public class HourEditor extends VBox {
                     dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
                     dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
 
-                    timePicker.requestFocus();                                        
+                   // timePicker.requestFocus();                                        
                 }else
                 {
                     text.requestFocus();
@@ -65,29 +73,28 @@ public class HourEditor extends VBox {
         }
         });
         
-        timePicker.focusedProperty().addListener(new ChangeListener<Boolean>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
-            {                                    
-                if (newPropertyValue)
-                {
-                    System.out.println("Textfield on focus");
-                }
-                else
-                {
-                    //text.setText(textField.getText());
-                    //TextEditor.this.getChildren().remove(textField);
-                   // TextEditor.this.getChildren().add(text);
-                   // textChangeListener.modifyText(Enums.TextType.NOTHING, Enums.TextCategory.NOTHING, 0, text.getText());
-                }
-            }
-        });
+       // timePicker.focusedProperty().addListener(new ChangeListener<Boolean>()
+//        {
+//            @Override
+//            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
+//            {                                    
+//                if (newPropertyValue)
+//                {
+//                    System.out.println("Textfield on focus");
+//                }
+//                else
+//                {
+//                    //text.setText(textField.getText());
+//                    //TextEditor.this.getChildren().remove(textField);
+//                   // TextEditor.this.getChildren().add(text);
+//                   // textChangeListener.modifyText(Enums.TextType.NOTHING, Enums.TextCategory.NOTHING, 0, text.getText());
+//                }
+//            }
+//        });
     }
     
     public HourEditor(String text)
     {
-        this();
         this.setText(text);
     }
 

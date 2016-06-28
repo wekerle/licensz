@@ -5,18 +5,20 @@
  */
 package Views;
 
+import Models.LocalTimeRange;
+import java.time.LocalTime;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 
 /**
  *
  * @author tibor.wekerle
  */
 public class TimePicker extends GridPane{
-    private Spinner<Integer> hourSpinner = new Spinner<>(0, 23, 1);
-    private Spinner<Integer> minutSpinner = new Spinner<>(0, 59, 1);
+    private Spinner<Integer> hourSpinner;
+    private Spinner<Integer> minutSpinner;
     private GridPane grid = new GridPane();
     private void SetupView()
     {
@@ -24,18 +26,22 @@ public class TimePicker extends GridPane{
         minutSpinner.setMaxWidth(55.00);
         hourSpinner.setEditable(true);
         minutSpinner.setEditable(true);
-        
+                
         grid.add(new Label("Time:"), 0, 0);
         grid.add(hourSpinner, 1, 0);
         grid.add(minutSpinner, 2, 0);
         this.getChildren().add(grid);
     }
     
-    public TimePicker(){
+    public TimePicker(LocalTime time)
+    {      
+        hourSpinner=new Spinner<>(0, 23, 1,time.getHour());
+        minutSpinner=new Spinner<>(0, 59, 5,time.getMinute());
         SetupView();
     }
-    public void setTimePickerValue(int hour,int minutes){
-        //this.hourSpinner.Va
+    
+    public LocalTime getValue()
+    {
+        return LocalTime.of(hourSpinner.getValue(),minutSpinner.getValue());
     }
-        
 }

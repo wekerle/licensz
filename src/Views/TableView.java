@@ -27,7 +27,7 @@ import javafx.scene.text.Text;
  *
  * @author Ronaldo
  */
-public class TableView extends VBox{
+public class TableView extends VBox implements SessionDragEventListener{
     private DataManager dataManager=null;
     private DayEditor dayView=new DayEditor();
     private GridPane table=new GridPane();
@@ -75,7 +75,7 @@ public class TableView extends VBox{
             for(int j=0; j<maxCol+1;j++)
             {
                 TableCellView tableCellView =new TableCellView(this,i,j);
-                tableCellView.setSessionDragEventListener(sessionDragEvent);
+                tableCellView.setSessionDragEventListener(this);
                                 
                 this.table.add(tableCellView, i, j);
                 matrix[i][j]=tableCellView;
@@ -148,4 +148,14 @@ public class TableView extends VBox{
    {
         sessionDragEvent.notifyDataManager(firstSessionId, secondSessionId, position);
    }
+
+    @Override
+    public void notifyDataManager(int destinationSessionId, int sourceSessionId, Enums.Position position) {
+        sessionDragEvent.notifyDataManager(destinationSessionId, sourceSessionId, position);
+    }
+
+    @Override
+    public void notifyView(TableView table, MinimalSessionView session, int colNumber, int rowNumber) {
+       sessionDragEvent.notifyView(this, session, colNumber, rowNumber);
+    }
 }

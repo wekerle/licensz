@@ -6,6 +6,7 @@
 package Models;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -46,5 +47,10 @@ public class LocalTimeRange {
 
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
+    }
+    
+    @Override
+    public String toString(){
+        return startTime.getHour()+":"+startTime.getMinute()+"-"+endTime.getHour()+":"+endTime.getMinute();
     }
 }
