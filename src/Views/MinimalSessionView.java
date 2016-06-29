@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Listener.SessionDragEventListener;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.input.ClipboardContent;
@@ -42,7 +43,7 @@ public class MinimalSessionView extends VBox {
                                   
                  cc.putString(Integer.toString(sessionId));
                  db.setContent(cc);
-
+                 
              }
          });                      
     }

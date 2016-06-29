@@ -15,5 +15,5 @@ import Views.TableView;
  */
 public interface SessionDragEventListener {
      void notifyDataManager(int destinationSessionId,int sourceSessionId,Enums.Position position);
-     void notifyView(TableView table, MinimalSessionView session,int colNumber, int rowNumber);
+     void notifyView(TableView table, MinimalSessionView destinationSession,int sourceSessionId, Enums.Position position);
 }

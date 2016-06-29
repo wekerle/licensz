@@ -14,6 +14,7 @@ import Views.MinimalSessionView;
 import Views.TopicView;
 import Views.SessionView;
 import Listener.LectureDragEventListener;
+import Listener.SessionDragEventListener;
 import Listener.TextChangeEventListener;
 
 /**

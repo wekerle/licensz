@@ -7,7 +7,6 @@ package licentav2;
 
 import Views.SummaryView;
 import DataProcessing.DataCollector;
-import Helpers.Enums;
 import Models.AplicationModel;
 import Views.ScheduleView;
 import Views.TextEditor;

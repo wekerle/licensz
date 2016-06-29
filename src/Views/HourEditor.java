@@ -5,24 +5,16 @@
  */
 package Views;
 
-import Helpers.Enums;
-import Listener.TextChangeEventListener;
-import Models.LocalTimeRange;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import Models.LocalTimeRangeModel;
 import javafx.event.EventHandler;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 /**
  *
  * @author Ronaldo
@@ -32,13 +24,13 @@ public class HourEditor extends VBox {
     private TimePicker endTimePicker;
     private Text text=new Text();
     
-    public HourEditor(LocalTimeRange time)
+    public HourEditor(LocalTimeRangeModel time)
     {
-        this.getChildren().add(text);
         startTimePicker=new TimePicker(time.getStartTime());
         endTimePicker=new TimePicker(time.getEndTime());
         
         text.setText(time.toString());
+        this.getChildren().add(text);
         
         text.setOnMouseClicked(new EventHandler<MouseEvent>() {
         @Override
@@ -51,10 +43,11 @@ public class HourEditor extends VBox {
                     dialog.setHeaderText("Set the hour and minute");
                     dialog.getDialogPane().setPrefSize(200, 150);
                     
-                  //  dialog.getDialogPane().setContent(timePicker);
-                    
-                    dialog.getDialogPane().getChildren().addAll(startTimePicker,endTimePicker);
-                    
+                    VBox dialogContent=new VBox();
+                    dialogContent.getChildren().add(startTimePicker);
+                    dialogContent.getChildren().add(endTimePicker);
+                    dialog.getDialogPane().setContent(dialogContent);
+                                        
                     dialog.show();
                     
                     ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
@@ -91,25 +84,5 @@ public class HourEditor extends VBox {
 //                }
 //            }
 //        });
-    }
-    
-    public HourEditor(String text)
-    {
-        this.setText(text);
-    }
-
-    public String getText() {
-        return text.getText();
-    }
-
-    public void setText(String text) {
-        this.text.setText(text);
-        //this.textField.setText(text);
-    }
-
-    public void setFont(Font font) {
-        this.text.setFont(font);
-        //this.textField.setFont(font);
-    }
-    
+    }    
 }

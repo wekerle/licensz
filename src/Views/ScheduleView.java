@@ -112,25 +112,32 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         this.setContent(verticalLayout);
     }
     
-    public void addMinimalSessionViewToTable(TableView table, MinimalSessionView session,int colNumber, int rowNumber)
+    public void addMinimalSessionViewToTable(MinimalSessionView session,int destinationSessionId, Enums.Position position)
     {
         for (Node node : verticalLayout.getChildren())
         {
           TableView tableView=(TableView)node;
-          if(tableView==table)
-          {
-              int x=1;
-          }
-          
+          tableView.addMinimalSessionViewToTableCell(session, destinationSessionId,position);        
         }
-       // for (TableView tableView : (TableView)verticalLayout.getChildren())
+    }
+    
+    public MinimalSessionView cutMinimalSessionViewFromTable(int sessionId)
+    {
+        for (Node node : verticalLayout.getChildren())
         {
-            
+          TableView tableView=(TableView)node;
+          MinimalSessionView result=tableView.cutMinimalSessionViewFromTableCell(sessionId); 
+          if(result!=null)
+          {
+                return result;  
+          }
         }
+        return null;
     }
 
     @Override
-    public void notifyDataManager(int destinationSessionId, int sourceSessionId, Enums.Position position) {
+    public void notifyDataManager(int destinationSessionId, int sourceSessionId, Enums.Position position) {      
+        
         if(position==Enums.Position.AFTER)
         {            
             this.dataManager.moveDestinationSessionAfterSourceSession(destinationSessionId,sourceSessionId);
@@ -141,7 +148,11 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
     }
 
     @Override
-    public void notifyView(TableView table, MinimalSessionView session, int colNumber, int rowNumber) {
-        addMinimalSessionViewToTable(table, session, colNumber, rowNumber);
+    public void notifyView(TableView table, MinimalSessionView destinationSession, int sourceSessionId, Enums.Position position) {
+       MinimalSessionView cutResult=cutMinimalSessionViewFromTable(sourceSessionId);
+       //addMinimalSessionViewToTable(cutResult,destinationSessionId,position);
+       
+       
     }
+
 }

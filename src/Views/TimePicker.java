@@ -5,7 +5,7 @@
  */
 package Views;
 
-import Models.LocalTimeRange;
+import Models.LocalTimeRangeModel;
 import java.time.LocalTime;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -35,8 +35,9 @@ public class TimePicker extends GridPane{
     
     public TimePicker(LocalTime time)
     {      
-        hourSpinner=new Spinner<>(0, 23, 1,time.getHour());
-        minutSpinner=new Spinner<>(0, 59, 5,time.getMinute());
+        hourSpinner=new Spinner<>(0, 23,time.getHour(),1);
+        hourSpinner=new Spinner<>(0, 23, time.getHour(),1);
+        minutSpinner=new Spinner<>(0, 59, time.getMinute(),5);
         SetupView();
     }
     

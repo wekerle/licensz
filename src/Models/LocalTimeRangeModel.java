@@ -12,22 +12,22 @@ import java.time.format.DateTimeFormatter;
  *
  * @author Ronaldo
  */
-public class LocalTimeRange {
+public class LocalTimeRangeModel {
     private LocalTime startTime;
     private LocalTime endTime;
 
-    public LocalTimeRange(LocalTime startTime, LocalTime endTime) {
+    public LocalTimeRangeModel(LocalTime startTime, LocalTime endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
     }
     
-    public LocalTimeRange(int hour, int minute,int durationMinute) {
+    public LocalTimeRangeModel(int hour, int minute,int durationMinute) {
         
         this.startTime = LocalTime.of(hour, minute);
         this.endTime = startTime.plusMinutes(durationMinute);
     }
     
-    public LocalTimeRange(LocalTime startTime,int durationMinute) {
+    public LocalTimeRangeModel(LocalTime startTime,int durationMinute) {
         
         this.startTime = startTime;
         this.endTime = startTime.plusMinutes(durationMinute);
@@ -51,6 +51,7 @@ public class LocalTimeRange {
     
     @Override
     public String toString(){
-        return startTime.getHour()+":"+startTime.getMinute()+"-"+endTime.getHour()+":"+endTime.getMinute();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        return startTime.format(dateFormatter)+"-"+endTime.format(dateFormatter);
     }
 }

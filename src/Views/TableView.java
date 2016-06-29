@@ -9,13 +9,16 @@ import Adaptor.Converter;
 import DataManagment.DataManager;
 import Helpers.Enums;
 import Listener.SessionDragEventListener;
+import Models.LocalTimeRangeModel;
 import Models.TopicModel;
 import Models.SessionModel;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -32,6 +35,20 @@ public class TableView extends VBox implements SessionDragEventListener{
     private DayEditor dayView=new DayEditor();
     private GridPane table=new GridPane();
     private SessionDragEventListener sessionDragEvent;
+    TableCellView[][] matrix;
+    
+    private void shiftTableCellDown(int colNumber,int rowNumber)
+    {
+        for (Node node:this.table.getChildren())
+       {
+           TableCellView tableCellView=(TableCellView)node;
+           if(tableCellView.getColIndex()==colNumber && tableCellView.getRowIndex()>rowNumber)
+           {
+               tableCellView.setRowIndex(tableCellView.getRowIndex()+1);
+              // node.r
+           }
+       }
+    }
     
     public void setSessionDragEventListener(SessionDragEventListener sessionDragEvent)
     {
@@ -68,7 +85,7 @@ public class TableView extends VBox implements SessionDragEventListener{
             }
         }
         
-        TableCellView[][] matrix=new  TableCellView[maxRow+1][maxCol+1];
+        matrix=new  TableCellView[maxRow+1][maxCol+1];
         
         for(int i=0;i<maxRow+1;i++)
         {
@@ -121,7 +138,8 @@ public class TableView extends VBox implements SessionDragEventListener{
         
          for(int i=0;i<maxRow; i++)
         {
-            HourEditor hourEditor=new HourEditor("10:00-10:00");
+            LocalTimeRangeModel timeRange=new LocalTimeRangeModel(10, 0, 10);
+            HourEditor hourEditor=new HourEditor(timeRange);
             TableCellView tableCellView=matrix[i+1][0];
             
           //  textEditor.setStyle("-fx-text-fill:red");
@@ -144,9 +162,40 @@ public class TableView extends VBox implements SessionDragEventListener{
          this.getChildren().add(table);
     }
           
-    public void notifySessionDragEvent(int firstSessionId,int secondSessionId, Enums.Position position)
+    public void addMinimalSessionViewToTableCell(MinimalSessionView session,int destinationSessionId, Enums.Position position)
    {
-        sessionDragEvent.notifyDataManager(firstSessionId, secondSessionId, position);
+        for (Node node:this.table.getChildren())
+       {
+           TableCellView tableCellView=(TableCellView)node;
+           MinimalSessionView minimalSessionView =tableCellView.getMinimalSessionView();
+           
+           if(minimalSessionView!=null && minimalSessionView.getSessionId()==destinationSessionId)
+           {
+               MinimalSessionView result=tableCellView.getMinimalSessionView();
+               //tableCellView.setMinimalSessionView(null);              
+               tableCellView.getChildren().clear();
+               
+           }
+       }
+   }
+    
+    public MinimalSessionView cutMinimalSessionViewFromTableCell(int sessionId)
+   {
+       for (Node node:this.table.getChildren())
+       {
+           TableCellView tableCellView=(TableCellView)node;
+           MinimalSessionView minimalSessionView =tableCellView.getMinimalSessionView();
+           
+           if(minimalSessionView!=null && minimalSessionView.getSessionId()==sessionId)
+           {
+               MinimalSessionView result=tableCellView.getMinimalSessionView();
+               tableCellView.setMinimalSessionView(null);              
+               //tableCellView.getChildren().clear();
+               
+               return result;
+           }
+       }
+       return null;
    }
 
     @Override
@@ -155,7 +204,8 @@ public class TableView extends VBox implements SessionDragEventListener{
     }
 
     @Override
-    public void notifyView(TableView table, MinimalSessionView session, int colNumber, int rowNumber) {
-       sessionDragEvent.notifyView(this, session, colNumber, rowNumber);
+    public void notifyView(TableView table, MinimalSessionView destinationSession, int sourceSessionId, Enums.Position position) {
+        sessionDragEvent.notifyView(this, destinationSession, sourceSessionId,position);
     }
+
 }

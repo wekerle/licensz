@@ -111,11 +111,11 @@ public class TableCellView extends VBox {
                     if(centerY>event.getY()){
                         
                         sessionDragEvent.notifyDataManager(destinationSessionId,sourceSessionId,Enums.Position.BEFORE);  
-                        sessionDragEvent.notifyView(null,TableCellView.this.getMinimalSessionView(),0,0); 
+                        sessionDragEvent.notifyView(null,TableCellView.this.getMinimalSessionView(),sourceSessionId,Enums.Position.AFTER); 
                     }else
                     {
                         sessionDragEvent.notifyDataManager(destinationSessionId,sourceSessionId,Enums.Position.AFTER);
-                        sessionDragEvent.notifyView(null,TableCellView.this.getMinimalSessionView(),0,0);  
+                        sessionDragEvent.notifyView(null,TableCellView.this.getMinimalSessionView(),sourceSessionId,Enums.Position.AFTER);
                     }
                     
                    success = true;
