@@ -203,9 +203,4 @@ public class TableView extends VBox implements SessionDragEventListener{
         sessionDragEvent.notifyDataManager(destinationSessionId, sourceSessionId, position);
     }
 
-    @Override
-    public void notifyView(TableView table, MinimalSessionView destinationSession, int sourceSessionId, Enums.Position position) {
-        sessionDragEvent.notifyView(this, destinationSession, sourceSessionId,position);
-    }
-
 }

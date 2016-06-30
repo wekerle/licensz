@@ -101,29 +101,35 @@ public class TableCellView extends VBox {
             public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
+                int sourceSessionId=0;
+                int destinationSessionId=0;
+                Enums.Position position=Enums.Position.AFTER;
+                
                 if (db.hasString()) {                 
                     
-                    int sourceSessionId=Integer.parseInt(db.getString());
-                    int destinationSessionId=TableCellView.this.getMinimalSessionView().getSessionId();
+                    sourceSessionId=Integer.parseInt(db.getString());
+                    destinationSessionId=TableCellView.this.getMinimalSessionView().getSessionId();
                     
                     double centerY=TableCellView.this.getLayoutBounds().getMinY()+TableCellView.this.getHeight()/2;
                     
                     if(centerY>event.getY()){
-                        
-                        sessionDragEvent.notifyDataManager(destinationSessionId,sourceSessionId,Enums.Position.BEFORE);  
-                        sessionDragEvent.notifyView(null,TableCellView.this.getMinimalSessionView(),sourceSessionId,Enums.Position.AFTER); 
+                        position=Enums.Position.BEFORE;     
                     }else
                     {
-                        sessionDragEvent.notifyDataManager(destinationSessionId,sourceSessionId,Enums.Position.AFTER);
-                        sessionDragEvent.notifyView(null,TableCellView.this.getMinimalSessionView(),sourceSessionId,Enums.Position.AFTER);
+                        position=Enums.Position.AFTER;                        
                     }
                     
                    success = true;
                 }
                 event.setDropCompleted(success);
+                if(success)
+                {
+                    sessionDragEvent.notifyDataManager(destinationSessionId,sourceSessionId,position);
+                }
+                
+                event.consume();
              }
-        });
-                  
+        });        
      }
     
 }

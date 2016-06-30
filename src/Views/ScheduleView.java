@@ -11,6 +11,8 @@ import Helpers.Enums;
 import Helpers.StringHelper;
 import Listener.SessionDragEventListener;
 import Models.AplicationModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -20,6 +22,7 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import java.util.Timer;
 
 /**
  *
@@ -63,30 +66,8 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
     {
         
         Converter c=new Converter();
-        
-        scrolltimeline.setCycleCount(Timeline.INDEFINITE);
-        scrolltimeline.getKeyFrames().add(new KeyFrame(Duration.millis(20), "Scoll", (ActionEvent) -> { dragScroll();}));
-        this.setOnDragExited(event -> {
-            if (event.getY() > 0) {
-                
-               // scrollDirection = 1.0 / tree.getExpandedItemCount();
-                //el kell oszam a magassagal az oszesnek
-                 scrollDirection = 0.01;
-            }
-            else {
-                scrollDirection = -0.01;
-            }
-            scrolltimeline.play();
-        });
-        this.setOnDragEntered(event -> {
-            scrolltimeline.stop();
-        });
-        this.setOnDragDone(event -> {
-            scrolltimeline.stop();
-        });
- 
-        
-        
+           
+       // verticalLayout.getChildren().clear();
         ArrayList<TableView> tableViewList= new ArrayList<TableView>();
         
         TableView tableView1=new TableView(aplicationModel.getTopics(),this);
@@ -110,6 +91,25 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         this.dataManager=new DataManager(aplicationModel);
         SetupView();
         this.setContent(verticalLayout);
+        
+        scrolltimeline.setCycleCount(Timeline.INDEFINITE);
+        scrolltimeline.getKeyFrames().add(new KeyFrame(Duration.millis(20), "Scoll", (ActionEvent) -> { dragScroll();}));
+        this.setOnDragExited(event -> {
+            if (event.getY() > 0) {
+                
+               // scrollDirection = 1.0 / tree.getExpandedItemCount();
+                //el kell oszam a magassagal az oszesnek
+                 scrollDirection = 0.01;
+            }
+            else {
+                scrollDirection = -0.01;
+            }
+            scrolltimeline.play();
+        });
+
+        this.setOnDragDone(event -> {
+            scrolltimeline.stop();
+        });
     }
     
     public void addMinimalSessionViewToTable(MinimalSessionView session,int destinationSessionId, Enums.Position position)
@@ -137,6 +137,8 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
 
     @Override
     public void notifyDataManager(int destinationSessionId, int sourceSessionId, Enums.Position position) {      
+        scrolltimeline.stop();
+        double verticalScroll=this.getVvalue();
         
         if(position==Enums.Position.AFTER)
         {            
@@ -144,15 +146,20 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         }else
         {
             this.dataManager.moveDestinationSessionBeforeSourceSession(destinationSessionId,sourceSessionId);
-        }        
-    }
+        }    
+        
+        this.setVvalue(verticalScroll);
+        
+       // ActionListener action=new ActionListener(){
 
-    @Override
-    public void notifyView(TableView table, MinimalSessionView destinationSession, int sourceSessionId, Enums.Position position) {
-       MinimalSessionView cutResult=cutMinimalSessionViewFromTable(sourceSessionId);
-       //addMinimalSessionViewToTable(cutResult,destinationSessionId,position);
-       
-       
+           // @Override
+           // public void actionPerformed(ActionEvent e) {
+             //    SetupView();
+           // }
+   // };
+        //Timer t=new Timer(10,action);
+        //t.setRepeats(false);
+        //t.start();
     }
 
 }

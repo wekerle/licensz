@@ -10,5 +10,5 @@ package Models;
  * @author Ronaldo
  */
 public class RoomModel {
-    
+    private int id;
 }
