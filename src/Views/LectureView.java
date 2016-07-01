@@ -46,8 +46,7 @@ public class LectureView{
      public LectureView(String title,ArrayList<String> authors,int id)
      {
          this.id=id;
-         GlobalVaribles.addElementToDragLectureAndNumberMap(id, this);
-         GlobalVaribles.setLectureNumber(id+1);                
+         GlobalVaribles.addElementToDragLectureAndNumberMap(id, this);              
          
          titleView.setText(title);
          authorView.setText(stringHelper.createListSeparateComma(authors));

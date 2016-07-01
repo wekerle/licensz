@@ -8,6 +8,7 @@ package Models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import licentav2.GlobalVaribles;
+import licentav2.IdGenerator;
 
 /**
  *
@@ -22,8 +23,7 @@ public class SessionModel implements Serializable{
     
     public SessionModel()
     {
-         id=GlobalVaribles.getSessionNumber();
-         GlobalVaribles.setSessionNumber(id+1);
+         id=new IdGenerator().getNewId();
          chairs.add("chair1");
          chairs.add("chair2");
     }

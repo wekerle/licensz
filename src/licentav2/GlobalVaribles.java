@@ -14,38 +14,11 @@ import java.util.HashMap;
  * @author Ronaldo
  */
 public final class GlobalVaribles {
-    private static int lectureNumber=1;
-    private static int sessionNumber=1;
-    private static int topicNumber=1;
    
     private static HashMap<Integer,LectureView> dragLectureAndNumberMap=new HashMap<Integer,LectureView>();
     
     private static  ArrayList<LectureView> selectedDragLectures=new ArrayList<LectureView>();
-            
-    public static int getLectureNumber() {
-        return lectureNumber;
-    }
-    
-    public static int getSessionNumber() {
-        return sessionNumber;
-    }
-    
-    public static int getTopicNumber() {
-        return topicNumber;
-    }
-
-    public static void setLectureNumber(int ln) {
-        lectureNumber = ln;
-    }
-    
-    public static void setSessionNumber(int sn) {
-        sessionNumber = sn;
-    }
-    
-    public static void setTopicNumber(int tn) {
-        topicNumber = tn;
-    }
-        
+               
     public static void addElementToDragLectureAndNumberMap(int lectureNumber, LectureView lectureView) {
         dragLectureAndNumberMap.put(lectureNumber, lectureView);
     }

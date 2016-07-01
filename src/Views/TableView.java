@@ -161,42 +161,6 @@ public class TableView extends VBox implements SessionDragEventListener{
         }
          this.getChildren().add(table);
     }
-          
-    public void addMinimalSessionViewToTableCell(MinimalSessionView session,int destinationSessionId, Enums.Position position)
-   {
-        for (Node node:this.table.getChildren())
-       {
-           TableCellView tableCellView=(TableCellView)node;
-           MinimalSessionView minimalSessionView =tableCellView.getMinimalSessionView();
-           
-           if(minimalSessionView!=null && minimalSessionView.getSessionId()==destinationSessionId)
-           {
-               MinimalSessionView result=tableCellView.getMinimalSessionView();
-               //tableCellView.setMinimalSessionView(null);              
-               tableCellView.getChildren().clear();
-               
-           }
-       }
-   }
-    
-    public MinimalSessionView cutMinimalSessionViewFromTableCell(int sessionId)
-   {
-       for (Node node:this.table.getChildren())
-       {
-           TableCellView tableCellView=(TableCellView)node;
-           MinimalSessionView minimalSessionView =tableCellView.getMinimalSessionView();
-           
-           if(minimalSessionView!=null && minimalSessionView.getSessionId()==sessionId)
-           {
-               MinimalSessionView result=tableCellView.getMinimalSessionView();
-               tableCellView.setMinimalSessionView(null);              
-               //tableCellView.getChildren().clear();
-               
-               return result;
-           }
-       }
-       return null;
-   }
 
     @Override
     public void notifyDataManager(int destinationSessionId, int sourceSessionId, Enums.Position position) {

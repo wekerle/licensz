@@ -11,8 +11,6 @@ import Helpers.Enums;
 import Helpers.StringHelper;
 import Listener.SessionDragEventListener;
 import Models.AplicationModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,7 +20,6 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import java.util.Timer;
 
 /**
  *
@@ -67,7 +64,7 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         
         Converter c=new Converter();
            
-       // verticalLayout.getChildren().clear();
+        verticalLayout.getChildren().clear();
         ArrayList<TableView> tableViewList= new ArrayList<TableView>();
         
         TableView tableView1=new TableView(aplicationModel.getTopics(),this);
@@ -82,7 +79,7 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         {                       
             verticalLayout.getChildren().add(tableview);
         }
-                      
+           
     }
     
     public ScheduleView(AplicationModel model)
@@ -109,37 +106,12 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
 
         this.setOnDragDone(event -> {
             scrolltimeline.stop();
+            SetupView();
         });
-    }
-    
-    public void addMinimalSessionViewToTable(MinimalSessionView session,int destinationSessionId, Enums.Position position)
-    {
-        for (Node node : verticalLayout.getChildren())
-        {
-          TableView tableView=(TableView)node;
-          tableView.addMinimalSessionViewToTableCell(session, destinationSessionId,position);        
-        }
-    }
-    
-    public MinimalSessionView cutMinimalSessionViewFromTable(int sessionId)
-    {
-        for (Node node : verticalLayout.getChildren())
-        {
-          TableView tableView=(TableView)node;
-          MinimalSessionView result=tableView.cutMinimalSessionViewFromTableCell(sessionId); 
-          if(result!=null)
-          {
-                return result;  
-          }
-        }
-        return null;
     }
 
     @Override
-    public void notifyDataManager(int destinationSessionId, int sourceSessionId, Enums.Position position) {      
-        scrolltimeline.stop();
-        double verticalScroll=this.getVvalue();
-        
+    public void notifyDataManager(int destinationSessionId, int sourceSessionId, Enums.Position position) {              
         if(position==Enums.Position.AFTER)
         {            
             this.dataManager.moveDestinationSessionAfterSourceSession(destinationSessionId,sourceSessionId);
@@ -147,19 +119,5 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         {
             this.dataManager.moveDestinationSessionBeforeSourceSession(destinationSessionId,sourceSessionId);
         }    
-        
-        this.setVvalue(verticalScroll);
-        
-       // ActionListener action=new ActionListener(){
-
-           // @Override
-           // public void actionPerformed(ActionEvent e) {
-             //    SetupView();
-           // }
-   // };
-        //Timer t=new Timer(10,action);
-        //t.setRepeats(false);
-        //t.start();
     }
-
 }

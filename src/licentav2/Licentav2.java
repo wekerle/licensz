@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Optional;
+import java.util.prefs.Preferences;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -102,7 +103,17 @@ public class Licentav2 extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+         
+    public static void main(String[] args)throws Exception {
+        
+        //Preferences prefs;
+        //prefs = Preferences.userNodeForPackage(Licentav2.class);
+        
+        //prefs.put("LAST_OUTPUT_DIR", "tibi/tibisor/gh");
+        
+       // String lastOutputDir = prefs.get("LAST_OUTPUT_DIR", "");
+        //System.out.println(lastOutputDir);
+
         launch(args);
     }
     
