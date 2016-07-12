@@ -13,8 +13,13 @@ import java.time.format.DateTimeFormatter;
  * @author Ronaldo
  */
 public class LocalTimeRangeModel {
+    private int id;
     private LocalTime startTime;
     private LocalTime endTime;
+
+    public int getId() {
+        return id;
+    }
 
     public LocalTimeRangeModel(LocalTime startTime, LocalTime endTime) {
         this.startTime = startTime;

@@ -9,6 +9,7 @@ import Adaptor.Converter;
 import DataManagment.DataManager;
 import Helpers.Enums;
 import Listener.SessionDragEventListener;
+import Models.DayModel;
 import Models.LocalTimeRangeModel;
 import Models.TopicModel;
 import Models.SessionModel;
@@ -36,24 +37,26 @@ public class TableView extends VBox implements SessionDragEventListener{
     private GridPane table=new GridPane();
     private SessionDragEventListener sessionDragEvent;
     TableCellView[][] matrix;
-    
-    private void shiftTableCellDown(int colNumber,int rowNumber)
-    {
-        for (Node node:this.table.getChildren())
-       {
-           TableCellView tableCellView=(TableCellView)node;
-           if(tableCellView.getColIndex()==colNumber && tableCellView.getRowIndex()>rowNumber)
-           {
-               tableCellView.setRowIndex(tableCellView.getRowIndex()+1);
-              // node.r
-           }
-       }
-    }
-    
+        
     public void setSessionDragEventListener(SessionDragEventListener sessionDragEvent)
     {
         this.sessionDragEvent=sessionDragEvent;
     }    
+    
+    //public TableView(DayModel day,SessionDragEventListener seessionDragEventListener)
+   // {
+        //super();
+                
+       // dayView.setText(currentDate);
+        
+        //dayView.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,22));
+        //dayView.setAlignment(Pos.CENTER);
+        //dayView.setPadding(new Insets(16));
+                
+       // this.getChildren().add(dayView);
+       // this.sessionDragEvent=seessionDragEventListener;
+       // populateContent(topics);             
+   // }
     
     public TableView(ArrayList<TopicModel> topics,SessionDragEventListener seessionDragEventListener)
     {

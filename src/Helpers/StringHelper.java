@@ -5,6 +5,8 @@
  */
 package Helpers;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 
@@ -13,6 +15,10 @@ import java.util.StringJoiner;
  * @author tibor.wekerle
  */
 public class StringHelper {
+    
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+    private String currentDate=LocalDate.now().format(dateFormatter);
+    
     public String createListSeparateComma(ArrayList<String> authors)
     {
         //ez csak java 8 -al megy
@@ -35,6 +41,11 @@ public class StringHelper {
             result.add(author);
         }
         return result;
+    }
+    
+    public String getCurrentdate()
+    {
+         return currentDate;
     }
    
 }

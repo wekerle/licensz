@@ -16,6 +16,8 @@ import Views.SessionView;
 import Listener.LectureDragEventListener;
 import Listener.SessionDragEventListener;
 import Listener.TextChangeEventListener;
+import Models.DayModel;
+import Views.TableView;
 
 /**
  *
@@ -70,4 +72,10 @@ public class Converter {
         }
        return topicViewList;
     }
+    
+   // public TableView dayModelToTableView(DayModel day)
+   // {
+      // TableView table=new TableView();
+      // return table;
+    //}
 }

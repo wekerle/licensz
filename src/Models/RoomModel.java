@@ -11,4 +11,8 @@ package Models;
  */
 public class RoomModel {
     private int id;
+
+    public int getId() {
+        return id;
+    }
 }
