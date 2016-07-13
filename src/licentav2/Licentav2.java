@@ -141,7 +141,7 @@ public class Licentav2 extends Application {
         {
             newMenuItem.setDisable(true);
         }
-       
+
         menuFile.getItems().addAll(newMenuItem,loadMenuItem, saveMenuItem,
         new SeparatorMenuItem(), exitMenuItem);
         

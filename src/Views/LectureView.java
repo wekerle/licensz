@@ -28,7 +28,6 @@ public class LectureView{
     private TextEditor authorView=new TextEditor();
     private VBox container=new VBox();
     private int id;
-    private StringHelper stringHelper=new StringHelper();
     private TextChangeEventListener textChangeEvent;
 
     public void setTextChange(TextChangeEventListener textChange) {
@@ -49,7 +48,7 @@ public class LectureView{
          GlobalVaribles.addElementToDragLectureAndNumberMap(id, this);              
          
          titleView.setText(title);
-         authorView.setText(stringHelper.createListSeparateComma(authors));
+         authorView.setText(StringHelper.createListSeparateComma(authors));
          
          titleView.setTextChangeEventListener(new TextChangeEventListener() {
 

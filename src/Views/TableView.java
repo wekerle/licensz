@@ -8,6 +8,7 @@ package Views;
 import Adaptor.Converter;
 import DataManagment.DataManager;
 import Helpers.Enums;
+import Helpers.StringHelper;
 import Listener.SessionDragEventListener;
 import Models.DayModel;
 import Models.LocalTimeRangeModel;
@@ -61,7 +62,7 @@ public class TableView extends VBox implements SessionDragEventListener{
     public TableView(ArrayList<TopicModel> topics,SessionDragEventListener seessionDragEventListener)
     {
         super();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(StringHelper.pattern);
         String currentDate=LocalDate.now().format(dateFormatter);
         
         dayView.setText(currentDate);

@@ -14,12 +14,13 @@ import java.util.StringJoiner;
  *
  * @author tibor.wekerle
  */
-public class StringHelper {
+ public final class  StringHelper {
     
-    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
-    private String currentDate=LocalDate.now().format(dateFormatter);
+    static public final String pattern = "yyyy-MMM-dd";
+    static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+    static String currentDate=LocalDate.now().format(dateFormatter);
     
-    public String createListSeparateComma(ArrayList<String> authors)
+    public static  String createListSeparateComma(ArrayList<String> authors)
     {
         //ez csak java 8 -al megy
         StringJoiner stringJoiner =new StringJoiner(", ");
@@ -31,7 +32,7 @@ public class StringHelper {
         return stringJoiner.toString();
     }
     
-    public ArrayList<String> createArralyListFromListSeparateComma(String names)
+    public static ArrayList<String> createArralyListFromListSeparateComma(String names)
     {
         ArrayList<String> result =new ArrayList<String>();       
         String[] temp=names.split(",");
@@ -41,11 +42,5 @@ public class StringHelper {
             result.add(author);
         }
         return result;
-    }
-    
-    public String getCurrentdate()
-    {
-         return currentDate;
-    }
-   
+    }   
 }

@@ -35,7 +35,6 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
     private AplicationModel aplicationModel=null;
     private Timeline scrolltimeline = new Timeline();
     private DataManager dataManager;
-    private StringHelper stringHelper=new StringHelper();
     
     private void dragScroll() 
     {        
@@ -130,7 +129,7 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
             case LECTURE:
                 switch(type){
                     case AUTHORS:
-                        ArrayList<String> authors=stringHelper.createArralyListFromListSeparateComma(newValue);
+                        ArrayList<String> authors=StringHelper.createArralyListFromListSeparateComma(newValue);
                         this.dataManager.setLectureAuthorsByLectureId(id, authors);
                         break;
                     case TITLE:
@@ -142,7 +141,7 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
             case SESSION:
                 switch(type){
                     case CHAIRS:
-                        ArrayList<String> chairs=stringHelper.createArralyListFromListSeparateComma(newValue);
+                        ArrayList<String> chairs=StringHelper.createArralyListFromListSeparateComma(newValue);
                         this.dataManager.setSessionChairsBySessionId(id, chairs);
                         break;
                     case TITLE:

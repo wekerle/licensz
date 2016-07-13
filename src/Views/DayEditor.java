@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Helpers.StringHelper;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javafx.beans.value.ChangeListener;
@@ -25,12 +26,11 @@ import javafx.util.StringConverter;
 public class DayEditor extends VBox {
     private Text text=new Text();
     private DatePicker datePicker=new DatePicker();
-    private final String pattern = "yyyy-MMM-dd";
     
     private StringConverter getConverter()
     {
         StringConverter converter = new StringConverter<LocalDate>() {
-                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(StringHelper.pattern);
                         @Override
                         public String toString(LocalDate date) {
                             if (date != null) {

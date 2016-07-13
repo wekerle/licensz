@@ -8,7 +8,6 @@ package Views;
 import Adaptor.Converter;
 import DataManagment.DataManager;
 import Helpers.Enums;
-import Helpers.StringHelper;
 import Listener.SessionDragEventListener;
 import Models.AplicationModel;
 import java.util.ArrayList;
@@ -32,7 +31,6 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
     private AplicationModel aplicationModel=null;
     private Timeline scrolltimeline = new Timeline();
     private DataManager dataManager;
-    private StringHelper stringHelper=new StringHelper();
     
     private void dragScroll() 
     {        

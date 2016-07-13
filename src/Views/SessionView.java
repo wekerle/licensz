@@ -12,7 +12,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -32,7 +31,6 @@ public class SessionView {
     private VBox containerNode=new VBox();
     private TextEditor chairView=new TextEditor();
     private int sessionId;
-    private StringHelper stringHelper=new StringHelper();
     private LectureDragEventListener lectureDragEvent;
     private TextChangeEventListener textChangeEvent;
 
@@ -48,7 +46,7 @@ public class SessionView {
     {
         this.sessionId=id;
         titleView.setText(title);
-        chairView.setText(stringHelper.createListSeparateComma(chairs));
+        chairView.setText(StringHelper.createListSeparateComma(chairs));
         
         titleView.setTextChangeEventListener(new TextChangeEventListener() {
 
