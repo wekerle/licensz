@@ -5,10 +5,13 @@
  */
 package DataProcessing;
 
+import Models.DayModel;
 import Models.KeyWordModel;
 import Models.SessionModel;
 import Models.TopicModel;
 import Models.LectureWithDetailsModel;
+import Models.LocalTimeRangeModel;
+import Models.RoomModel;
 import Models.TermModel;
 import java.io.File;
 import java.util.ArrayList;
@@ -257,6 +260,52 @@ public class DataCollector{
            t.setSessions(sessions);
        }         
         return topics;
+    }
+    
+    public ArrayList<DayModel> getDays()
+    {
+        ArrayList<DayModel> days=new ArrayList<DayModel>();
+        ArrayList<LocalTimeRangeModel> timeRanges=new ArrayList<LocalTimeRangeModel>();
+        ArrayList<TopicModel> topics=this.getTopics();  
+        DayModel day =new DayModel();
+        
+        int maxSessionNumber=0;
+        int i=0;
+        for(TopicModel topic : topics)
+        {
+             if(topic.getSessions().size()>maxSessionNumber)
+           {
+               maxSessionNumber=topic.getSessions().size();
+           }
+             i++;
+        }
+        
+        for(int j=0; j<maxSessionNumber;j++)
+        {
+            LocalTimeRangeModel time = new LocalTimeRangeModel(8+j, 0, 50);
+            timeRanges.add(time);
+            day.addTimeRange(time);
+        }
+        i=0;  
+        for(TopicModel topic : topics)
+        {          
+            RoomModel room=new RoomModel("Sala "+i);
+            day.addRoom(room);
+            
+            for(SessionModel session : topic.getSessions())
+            {
+               day.addSession(session, timeRanges.get(i), room);
+            }
+            
+           i++;
+            
+        }
+        
+         
+        
+        
+        
+        return days;
     }
 
     public void setPathToFolderWithFiles(String pathToFolderWithFiles) {

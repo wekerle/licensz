@@ -17,6 +17,7 @@ import Listener.LectureDragEventListener;
 import Listener.SessionDragEventListener;
 import Listener.TextChangeEventListener;
 import Models.DayModel;
+import Views.ScheduleView;
 import Views.TableView;
 
 /**
@@ -73,9 +74,21 @@ public class Converter {
        return topicViewList;
     }
     
-   // public TableView dayModelToTableView(DayModel day)
-   // {
-      // TableView table=new TableView();
-      // return table;
-    //}
+    public TableView dayModelToTableView(DayModel day)
+    {
+       TableView table=new TableView(day);
+      return table;
+    }
+
+    public ArrayList<TableView> dayModelListToTableModelList(ArrayList<DayModel> days, TextChangeEventListener textChangeEvent) 
+    {
+        ArrayList<TableView> tableViews= new ArrayList<TableView>();
+        
+        for(DayModel day : days)
+        {
+            tableViews.add(dayModelToTableView(day));
+        }
+        
+        return tableViews;
+    }
 }

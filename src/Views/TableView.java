@@ -12,6 +12,7 @@ import Helpers.StringHelper;
 import Listener.SessionDragEventListener;
 import Models.DayModel;
 import Models.LocalTimeRangeModel;
+import Models.RoomModel;
 import Models.TopicModel;
 import Models.SessionModel;
 import java.time.LocalDate;
@@ -37,6 +38,7 @@ public class TableView extends VBox implements SessionDragEventListener{
     private DayEditor dayView=new DayEditor();
     private GridPane table=new GridPane();
     private SessionDragEventListener sessionDragEvent;
+    private int id=0;
     TableCellView[][] matrix;
         
     public void setSessionDragEventListener(SessionDragEventListener sessionDragEvent)
@@ -44,36 +46,98 @@ public class TableView extends VBox implements SessionDragEventListener{
         this.sessionDragEvent=sessionDragEvent;
     }    
     
-    //public TableView(DayModel day,SessionDragEventListener seessionDragEventListener)
-   // {
-        //super();
-                
-       // dayView.setText(currentDate);
-        
-        //dayView.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,22));
-        //dayView.setAlignment(Pos.CENTER);
-        //dayView.setPadding(new Insets(16));
-                
-       // this.getChildren().add(dayView);
-       // this.sessionDragEvent=seessionDragEventListener;
-       // populateContent(topics);             
-   // }
-    
-    public TableView(ArrayList<TopicModel> topics,SessionDragEventListener seessionDragEventListener)
+    public TableView(DayModel day)
     {
         super();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(StringHelper.pattern);
-        String currentDate=LocalDate.now().format(dateFormatter);
         
-        dayView.setText(currentDate);
+        this.id=day.getId();
+        dayView.setText("2016-Jul-4");
         
         dayView.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,22));
         dayView.setAlignment(Pos.CENTER);
         dayView.setPadding(new Insets(16));
                 
         this.getChildren().add(dayView);
-        this.sessionDragEvent=seessionDragEventListener;
-        populateContent(topics);             
+        //this.sessionDragEvent=seessionDragEventListener;
+        populateContent_new(day);             
+    }
+    
+  //  public TableView(ArrayList<TopicModel> topics,SessionDragEventListener seessionDragEventListener)
+   // {
+     //   super();
+     //   DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(StringHelper.pattern);
+     //   String currentDate=LocalDate.now().format(dateFormatter);
+        
+     //   dayView.setText(currentDate);
+        
+      //  dayView.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,22));
+      //  dayView.setAlignment(Pos.CENTER);
+      //  dayView.setPadding(new Insets(16));
+                
+      //  this.getChildren().add(dayView);
+      //  this.sessionDragEvent=seessionDragEventListener;
+      //  populateContent(topics);             
+    //}
+    
+    public void populateContent_new(DayModel day)
+    {
+        int maxRow=day.getRoomNumberCount();
+        int maxCol=day.getTimesNumberCount();
+        
+        matrix=new  TableCellView[maxRow+1][maxCol+1];
+        
+        for(int i=0;i<maxRow+1;i++)
+        {
+            for(int j=0; j<maxCol+1;j++)
+            {
+                TableCellView tableCellView =new TableCellView(this,i,j);
+                tableCellView.setSessionDragEventListener(this);
+                                
+                this.table.add(tableCellView, i, j);
+                matrix[i][j]=tableCellView;
+            }       
+        }
+        int i=0;
+        for(RoomModel room : day.getRooms())
+        {
+             TextEditor textEditor=new TextEditor(room.getName());
+             
+             TableCellView tableCellView=matrix[0][i+1];
+             tableCellView.setContentNode(textEditor);
+             
+            // textEditor.getStyleClass().add("tableCellSala");
+             textEditor.setAlignment(Pos.CENTER);
+             textEditor.setStyle("-fx-text-fill:white;");
+             //tableCellView.getStyleClass().add("tableCellSala");
+             
+            this.table.add(tableCellView, i+1, 0);
+            i++;
+        }
+        
+        i=0;
+         for(LocalTimeRangeModel timeRange : day.getTimes())
+        {
+            HourEditor hourEditor=new HourEditor(timeRange);
+            TableCellView tableCellView=matrix[i+1][0];
+            
+          //  textEditor.setStyle("-fx-text-fill:red");
+            tableCellView.setContentNode(hourEditor);
+
+            tableCellView.setAlignment(Pos.CENTER);
+          //  tableCellView.setStyle("-fx-background-color: black");
+            //textEditor.setStyle("-fx-text-fill: ladder(background, white 49%, black 50%)");
+            
+            this.table.add(tableCellView,0,i+1 );
+            
+            Text t= new Text("asd sfdg dfg hg sfds dsf sfdg ");
+            HBox hb=new HBox();
+            hb.setStyle("-fx-background-color: #ffc0cb");
+            
+            hb.getChildren().add(t);
+            hb.setAlignment(Pos.CENTER);
+            this.table.add(hb, 1, 2, 4, 1);
+            i++;
+        }
     }
     
     public void populateContent(ArrayList<TopicModel> topics)

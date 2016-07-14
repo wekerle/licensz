@@ -29,6 +29,10 @@ public class DayModel {
         return day;
     }
 
+    public int getId() {
+        return id;
+    }
+        
     public void setDay(LocalDate day) {
         this.day = day;
     }
@@ -122,6 +126,24 @@ public class DayModel {
        {
            return sessionId;
        }
+    }
+    
+    public int getRoomNumberCount()
+    {
+        return rooms.size();
+    }
+    
+    public int getTimesNumberCount()
+    {
+        return times.size();
+    }
+
+    public ArrayList<RoomModel> getRooms() {
+        return rooms;
+    }
+
+    public ArrayList<LocalTimeRangeModel> getTimes() {
+        return times;
     }
     
 }

@@ -227,6 +227,7 @@ public class Licentav2 extends Application {
                 String path=file.getPath();                                      
                 dataCollector.setPathToFolderWithFiles(path);                
                 aplicationModel.setTopics(dataCollector.getTopics());
+                 aplicationModel.setDays(dataCollector.getDays());
             }
     }
     

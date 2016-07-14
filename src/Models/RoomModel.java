@@ -11,8 +11,18 @@ package Models;
  */
 public class RoomModel {
     private int id;
+    private String name;
 
+    public RoomModel(String name) {
+        this.name = name;
+    }
+    
     public int getId() {
         return id;
     }
+
+    public String getName() {
+        return name;
+    }
+    
 }

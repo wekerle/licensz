@@ -58,20 +58,11 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
     }
     
     private void SetupView()
-    {
-        
-        Converter c=new Converter();
-           
+    {     
+        Converter c=new Converter();       
         verticalLayout.getChildren().clear();
-        ArrayList<TableView> tableViewList= new ArrayList<TableView>();
-        
-        TableView tableView1=new TableView(aplicationModel.getTopics(),this);
-        TableView tableView2=new TableView(aplicationModel.getTopics(),this);
-        TableView tableView3=new TableView(aplicationModel.getTopics(),this);
-                
-        tableViewList.add(tableView1);
-        tableViewList.add(tableView2);
-        tableViewList.add(tableView3);
+             
+        ArrayList<TableView> tableViewList= c.dayModelListToTableModelList(aplicationModel.getDays(),null);
                 
         for(TableView tableview : tableViewList)
         {                       
