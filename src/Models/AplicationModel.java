@@ -17,6 +17,7 @@ public class AplicationModel implements Serializable {
     private ArrayList<DayModel> days=new ArrayList<DayModel>();
     private boolean hasModification=true;
     private int maxNumberSessionPerDay=5;
+    private int deafultBreakDuration=10;
 
     public int getMaxNumberSessionPerDay() {
         return maxNumberSessionPerDay;
@@ -50,5 +51,12 @@ public class AplicationModel implements Serializable {
     public void setDays(ArrayList<DayModel> days) {
         this.days = days;
     }
-    
+
+    public int getDeafultBreakDuration() {
+        return deafultBreakDuration;
+    }
+
+    public void setDeafultBreakDuration(int deafultBreakDuration) {
+        this.deafultBreakDuration = deafultBreakDuration;
+    }  
 }

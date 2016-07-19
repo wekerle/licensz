@@ -7,8 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import licentav2.GlobalVaribles;
-import licentav2.IdGenerator;
+import licenta.IdGenerator;
 
 /**
  *
@@ -71,7 +70,7 @@ public class LectureWithDetailsModel implements Serializable{
         this.type=type;
         this.topic=topic;
         
-        id=new IdGenerator().getNewId();
+        id=IdGenerator.getNewId();
     }   
 
     public void setTitle(String title) {

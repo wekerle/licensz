@@ -7,7 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import licentav2.IdGenerator;
+import licenta.IdGenerator;
 
 /**
  *
@@ -20,7 +20,7 @@ public class TopicModel implements Serializable{
     
     public TopicModel()
     {
-         id=new IdGenerator().getNewId();
+         id=IdGenerator.getNewId();
     }
     
     public String getTitle() {

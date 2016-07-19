@@ -6,15 +6,16 @@
 package Models;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import licenta.IdGenerator;
 
 /**
  *
  * @author Ronaldo
  */
 public class DayModel {
+    // <editor-fold desc="private region" defaultstate="collapsed">
     private int id;
     private ArrayList<RoomModel> rooms=new ArrayList<RoomModel>();
     private ArrayList<LocalTimeRangeModel> times=new ArrayList<LocalTimeRangeModel>();
@@ -24,7 +25,38 @@ public class DayModel {
     private LocalTimeRangeModel totalPeriod;
     
     private LocalDate day=LocalDate.now();
-
+    
+    private RoomModel getRoomModelById(int id)
+    {
+        for(RoomModel room : rooms)
+        {
+            if(room.getId()==id)
+            {
+                return room;
+            }
+        }
+        return null;
+    }
+    
+    private LocalTimeRangeModel getTimeRangeModelById(int id)
+    {
+        for(LocalTimeRangeModel timeRange : times)
+        {
+            if(timeRange.getId()==id)
+            {
+                return timeRange;
+            }
+        }
+        return null;
+    }
+    
+    //</editor-fold>
+    
+    public DayModel()
+    {
+        this.id=IdGenerator.getNewId();
+    }
+    
     public LocalDate getDay() {
         return day;
     }
@@ -56,37 +88,13 @@ public class DayModel {
     {
         this.times.remove(timeRange);
     }
-    
-    public RoomModel getRoomModelById(int id)
-    {
-        for(RoomModel room : rooms)
-        {
-            if(room.getId()==id)
-            {
-                return room;
-            }
-        }
-        return null;
-    }
-    
-    public LocalTimeRangeModel getTimeRangeModelById(int id)
-    {
-        for(LocalTimeRangeModel timeRange : times)
-        {
-            if(timeRange.getId()==id)
-            {
-                return timeRange;
-            }
-        }
-        return null;
-    }
-    
+        
     public void addSession(SessionModel session,LocalTimeRangeModel time,RoomModel room)
     {
-        LocalTimeRangeModel test=getTimeRangeModelById(time.getId());
-        RoomModel test2=getRoomModelById(room.getId());
+        LocalTimeRangeModel timeModel=getTimeRangeModelById(time.getId());
+        RoomModel roomModel=getRoomModelById(room.getId());
         
-        if(test== null || test2==null)
+        if(timeModel== null || roomModel==null)
         {
             throw new IllegalArgumentException("The room or period is null");
         }

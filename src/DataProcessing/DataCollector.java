@@ -280,30 +280,28 @@ public class DataCollector{
              i++;
         }
         
-        for(int j=0; j<maxSessionNumber;j++)
+        for(i=0; i<maxSessionNumber;i++)
         {
-            LocalTimeRangeModel time = new LocalTimeRangeModel(8+j, 0, 50);
+            LocalTimeRangeModel time = new LocalTimeRangeModel(8+i, 0, 50);
             timeRanges.add(time);
             day.addTimeRange(time);
         }
-        i=0;  
+        i=0;
         for(TopicModel topic : topics)
-        {          
+        {             
             RoomModel room=new RoomModel("Sala "+i);
             day.addRoom(room);
             
+            int j=0;
             for(SessionModel session : topic.getSessions())
             {
-               day.addSession(session, timeRanges.get(i), room);
+               day.addSession(session, timeRanges.get(j), room);
+               j++;
             }
-            
-           i++;
-            
+            i++;
         }
         
-         
-        
-        
+        days.add(day);
         
         return days;
     }

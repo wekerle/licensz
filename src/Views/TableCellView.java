@@ -59,7 +59,7 @@ public class TableCellView extends VBox {
         return minimalSessionView;
     }
      
-     public TableCellView(TableView table, int rowIndex,int colIndex)
+     public TableCellView(TableView table, int colIndex,int rowIndex)
      {
         this.rowIndex=rowIndex;
         this.colIndex=colIndex;

@@ -5,6 +5,8 @@
  */
 package Models;
 
+import licenta.IdGenerator;
+
 /**
  *
  * @author Ronaldo
@@ -15,6 +17,7 @@ public class RoomModel {
 
     public RoomModel(String name) {
         this.name = name;
+        id=IdGenerator.getNewId();
     }
     
     public int getId() {

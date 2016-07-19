@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package licentav2;
+package licenta;
 
 import Views.SummaryView;
 import DataProcessing.DataCollector;
@@ -47,7 +47,7 @@ import javafx.stage.WindowEvent;
  *
  * @author Ronaldo
  */
-public class Licentav2 extends Application {
+public class Licenta extends Application {
     
     BorderPane borderPane = new BorderPane();
     AplicationModel aplicationModel=new AplicationModel();
@@ -107,7 +107,7 @@ public class Licentav2 extends Application {
     public static void main(String[] args)throws Exception {
         
         //Preferences prefs;
-        //prefs = Preferences.userNodeForPackage(Licentav2.class);
+        //prefs = Preferences.userNodeForPackage(Licenta.class);
         
         //prefs.put("LAST_OUTPUT_DIR", "tibi/tibisor/gh");
         
@@ -156,8 +156,11 @@ public class Licentav2 extends Application {
         
         MenuItem  numberOfSessionsPerDayMenuItem = new MenuItem ("Number of paralel session per day");
         numberOfSessionsPerDayMenuItem.setOnAction(actionEvent -> clickNumberOfSessionsPerDay());
+        
+        MenuItem  defaultBreakDuretion = new MenuItem ("Deafult break duration");
+        defaultBreakDuretion.setOnAction(actionEvent -> clickDefaultBreakDuretion());
                                                        
-        menuSettings.getItems().addAll(pathToThesaurusMenuItem,numberOfSessionsPerDayMenuItem);
+        menuSettings.getItems().addAll(pathToThesaurusMenuItem,numberOfSessionsPerDayMenuItem,defaultBreakDuretion);
         
         // --- Menu View
         Menu menuView = new Menu("View");
@@ -183,7 +186,8 @@ public class Licentav2 extends Application {
 
     }
     
-    private void clickNumberOfSessionsPerDay(){
+    private void clickNumberOfSessionsPerDay()
+    {
       TextEditor numberOfSessions=new TextEditor();
       
       numberOfSessions.setText(Integer.toString(aplicationModel.getMaxNumberSessionPerDay()));
@@ -206,23 +210,51 @@ public class Licentav2 extends Application {
                     dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
     }
     
-    private void clickViewSchedule(){
+    private void clickDefaultBreakDuretion()
+    {
+      TextEditor deafultBreakDuration=new TextEditor();
+      
+      deafultBreakDuration.setText(Integer.toString(aplicationModel.getDeafultBreakDuration()));
+        Dialog dialog = new Dialog<>();
+                    dialog.setHeaderText("Insert deafult break duration:");
+                    dialog.getDialogPane().setPrefSize(200, 150);
+                    
+                    dialog.getDialogPane().setContent(deafultBreakDuration);
+                    
+                    dialog.show();
+                    
+    //                    @Override
+   // public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+    //    aplicationModel.setMaxNumberSessionPerDay(Integer.parseInt(newValue));
+   // }
+                    
+                    ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+                    ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+                    dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
+    }
+    
+    private void clickViewSchedule()
+    {
               
         ScheduleView scheduleView=new ScheduleView(aplicationModel);
         borderPane.setCenter(scheduleView);
     }
     
-    private void clickViewSummary(){
+    private void clickViewSummary()
+    {
         SummaryView summaryView=new SummaryView(aplicationModel);
          borderPane.setCenter(summaryView);
     }
     
-    private void clickNew(){
+    private void clickNew()
+    {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             directoryChooser.setTitle("IEEE Conference");
                         
             File file = directoryChooser.showDialog(stage);
-            if (file != null) {
+            if (file != null) 
+            {
                 
                 String path=file.getPath();                                      
                 dataCollector.setPathToFolderWithFiles(path);                
@@ -231,7 +263,8 @@ public class Licentav2 extends Application {
             }
     }
     
-     private void clickSave(){       
+     private void clickSave()
+     {       
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save IEEE Conference");
             
@@ -240,8 +273,10 @@ public class Licentav2 extends Application {
             );
             
             File file = fileChooser.showSaveDialog(stage);
-            if (file != null) {
-                try {
+            if (file != null) 
+            {
+                try 
+                {
                     String path=file.getPath();
                     
                     FileOutputStream fileOut = new FileOutputStream(path);
@@ -257,7 +292,8 @@ public class Licentav2 extends Application {
             }      
     }
      
-    private void clickLoad(){       
+    private void clickLoad()
+    {       
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Load IEEE Conference");
             
@@ -291,7 +327,8 @@ public class Licentav2 extends Application {
             }      
     }
     
-    private void clickPathToThesaurus(MenuItem newMenuItem){       
+    private void clickPathToThesaurus(MenuItem newMenuItem)
+    {       
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Path to thesaurus");
             
@@ -306,8 +343,8 @@ public class Licentav2 extends Application {
             }      
     }
     
-    private GridPane addGridPane() {
-
+    private GridPane addGridPane() 
+    {
         GridPane grid = new GridPane();   
         grid.getStyleClass().add("grid");
 
@@ -336,8 +373,8 @@ public class Licentav2 extends Application {
         return grid;
     }
  
-    private AnchorPane addAnchorPane(GridPane grid) {
-
+    private AnchorPane addAnchorPane(GridPane grid) 
+    {
         AnchorPane anchorpane = new AnchorPane();
         anchorpane.getStyleClass().add("pane");
         

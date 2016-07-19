@@ -14,10 +14,8 @@ import Views.MinimalSessionView;
 import Views.TopicView;
 import Views.SessionView;
 import Listener.LectureDragEventListener;
-import Listener.SessionDragEventListener;
 import Listener.TextChangeEventListener;
 import Models.DayModel;
-import Views.ScheduleView;
 import Views.TableView;
 
 /**
@@ -76,8 +74,11 @@ public class Converter {
     
     public TableView dayModelToTableView(DayModel day)
     {
-       TableView table=new TableView(day);
-      return table;
+       TableView tableView=new TableView();
+       tableView.setTableId(day.getId());
+       tableView.populateContent(day);
+       
+       return tableView;
     }
 
     public ArrayList<TableView> dayModelListToTableModelList(ArrayList<DayModel> days, TextChangeEventListener textChangeEvent) 

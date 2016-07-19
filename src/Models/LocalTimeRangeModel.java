@@ -5,8 +5,9 @@
  */
 package Models;
 
+import Helpers.StringHelper;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import licenta.IdGenerator;
 
 /**
  *
@@ -24,18 +25,21 @@ public class LocalTimeRangeModel {
     public LocalTimeRangeModel(LocalTime startTime, LocalTime endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
+        id=IdGenerator.getNewId();
     }
     
     public LocalTimeRangeModel(int hour, int minute,int durationMinute) {
         
         this.startTime = LocalTime.of(hour, minute);
         this.endTime = startTime.plusMinutes(durationMinute);
+        id=IdGenerator.getNewId();
     }
     
     public LocalTimeRangeModel(LocalTime startTime,int durationMinute) {
         
         this.startTime = startTime;
         this.endTime = startTime.plusMinutes(durationMinute);
+        id=IdGenerator.getNewId();
     }
 
     public LocalTime getStartTime() {
@@ -56,7 +60,6 @@ public class LocalTimeRangeModel {
     
     @Override
     public String toString(){
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("HH:mm");
-        return startTime.format(dateFormatter)+"-"+endTime.format(dateFormatter);
+        return startTime.format(StringHelper.timeFormatter)+"-"+endTime.format(StringHelper.timeFormatter);
     }
 }

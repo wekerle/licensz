@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.StringJoiner;
+import javafx.util.StringConverter;
 
 /**
  *
@@ -16,8 +17,10 @@ import java.util.StringJoiner;
  */
  public final class  StringHelper {
     
-    static public final String pattern = "yyyy-MMM-dd";
-    static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+    static public final String datePattern = "yyyy-MMM-dd";
+    static public final String timePattern = "HH:mm";
+    static public final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(datePattern);
+    static public final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(timePattern);
     static String currentDate=LocalDate.now().format(dateFormatter);
     
     public static  String createListSeparateComma(ArrayList<String> authors)
@@ -42,5 +45,29 @@ import java.util.StringJoiner;
             result.add(author);
         }
         return result;
-    }   
+    }
+    
+    public static StringConverter getConverter()
+    {
+        StringConverter converter = new StringConverter<LocalDate>() {
+                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(StringHelper.datePattern);
+                        @Override
+                        public String toString(LocalDate date) {
+                            if (date != null) {
+                                return dateFormatter.format(date);
+                            } else {
+                                return "";
+                            }
+                        }
+                        @Override
+                        public LocalDate fromString(String string) {
+                            if (string != null && !string.isEmpty()) {
+                                return LocalDate.parse(string, dateFormatter);
+                            } else {
+                                return null;
+                            }
+                        }
+                    }; 
+        return converter;
+    }
 }

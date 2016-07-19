@@ -17,7 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import licentav2.GlobalVaribles;
+import licenta.GlobalVaribles;
 
 /**
  *

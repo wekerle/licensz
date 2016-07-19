@@ -16,7 +16,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import licentav2.GlobalVaribles;
+import licenta.GlobalVaribles;
 import Listener.LectureDragEventListener;
 import Listener.TextChangeEventListener;
 

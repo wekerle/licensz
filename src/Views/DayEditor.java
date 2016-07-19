@@ -7,7 +7,6 @@ package Views;
 
 import Helpers.StringHelper;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -17,7 +16,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.util.StringConverter;
 
 /**
  *
@@ -26,30 +24,6 @@ import javafx.util.StringConverter;
 public class DayEditor extends VBox {
     private Text text=new Text();
     private DatePicker datePicker=new DatePicker();
-    
-    private StringConverter getConverter()
-    {
-        StringConverter converter = new StringConverter<LocalDate>() {
-                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(StringHelper.pattern);
-                        @Override
-                        public String toString(LocalDate date) {
-                            if (date != null) {
-                                return dateFormatter.format(date);
-                            } else {
-                                return "";
-                            }
-                        }
-                        @Override
-                        public LocalDate fromString(String string) {
-                            if (string != null && !string.isEmpty()) {
-                                return LocalDate.parse(string, dateFormatter);
-                            } else {
-                                return null;
-                            }
-                        }
-                    }; 
-        return converter;
-    }
     
     public DayEditor()
     {
@@ -61,10 +35,9 @@ public class DayEditor extends VBox {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() == 2){
                                         
-                    StringConverter converter = DayEditor.this.getConverter();
-                    datePicker.setConverter(converter);
+                    datePicker.setConverter(StringHelper.getConverter());
                   
-                    String dateString=converter.toString(datePicker.getValue());
+                    String dateString=StringHelper.getConverter().toString(datePicker.getValue());
                     text.setText(dateString);    
                     
                     DayEditor.this.getChildren().remove(text);
@@ -95,8 +68,7 @@ public class DayEditor extends VBox {
                 }
                 else
                 {
-                    StringConverter converter=DayEditor.this.getConverter();
-                    String dateString=converter.toString(datePicker.getValue());
+                    String dateString=StringHelper.getConverter().toString(datePicker.getValue());
                     text.setText(dateString); 
                     
                     DayEditor.this.getChildren().remove(datePicker);
@@ -106,23 +78,9 @@ public class DayEditor extends VBox {
         });
     }
     
-    public DayEditor(String text)
+    public void setDay(LocalDate dateLocalDate)
     {
-        this();
-        this.setText(text);
-    }
-   
-    public String getText() {
-        return text.getText();
-    }
-
-    public void setText(String text) {
-        this.text.setText(text);
-        
-        StringConverter converter=this.getConverter();     
-        datePicker.setConverter(converter);
-        LocalDate dateLocalDate =(LocalDate) converter.fromString(text);
-        
+        this.text.setText(StringHelper.getConverter().toString(dateLocalDate));
         datePicker.setValue(dateLocalDate);
     }
     
