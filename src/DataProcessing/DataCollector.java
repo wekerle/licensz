@@ -266,6 +266,7 @@ public class DataCollector{
     {
         ArrayList<DayModel> days=new ArrayList<DayModel>();
         ArrayList<LocalTimeRangeModel> timeRanges=new ArrayList<LocalTimeRangeModel>();
+        ArrayList<RoomModel> rooms=new ArrayList<RoomModel>();
         ArrayList<TopicModel> topics=this.getTopics();  
         DayModel day =new DayModel();
         
@@ -273,11 +274,20 @@ public class DataCollector{
         int i=0;
         for(TopicModel topic : topics)
         {
-             if(topic.getSessions().size()>maxSessionNumber)
+            if(topic.getSessions().size()>maxSessionNumber)
            {
                maxSessionNumber=topic.getSessions().size();
            }
-             i++;
+           i++;
+        }
+        
+        i=0;
+        for(TopicModel topic : topics)
+        {             
+            RoomModel room=new RoomModel("Sala "+i);
+            day.addRoom(room);
+            rooms.add(room);
+            i++;
         }
         
         for(i=0; i<maxSessionNumber;i++)
@@ -285,21 +295,33 @@ public class DataCollector{
             LocalTimeRangeModel time = new LocalTimeRangeModel(8+i, 0, 50);
             timeRanges.add(time);
             day.addTimeRange(time);
+            if(i!=maxSessionNumber-1)
+            {
+                LocalTimeRangeModel breakTime = new LocalTimeRangeModel(8+i, 50, 10);
+                day.addTimeRange(breakTime);
+                
+                SessionModel breakSession=new SessionModel();
+                breakSession.makeBreak("Time break");
+                
+                for(RoomModel room : rooms)
+                {
+                    day.addSession(breakSession, breakTime, room);
+                }             
+            }
         }
+        
         i=0;
         for(TopicModel topic : topics)
         {             
-            RoomModel room=new RoomModel("Sala "+i);
-            day.addRoom(room);
-            
             int j=0;
             for(SessionModel session : topic.getSessions())
             {
-               day.addSession(session, timeRanges.get(j), room);
+               day.addSession(session, timeRanges.get(j), rooms.get(i));
                j++;
             }
             i++;
         }
+        
         
         days.add(day);
         

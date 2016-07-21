@@ -7,7 +7,6 @@ package Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import licenta.GlobalVaribles;
 import licenta.IdGenerator;
 
 /**
@@ -27,6 +26,19 @@ public class SessionModel implements Serializable{
          chairs.add("chair1");
          chairs.add("chair2");
     }
+    
+    public void makeBreak(String title)
+    {
+        this.LectureWithDetails=null;
+        this.chairs=null;
+        this.title=title;
+    }
+    
+    public boolean isBreak()
+    {
+        return LectureWithDetails == null && chairs==null;
+    }
+    
     public String getTitle() {
         return title;
     }

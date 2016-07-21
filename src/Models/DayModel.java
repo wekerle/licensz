@@ -21,7 +21,7 @@ public class DayModel {
     private ArrayList<LocalTimeRangeModel> times=new ArrayList<LocalTimeRangeModel>();
     
     //timeRange -> room -> session
-    private HashMap<Integer,HashMap<Integer,Integer>> roomTimeMap=new HashMap<Integer,HashMap<Integer,Integer>>();
+    private HashMap<Integer,HashMap<Integer,SessionModel>> roomTimeMap=new HashMap<Integer,HashMap<Integer,SessionModel>>();
     private LocalTimeRangeModel totalPeriod;
     
     private LocalDate day=LocalDate.now();
@@ -99,41 +99,35 @@ public class DayModel {
             throw new IllegalArgumentException("The room or period is null");
         }
         
-        HashMap<Integer,Integer> roomTime =roomTimeMap.get(time.getId());
+        HashMap<Integer,SessionModel> roomSessionMap =roomTimeMap.get(time.getId());
         
-        if(roomTime==null)
+        if(roomSessionMap==null)
         {
-            roomTime=new HashMap<Integer,Integer>();
-            roomTimeMap.put(time.getId(), roomTime);
+            roomSessionMap=new HashMap<Integer,SessionModel>();
+            roomTimeMap.put(time.getId(), roomSessionMap);
         }
         
-        Integer roomId= roomTime.get(room.getId());
+        SessionModel sessionModel= roomSessionMap.get(room.getId());
         
-        if(roomId==null)
+        if(sessionModel==null)
         {
-            roomTime.put(room.getId(), session.getId());
+            roomSessionMap.put(room.getId(), session);
         }else
         {
            throw new IllegalArgumentException("session already exist at that place and time");
         }   
     }
     
-    public int getSessionIdByRoomTime(int timeId,int roomId)
+    public SessionModel getSessionModelTimeRoom(int timeId,int roomId)
     {
-        HashMap<Integer,Integer> roomTime =roomTimeMap.get(timeId);
-        Integer sessionId=null;
+        HashMap<Integer,SessionModel> roomTime =roomTimeMap.get(timeId);
+        SessionModel session=null;
         
         if(roomTime!=null)
         {
-            sessionId=roomTime.get(roomId);
+            session=roomTime.get(roomId);
         }
-       if(sessionId==null)
-       {
-           return 0;
-       }else
-       {
-           return sessionId;
-       }
+           return session;
     }
     
     public int getRoomNumberCount()

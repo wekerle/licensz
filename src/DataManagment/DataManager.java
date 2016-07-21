@@ -266,34 +266,4 @@ public class DataManager {
         LectureWithDetailsModel lecture=getLectureById(lectureId);
         lecture.setAuthors(authors);
     }
-    
-    public RoomModel getRoomModelById(int id)
-    {
-        for(DayModel day : aplicationModel.getDays())
-        {
-            for(RoomModel room : day.getRooms())
-            {
-                if(room.getId()==id)
-                {
-                    return room;
-                }
-            }        
-        }
-        return null;
-    }
-    
-    public LocalTimeRangeModel getTimeRangeModelById(int id)
-    {
-        for(DayModel day : aplicationModel.getDays())
-        {
-            for(LocalTimeRangeModel timeRange : day.getTimes())
-            {
-                if(timeRange.getId()==id)
-                {
-                    return timeRange;
-                }
-            }
-        }      
-        return null;
-    }
 }

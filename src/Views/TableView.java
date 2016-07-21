@@ -151,17 +151,52 @@ public class TableView extends VBox implements SessionDragEventListener{
             this.table.add(hb, 1, 2, 4, 1);
             i++;
         }
-         
-          for(RoomModel room : day.getRooms())
-          {
-               for(LocalTimeRangeModel timeRange : day.getTimes())
-               {
-                   int sessionId=day.getSessionIdByRoomTime(room.getId(), timeRange.getId());
-             
-                   // TableCellView tableCellView=new TableCellView(this,i+1, 0);
-                    //tableCellView.setContentNode(textEditor);
-               }
-          }
+        i=1;
+        for(RoomModel room : day.getRooms())
+        {   
+            int j=1;
+            for(LocalTimeRangeModel timeRange : day.getTimes())
+            {                 
+                SessionModel session=day.getSessionModelTimeRoom(timeRange.getId(),room.getId());
+                TableCellView tableCellView=new TableCellView(this,i, j);
+
+                boolean sameCell=true;
+                    
+                if(session!=null)
+                {
+                     Converter c=new Converter();
+                     MinimalSessionView minimalSession=c.sessionToMinimalSessionView(session);
+                     tableCellView.setContentNode(minimalSession); 
+                     
+                    for(RoomModel roomModel:day.getRooms())
+                    {
+                        SessionModel sessionModel=day.getSessionModelTimeRoom(timeRange.getId(),roomModel.getId());
+                        
+                         if(sessionModel!=null && session.getId()!=sessionModel.getId())
+                         {
+                             sameCell=false;
+                             break;
+                         }
+                    }                 
+                } else
+                {
+                    sameCell=false;
+                }
+               
+                
+                if(sameCell)
+                {
+                    this.table.add(tableCellView, 1, j,day.getRooms().size(),1);
+                }else
+                {
+                    this.table.add(tableCellView,i, j);
+                }
+                
+                j++;
+            }
+            
+            i++;
+        }
          
         this.getChildren().add(table);
     }
