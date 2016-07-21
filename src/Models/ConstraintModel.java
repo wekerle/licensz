@@ -11,32 +11,39 @@ import java.time.LocalDate;
  *
  * @author tibor.wekerle
  */
-public class ConstraintModel {
+public class ConstraintModel 
+{
     private String teacherName;
     private LocalDate date;
     private LocalTimeRangeModel timeRange;
 
-    public String getTeacherName() {
+    public String getTeacherName() 
+    {
         return teacherName;
     }
 
-    public void setTeacherName(String teacherName) {
+    public void setTeacherName(String teacherName) 
+    {
         this.teacherName = teacherName;
     }
 
-    public LocalDate getDate() {
+    public LocalDate getDate() 
+    {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDate date) 
+    {
         this.date = date;
     }
 
-    public LocalTimeRangeModel getTimeRange() {
+    public LocalTimeRangeModel getTimeRange() 
+    {
         return timeRange;
     }
 
-    public void setTimeRange(LocalTimeRangeModel timeRange) {
+    public void setTimeRange(LocalTimeRangeModel timeRange) 
+    {
         this.timeRange = timeRange;
     }
     

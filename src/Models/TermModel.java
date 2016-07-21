@@ -13,7 +13,8 @@ import java.util.ArrayList;
  */
 
 // ki kell javitsam a kicsi beture a neveket
-public class TermModel {
+public class TermModel 
+{
      private TermModel broaderTerm;
      private ArrayList<TermModel> narrowerTerm;
      private ArrayList<TermModel> relatedTerms;
@@ -21,34 +22,42 @@ public class TermModel {
      private ArrayList<TermModel> useFor;
      private String name;
 
-    public TermModel getUse() {
+    public TermModel getUse() 
+    {
         return use;
     }
 
-    public void setUse(TermModel use) {
+    public void setUse(TermModel use) 
+    {
         this.use = use;
     }
 
-    public String getName() {
+    public String getName() 
+    {
         return name;
     }
      
-     public TermModel(String name){
+     public TermModel(String name)
+     {
          this.name=name;
      }
-    public TermModel getBroaderTerm() {
+    public TermModel getBroaderTerm() 
+    {
         return broaderTerm;
     }
 
-    public void setBroaderTerm(TermModel broaderTerm) {
+    public void setBroaderTerm(TermModel broaderTerm) 
+    {
         this.broaderTerm = broaderTerm;
     }
 
-    public ArrayList<TermModel> getNarrowerTerm() {
+    public ArrayList<TermModel> getNarrowerTerm()
+    {
         return narrowerTerm;
     }
 
-    public void addNarrowerTerm(TermModel narrowerTerm) {
+    public void addNarrowerTerm(TermModel narrowerTerm)
+    {
         if(this.narrowerTerm==null)
         {
             this.narrowerTerm=new ArrayList<TermModel>();
@@ -56,11 +65,13 @@ public class TermModel {
         this.narrowerTerm.add(narrowerTerm);
     }
 
-    public ArrayList<TermModel> getRelatedTerms() {
+    public ArrayList<TermModel> getRelatedTerms() 
+    {
         return relatedTerms;
     }
 
-    public void addRelatedTerms(TermModel relatedTerms) {
+    public void addRelatedTerms(TermModel relatedTerms) 
+    {
         if(this.relatedTerms==null)
         {
             this.relatedTerms=new ArrayList<TermModel>();
@@ -68,19 +79,23 @@ public class TermModel {
         this.relatedTerms.add(relatedTerms);
     }
 
-    public TermModel getUSE() {
+    public TermModel getUSE()
+    {
         return use;
     }
 
-    public void setUSE(TermModel use) {
+    public void setUSE(TermModel use)
+    {
         this.use = use;
     }
 
-    public ArrayList<TermModel> getUseFor() {
+    public ArrayList<TermModel> getUseFor() 
+    {
         return useFor;
     }
 
-    public void addUseFor(TermModel useFor) {
+    public void addUseFor(TermModel useFor)
+    {
         if(this.useFor==null)
         {
             this.useFor=new ArrayList<TermModel>();

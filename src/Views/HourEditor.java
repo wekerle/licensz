@@ -19,7 +19,8 @@ import javafx.scene.text.Text;
  *
  * @author Ronaldo
  */
-public class HourEditor extends VBox {
+public class HourEditor extends VBox 
+{
     private TimePicker startTimePicker;
     private TimePicker endTimePicker;
     private Text text=new Text();
@@ -32,11 +33,14 @@ public class HourEditor extends VBox {
         text.setText(time.toString());
         this.getChildren().add(text);
         
-        text.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        text.setOnMouseClicked(new EventHandler<MouseEvent>() 
+        {
         @Override
         public void handle(MouseEvent mouseEvent) {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() == 2){ 
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY))
+            {
+                if(mouseEvent.getClickCount() == 2)
+                { 
                     
                     Dialog dialog = new Dialog<>();
                     dialog.setTitle("Set the time");

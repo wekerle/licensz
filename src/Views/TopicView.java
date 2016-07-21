@@ -18,7 +18,8 @@ import Listener.TextChangeEventListener;
  *
  * @author Ronaldo
  */
-public class TopicView implements LectureDragEventListener,TextChangeEventListener {
+public class TopicView implements LectureDragEventListener,TextChangeEventListener 
+{
     private VBox contentNode=new VBox();
     private TextEditor titleView=new TextEditor();
     private VBox containerNode=new VBox();
@@ -26,11 +27,13 @@ public class TopicView implements LectureDragEventListener,TextChangeEventListen
     private LectureDragEventListener lectureDragEvent;
     private TextChangeEventListener textChangeEvent;
 
-    public void setLectureDragEvent(LectureDragEventListener lectureDragEvent) {
+    public void setLectureDragEvent(LectureDragEventListener lectureDragEvent) 
+    {
         this.lectureDragEvent = lectureDragEvent;
     }
     
-    public void setTextChangeEvent(TextChangeEventListener textChangeEvent) {
+    public void setTextChangeEvent(TextChangeEventListener textChangeEvent) 
+    {
         this.textChangeEvent = textChangeEvent;
     }
     
@@ -39,10 +42,12 @@ public class TopicView implements LectureDragEventListener,TextChangeEventListen
         this.topicId=id;
         titleView.setText(title);
         
-        titleView.setTextChangeEventListener(new TextChangeEventListener() {
+        titleView.setTextChangeEventListener(new TextChangeEventListener() 
+        {
 
              @Override
-             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
+             {
                  if(type==Enums.TextType.NOTHING)
                  {
                      type=Enums.TextType.TITLE;
@@ -70,15 +75,18 @@ public class TopicView implements LectureDragEventListener,TextChangeEventListen
         
     }
     
-     public VBox getContainerNode() {
+    public VBox getContainerNode()
+    {
         return containerNode;
     }
-     public void addSessionView(SessionView sessionView) {
+    public void addSessionView(SessionView sessionView)
+    {
         this.contentNode.getChildren().add(sessionView.getContainerNode());
     }
 
     @Override
-    public void notify(int sessionid, int lectureId) {
+    public void notify(int sessionid, int lectureId) 
+    {
         if(lectureDragEvent!=null)
         {
             lectureDragEvent.notify(sessionid, lectureId);
@@ -86,7 +94,8 @@ public class TopicView implements LectureDragEventListener,TextChangeEventListen
     }
 
     @Override
-    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
+    {
         if(textChangeEvent!=null)
         {
             textChangeEvent.modifyText(Enums.TextType.TITLE, category.TOPIC, this.topicId, newValue);

@@ -19,7 +19,8 @@ import javafx.scene.text.Font;
  *
  * @author Ronaldo
  */
-public class MinimalSessionView extends VBox {
+public class MinimalSessionView extends VBox
+{
     private VBox contentNode=new VBox();
     private TextEditor titleView=new TextEditor();
     private int sessionId=0;
@@ -34,7 +35,8 @@ public class MinimalSessionView extends VBox {
                 
         titleView.setFont(Font.font("TimesNewRoman",18));
           
-        this.setOnDragDetected(new EventHandler<MouseEvent>(){
+        this.setOnDragDetected(new EventHandler<MouseEvent>()
+        {
              public void handle(MouseEvent event)
              {
                 
@@ -48,11 +50,13 @@ public class MinimalSessionView extends VBox {
          });                      
     }
     
-    public VBox getContainerNode() {
+    public VBox getContainerNode() 
+    {
         return this;
     }
     
-    public int getSessionId(){
+    public int getSessionId()
+    {
         return this.sessionId;
     }
     

@@ -28,7 +28,8 @@ import Listener.TextChangeEventListener;
  *
  * @author Ronaldo
  */
-public class SummaryView extends ScrollPane implements LectureDragEventListener,TextChangeEventListener{
+public class SummaryView extends ScrollPane implements LectureDragEventListener,TextChangeEventListener
+{
         
     private double scrollDirection = 0;
     private VBox verticalLayout =  new VBox();
@@ -49,10 +50,13 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
      private ScrollBar getVerticalScrollbar() 
      {
         ScrollBar result = null;
-        for (Node n : this.lookupAll(".scroll-bar")) {
-            if (n instanceof ScrollBar) {
+        for (Node n : this.lookupAll(".scroll-bar")) 
+        {
+            if (n instanceof ScrollBar) 
+            {
                 ScrollBar bar = (ScrollBar) n;
-                if (bar.getOrientation().equals(Orientation.VERTICAL)) {
+                if (bar.getOrientation().equals(Orientation.VERTICAL)) 
+                {
                     result = bar;
                 }
             }
@@ -67,26 +71,32 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
         
         scrolltimeline.setCycleCount(Timeline.INDEFINITE);
         scrolltimeline.getKeyFrames().add(new KeyFrame(Duration.millis(20), "Scoll", (ActionEvent) -> { dragScroll();}));
-        this.setOnDragExited(event -> {
-            if (event.getY() > 0) {
+        this.setOnDragExited(event -> 
+        {
+            if (event.getY() > 0) 
+            {
                 
                // scrollDirection = 1.0 / tree.getExpandedItemCount();
                 //el kell oszam a magassagal az oszesnek
                  scrollDirection = 0.01;
             }
-            else {
+            else 
+            {
                 scrollDirection = -0.01;
             }
             scrolltimeline.play();
         });
-        this.setOnDragEntered(event -> {
+        this.setOnDragEntered(event -> 
+        {
             scrolltimeline.stop();
         });
-        this.setOnDragDone(event -> {
+        this.setOnDragDone(event -> 
+        {
             scrolltimeline.stop();
         });
  
-        this.setOnMouseMoved(new EventHandler<MouseEvent>() {
+        this.setOnMouseMoved(new EventHandler<MouseEvent>() 
+        {
             public void handle(MouseEvent event) { 
                 if(event.getSceneX()<SummaryView.this.getHeight()*0.05)
                 {
@@ -115,12 +125,14 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
     }
 
     @Override
-    public void notify(int sessionId, int lectureId) {       
+    public void notify(int sessionId, int lectureId) 
+    {       
         this.dataManager.moveLectureToSession(sessionId, lectureId);
     }   
 
     @Override
-    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
+    {
         if(type==Enums.TextType.NOTHING || category==Enums.TextCategory.NOTHING || id==0)
         {
             return;

@@ -13,7 +13,8 @@ import licenta.IdGenerator;
  *
  * @author Ronaldo
  */
-public class LectureWithDetailsModel implements Serializable{
+public class LectureWithDetailsModel implements Serializable
+{
     private int pageNr;
     private String title;
     private String topic;
@@ -25,42 +26,52 @@ public class LectureWithDetailsModel implements Serializable{
     private int id;
 
 
-    public int getPageNr() {
+    public int getPageNr() 
+    {
         return pageNr;
     }
     
-    public int getId() {
+    public int getId() 
+    {
         return id;
     }
 
-    public String getTopic() {
+    public String getTopic() 
+    {
         return topic;
     }
 
-    public String getType() {
+    public String getType() 
+    {
         return type;
     }
 
-    public String getTitle() {
+    public String getTitle() 
+    {
         return title;
     }
 
-    public ArrayList<String> getAuthors() {
+    public ArrayList<String> getAuthors() 
+    {
         return authors;
     }
 
-    public String getAbstarct() {
+    public String getAbstarct() 
+    {
         return abstarct;
     }
 
-    public ArrayList<String> getKeyWords() {
+    public ArrayList<String> getKeyWords() 
+    {
         return keyWords;
     }
 
-    public ArrayList<KeyWordModel> getGeneratedKeyWords() {
+    public ArrayList<KeyWordModel> getGeneratedKeyWords() 
+    {
         return generatedKeyWords;
     }
-    public LectureWithDetailsModel(String title, ArrayList<String> authors, int pageNr, String type, ArrayList<String> keyWords, ArrayList<KeyWordModel> generatedKeyWords,String topic,String abstarct) {
+    public LectureWithDetailsModel(String title, ArrayList<String> authors, int pageNr, String type, ArrayList<String> keyWords, ArrayList<KeyWordModel> generatedKeyWords,String topic,String abstarct) 
+    {
         this.pageNr = pageNr;
         this.title = title;
         this.authors = authors;
@@ -73,11 +84,13 @@ public class LectureWithDetailsModel implements Serializable{
         id=IdGenerator.getNewId();
     }   
 
-    public void setTitle(String title) {
+    public void setTitle(String title) 
+    {
         this.title = title;
     }
 
-    public void setAuthors(ArrayList<String> authors) {
+    public void setAuthors(ArrayList<String> authors) 
+    {
         this.authors = authors;
     }
 }

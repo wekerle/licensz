@@ -25,7 +25,8 @@ import Listener.TextChangeEventListener;
  *
  * @author Ronaldo
  */
-public class SessionView {
+public class SessionView 
+{
     private VBox contentNode=new VBox();
     private TextEditor titleView=new TextEditor();
     private VBox containerNode=new VBox();
@@ -34,11 +35,13 @@ public class SessionView {
     private LectureDragEventListener lectureDragEvent;
     private TextChangeEventListener textChangeEvent;
 
-    public void setLectureDragEvent(LectureDragEventListener lectureDragEvent) {
+    public void setLectureDragEvent(LectureDragEventListener lectureDragEvent) 
+    {
         this.lectureDragEvent = lectureDragEvent;
     }
     
-    public void setTextChangeEvent(TextChangeEventListener textChangeEvent) {
+    public void setTextChangeEvent(TextChangeEventListener textChangeEvent) 
+    {
         this.textChangeEvent = textChangeEvent;
     }
         
@@ -48,10 +51,12 @@ public class SessionView {
         titleView.setText(title);
         chairView.setText(StringHelper.createListSeparateComma(chairs));
         
-        titleView.setTextChangeEventListener(new TextChangeEventListener() {
+        titleView.setTextChangeEventListener(new TextChangeEventListener() 
+        {
 
              @Override
-             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
+             {
                  if(type==Enums.TextType.NOTHING)
                  {
                      type=Enums.TextType.TITLE;
@@ -70,10 +75,11 @@ public class SessionView {
              }
          });
         
-        chairView.setTextChangeEventListener(new TextChangeEventListener() {
-
+        chairView.setTextChangeEventListener(new TextChangeEventListener() 
+        {
              @Override
-             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
+             {
                  if(type==Enums.TextType.NOTHING)
                  {
                      type=Enums.TextType.CHAIRS;
@@ -102,10 +108,12 @@ public class SessionView {
         
         containerNode.setPadding(new Insets(10));
                 
-        contentNode.setOnDragOver(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {               
-                if (event.getGestureSource() != contentNode &&
-                        event.getDragboard().hasString()) {
+        contentNode.setOnDragOver(new EventHandler<DragEvent>() 
+        {
+            public void handle(DragEvent event) 
+            {               
+                if (event.getGestureSource() != contentNode && event.getDragboard().hasString()) 
+                {
                     event.acceptTransferModes(TransferMode.MOVE);
                     
                     if(!SessionView.this.containerNode.getStyleClass().contains("backGroundWhite"))
@@ -116,27 +124,27 @@ public class SessionView {
             }
         });
         
-        contentNode.setOnDragExited(new EventHandler<DragEvent>() {
+        contentNode.setOnDragExited(new EventHandler<DragEvent>() 
+        {
             public void handle(DragEvent event) {
-                 if (event.getGestureSource() != this &&
-                         event.getDragboard().hasString()) {
-
-                         SessionView.this.containerNode.getStyleClass().remove("backGroundWhite");
-
+                 if (event.getGestureSource() != this && event.getDragboard().hasString()) 
+                 {
+                    SessionView.this.containerNode.getStyleClass().remove("backGroundWhite");
                  }
 
                  event.consume();
             }
         });
         
-        contentNode.setOnDragDropped(new EventHandler<DragEvent>() {
+        contentNode.setOnDragDropped(new EventHandler<DragEvent>() 
+        {
             public void handle(DragEvent event) {
                 /* data dropped */
                 /* if there is a string data on dragboard, read it and use it */
                 Dragboard db = event.getDragboard();
                 boolean success = false; 
-                if (db.hasString()) {
-                                      
+                if (db.hasString()) 
+                {                                   
                     int lectureId=Integer.parseInt(db.getString());
                     int sessionId=SessionView.this.sessionId;
                     
@@ -164,15 +172,18 @@ public class SessionView {
         });        
     }
     
-    public VBox getContainerNode() {
+    public VBox getContainerNode() 
+    {
         return containerNode;
     }
-     public void addLectureView(LectureView lectureView) {
+     public void addLectureView(LectureView lectureView) 
+     {
         lectureView.setTextChange(textChangeEvent);
         this.contentNode.getChildren().add(lectureView.getNode());
     }             
 
-    public int getId() {
+    public int getId() 
+    {
         return this.sessionId;
     }
 }

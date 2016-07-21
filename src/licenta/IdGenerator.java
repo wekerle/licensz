@@ -9,7 +9,8 @@ package licenta;
  *
  * @author tibor.wekerle
  */
-public final class IdGenerator {
+public final class IdGenerator 
+{
     public static int id=0;
     public static int getNewId()
     {

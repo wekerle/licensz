@@ -12,6 +12,7 @@ import Helpers.Enums.TextType;
  *
  * @author tibor.wekerle
  */
-public interface TextChangeEventListener {
+public interface TextChangeEventListener 
+{
     void modifyText(TextType type,TextCategory category,int id,String newValue);
 }

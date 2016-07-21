@@ -17,7 +17,8 @@ import java.util.Arrays;
  *
  * @author Ronaldo
  */
-public class LectureReaderFromFile implements LectureReader{
+public class LectureReaderFromFile implements LectureReader
+{
 
     private ArrayList<File> listOfFiles = new ArrayList<File>();
     private LectureWithDetailsModel currentLecture=null;
@@ -29,15 +30,17 @@ public class LectureReaderFromFile implements LectureReader{
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
 
-        for (int i = 0; i < listOfFiles.length; i++) {
-          if (listOfFiles[i].isFile()) {
+        for (int i = 0; i < listOfFiles.length; i++) 
+        {
+          if (listOfFiles[i].isFile()) 
+          {
             files.add(listOfFiles[i]);
           } 
         }
         return files;
     }
-    public LectureReaderFromFile(String pathToFiles) {
-               
+    public LectureReaderFromFile(String pathToFiles)
+    {               
         ArrayList<File> files = getAllFilesFromDir(pathToFiles);
              
         for (File f:files)
@@ -47,7 +50,8 @@ public class LectureReaderFromFile implements LectureReader{
     }
     
     @Override
-    public boolean readNext() {
+    public boolean readNext() 
+    {
         index++;
         if(index>=listOfFiles.size())
         {
@@ -58,11 +62,13 @@ public class LectureReaderFromFile implements LectureReader{
     }
 
     @Override
-    public LectureWithDetailsModel getCurrent() {
+    public LectureWithDetailsModel getCurrent() 
+    {
        return currentLecture;
     }
 
-    private LectureWithDetailsModel readLectureDetailsFromFiles(File file) {
+    private LectureWithDetailsModel readLectureDetailsFromFiles(File file) 
+    {
         
         //roszul neveztem el a fileokat mindehol 
         try {

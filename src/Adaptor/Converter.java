@@ -24,7 +24,8 @@ import Views.TableView;
  *
  * @author Ronaldo
  */
-public class Converter {
+public class Converter 
+{
     
     public LectureView lectureToLectureView(LectureWithDetailsModel model)
     {
@@ -107,7 +108,8 @@ public class Converter {
         return tableViews;
     }
 
-    public ConstraintView constarintModelToConstarintView(ConstraintModel constarint) {
+    public ConstraintView constarintModelToConstarintView(ConstraintModel constarint) 
+    {
         ConstraintView constraintView=new ConstraintView();
         
         return constraintView;

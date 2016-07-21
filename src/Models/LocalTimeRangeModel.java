@@ -6,6 +6,7 @@
 package Models;
 
 import Helpers.StringHelper;
+import java.io.Serializable;
 import java.time.LocalTime;
 import licenta.IdGenerator;
 
@@ -13,53 +14,62 @@ import licenta.IdGenerator;
  *
  * @author Ronaldo
  */
-public class LocalTimeRangeModel {
+public class LocalTimeRangeModel implements Serializable
+{
     private int id;
     private LocalTime startTime;
     private LocalTime endTime;
 
-    public int getId() {
+    public int getId() 
+    {
         return id;
     }
 
-    public LocalTimeRangeModel(LocalTime startTime, LocalTime endTime) {
+    public LocalTimeRangeModel(LocalTime startTime, LocalTime endTime) 
+    {
         this.startTime = startTime;
         this.endTime = endTime;
         id=IdGenerator.getNewId();
     }
     
-    public LocalTimeRangeModel(int hour, int minute,int durationMinute) {
+    public LocalTimeRangeModel(int hour, int minute,int durationMinute) 
+    {
         
         this.startTime = LocalTime.of(hour, minute);
         this.endTime = startTime.plusMinutes(durationMinute);
         id=IdGenerator.getNewId();
     }
     
-    public LocalTimeRangeModel(LocalTime startTime,int durationMinute) {
-        
+    public LocalTimeRangeModel(LocalTime startTime,int durationMinute) 
+    {
         this.startTime = startTime;
         this.endTime = startTime.plusMinutes(durationMinute);
         id=IdGenerator.getNewId();
     }
 
-    public LocalTime getStartTime() {
+    public LocalTime getStartTime() 
+    {
         return startTime;
     }
 
-    public void setStartTime(LocalTime startTime) {
+    public void setStartTime(LocalTime startTime) 
+    {
         this.startTime = startTime;
     }
 
-    public LocalTime getEndTime() {
+    public LocalTime getEndTime() 
+    {
         return endTime;
     }
 
-    public void setEndTime(LocalTime endTime) {
+    public void setEndTime(LocalTime endTime) 
+    {
         this.endTime = endTime;
     }
     
     @Override
-    public String toString(){
+    public String toString()
+    {
         return startTime.format(StringHelper.timeFormatter)+"-"+endTime.format(StringHelper.timeFormatter);
     }
 }

@@ -20,12 +20,14 @@ import javafx.scene.text.Text;
  *
  * @author Ronaldo
  */
-public class TextEditor extends VBox {
+public class TextEditor extends VBox 
+{
     private TextField textField=new TextField();
     private Text text=new Text();
     private TextChangeEventListener textChangeListener;
 
-    public void setTextChangeEventListener(TextChangeEventListener textChangeListener){
+    public void setTextChangeEventListener(TextChangeEventListener textChangeListener)
+    {
         this.textChangeListener=textChangeListener;
     }
     
@@ -33,10 +35,12 @@ public class TextEditor extends VBox {
     {
         this.getChildren().add(text);
         
-        text.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        text.setOnMouseClicked(new EventHandler<MouseEvent>() 
+        {
         @Override
         public void handle(MouseEvent mouseEvent) {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY))
+            {
                 if(mouseEvent.getClickCount() == 2){
                     textField.setText(text.getText());                  
                     TextEditor.this.getChildren().remove(text);
@@ -46,7 +50,8 @@ public class TextEditor extends VBox {
                 {
                     text.requestFocus();
                 }
-            }else{
+            }else
+            {
                 text.requestFocus();
             }
         }
@@ -78,16 +83,19 @@ public class TextEditor extends VBox {
         this.setText(text);
     }
 
-    public String getText() {
+    public String getText() 
+    {
         return text.getText();
     }
 
-    public void setText(String text) {
+    public void setText(String text)
+    {
         this.text.setText(text);
         this.textField.setText(text);
     }
 
-    public void setFont(Font font) {
+    public void setFont(Font font) 
+    {
         this.text.setFont(font);
         this.textField.setFont(font);
     }

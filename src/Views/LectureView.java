@@ -23,22 +23,26 @@ import licenta.GlobalVaribles;
  *
  * @author Ronaldo
  */
-public class LectureView{
+public class LectureView
+{
     private TextEditor titleView=new TextEditor();
     private TextEditor authorView=new TextEditor();
     private VBox container=new VBox();
     private int id;
     private TextChangeEventListener textChangeEvent;
 
-    public void setTextChange(TextChangeEventListener textChange) {
+    public void setTextChange(TextChangeEventListener textChange) 
+    {
         this.textChangeEvent = textChange;
     }
     
-    public int getLectureNumber() {
+    public int getLectureNumber() 
+    {
         return id;
     }
 
-    public VBox getNode() {
+    public VBox getNode() 
+    {
         return container;
     }
      
@@ -50,32 +54,35 @@ public class LectureView{
          titleView.setText(title);
          authorView.setText(StringHelper.createListSeparateComma(authors));
          
-         titleView.setTextChangeEventListener(new TextChangeEventListener() {
+         titleView.setTextChangeEventListener(new TextChangeEventListener() 
+         {
+            @Override
+            public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
+            {
+                if(type==Enums.TextType.NOTHING)
+                {
+                    type=Enums.TextType.TITLE;
+                }
 
-             @Override
-             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
-                 if(type==Enums.TextType.NOTHING)
-                 {
-                     type=Enums.TextType.TITLE;
-                 }
-                 
-                 if(category==Enums.TextCategory.NOTHING)
-                 {
-                     category=Enums.TextCategory.LECTURE;
-                 }
-                 
-                 if(id==0)
-                 {
-                     id=LectureView.this.id;
-                 }
-                 LectureView.this.textChangeEvent.modifyText(type, category, id, newValue);
-             }
+                if(category==Enums.TextCategory.NOTHING)
+                {
+                    category=Enums.TextCategory.LECTURE;
+                }
+
+                if(id==0)
+                {
+                    id=LectureView.this.id;
+                }
+                LectureView.this.textChangeEvent.modifyText(type, category, id, newValue);
+            }
          });
          
-         authorView.setTextChangeEventListener(new TextChangeEventListener() {
+         authorView.setTextChangeEventListener(new TextChangeEventListener() 
+         {
 
              @Override
-             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
+             {
                  if(type==Enums.TextType.NOTHING)
                  {
                      type=Enums.TextType.AUTHORS;
@@ -100,7 +107,8 @@ public class LectureView{
          titleView.setFont(new Font(16));
          container.setPadding(new Insets(10.0));
                            
-         container.setOnDragDetected(new EventHandler<MouseEvent>(){
+         container.setOnDragDetected(new EventHandler<MouseEvent>()
+         {
              public void handle(MouseEvent event)
              {
                  if(!GlobalVaribles.isSelected(LectureView.this))
@@ -116,7 +124,8 @@ public class LectureView{
              }
          });
                   
-         container.setOnMouseClicked(new EventHandler<MouseEvent>() {          
+         container.setOnMouseClicked(new EventHandler<MouseEvent>()
+         {          
              @Override
              public void handle(MouseEvent event) {
                  if(event.isControlDown())

@@ -15,8 +15,8 @@ import javafx.util.StringConverter;
  *
  * @author tibor.wekerle
  */
- public final class  StringHelper {
-    
+ public final class  StringHelper 
+ {  
     static public final String datePattern = "yyyy-MMM-dd";
     static public final String timePattern = "HH:mm";
     static public final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(datePattern);
@@ -49,25 +49,28 @@ import javafx.util.StringConverter;
     
     public static StringConverter getConverter()
     {
-        StringConverter converter = new StringConverter<LocalDate>() {
-                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(StringHelper.datePattern);
-                        @Override
-                        public String toString(LocalDate date) {
-                            if (date != null) {
-                                return dateFormatter.format(date);
-                            } else {
-                                return "";
-                            }
-                        }
-                        @Override
-                        public LocalDate fromString(String string) {
-                            if (string != null && !string.isEmpty()) {
-                                return LocalDate.parse(string, dateFormatter);
-                            } else {
-                                return null;
-                            }
-                        }
-                    }; 
+        StringConverter converter = new StringConverter<LocalDate>()
+        {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(StringHelper.datePattern);
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) 
+                {
+                 return LocalDate.parse(string, dateFormatter);                              
+                }else 
+                {
+                    return null;
+                }
+            }
+        }; 
         return converter;
     }
 }

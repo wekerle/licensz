@@ -16,7 +16,8 @@ import javafx.scene.layout.GridPane;
  *
  * @author tibor.wekerle
  */
-public class TimePicker extends GridPane{
+public class TimePicker extends GridPane
+{
     private Spinner<Integer> hourSpinner;
     private Spinner<Integer> minutSpinner;
     private GridPane grid = new GridPane();

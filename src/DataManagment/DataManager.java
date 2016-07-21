@@ -18,7 +18,8 @@ import java.util.ArrayList;
  *
  * @author tibor.wekerle
  */
-public class DataManager {
+public class DataManager 
+{
     
     private AplicationModel aplicationModel=null;
     
@@ -225,7 +226,8 @@ public class DataManager {
     
     public void moveLectureToSession(int sessionId,int lectureId)
     {               
-        if(!checkIfLectureExistInSession(sessionId,lectureId)){
+        if(!checkIfLectureExistInSession(sessionId,lectureId))
+        {
             SessionModel destinationSession=getSessionById(sessionId);
             SessionModel sourceSession=getSessionByLectureId(lectureId);
             

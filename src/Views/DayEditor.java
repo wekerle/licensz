@@ -21,7 +21,8 @@ import javafx.scene.text.Text;
  *
  * @author tibor.wekerle
  */
-public class DayEditor extends VBox {
+public class DayEditor extends VBox 
+{
     private Text text=new Text();
     private DatePicker datePicker=new DatePicker();
     
@@ -29,11 +30,14 @@ public class DayEditor extends VBox {
     {
         this.getChildren().add(text);
         
-        text.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        text.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
         @Override
         public void handle(MouseEvent mouseEvent) {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() == 2){
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY))
+            {
+                if(mouseEvent.getClickCount() == 2)
+                {
                                         
                     datePicker.setConverter(StringHelper.getConverter());
                   

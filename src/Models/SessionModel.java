@@ -13,7 +13,8 @@ import licenta.IdGenerator;
  *
  * @author Ronaldo
  */
-public class SessionModel implements Serializable{
+public class SessionModel implements Serializable
+{
     private String title;
     private ArrayList<String> chairs=new  ArrayList<String>();
     
@@ -39,31 +40,38 @@ public class SessionModel implements Serializable{
         return LectureWithDetails == null && chairs==null;
     }
     
-    public String getTitle() {
+    public String getTitle() 
+    {
         return title;
     }
     
-    public int getId() {
+    public int getId() 
+    {
         return id;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title)
+    {
         this.title = title;
     }
 
-    public ArrayList<LectureWithDetailsModel> getLectures() {
+    public ArrayList<LectureWithDetailsModel> getLectures() 
+    {
         return LectureWithDetails;
     }
 
-    public ArrayList<String> getChairs() {
+    public ArrayList<String> getChairs() 
+    {
         return chairs;
     }
 
-    public void setChairs(ArrayList<String> chairs) {
+    public void setChairs(ArrayList<String> chairs) 
+    {
         this.chairs = chairs;
     }
 
-    public void setLectureWithDetails(ArrayList<LectureWithDetailsModel> LectureWithDetails) {
+    public void setLectureWithDetails(ArrayList<LectureWithDetailsModel> LectureWithDetails) 
+    {
         this.LectureWithDetails = LectureWithDetails;
     }
     

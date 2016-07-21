@@ -328,15 +328,18 @@ public class DataCollector{
         return days;
     }
 
-    public void setPathToFolderWithFiles(String pathToFolderWithFiles) {
+    public void setPathToFolderWithFiles(String pathToFolderWithFiles) 
+    {
         this.pathToFolderWithFiles = pathToFolderWithFiles;
     }
 
-    public String getPathToThesaurus() {
+    public String getPathToThesaurus() 
+    {
         return pathToThesaurus;
     }
 
-    public void setPathToThesaurus(String pathToThesaurus) {
+    public void setPathToThesaurus(String pathToThesaurus) 
+    {
         this.pathToThesaurus = pathToThesaurus;
     }      
 }

@@ -24,8 +24,8 @@ import javafx.util.Duration;
  *
  * @author tibor.wekerle
  */
-public class ScheduleView extends ScrollPane implements SessionDragEventListener{
-    
+public class ScheduleView extends ScrollPane implements SessionDragEventListener
+{  
     private double scrollDirection = 0;
     private VBox verticalLayout =  new VBox();
     private AplicationModel aplicationModel=null;
@@ -46,10 +46,12 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
     private ScrollBar getVerticalScrollbar() 
     {
         ScrollBar result = null;
-        for (Node n : this.lookupAll(".scroll-bar")) {
+        for (Node n : this.lookupAll(".scroll-bar")) 
+        {
             if (n instanceof ScrollBar) {
                 ScrollBar bar = (ScrollBar) n;
-                if (bar.getOrientation().equals(Orientation.VERTICAL)) {
+                if (bar.getOrientation().equals(Orientation.VERTICAL)) 
+                {
                     result = bar;
                 }
             }

@@ -17,9 +17,11 @@ import java.util.HashMap;
  *
  * @author Ronaldo
  */
-public class TermReaderFromFile{
+public class TermReaderFromFile
+{
           
-    public HashMap<String,TermModel> readTermsFromFile(File file) {
+    public HashMap<String,TermModel> readTermsFromFile(File file) 
+    {
         
         HashMap<String,TermModel> hm=new HashMap<String,TermModel>();
         try {

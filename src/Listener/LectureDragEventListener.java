@@ -9,6 +9,7 @@ package Listener;
  *
  * @author Ronaldo
  */
-public interface LectureDragEventListener {
+public interface LectureDragEventListener 
+{
     void notify(int sessionId,int lectureId);
 }

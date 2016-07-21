@@ -5,6 +5,7 @@
  */
 package Models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,8 @@ import licenta.IdGenerator;
  *
  * @author Ronaldo
  */
-public class DayModel {
+public class DayModel implements Serializable
+{
     // <editor-fold desc="private region" defaultstate="collapsed">
     private int id;
     private ArrayList<RoomModel> rooms=new ArrayList<RoomModel>();
@@ -57,15 +59,18 @@ public class DayModel {
         this.id=IdGenerator.getNewId();
     }
     
-    public LocalDate getDay() {
+    public LocalDate getDay() 
+    {
         return day;
     }
 
-    public int getId() {
+    public int getId() 
+    {
         return id;
     }
         
-    public void setDay(LocalDate day) {
+    public void setDay(LocalDate day) 
+    {
         this.day = day;
     }
     
@@ -140,11 +145,13 @@ public class DayModel {
         return times.size();
     }
 
-    public ArrayList<RoomModel> getRooms() {
+    public ArrayList<RoomModel> getRooms()
+    {
         return rooms;
     }
 
-    public ArrayList<LocalTimeRangeModel> getTimes() {
+    public ArrayList<LocalTimeRangeModel> getTimes() 
+    {
         return times;
     }
     

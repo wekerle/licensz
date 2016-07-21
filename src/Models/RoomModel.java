@@ -5,26 +5,31 @@
  */
 package Models;
 
+import java.io.Serializable;
 import licenta.IdGenerator;
 
 /**
  *
  * @author Ronaldo
  */
-public class RoomModel {
+public class RoomModel implements Serializable
+{
     private int id;
     private String name;
 
-    public RoomModel(String name) {
+    public RoomModel(String name) 
+    {
         this.name = name;
         id=IdGenerator.getNewId();
     }
     
-    public int getId() {
+    public int getId() 
+    {
         return id;
     }
 
-    public String getName() {
+    public String getName() 
+    {
         return name;
     }
     

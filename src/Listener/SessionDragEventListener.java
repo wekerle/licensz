@@ -13,6 +13,7 @@ import Views.TableView;
  *
  * @author tibor.wekerle
  */
-public interface SessionDragEventListener {
+public interface SessionDragEventListener 
+{
      void notifyDataManager(int destinationSessionId,int sourceSessionId,Enums.Position position);
 }

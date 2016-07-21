@@ -11,7 +11,8 @@ import Models.LectureWithDetailsModel;
  *
  * @author Ronaldo
  */
-public interface LectureReader {
+public interface LectureReader 
+{
     boolean readNext();
     LectureWithDetailsModel getCurrent();
 }

@@ -9,7 +9,8 @@ package Helpers;
  *
  * @author tibor.wekerle
  */
-public class Enums {
+public class Enums 
+{
     public enum ParserState{
         NONE,
         USE,

@@ -13,21 +13,25 @@ import java.util.HashMap;
  *
  * @author Ronaldo
  */
-public final class GlobalVaribles {
+public final class GlobalVaribles 
+{
    
     private static HashMap<Integer,LectureView> dragLectureAndNumberMap=new HashMap<Integer,LectureView>();
     
     private static  ArrayList<LectureView> selectedDragLectures=new ArrayList<LectureView>();
                
-    public static void addElementToDragLectureAndNumberMap(int lectureNumber, LectureView lectureView) {
+    public static void addElementToDragLectureAndNumberMap(int lectureNumber, LectureView lectureView) 
+    {
         dragLectureAndNumberMap.put(lectureNumber, lectureView);
     }
             
-    public static LectureView getDragLectureByNumber(int lectureNumber) {
+    public static LectureView getDragLectureByNumber(int lectureNumber) 
+    {
         return dragLectureAndNumberMap.get(lectureNumber);
     }
             
-    public static void removeAllSelected() {
+    public static void removeAllSelected() 
+    {
         for(LectureView dl:selectedDragLectures)
         {
             dl.getNode().setStyle("-fx-background-color:inherit");
@@ -36,16 +40,19 @@ public final class GlobalVaribles {
         
     }
     
-    public static void addSelected(LectureView dragLecture) {
+    public static void addSelected(LectureView dragLecture) 
+    {
         dragLecture.getNode().setStyle("-fx-background-color:#d6c9c9");
         selectedDragLectures.add(dragLecture);
     }
     
-    public static boolean isSelected(LectureView dragLecture) {
+    public static boolean isSelected(LectureView dragLecture) 
+    {
       return  selectedDragLectures.contains(dragLecture);
     }
     
-    public static ArrayList<LectureView> getAllSelected() {
+    public static ArrayList<LectureView> getAllSelected() 
+    {
       return  selectedDragLectures;
     }   
        

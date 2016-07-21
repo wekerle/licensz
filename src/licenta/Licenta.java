@@ -47,7 +47,8 @@ import javafx.stage.WindowEvent;
  *
  * @author Ronaldo
  */
-public class Licenta extends Application {
+public class Licenta extends Application 
+{
     
     BorderPane borderPane = new BorderPane();
     AplicationModel aplicationModel=new AplicationModel();
@@ -56,7 +57,8 @@ public class Licenta extends Application {
     Stage stage=null;
     
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) 
+    {
         
         MenuBar menuBar=createMenu();       
         borderPane.setTop(menuBar);                 
@@ -76,7 +78,8 @@ public class Licenta extends Application {
                 
     }
     
-    private EventHandler<WindowEvent> confirmCloseEventHandler = event -> {
+    private EventHandler<WindowEvent> confirmCloseEventHandler = event -> 
+    {
         if(aplicationModel.hasModification())
         {
             Alert closeConfirmation = new Alert(
@@ -92,7 +95,8 @@ public class Licenta extends Application {
             closeConfirmation.initOwner(stage);
 
             Optional<ButtonType> closeResponse = closeConfirmation.showAndWait();
-            if (!ButtonType.OK.equals(closeResponse.get())) {
+            if (!ButtonType.OK.equals(closeResponse.get())) 
+            {
                 event.consume();
             }
         }
@@ -104,7 +108,8 @@ public class Licenta extends Application {
      * @param args the command line arguments
      */
          
-    public static void main(String[] args)throws Exception {
+    public static void main(String[] args)throws Exception 
+    {
         
         //Preferences prefs;
         //prefs = Preferences.userNodeForPackage(Licenta.class);

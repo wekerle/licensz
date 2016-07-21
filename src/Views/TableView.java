@@ -47,69 +47,7 @@ public class TableView extends VBox implements SessionDragEventListener{
     }
     
     public void populateContent(DayModel day)
-    {   
-      /*  int i=0;
-        int j=0;
-        for(RoomModel room : day.getRooms())
-        {
-             TextEditor textEditor=new TextEditor(room.getName());
-             
-             TableCellView roomTableCellView=new TableCellView(this,i+1, 0);
-             roomTableCellView.setContentNode(textEditor);
-             
-            // textEditor.getStyleClass().add("tableCellSala");
-             textEditor.setAlignment(Pos.CENTER);
-             textEditor.setStyle("-fx-text-fill:white;");
-             //tableCellView.getStyleClass().add("tableCellSala");
-             
-            this.table.add(roomTableCellView, i+1, j);
-            
-            HourEditor hourEditor=null;
-            for(LocalTimeRangeModel timeRange : day.getTimes())
-            {
-                hourEditor=new HourEditor(timeRange);
-                 TableCellView timeTableCellView=new TableCellView(this,i,j+1);
-                 //  textEditor.setStyle("-fx-text-fill:red");
-                 timeTableCellView.setContentNode(hourEditor);
-                 timeTableCellView.setAlignment(Pos.CENTER);
-                //  tableCellView.setStyle("-fx-background-color: black");
-                 //textEditor.setStyle("-fx-text-fill: ladder(background, white 49%, black 50%)");
-
-                this.table.add(timeTableCellView,i,j+1 );
-                j++;
-            }
-            
-            
-            i++;
-           
-            
-                      
-           
-
-            //  textEditor.setStyle("-fx-text-fill:red");
-           // if(hourEditor!=null)
-           // {
-              
-           // }
-
-              
-
-            //  Text t= new Text("asd sfdg dfg hg sfds dsf sfdg ");
-            //  HBox hb=new HBox();
-            //  hb.setStyle("-fx-background-color: #ffc0cb");
-
-            //  hb.getChildren().add(t);
-             // hb.setAlignment(Pos.CENTER);
-            //  this.table.add(hb, 1, 2, 4, 1);
-             // j++;
-        }*/
-        
-        
-        
-        
-        
-        
-        
+    {        
         int i=0;
         for(RoomModel room : day.getRooms())
         {
@@ -206,11 +144,13 @@ public class TableView extends VBox implements SessionDragEventListener{
         sessionDragEvent.notifyDataManager(destinationSessionId, sourceSessionId, position);
     }
 
-    public int getTableId() {
+    public int getTableId()
+    {
         return tableId;
     }
 
-    public void setTableId(int id) {
+    public void setTableId(int id) 
+    {
         this.tableId = id;
     }
     

@@ -14,7 +14,8 @@ import javafx.scene.layout.GridPane;
  *
  * @author tibor.wekerle
  */
-public class ConstraintView extends ScrollPane{
+public class ConstraintView extends ScrollPane
+{
     
     private GridPane table=new GridPane();
          

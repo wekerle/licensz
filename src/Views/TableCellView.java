@@ -18,8 +18,8 @@ import Listener.SessionDragEventListener;
  *
  * @author Ronaldo
  */
-public class TableCellView extends VBox {
-
+public class TableCellView extends VBox 
+{
     private int colIndex=0;
     private int rowIndex=0;
     private MinimalSessionView minimalSessionView=null;
@@ -30,32 +30,39 @@ public class TableCellView extends VBox {
         this.sessionDragEvent=sessionDragEvent;
     }
     
-    public int getColIndex() {
+    public int getColIndex() 
+    {
         return colIndex;
     }
 
-    public void setColIndex(int colIndex) {
+    public void setColIndex(int colIndex) 
+    {
         this.colIndex = colIndex;
     }
 
-    public int getRowIndex() {
+    public int getRowIndex() 
+    {
         return rowIndex;
     }
 
-    public void setRowIndex(int rowIndex) {
+    public void setRowIndex(int rowIndex) 
+    {
         this.rowIndex = rowIndex;
     }
 
-    public void setContentNode(Node contentNode) {
+    public void setContentNode(Node contentNode) 
+    {
         this.getChildren().add(contentNode);
     }
     
-    public void setMinimalSessionView(MinimalSessionView minimalSessionView) {
+    public void setMinimalSessionView(MinimalSessionView minimalSessionView) 
+    {
         this.minimalSessionView = minimalSessionView;
         setContentNode(minimalSessionView);
     }
 
-    public MinimalSessionView getMinimalSessionView() {
+    public MinimalSessionView getMinimalSessionView() 
+    {
         return minimalSessionView;
     }
      
@@ -64,10 +71,12 @@ public class TableCellView extends VBox {
         this.rowIndex=rowIndex;
         this.colIndex=colIndex;
          
-        this.setOnDragOver(new EventHandler<DragEvent>() {
+        this.setOnDragOver(new EventHandler<DragEvent>() 
+        {
             public void handle(DragEvent event) {               
                 if (event.getGestureSource() != this &&
-                        event.getDragboard().hasString()) {
+                        event.getDragboard().hasString()) 
+                {
                     event.acceptTransferModes(TransferMode.MOVE);
                     
                     double centerY=TableCellView.this.getLayoutBounds().getMinY()+TableCellView.this.getHeight()/2;
@@ -85,34 +94,37 @@ public class TableCellView extends VBox {
             }
         });
                 
-        this.setOnDragExited(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                 if (event.getGestureSource() != this &&
-                         event.getDragboard().hasString()) {
-
-                         TableCellView.this.getStyleClass().remove("tableCellDragOverBorderTop");
-                         TableCellView.this.getStyleClass().remove("tableCellDragOverBorderBottom");
-
-                 }
+        this.setOnDragExited(new EventHandler<DragEvent>() 
+        {
+            public void handle(DragEvent event) 
+            {
+                if (event.getGestureSource() != this && event.getDragboard().hasString()) 
+                {
+                    TableCellView.this.getStyleClass().remove("tableCellDragOverBorderTop");
+                    TableCellView.this.getStyleClass().remove("tableCellDragOverBorderBottom");
+                }
             }
         });
         
-        this.setOnDragDropped(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
+        this.setOnDragDropped(new EventHandler<DragEvent>() 
+        {
+            public void handle(DragEvent event) 
+            {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 int sourceSessionId=0;
                 int destinationSessionId=0;
                 Enums.Position position=Enums.Position.AFTER;
                 
-                if (db.hasString()) {                 
-                    
+                if (db.hasString()) 
+                {                                  
                     sourceSessionId=Integer.parseInt(db.getString());
                     destinationSessionId=TableCellView.this.getMinimalSessionView().getSessionId();
                     
                     double centerY=TableCellView.this.getLayoutBounds().getMinY()+TableCellView.this.getHeight()/2;
                     
-                    if(centerY>event.getY()){
+                    if(centerY>event.getY())
+                    {
                         position=Enums.Position.BEFORE;     
                     }else
                     {
