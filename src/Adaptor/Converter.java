@@ -17,7 +17,7 @@ import Listener.LectureDragEventListener;
 import Listener.TextChangeEventListener;
 import Models.ConstraintModel;
 import Models.DayModel;
-import Views.ConstraintView;
+import Views.ConstraintsView;
 import Views.TableView;
 
 /**
@@ -79,6 +79,7 @@ public class Converter
     {
        TableView tableView=new TableView();
        tableView.setTableId(day.getId());
+       tableView.setDay(day.getDay());
        tableView.populateContent(day);
        
        return tableView;
@@ -96,22 +97,4 @@ public class Converter
         return tableViews;
     }
     
-    public ArrayList<ConstraintView> constraintModelListToConstraintViewList(ArrayList<ConstraintModel> constraints) 
-    {
-        ArrayList<ConstraintView> tableViews= new ArrayList<ConstraintView>();
-        
-        for(ConstraintModel constarint : constraints)
-        {
-            tableViews.add(constarintModelToConstarintView(constarint));
-        }
-        
-        return tableViews;
-    }
-
-    public ConstraintView constarintModelToConstarintView(ConstraintModel constarint) 
-    {
-        ConstraintView constraintView=new ConstraintView();
-        
-        return constraintView;
-    }
 }

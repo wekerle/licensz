@@ -83,9 +83,10 @@ public class TableView extends VBox implements SessionDragEventListener{
             Text t= new Text("asd sfdg dfg hg sfds dsf sfdg ");
             HBox hb=new HBox();
             hb.setStyle("-fx-background-color: #ffc0cb");
+            hb.setAlignment(Pos.CENTER);
             
             hb.getChildren().add(t);
-            hb.setAlignment(Pos.CENTER);
+            
             this.table.add(hb, 1, 2, 4, 1);
             i++;
         }
@@ -124,6 +125,8 @@ public class TableView extends VBox implements SessionDragEventListener{
                 
                 if(sameCell)
                 {
+                    tableCellView.setStyle("-fx-background-color: #ffc0cb");
+                    tableCellView.setAlignment(Pos.CENTER);
                     this.table.add(tableCellView, 1, j,day.getRooms().size(),1);
                 }else
                 {

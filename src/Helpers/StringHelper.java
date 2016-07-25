@@ -51,25 +51,25 @@ import javafx.util.StringConverter;
     {
         StringConverter converter = new StringConverter<LocalDate>()
         {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(StringHelper.datePattern);
-            @Override
-            public String toString(LocalDate date) {
-                if (date != null) {
-                    return dateFormatter.format(date);
-                } else {
-                    return "";
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(StringHelper.datePattern);
+                @Override
+                public String toString(LocalDate date) {
+                    if (date != null) {
+                        return dateFormatter.format(date);
+                    } else {
+                        return "";
+                    }
                 }
-            }
-            @Override
-            public LocalDate fromString(String string) {
-                if (string != null && !string.isEmpty()) 
-                {
-                 return LocalDate.parse(string, dateFormatter);                              
-                }else 
-                {
-                    return null;
+                @Override
+                public LocalDate fromString(String string) {
+                    if (string != null && !string.isEmpty()) 
+                    {
+                     return LocalDate.parse(string, dateFormatter);                              
+                    }else 
+                    {
+                        return null;
+                    }
                 }
-            }
         }; 
         return converter;
     }

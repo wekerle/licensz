@@ -71,7 +71,10 @@ public class TextEditor extends VBox
                     text.setText(textField.getText());
                     TextEditor.this.getChildren().remove(textField);
                     TextEditor.this.getChildren().add(text);
-                    textChangeListener.modifyText(Enums.TextType.NOTHING, Enums.TextCategory.NOTHING, 0, text.getText());
+                    if(textChangeListener!=null)
+                    {
+                        textChangeListener.modifyText(Enums.TextType.NOTHING, Enums.TextCategory.NOTHING, 0, text.getText());
+                    }
                 }
             }
         });

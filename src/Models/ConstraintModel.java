@@ -5,13 +5,14 @@
  */
 package Models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author tibor.wekerle
  */
-public class ConstraintModel 
+public class ConstraintModel implements Serializable
 {
     private String teacherName;
     private LocalDate date;

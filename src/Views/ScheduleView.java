@@ -13,10 +13,15 @@ import Models.AplicationModel;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -70,6 +75,39 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         {                       
             verticalLayout.getChildren().add(tableview);
         }
+        // this is only a hardcode, and it is used only for test
+        ArrayList<TableView> tableViewList2= c.dayModelListToTableViewList(aplicationModel.getDays(),null);
+        for(TableView tableview : tableViewList2)
+        {                       
+            verticalLayout.getChildren().add(tableview);
+        }
+        ArrayList<TableView> tableViewList3= c.dayModelListToTableViewList(aplicationModel.getDays(),null);
+        for(TableView tableview : tableViewList3)
+        {                       
+            verticalLayout.getChildren().add(tableview);
+        }
+        
+       // getClas();
+        System.out.println("Working Directory = " +
+              System.getProperty("user.dir"));
+        
+        /* Image img1 = new Image(System.getProperty("user.dir")+"/src/about.png");
+        // Image img2 = new Image(getClass().getResourceAsStream("close.png"));
+         
+         HBox hb = new HBox();
+                hb.setPadding(new Insets(15, 15, 15, 12));
+                hb.setSpacing(10);
+         // Adding buttons and images to buttons with no text on buttons
+                Button button1 = new Button("", new ImageView(img1));
+                hb.getChildren().add(button1);
+               // Button button2 = new Button("", new ImageView(img2));
+               // hb.getChildren().add(button2);
+                // Adding buttons and images with text on buttons
+                Button button3 = new Button("Info Button", new ImageView(img1));
+                hb.getChildren().add(button3);
+                
+                
+                verticalLayout.getChildren().add(hb);*/
            
     }
     

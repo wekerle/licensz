@@ -16,9 +16,10 @@ public class AplicationModel implements Serializable
 {
     private ArrayList<TopicModel> topics=new ArrayList<TopicModel>();
     private ArrayList<DayModel> days=new ArrayList<DayModel>();
+    private ArrayList<ConstraintModel> constraints=new ArrayList<ConstraintModel>();
+    
     private boolean hasModification=true;
     private int maxNumberSessionPerDay=5;
-    private int deafultBreakDuration=10;
 
     public int getMaxNumberSessionPerDay() 
     {
@@ -60,13 +61,12 @@ public class AplicationModel implements Serializable
         this.days = days;
     }
 
-    public int getDeafultBreakDuration() 
-    {
-        return deafultBreakDuration;
+    public ArrayList<ConstraintModel> getConstraints() {
+        return constraints;
     }
 
-    public void setDeafultBreakDuration(int deafultBreakDuration) 
-    {
-        this.deafultBreakDuration = deafultBreakDuration;
-    }  
+    public void setConstraints(ArrayList<ConstraintModel> constraints) {
+        this.constraints = constraints;
+    }
+    
 }

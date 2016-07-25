@@ -8,6 +8,7 @@ package licenta;
 import Views.SummaryView;
 import DataProcessing.DataCollector;
 import Models.AplicationModel;
+import Views.ConstraintsView;
 import Views.ScheduleView;
 import Views.TextEditor;
 import java.io.File;
@@ -19,6 +20,7 @@ import java.io.ObjectOutputStream;
 import java.util.Optional;
 import java.util.prefs.Preferences;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -170,14 +172,16 @@ public class Licenta extends Application
         // --- Menu View
         Menu menuView = new Menu("View");
         MenuItem timeTableMenuItem = new MenuItem("Schedule");
-        MenuItem listMenuItem = new MenuItem("Summary");
+        MenuItem summaryMenuItem = new MenuItem("Summary");
+        MenuItem constraintMenuItem = new MenuItem("Constraints");
         MenuItem homeMenuItem = new MenuItem("Home");
         
         timeTableMenuItem.setOnAction(actionEvent -> clickViewSchedule());
-        listMenuItem.setOnAction(actionEvent -> clickViewSummary());
+        summaryMenuItem.setOnAction(actionEvent -> clickViewSummary());
+        constraintMenuItem.setOnAction(actionEvent -> clickViewConstraints());
         homeMenuItem.setOnAction(actionEvent -> start(stage));
         
-        menuView.getItems().addAll(timeTableMenuItem,listMenuItem,new SeparatorMenuItem(),homeMenuItem);
+        menuView.getItems().addAll(timeTableMenuItem,summaryMenuItem,constraintMenuItem,new SeparatorMenuItem(),homeMenuItem);
         
         // --- Menu Generate
         Menu menuGenerate = new Menu("Generate");
@@ -195,157 +199,152 @@ public class Licenta extends Application
     {
       TextEditor numberOfSessions=new TextEditor();
       
-      numberOfSessions.setText(Integer.toString(aplicationModel.getMaxNumberSessionPerDay()));
-        Dialog dialog = new Dialog<>();
-                    dialog.setHeaderText("Insert the number of paralel sessions per day:");
-                    dialog.getDialogPane().setPrefSize(200, 150);
-                    
-                    dialog.getDialogPane().setContent(numberOfSessions);
-                    
-                    dialog.show();
-                    
-    //                    @Override
-   // public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
-    //    aplicationModel.setMaxNumberSessionPerDay(Integer.parseInt(newValue));
-   // }
-                    
-                    ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-                    ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-                    dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
-                    dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
+      numberOfSessions.setText(Integer.toString(aplicationModel.getMaxNumberSessionPerDay()));                
     }
     
     private void clickDefaultBreakDuretion()
     {
-      TextEditor deafultBreakDuration=new TextEditor();
+        TextEditor deafultBreakDuration=new TextEditor();
       
-      deafultBreakDuration.setText(Integer.toString(aplicationModel.getDeafultBreakDuration()));
+        deafultBreakDuration.setText(Integer.toString(dataCollector.getDeafultBreakDuration()));
         Dialog dialog = new Dialog<>();
-                    dialog.setHeaderText("Insert deafult break duration:");
-                    dialog.getDialogPane().setPrefSize(200, 150);
-                    
-                    dialog.getDialogPane().setContent(deafultBreakDuration);
-                    
-                    dialog.show();
-                    
-    //                    @Override
-   // public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
-    //    aplicationModel.setMaxNumberSessionPerDay(Integer.parseInt(newValue));
-   // }
-                    
-                    ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-                    ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-                    dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
-                    dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
+        dialog.setHeaderText("Insert deafult break duration:");
+        dialog.getDialogPane().setPrefSize(200, 150);
+
+        dialog.getDialogPane().setContent(deafultBreakDuration);
+
+        ButtonType buttonOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        dialog.getDialogPane().getButtonTypes().add(buttonOk);
+        dialog.getDialogPane().getButtonTypes().add(buttonCancel);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+
+        if ((result.isPresent()) && (result.get() == ButtonType.OK)) 
+        {
+         System.out.println("ok");
+        }
+
+        if ((result.isPresent()) && (result.get() == ButtonType.CANCEL)) 
+        {
+         System.out.println("cancel");
+        }
     }
-    
+
     private void clickViewSchedule()
-    {
-              
+    {             
         ScheduleView scheduleView=new ScheduleView(aplicationModel);
         borderPane.setCenter(scheduleView);
+    }
+    
+    private void clickViewConstraints()
+    {             
+        ConstraintsView constraintView=new ConstraintsView(aplicationModel);
+        borderPane.setCenter(constraintView);
     }
     
     private void clickViewSummary()
     {
         SummaryView summaryView=new SummaryView(aplicationModel);
-         borderPane.setCenter(summaryView);
+        borderPane.setCenter(summaryView);
     }
     
     private void clickNew()
     {
-            DirectoryChooser directoryChooser = new DirectoryChooser();
-            directoryChooser.setTitle("IEEE Conference");
-                        
-            File file = directoryChooser.showDialog(stage);
-            if (file != null) 
-            {
-                
-                String path=file.getPath();                                      
-                dataCollector.setPathToFolderWithFiles(path);                
-                aplicationModel.setTopics(dataCollector.getTopics());
-                 aplicationModel.setDays(dataCollector.getDays());
-            }
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("IEEE Conference");
+
+        File file = directoryChooser.showDialog(stage);
+        if (file != null) 
+        {
+
+            String path=file.getPath();                                      
+            dataCollector.setPathToFolderWithFiles(path);                
+            aplicationModel.setTopics(dataCollector.getTopics());
+            aplicationModel.setDays(dataCollector.getDays());
+            aplicationModel.setConstraints(dataCollector.getConstraints());
+        }
     }
     
      private void clickSave()
      {       
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save IEEE Conference");
-            
-            fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("ser", "*.ser")
-            );
-            
-            File file = fileChooser.showSaveDialog(stage);
-            if (file != null) 
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save IEEE Conference");
+
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("ser", "*.ser")
+        );
+
+        File file = fileChooser.showSaveDialog(stage);
+        if (file != null) 
+        {
+            try 
             {
-                try 
-                {
-                    String path=file.getPath();
-                    
-                    FileOutputStream fileOut = new FileOutputStream(path);
-                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                    
-                    out.writeObject(aplicationModel);
-                    out.close();
-                    
-                    fileOut.close();
-                } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            }      
+                String path=file.getPath();
+
+                FileOutputStream fileOut = new FileOutputStream(path);
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+
+                out.writeObject(aplicationModel);
+                out.close();
+
+                fileOut.close();
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }      
     }
      
     private void clickLoad()
     {       
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Load IEEE Conference");
-            
-            fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("ser", "*.ser")
-            );
-            
-            File file = fileChooser.showOpenDialog(stage);
-            if (file != null) {
-                String path=file.getPath();
-                AplicationModel aplicationModel = null;
-                try
-                {
-                   FileInputStream fileIn = new FileInputStream(path);
-                   ObjectInputStream in = new ObjectInputStream(fileIn);
-                   aplicationModel = (AplicationModel) in.readObject();
-                   this.aplicationModel=aplicationModel;
-                   
-                   in.close();
-                   fileIn.close();
-                }catch(IOException i)
-                {
-                   i.printStackTrace();
-                   return;
-                }catch(ClassNotFoundException c)
-                {
-                   System.out.println("Employee class not found");
-                   c.printStackTrace();
-                   return;
-                }
-            }      
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load IEEE Conference");
+
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("ser", "*.ser")
+        );
+
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+            String path=file.getPath();
+            AplicationModel aplicationModel = null;
+            try
+            {
+               FileInputStream fileIn = new FileInputStream(path);
+               ObjectInputStream in = new ObjectInputStream(fileIn);
+               aplicationModel = (AplicationModel) in.readObject();
+               this.aplicationModel=aplicationModel;
+
+               in.close();
+               fileIn.close();
+            }catch(IOException i)
+            {
+               i.printStackTrace();
+               return;
+            }catch(ClassNotFoundException c)
+            {
+               System.out.println("Employee class not found");
+               c.printStackTrace();
+               return;
+            }
+        }      
     }
     
     private void clickPathToThesaurus(MenuItem newMenuItem)
     {       
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Path to thesaurus");
-            
-            fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("txt", "*.txt")
-            );
-            
-            File file = fileChooser.showOpenDialog(stage);
-            if (file != null) {
-                dataCollector.setPathToThesaurus(file.getPath());
-                newMenuItem.setDisable(false);
-            }      
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Path to thesaurus");
+
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("txt", "*.txt")
+        );
+
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+            dataCollector.setPathToThesaurus(file.getPath());
+            newMenuItem.setDisable(false);
+        }      
     }
     
     private GridPane addGridPane() 
@@ -372,7 +371,8 @@ public class Licenta extends Application
                 +"The number of paralel session per day can be selected under settings menu\n"
                 +"\n"
                 +"Note:\n"
-                +"If you want to select 'new' from 'file' menu, first you must select the path to file iie_thesaurus in the 'settings' menu\n");
+                +"If you want to select 'new' from 'file' menu, first you must select the path to file iie_thesaurus in the 'settings' menu\n"
+                +"If you want to change the deafult break duration, you can do it from 'the 'settings' menu, and the change will be \napplied only if you decide to upload new files. The default break is 10 minutes\n");
         grid.add(chartSubtitle, 1, 1, 2, 1);
         
         return grid;

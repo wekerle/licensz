@@ -5,6 +5,7 @@
  */
 package DataProcessing;
 
+import Models.ConstraintModel;
 import Models.DayModel;
 import Models.KeyWordModel;
 import Models.SessionModel;
@@ -14,6 +15,7 @@ import Models.LocalTimeRangeModel;
 import Models.RoomModel;
 import Models.TermModel;
 import java.io.File;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -34,6 +36,7 @@ public class DataCollector{
     private ArrayList<LectureWithDetailsModel> lectures = new  ArrayList<LectureWithDetailsModel>();
     private String pathToFolderWithFiles=null;
     private String pathToThesaurus=null;
+    private int deafultBreakDuration=10;
     
     private ArrayList<LectureWithDetailsModel>  getLecturesFromfiles()
     {
@@ -290,24 +293,25 @@ public class DataCollector{
             i++;
         }
         
+        LocalTime startTime=LocalTime.of(8, 0);
         for(i=0; i<maxSessionNumber;i++)
         {
-            LocalTimeRangeModel time = new LocalTimeRangeModel(8+i, 0, 50);
+            LocalTimeRangeModel time = new LocalTimeRangeModel(startTime,50);
             timeRanges.add(time);
             day.addTimeRange(time);
-            if(i!=maxSessionNumber-1)
+            
+            LocalTimeRangeModel breakTime = new LocalTimeRangeModel(time.getEndTime(),deafultBreakDuration);
+            day.addTimeRange(breakTime);
+
+            SessionModel breakSession=new SessionModel();
+            breakSession.makeBreak("Time break");
+
+            for(RoomModel room : rooms)
             {
-                LocalTimeRangeModel breakTime = new LocalTimeRangeModel(8+i, 50, 10);
-                day.addTimeRange(breakTime);
-                
-                SessionModel breakSession=new SessionModel();
-                breakSession.makeBreak("Time break");
-                
-                for(RoomModel room : rooms)
-                {
-                    day.addSession(breakSession, breakTime, room);
-                }             
+                day.addSession(breakSession, breakTime, room);
             }
+            
+            startTime=breakTime.getEndTime();
         }
         
         i=0;
@@ -327,6 +331,35 @@ public class DataCollector{
         
         return days;
     }
+    
+    public ArrayList<ConstraintModel> getConstraints()
+    {
+        ArrayList<ConstraintModel> constraints=new ArrayList<ConstraintModel>();
+        
+        for(TopicModel topic : this.getTopics())
+        {
+            for(SessionModel session : topic.getSessions())
+            {
+                for(String name:session.getChairs())
+                {
+                    ConstraintModel constraint=new ConstraintModel();
+                    constraint.setTeacherName(name);
+                    constraints.add(constraint);
+                }
+                for(LectureWithDetailsModel lecture:session.getLectures())
+                {
+                    for(String name:lecture.getAuthors())
+                    {
+                        ConstraintModel constraint=new ConstraintModel();
+                        constraint.setTeacherName(name);
+                        constraints.add(constraint);
+                    }                   
+                }
+            }
+        }
+        
+        return constraints;
+    }
 
     public void setPathToFolderWithFiles(String pathToFolderWithFiles) 
     {
@@ -341,5 +374,15 @@ public class DataCollector{
     public void setPathToThesaurus(String pathToThesaurus) 
     {
         this.pathToThesaurus = pathToThesaurus;
-    }      
+    }
+    
+    public int getDeafultBreakDuration() 
+    {
+        return deafultBreakDuration;
+    }
+
+    public void setDeafultBreakDuration(int deafultBreakDuration) 
+    {
+        this.deafultBreakDuration = deafultBreakDuration;
+    }
 }

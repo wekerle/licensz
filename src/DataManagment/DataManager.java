@@ -6,10 +6,7 @@
 package DataManagment;
 
 import Models.AplicationModel;
-import Models.DayModel;
 import Models.LectureWithDetailsModel;
-import Models.LocalTimeRangeModel;
-import Models.RoomModel;
 import Models.SessionModel;
 import Models.TopicModel;
 import java.util.ArrayList;
