@@ -6,6 +6,7 @@
 package Views;
 
 import Models.LocalTimeRangeModel;
+import java.util.Optional;
 import javafx.event.EventHandler;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
@@ -13,7 +14,6 @@ import javafx.scene.control.Dialog;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 /**
  *
@@ -59,34 +59,21 @@ public class HourEditor extends VBox
                     dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
                     dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
 
-                   // timePicker.requestFocus();                                        
+                    Optional<ButtonType> result = dialog.showAndWait();
+
+                    if ((result.isPresent()) && (result.get() == buttonTypeOk)) 
+                    {
+                       
+                    }                                     
                 }else
                 {
                     text.requestFocus();
                 }
-            }else{
+            }else
+            {
                 text.requestFocus();
             }
         }
         });
-        
-       // timePicker.focusedProperty().addListener(new ChangeListener<Boolean>()
-//        {
-//            @Override
-//            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
-//            {                                    
-//                if (newPropertyValue)
-//                {
-//                    System.out.println("Textfield on focus");
-//                }
-//                else
-//                {
-//                    //text.setText(textField.getText());
-//                    //TextEditor.this.getChildren().remove(textField);
-//                   // TextEditor.this.getChildren().add(text);
-//                   // textChangeListener.modifyText(Enums.TextType.NOTHING, Enums.TextCategory.NOTHING, 0, text.getText());
-//                }
-//            }
-//        });
     }    
 }

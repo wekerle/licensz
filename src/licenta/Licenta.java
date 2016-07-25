@@ -204,31 +204,26 @@ public class Licenta extends Application
     
     private void clickDefaultBreakDuretion()
     {
-        TextEditor deafultBreakDuration=new TextEditor();
+        TextEditor breakDurationEditor=new TextEditor();
       
-        deafultBreakDuration.setText(Integer.toString(dataCollector.getDeafultBreakDuration()));
+        breakDurationEditor.setText(Integer.toString(dataCollector.getDeafultBreakDuration()));
         Dialog dialog = new Dialog<>();
         dialog.setHeaderText("Insert deafult break duration:");
         dialog.getDialogPane().setPrefSize(200, 150);
 
-        dialog.getDialogPane().setContent(deafultBreakDuration);
+        dialog.getDialogPane().setContent(breakDurationEditor);
 
-        ButtonType buttonOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
         ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        dialog.getDialogPane().getButtonTypes().add(buttonOk);
+        dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
         dialog.getDialogPane().getButtonTypes().add(buttonCancel);
 
         Optional<ButtonType> result = dialog.showAndWait();
 
-        if ((result.isPresent()) && (result.get() == ButtonType.OK)) 
+        if ((result.isPresent()) && (result.get() == buttonTypeOk)) 
         {
-         System.out.println("ok");
-        }
-
-        if ((result.isPresent()) && (result.get() == ButtonType.CANCEL)) 
-        {
-         System.out.println("cancel");
+           dataCollector.setDeafultBreakDuration(Integer.parseInt(breakDurationEditor.getText()));
         }
     }
 
@@ -372,7 +367,7 @@ public class Licenta extends Application
                 +"\n"
                 +"Note:\n"
                 +"If you want to select 'new' from 'file' menu, first you must select the path to file iie_thesaurus in the 'settings' menu\n"
-                +"If you want to change the deafult break duration, you can do it from 'the 'settings' menu, and the change will be \napplied only if you decide to upload new files. The default break is 10 minutes\n");
+                +"If you want to change the deafult break duration, you can do it from the 'settings' menu, and the change will be \napplied only if you decide to upload new files. The default break is 10 minutes\n");
         grid.add(chartSubtitle, 1, 1, 2, 1);
         
         return grid;
