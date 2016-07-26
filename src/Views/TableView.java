@@ -107,16 +107,22 @@ public class TableView extends VBox implements SessionDragEventListener{
                      MinimalSessionView minimalSession=c.sessionToMinimalSessionView(session);
                      tableCellView.setContentNode(minimalSession); 
                      
-                    for(RoomModel roomModel:day.getRooms())
+                    if(!session.isBreak())
                     {
-                        SessionModel sessionModel=day.getSessionModelTimeRoom(timeRange.getId(),roomModel.getId());
-                        
-                         if(sessionModel!=null && session.getId()!=sessionModel.getId())
-                         {
-                             sameCell=false;
-                             break;
-                         }
-                    }                 
+                        sameCell=false;
+                    }else
+                    {
+                        for(RoomModel roomModel:day.getRooms())
+                        {
+                            SessionModel sessionModel=day.getSessionModelTimeRoom(timeRange.getId(),roomModel.getId());
+
+                             if(sessionModel!=null && session.getId()!=sessionModel.getId())
+                             {
+                                 sameCell=false;
+                                 break;
+                             }
+                        }
+                    }                                    
                 } else
                 {
                     sameCell=false;

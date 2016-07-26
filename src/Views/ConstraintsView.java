@@ -10,6 +10,9 @@ import Models.AplicationModel;
 import Models.ConstraintModel;
 import java.util.ArrayList;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -21,6 +24,7 @@ public class ConstraintsView extends ScrollPane
 {
     AplicationModel aplicationModel=null;
     private GridPane table=new GridPane();
+    private Text text=new Text("Ronaldo");
          
     public ConstraintsView(AplicationModel aplicationModel)
     {   
@@ -41,7 +45,12 @@ public class ConstraintsView extends ScrollPane
             table.add(restriction, 1, i);
             i++;
         }
+        ToggleButton tg=new ToggleButton();
+        ImageView ii =new ImageView("file://C:\\Users\\Ronaldo\\Desktop\\licenszGit3\\src\\about.png");
+        tg.setGraphic(ii);
         
-        this.getChildren().add(table);       
+       table.add(tg, 2,0 );
+        this.setContent(table);
+        
     }
 }

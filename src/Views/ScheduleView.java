@@ -91,7 +91,7 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         System.out.println("Working Directory = " +
               System.getProperty("user.dir"));
         
-        /* Image img1 = new Image(System.getProperty("user.dir")+"/src/about.png");
+         Image img1 = new Image("file://C:\\Users\\Ronaldo\\Desktop\\licenszGit3\\src\\about.png");
         // Image img2 = new Image(getClass().getResourceAsStream("close.png"));
          
          HBox hb = new HBox();
@@ -107,7 +107,7 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
                 hb.getChildren().add(button3);
                 
                 
-                verticalLayout.getChildren().add(hb);*/
+                verticalLayout.getChildren().add(hb);
            
     }
     

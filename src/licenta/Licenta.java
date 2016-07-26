@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.List;
 import java.util.Optional;
 import java.util.prefs.Preferences;
 import javafx.application.Application;
@@ -78,6 +79,13 @@ public class Licenta extends Application
         
         stage.setOnCloseRequest(confirmCloseEventHandler);
                 
+        Parameters params = getParameters();
+        List<String> parameters=params.getRaw();
+        
+        if(parameters.size()>0)
+        {
+            this.aplicationModel=fileToAplicationModel(parameters.get(0));
+        }
     }
     
     private EventHandler<WindowEvent> confirmCloseEventHandler = event -> 
@@ -299,31 +307,32 @@ public class Licenta extends Application
         fileChooser.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("ser", "*.ser")
         );
-
         File file = fileChooser.showOpenDialog(stage);
-        if (file != null) {
-            String path=file.getPath();
-            AplicationModel aplicationModel = null;
-            try
-            {
-               FileInputStream fileIn = new FileInputStream(path);
-               ObjectInputStream in = new ObjectInputStream(fileIn);
-               aplicationModel = (AplicationModel) in.readObject();
-               this.aplicationModel=aplicationModel;
+        
+        this.aplicationModel=fileToAplicationModel(file.getPath());            
+    }
+    
+    private AplicationModel fileToAplicationModel(String path)
+    {
+        try
+        {
+           FileInputStream fileIn = new FileInputStream(path);
+           ObjectInputStream in = new ObjectInputStream(fileIn);
+           aplicationModel = (AplicationModel) in.readObject();
 
-               in.close();
-               fileIn.close();
-            }catch(IOException i)
-            {
-               i.printStackTrace();
-               return;
-            }catch(ClassNotFoundException c)
-            {
-               System.out.println("Employee class not found");
-               c.printStackTrace();
-               return;
-            }
-        }      
+           in.close();
+           fileIn.close();
+           return aplicationModel;
+        }catch(IOException i)
+        {
+           i.printStackTrace();
+           return null;
+        }catch(ClassNotFoundException c)
+        {
+           System.out.println("Employee class not found");
+           c.printStackTrace();
+           return null;
+        }
     }
     
     private void clickPathToThesaurus(MenuItem newMenuItem)
