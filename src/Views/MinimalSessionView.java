@@ -5,7 +5,8 @@
  */
 package Views;
 
-import Listener.SessionDragEventListener;
+import Helpers.Enums;
+import Listener.TextChangeEventListener;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.input.ClipboardContent;
@@ -19,11 +20,17 @@ import javafx.scene.text.Font;
  *
  * @author Ronaldo
  */
-public class MinimalSessionView extends VBox
+public class MinimalSessionView extends VBox implements TextChangeEventListener
 {
     private VBox contentNode=new VBox();
     private TextEditor titleView=new TextEditor();
     private int sessionId=0;
+    private TextChangeEventListener textChangeEvent;
+    
+    public void setTextChangeEventListener(TextChangeEventListener textChangeEvent) 
+    {
+        this.textChangeEvent = textChangeEvent;
+    }
     
     public MinimalSessionView(String title,int id)
     {
@@ -59,5 +66,9 @@ public class MinimalSessionView extends VBox
     {
         return this.sessionId;
     }
-    
+
+    @Override
+    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+        textChangeEvent.modifyText(Enums.TextType.TITLE, Enums.TextCategory.SESSION, sessionId, newValue);
+    }  
 }

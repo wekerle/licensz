@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Listener.HourChangeEventListener;
 import Models.LocalTimeRangeModel;
 import java.util.Optional;
 import javafx.event.EventHandler;
@@ -24,6 +25,18 @@ public class HourEditor extends VBox
     private TimePicker startTimePicker;
     private TimePicker endTimePicker;
     private Text text=new Text();
+    private HourChangeEventListener hourChangeListener;
+    private int periodId;
+    
+    public void setHourChangeEventListener(HourChangeEventListener hourChangeListener)
+    {
+        this.hourChangeListener=hourChangeListener;
+    }
+    
+    public void setPeriodId(int periodId)
+    {
+        this.periodId=periodId;
+    }
     
     public HourEditor(LocalTimeRangeModel time)
     {
@@ -51,9 +64,7 @@ public class HourEditor extends VBox
                     dialogContent.getChildren().add(startTimePicker);
                     dialogContent.getChildren().add(endTimePicker);
                     dialog.getDialogPane().setContent(dialogContent);
-                                        
-                    dialog.show();
-                    
+                                                            
                     ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
                     ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
                     dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
@@ -63,7 +74,13 @@ public class HourEditor extends VBox
 
                     if ((result.isPresent()) && (result.get() == buttonTypeOk)) 
                     {
+                       LocalTimeRangeModel time=new LocalTimeRangeModel(startTimePicker.getValue(), endTimePicker.getValue());
+                       text.setText(time.toString());
                        
+                       if(hourChangeListener!=null)                           
+                       {                         
+                            hourChangeListener.modifyHour(periodId, time);
+                       }
                     }                                     
                 }else
                 {

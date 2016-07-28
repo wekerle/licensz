@@ -6,9 +6,13 @@
 package DataManagment;
 
 import Models.AplicationModel;
+import Models.DayModel;
 import Models.LectureWithDetailsModel;
+import Models.LocalTimeRangeModel;
 import Models.SessionModel;
 import Models.TopicModel;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -264,5 +268,31 @@ public class DataManager
     {               
         LectureWithDetailsModel lecture=getLectureById(lectureId);
         lecture.setAuthors(authors);
+    }
+
+    public void updateDay(int dayId, LocalDate localdate)
+    {
+        for(DayModel day:this.aplicationModel.getDays())
+        {
+            if(day.getId()==dayId)
+            {
+                day.setDay(localdate);
+            }
+        }
+    }
+
+    public void updateHour(int periodId, LocalTimeRangeModel timeRange)
+    {
+        for(DayModel day:this.aplicationModel.getDays())
+        {
+            for(LocalTimeRangeModel time:day.getTimes())
+            {
+                if(time.getId()==periodId)
+                {
+                    time.setStartTime(timeRange.getStartTime());
+                    time.setEndTime(timeRange.getEndTime());
+                }
+            }
+        }
     }
 }

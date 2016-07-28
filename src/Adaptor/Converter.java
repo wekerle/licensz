@@ -5,6 +5,8 @@
  */
 package Adaptor;
 
+import Listener.DayChangeEventListener;
+import Listener.HourChangeEventListener;
 import Models.LectureWithDetailsModel;
 import Models.TopicModel;
 import Models.SessionModel;
@@ -14,10 +16,9 @@ import Views.MinimalSessionView;
 import Views.TopicView;
 import Views.SessionView;
 import Listener.LectureDragEventListener;
+import Listener.SessionDragEventListener;
 import Listener.TextChangeEventListener;
-import Models.ConstraintModel;
 import Models.DayModel;
-import Views.ConstraintsView;
 import Views.TableView;
 
 /**
@@ -35,9 +36,9 @@ public class Converter
     public SessionView sessionToSessionView(SessionModel session,LectureDragEventListener lectureDragEvent,TextChangeEventListener textChangeEvent)
     {
         SessionView sessionView=new SessionView(session.getTitle(),session.getChairs(),session.getId());
-        sessionView.setLectureDragEvent(lectureDragEvent);
+        sessionView.setLectureDragEventListener(lectureDragEvent);
         
-        sessionView.setTextChangeEvent(textChangeEvent);
+        sessionView.setTextChangeEventListener(textChangeEvent);
         for(LectureWithDetailsModel lecture : session.getLectures())
         {
             sessionView.addLectureView(lectureToLectureView(lecture));           
@@ -45,9 +46,10 @@ public class Converter
        return sessionView;
     }
     
-    public MinimalSessionView sessionToMinimalSessionView(SessionModel session)
+    public MinimalSessionView sessionToMinimalSessionView(SessionModel session,TextChangeEventListener textChangeEvent)
     {
         MinimalSessionView minimalSessionView=new MinimalSessionView(session.getTitle(),session.getId());
+        minimalSessionView.setTextChangeEventListener(textChangeEvent);
         return minimalSessionView;
     }
     
@@ -75,23 +77,26 @@ public class Converter
        return topicViewList;
     }
     
-    public TableView dayModelToTableView(DayModel day)
+    public TableView dayModelToTableView(DayModel day,SessionDragEventListener sessionDragEvent,DayChangeEventListener dayChangeListener,HourChangeEventListener hourChangeListener)
     {
        TableView tableView=new TableView();
        tableView.setTableId(day.getId());
        tableView.setDay(day.getDay());
+       tableView.setDayChangeEventListener(dayChangeListener);
+       tableView.setSessionDragEventListener(sessionDragEvent);
+       tableView.setHourChangeEventListener(hourChangeListener);
        tableView.populateContent(day);
        
        return tableView;
     }
 
-    public ArrayList<TableView> dayModelListToTableViewList(ArrayList<DayModel> days, TextChangeEventListener textChangeEvent) 
+    public ArrayList<TableView> dayModelListToTableViewList(ArrayList<DayModel> days, SessionDragEventListener sessionDragEvent,DayChangeEventListener dayChangeListener,HourChangeEventListener hourChangeListener) 
     {
         ArrayList<TableView> tableViews= new ArrayList<TableView>();
         
         for(DayModel day : days)
         {
-            tableViews.add(dayModelToTableView(day));
+            tableViews.add(dayModelToTableView(day,sessionDragEvent,dayChangeListener,hourChangeListener));
         }
         
         return tableViews;

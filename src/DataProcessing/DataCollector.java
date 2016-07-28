@@ -17,6 +17,8 @@ import Models.TermModel;
 import java.io.File;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
@@ -325,8 +327,7 @@ public class DataCollector{
             }
             i++;
         }
-        
-        
+    
         days.add(day);
         
         return days;
@@ -343,6 +344,8 @@ public class DataCollector{
                 for(String name:session.getChairs())
                 {
                     ConstraintModel constraint=new ConstraintModel();
+                    name = name.trim();
+                    
                     constraint.setTeacherName(name);
                     constraints.add(constraint);
                 }
@@ -350,7 +353,9 @@ public class DataCollector{
                 {
                     for(String name:lecture.getAuthors())
                     {
-                        ConstraintModel constraint=new ConstraintModel();
+                        ConstraintModel constraint=new ConstraintModel();                       
+                        name = name.trim();
+                        
                         constraint.setTeacherName(name);
                         constraints.add(constraint);
                     }                   
@@ -358,7 +363,34 @@ public class DataCollector{
             }
         }
         
-        return constraints;
+        return arrangingConstraints(constraints);
+    }
+    
+    public ArrayList<ConstraintModel> arrangingConstraints(ArrayList<ConstraintModel> constraints)
+    {
+        //sort
+        Collections.sort(constraints, new Comparator<ConstraintModel>() 
+        {
+            @Override
+            public int compare(ConstraintModel constraint1, ConstraintModel constraint2)
+            {
+                return  constraint1.getTeacherName().compareTo(constraint2.getTeacherName());
+            }
+        });
+        
+        //remove dublicates
+        ArrayList<ConstraintModel> newConstraints=new ArrayList<ConstraintModel>();
+        newConstraints.add(constraints.get(0));
+        
+       for(int i=1;i<constraints.size();i++)
+       {
+           if(constraints.get(i).getTeacherName().compareTo(constraints.get(i-1).getTeacherName())!=0)
+           {
+               newConstraints.add(constraints.get(i));
+           }
+       }
+       
+       return newConstraints;
     }
 
     public void setPathToFolderWithFiles(String pathToFolderWithFiles) 

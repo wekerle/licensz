@@ -8,8 +8,12 @@ package Views;
 import Adaptor.Converter;
 import DataManagment.DataManager;
 import Helpers.Enums;
+import Listener.DayChangeEventListener;
+import Listener.HourChangeEventListener;
 import Listener.SessionDragEventListener;
 import Models.AplicationModel;
+import Models.LocalTimeRangeModel;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -29,7 +33,7 @@ import javafx.util.Duration;
  *
  * @author tibor.wekerle
  */
-public class ScheduleView extends ScrollPane implements SessionDragEventListener
+public class ScheduleView extends ScrollPane implements SessionDragEventListener, DayChangeEventListener,HourChangeEventListener
 {  
     private double scrollDirection = 0;
     private VBox verticalLayout =  new VBox();
@@ -69,26 +73,26 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         Converter c=new Converter();       
         verticalLayout.getChildren().clear();
              
-        ArrayList<TableView> tableViewList= c.dayModelListToTableViewList(aplicationModel.getDays(),null);
+        ArrayList<TableView> tableViewList= c.dayModelListToTableViewList(aplicationModel.getDays(),this,this,this);
                 
         for(TableView tableview : tableViewList)
         {                       
             verticalLayout.getChildren().add(tableview);
         }
         // this is only a hardcode, and it is used only for test
-        ArrayList<TableView> tableViewList2= c.dayModelListToTableViewList(aplicationModel.getDays(),null);
+        ArrayList<TableView> tableViewList2= c.dayModelListToTableViewList(aplicationModel.getDays(),this,this,this);
         for(TableView tableview : tableViewList2)
         {                       
             verticalLayout.getChildren().add(tableview);
         }
-        ArrayList<TableView> tableViewList3= c.dayModelListToTableViewList(aplicationModel.getDays(),null);
+        ArrayList<TableView> tableViewList3= c.dayModelListToTableViewList(aplicationModel.getDays(),this,this,this);
         for(TableView tableview : tableViewList3)
         {                       
             verticalLayout.getChildren().add(tableview);
         }
         
        // getClas();
-        System.out.println("Working Directory = " +
+      /*  System.out.println("Working Directory = " +
               System.getProperty("user.dir"));
         
          Image img1 = new Image("file://C:\\Users\\Ronaldo\\Desktop\\licenszGit3\\src\\about.png");
@@ -107,7 +111,7 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
                 hb.getChildren().add(button3);
                 
                 
-                verticalLayout.getChildren().add(hb);
+                verticalLayout.getChildren().add(hb);*/
            
     }
     
@@ -148,5 +152,15 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         {
             this.dataManager.moveDestinationSessionBeforeSourceSession(destinationSessionId,sourceSessionId);
         }    
+    }
+
+    @Override
+    public void modifyDate(int dayId, LocalDate localdate) {
+        this.dataManager.updateDay(dayId,localdate);
+    }
+
+    @Override
+    public void modifyHour(int periodId, LocalTimeRangeModel timeRange) {
+        this.dataManager.updateHour(periodId,timeRange);
     }
 }

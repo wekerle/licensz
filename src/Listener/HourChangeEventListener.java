@@ -5,13 +5,13 @@
  */
 package Listener;
 
-import Helpers.Enums;
+import Models.LocalTimeRangeModel;
 
 /**
  *
  * @author tibor.wekerle
  */
-public interface SessionDragEventListener 
+public interface HourChangeEventListener 
 {
-     void notifyDataManager(int destinationSessionId,int sourceSessionId,Enums.Position position);
+    void modifyHour(int periodId,LocalTimeRangeModel timeRange);
 }

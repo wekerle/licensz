@@ -6,6 +6,7 @@
 package Views;
 
 import Helpers.StringHelper;
+import Listener.DayChangeEventListener;
 import java.time.LocalDate;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -25,6 +26,12 @@ public class DayEditor extends VBox
 {
     private Text text=new Text();
     private DatePicker datePicker=new DatePicker();
+    private DayChangeEventListener dayChangeListener;
+    
+    public void setDayChangeEventListener(DayChangeEventListener dayChangeListener)
+    {
+        this.dayChangeListener=dayChangeListener;
+    }
     
     public DayEditor()
     {
@@ -66,14 +73,12 @@ public class DayEditor extends VBox
            @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
             {                                    
-                if (newPropertyValue)
-                {
-                    System.out.println("Textfield on focus");
-                }
-                else
+                if (!newPropertyValue)
                 {
                     String dateString=StringHelper.getConverter().toString(datePicker.getValue());
                     text.setText(dateString); 
+                    
+                    dayChangeListener.modifyDate(0, datePicker.getValue());
                     
                     DayEditor.this.getChildren().remove(datePicker);
                     DayEditor.this.getChildren().add(text);

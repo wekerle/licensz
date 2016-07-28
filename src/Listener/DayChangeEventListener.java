@@ -5,13 +5,13 @@
  */
 package Listener;
 
-import Helpers.Enums;
+import java.time.LocalDate;
 
 /**
  *
  * @author tibor.wekerle
  */
-public interface SessionDragEventListener 
+public interface DayChangeEventListener 
 {
-     void notifyDataManager(int destinationSessionId,int sourceSessionId,Enums.Position position);
+    void modifyDate(int dayId,LocalDate localdate);
 }

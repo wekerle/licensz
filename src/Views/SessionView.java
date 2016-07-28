@@ -35,12 +35,12 @@ public class SessionView
     private LectureDragEventListener lectureDragEvent;
     private TextChangeEventListener textChangeEvent;
 
-    public void setLectureDragEvent(LectureDragEventListener lectureDragEvent) 
+    public void setLectureDragEventListener(LectureDragEventListener lectureDragEvent) 
     {
         this.lectureDragEvent = lectureDragEvent;
     }
     
-    public void setTextChangeEvent(TextChangeEventListener textChangeEvent) 
+    public void setTextChangeEventListener(TextChangeEventListener textChangeEvent) 
     {
         this.textChangeEvent = textChangeEvent;
     }
