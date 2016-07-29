@@ -17,9 +17,11 @@
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Views/TimePicker.java</file>
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/DataManagment/DataManager.java</file>
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Helpers/Enums.java</file>
+            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Views/TableSettingsView.java</file>
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Views/DayEditor.java</file>
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Listener/SessionDragEventListener.java</file>
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/LICENSE</file>
+            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Listener/DayChangeEventListener.java</file>
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Listener/TextChangeEventListener.java</file>
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Models/DayModel.java</file>
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Views/SummaryView.java</file>
@@ -35,6 +37,7 @@
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Models/LocalTimeRangeModel.java</file>
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Views/LectureView.java</file>
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Styling/styles.css</file>
+            <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Listener/HourChangeEventListener.java</file>
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/Models/KeyWordModel.java</file>
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/licenta/Licenta.java</file>
             <file>file:/C:/Users/tibor.wekerle/Desktop/licenszeGit/licensz/src/DataProcessing/DataCollector.java</file>

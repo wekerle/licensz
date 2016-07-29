@@ -8,8 +8,10 @@ package licenta;
 import Views.SummaryView;
 import DataProcessing.DataCollector;
 import Models.AplicationModel;
+import Models.DayModel;
 import Views.ConstraintsView;
 import Views.ScheduleView;
+import Views.TableSettingsView;
 import Views.TextEditor;
 import java.io.File;
 import java.io.FileInputStream;
@@ -152,7 +154,7 @@ public class Licenta extends Application
                         )
                 ));
         
-        if(dataCollector.getPathToThesaurus()==null)
+        if(aplicationModel.getPathToThesaurus()==null)
         {
             newMenuItem.setDisable(true);
         }
@@ -168,14 +170,8 @@ public class Licenta extends Application
         Menu menuSettings = new Menu("Settings");
         MenuItem pathToThesaurusMenuItem = new MenuItem("Path to thesaurus");
         pathToThesaurusMenuItem.setOnAction(actionEvent -> clickPathToThesaurus(newMenuItem));
-        
-        MenuItem  numberOfSessionsPerDayMenuItem = new MenuItem ("Number of paralel session per day");
-        numberOfSessionsPerDayMenuItem.setOnAction(actionEvent -> clickNumberOfSessionsPerDay());
-        
-        MenuItem  defaultBreakDuretion = new MenuItem ("Deafult break duration");
-        defaultBreakDuretion.setOnAction(actionEvent -> clickDefaultBreakDuretion());
-                                                       
-        menuSettings.getItems().addAll(pathToThesaurusMenuItem,numberOfSessionsPerDayMenuItem,defaultBreakDuretion);
+                                                                       
+        menuSettings.getItems().addAll(pathToThesaurusMenuItem);
         
         // --- Menu View
         Menu menuView = new Menu("View");
@@ -203,38 +199,6 @@ public class Licenta extends Application
 
     }
     
-    private void clickNumberOfSessionsPerDay()
-    {
-      TextEditor numberOfSessions=new TextEditor();
-      
-      numberOfSessions.setText(Integer.toString(aplicationModel.getMaxNumberSessionPerDay()));                
-    }
-    
-    private void clickDefaultBreakDuretion()
-    {
-        TextEditor breakDurationEditor=new TextEditor();
-      
-        breakDurationEditor.setText(Integer.toString(dataCollector.getDeafultBreakDuration()));
-        Dialog dialog = new Dialog<>();
-        dialog.setHeaderText("Insert deafult break duration:");
-        dialog.getDialogPane().setPrefSize(200, 150);
-
-        dialog.getDialogPane().setContent(breakDurationEditor);
-
-        ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-        ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
-        dialog.getDialogPane().getButtonTypes().add(buttonCancel);
-
-        Optional<ButtonType> result = dialog.showAndWait();
-
-        if ((result.isPresent()) && (result.get() == buttonTypeOk)) 
-        {
-           dataCollector.setDeafultBreakDuration(Integer.parseInt(breakDurationEditor.getText()));
-        }
-    }
-
     private void clickViewSchedule()
     {             
         ScheduleView scheduleView=new ScheduleView(aplicationModel);
@@ -255,19 +219,72 @@ public class Licenta extends Application
     
     private void clickNew()
     {
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("IEEE Conference");
+        int numberOfDays=2;
+        int deafultBreakDuration=5;
+        
+        ButtonType buttonTypeNext = new ButtonType("Next", ButtonBar.ButtonData.NEXT_FORWARD);
+        ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Optional<ButtonType> result;
+        Dialog dialog = new Dialog<>();
+        
+        TextEditor textEditor=new TextEditor();    
+        textEditor.setText(Integer.toString(deafultBreakDuration));
+        
+        dialog.setHeaderText("Insert deafult break duration:");
+        dialog.getDialogPane().setPrefSize(200, 150);
 
-        File file = directoryChooser.showDialog(stage);
-        if (file != null) 
-        {
+        dialog.getDialogPane().setContent(textEditor);
 
-            String path=file.getPath();                                      
-            dataCollector.setPathToFolderWithFiles(path);                
-            aplicationModel.setTopics(dataCollector.getTopics());
-            aplicationModel.setDays(dataCollector.getDays());
-            aplicationModel.setConstraints(dataCollector.getConstraints());
+        dialog.getDialogPane().getButtonTypes().add(buttonTypeNext);
+        dialog.getDialogPane().getButtonTypes().add(buttonCancel);
+
+        result = dialog.showAndWait();
+
+        if ((result.isPresent()) && (result.get() == buttonTypeNext)) 
+        {    
+            textEditor.setText(Integer.toString(numberOfDays));
+
+            dialog.setHeaderText("Insert number of days:");
+            dialog.getDialogPane().setPrefSize(200, 150);
+
+            dialog.getDialogPane().setContent(textEditor);
+
+            result = dialog.showAndWait();
+            if ((result.isPresent()) && (result.get() == buttonTypeNext)) 
+            {
+                numberOfDays=(Integer.parseInt(textEditor.getText()));
+                
+                for(int i=0; i<numberOfDays;i++)
+                {
+                    DayModel day=new DayModel();
+                    TableSettingsView tableSettings=new TableSettingsView(day);
+                    
+                    dialog.setHeaderText("Day Settings:");
+                    dialog.getDialogPane().setPrefSize(400, 350);
+
+                    dialog.getDialogPane().setContent(tableSettings);
+
+                    result = dialog.showAndWait();
+                }
+                
+                DirectoryChooser directoryChooser = new DirectoryChooser();
+                directoryChooser.setTitle("Path to folder containing the input files for IEEE Conference");
+
+                File file = directoryChooser.showDialog(stage);
+                if (file != null) 
+                {
+
+                    String path=file.getPath();                                                    
+                    aplicationModel.setTopics(dataCollector.getTopics(path));
+                    aplicationModel.setDays(dataCollector.getDays(0,path));
+                    aplicationModel.setConstraints(dataCollector.getConstraints(path));
+                }
+            }
+            
+            
         }
+        
+        
     }
     
      private void clickSave()
@@ -346,7 +363,7 @@ public class Licenta extends Application
 
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
-            dataCollector.setPathToThesaurus(file.getPath());
+            aplicationModel.setPathToThesaurus(file.getPath());
             newMenuItem.setDisable(false);
         }      
     }

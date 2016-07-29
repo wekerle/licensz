@@ -17,20 +17,19 @@ public class AplicationModel implements Serializable
     private ArrayList<TopicModel> topics=new ArrayList<TopicModel>();
     private ArrayList<DayModel> days=new ArrayList<DayModel>();
     private ArrayList<ConstraintModel> constraints=new ArrayList<ConstraintModel>();
-    
+    private String pathToThesaurus=null;
     private boolean hasModification=true;
-    private int maxNumberSessionPerDay=5;
 
-    public int getMaxNumberSessionPerDay() 
+    public String getPathToThesaurus() 
     {
-        return maxNumberSessionPerDay;
+        return pathToThesaurus;
     }
 
-    public void setMaxNumberSessionPerDay(int maxNumberSessionPerDay) 
+    public void setPathToThesaurus(String pathToThesaurus) 
     {
-        this.maxNumberSessionPerDay = maxNumberSessionPerDay;
+        this.pathToThesaurus = pathToThesaurus;
     }
-        
+            
     public void setTopics(ArrayList<TopicModel> topics)
     {
         this.topics=topics;

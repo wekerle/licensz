@@ -32,7 +32,6 @@ import javafx.scene.text.Text;
  */
 public class TableView extends VBox implements SessionDragEventListener,DayChangeEventListener,HourChangeEventListener,TextChangeEventListener
 {
-    private DataManager dataManager=null;
     private DayEditor day=new DayEditor();
     private GridPane table=new GridPane();
     private SessionDragEventListener sessionDragEvent;
