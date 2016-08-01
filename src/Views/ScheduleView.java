@@ -79,17 +79,6 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         {                       
             verticalLayout.getChildren().add(tableview);
         }
-        // this is only a hardcode, and it is used only for test
-        ArrayList<TableView> tableViewList2= c.dayModelListToTableViewList(aplicationModel.getDays(),this,this,this);
-        for(TableView tableview : tableViewList2)
-        {                       
-            verticalLayout.getChildren().add(tableview);
-        }
-        ArrayList<TableView> tableViewList3= c.dayModelListToTableViewList(aplicationModel.getDays(),this,this,this);
-        for(TableView tableview : tableViewList3)
-        {                       
-            verticalLayout.getChildren().add(tableview);
-        }
         
        // getClas();
       /*  System.out.println("Working Directory = " +

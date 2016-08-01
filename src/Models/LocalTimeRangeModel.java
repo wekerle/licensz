@@ -70,6 +70,10 @@ public class LocalTimeRangeModel implements Serializable
     @Override
     public String toString()
     {
-        return startTime.format(StringHelper.timeFormatter)+"-"+endTime.format(StringHelper.timeFormatter);
+        if(startTime!=null && endTime!=null)
+        {
+            return startTime.format(StringHelper.timeFormatter)+"-"+endTime.format(StringHelper.timeFormatter);
+        }
+        return "";
     }
 }

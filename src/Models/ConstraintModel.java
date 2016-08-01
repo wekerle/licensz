@@ -5,6 +5,7 @@
  */
 package Models;
 
+import Helpers.StringHelper;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -46,6 +47,23 @@ public class ConstraintModel implements Serializable
     public void setTimeRange(LocalTimeRangeModel timeRange) 
     {
         this.timeRange = timeRange;
+    }
+    
+    public String getDayAndTimeString()
+    {
+        if(date!=null && timeRange!=null)
+        {
+            return StringHelper.getConverter().toString(date)+" "+timeRange.toString();
+        }
+        else if(timeRange!=null)
+        {
+            return timeRange.toString();
+        }
+        else if(date!=null)
+        {
+            return StringHelper.getConverter().toString(date);
+        }
+        return "";            
     }
     
 }

@@ -21,13 +21,13 @@ public class DayModel implements Serializable
     private int id;
     private ArrayList<RoomModel> rooms=new ArrayList<RoomModel>();
     private ArrayList<LocalTimeRangeModel> times=new ArrayList<LocalTimeRangeModel>();
+    private LocalTimeRangeModel totalPeriod;
+    private LocalDate day;
+    private int numberOfSessionsPerDay;
     
     //timeRange -> room -> session
-    private HashMap<Integer,HashMap<Integer,SessionModel>> roomTimeMap=new HashMap<Integer,HashMap<Integer,SessionModel>>();
-    private LocalTimeRangeModel totalPeriod;
-    
-    private LocalDate day=LocalDate.now();
-    
+    private HashMap<Integer,HashMap<Integer,SessionModel>> roomTimeMap=new HashMap<Integer,HashMap<Integer,SessionModel>>();    
+       
     private RoomModel getRoomModelById(int id)
     {
         for(RoomModel room : rooms)
@@ -51,10 +51,29 @@ public class DayModel implements Serializable
         }
         return null;
     }
+     //</editor-fold>
     
-    //</editor-fold>
-    
-    public DayModel()
+    public LocalTimeRangeModel getTotalPeriod()
+    {
+        return totalPeriod;
+    }
+
+    public void setTotalPeriod(LocalTimeRangeModel totalPeriod) 
+    {
+        this.totalPeriod = totalPeriod;
+    }
+
+    public int getNumberOfSessionsPerDay() 
+    {
+        return numberOfSessionsPerDay;
+    }
+
+    public void setNumberOfSessionsPerDay(int numberOfSessionsPerDay) 
+    {
+        this.numberOfSessionsPerDay = numberOfSessionsPerDay;
+    }
+
+    public DayModel() 
     {
         this.id=IdGenerator.getNewId();
     }

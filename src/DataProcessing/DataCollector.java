@@ -264,9 +264,8 @@ public class DataCollector{
         return topics;
     }
     
-    public ArrayList<DayModel> getDays(int deafultBreakDuration, String pathToFolderWithFiles)
+    public ArrayList<DayModel> getDays(int deafultBreakDuration, ArrayList<DayModel> days, String pathToFolderWithFiles)
     {
-        ArrayList<DayModel> days=new ArrayList<DayModel>();
         ArrayList<LocalTimeRangeModel> timeRanges=new ArrayList<LocalTimeRangeModel>();
         ArrayList<RoomModel> rooms=new ArrayList<RoomModel>();
         ArrayList<TopicModel> topics=this.getTopics(pathToFolderWithFiles);  

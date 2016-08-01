@@ -7,14 +7,18 @@ package Views;
 
 import Listener.HourChangeEventListener;
 import Models.LocalTimeRangeModel;
+import java.time.LocalTime;
 import java.util.Optional;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 /**
  *
@@ -74,6 +78,16 @@ public class HourEditor extends VBox
 
                     if ((result.isPresent()) && (result.get() == buttonTypeOk)) 
                     {
+                        if(startTimePicker.getValue().compareTo(endTimePicker.getValue())>=0)
+                        {
+                            Alert alert=new Alert(AlertType.ERROR);
+                            alert.setTitle("Error");
+                            alert.setContentText("asdfas dasd ");
+                            alert.showAndWait();
+                       
+                            dialog.showAndWait();
+                        }
+                                             
                        LocalTimeRangeModel time=new LocalTimeRangeModel(startTimePicker.getValue(), endTimePicker.getValue());
                        text.setText(time.toString());
                        
@@ -93,4 +107,14 @@ public class HourEditor extends VBox
         }
         });
     }    
+
+    public void setFont(Font font) 
+    {
+        this.text.setFont(font);
+    }
+    
+    public LocalTimeRangeModel getTimeRange()
+    {
+       return new LocalTimeRangeModel(startTimePicker.getValue(), endTimePicker.getValue());
+    }
 }

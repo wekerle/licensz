@@ -51,7 +51,6 @@ import javafx.util.StringConverter;
     {
         StringConverter converter = new StringConverter<LocalDate>()
         {
-                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(StringHelper.datePattern);
                 @Override
                 public String toString(LocalDate date) {
                     if (date != null) {

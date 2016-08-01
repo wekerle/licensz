@@ -9,6 +9,7 @@ import Views.SummaryView;
 import DataProcessing.DataCollector;
 import Models.AplicationModel;
 import Models.DayModel;
+import Models.LocalTimeRangeModel;
 import Views.ConstraintsView;
 import Views.ScheduleView;
 import Views.TableSettingsView;
@@ -19,6 +20,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.prefs.Preferences;
@@ -253,10 +256,17 @@ public class Licenta extends Application
             if ((result.isPresent()) && (result.get() == buttonTypeNext)) 
             {
                 numberOfDays=(Integer.parseInt(textEditor.getText()));
+                ArrayList<DayModel> days=new ArrayList<DayModel>();
                 
                 for(int i=0; i<numberOfDays;i++)
                 {
                     DayModel day=new DayModel();
+                    day.setDay(LocalDate.now());
+                    day.setTotalPeriod(new LocalTimeRangeModel(8, 0, 0));
+                    day.setNumberOfSessionsPerDay(4);
+                    
+                    days.add(day);
+                    
                     TableSettingsView tableSettings=new TableSettingsView(day);
                     
                     dialog.setHeaderText("Day Settings:");
@@ -276,15 +286,11 @@ public class Licenta extends Application
 
                     String path=file.getPath();                                                    
                     aplicationModel.setTopics(dataCollector.getTopics(path));
-                    aplicationModel.setDays(dataCollector.getDays(0,path));
+                    aplicationModel.setDays(dataCollector.getDays(deafultBreakDuration,days,path));
                     aplicationModel.setConstraints(dataCollector.getConstraints(path));
                 }
-            }
-            
-            
-        }
-        
-        
+            }                      
+        }             
     }
     
      private void clickSave()
