@@ -74,7 +74,7 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
         {
              TextEditor textEditor=new TextEditor(room.getName());
              
-             TableCellView tableCellView=new TableCellView(this,i+1, 0);
+             TableCellView tableCellView=new TableCellView(this,i+1, 0,false);
              tableCellView.setContentNode(textEditor);
              
             // textEditor.getStyleClass().add("tableCellSala");
@@ -82,7 +82,7 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
              textEditor.setStyle("-fx-text-fill:white;");
              //tableCellView.getStyleClass().add("tableCellSala");
              
-            this.table.add(tableCellView, i+1, 0);
+            this.table.add(tableCellView.getContent(), i+1, 0);
             i++;
         }
         
@@ -93,16 +93,16 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
             hourEditor.setHourChangeEventListener(this);
             hourEditor.setPeriodId(timeRange.getId());
             
-            TableCellView tableCellView=new TableCellView(this,0,i+1);
+            TableCellView tableCellView=new TableCellView(this,0,i+1,false);
             
           //  textEditor.setStyle("-fx-text-fill:red");
             tableCellView.setContentNode(hourEditor);
 
-            tableCellView.setAlignment(Pos.CENTER);
+            ((VBox)tableCellView.getContent()).setAlignment(Pos.CENTER);
           //  tableCellView.setStyle("-fx-background-color: black");
             //textEditor.setStyle("-fx-text-fill: ladder(background, white 49%, black 50%)");
             
-            this.table.add(tableCellView,0,i+1 );
+            this.table.add(tableCellView.getContent(),0,i+1 );
             
             Text t= new Text("asd sfdg dfg hg sfds dsf sfdg ");
             HBox hb=new HBox();
@@ -121,7 +121,7 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
             for(LocalTimeRangeModel timeRange : dayModel.getTimes())
             {                 
                 SessionModel session=dayModel.getSessionModelTimeRoom(timeRange.getId(),room.getId());
-                TableCellView tableCellView=new TableCellView(this,i, j);
+              //  TableCellView tableCellView=new TableCellView(this,i, j);
 
                 boolean sameCell=true;
                     
@@ -129,7 +129,7 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
                 {
                      Converter c=new Converter();
                      MinimalSessionView minimalSession=c.sessionToMinimalSessionView(session,this);
-                     tableCellView.setContentNode(minimalSession); 
+                    // tableCellView.setContentNode(minimalSession); 
 
                     if(!session.isBreak())
                     {
@@ -171,8 +171,8 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
                     
                     
                     
-                    tableCellView.setStyle("-fx-background-color: #ffc0cb");
-                    tableCellView.setAlignment(Pos.CENTER);
+                   // tableCellView.setStyle("-fx-background-color: #ffc0cb");
+                    //tableCellView.setAlignment(Pos.CENTER);
                     //t//ableCellView.getC
                     
                     
@@ -180,7 +180,7 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
                    // col1Constraints.setPercentWidth(100);
                    
                     
-                    this.table.add(tableCellView, 1, j,dayModel.getRooms().size(),1);
+                   // this.table.add(tableCellView, 1, j,dayModel.getRooms().size(),1);
                     
                     // GridPane.setValignment(tableCellView,VPos.BOTTOM);
                    // GridPane.setHalignment(tableCellView,HPos.LEFT);
@@ -188,7 +188,7 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
                    // tableCellView.getCo
                 }else
                 {
-                    this.table.add(tableCellView,i, j);
+                  //  this.table.add(tableCellView,i, j);
                 }
                 
                 j++;

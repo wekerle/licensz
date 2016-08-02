@@ -73,29 +73,37 @@ public class HourEditor extends VBox
                     ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
                     dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
                     dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
-
-                    Optional<ButtonType> result = dialog.showAndWait();
-
-                    if ((result.isPresent()) && (result.get() == buttonTypeOk)) 
+                    
+                    while(true)
                     {
-                        if(startTimePicker.getValue().compareTo(endTimePicker.getValue())>=0)
+                        Optional<ButtonType> result = dialog.showAndWait();
+                        
+                        if ((result.isPresent()) && (result.get() == buttonTypeOk)) 
                         {
-                            Alert alert=new Alert(AlertType.ERROR);
-                            alert.setTitle("Error");
-                            alert.setContentText("asdfas dasd ");
-                            alert.showAndWait();
-                       
-                            dialog.showAndWait();
+                            if(startTimePicker.getValue().compareTo(endTimePicker.getValue())>=0)
+                            {
+                                Alert alert=new Alert(AlertType.ERROR);
+                                alert.setTitle("Error");
+                                alert.setContentText("asdfas dasd ");
+                                alert.showAndWait();
+                            }
+                            else
+                            {
+                                LocalTimeRangeModel time=new LocalTimeRangeModel(startTimePicker.getValue(), endTimePicker.getValue());
+                                text.setText(time.toString());
+
+                                if(hourChangeListener!=null)                           
+                                {                         
+                                    hourChangeListener.modifyHour(periodId, time);
+                                }
+                                break;
+                            }                                                                   
                         }
-                                             
-                       LocalTimeRangeModel time=new LocalTimeRangeModel(startTimePicker.getValue(), endTimePicker.getValue());
-                       text.setText(time.toString());
-                       
-                       if(hourChangeListener!=null)                           
-                       {                         
-                            hourChangeListener.modifyHour(periodId, time);
-                       }
-                    }                                     
+                        else
+                        {
+                            break;
+                        }
+                    }                                                                                                    
                 }else
                 {
                     text.requestFocus();

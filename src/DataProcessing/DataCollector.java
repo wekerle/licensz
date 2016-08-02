@@ -264,11 +264,10 @@ public class DataCollector{
         return topics;
     }
     
-    public ArrayList<DayModel> getDays(int deafultBreakDuration, ArrayList<DayModel> days, String pathToFolderWithFiles)
+    public ArrayList<DayModel> getDays(int deafultBreakDuration, ArrayList<DayModel> days, ArrayList<TopicModel> topics,String pathToFolderWithFiles)
     {
         ArrayList<LocalTimeRangeModel> timeRanges=new ArrayList<LocalTimeRangeModel>();
         ArrayList<RoomModel> rooms=new ArrayList<RoomModel>();
-        ArrayList<TopicModel> topics=this.getTopics(pathToFolderWithFiles);  
         DayModel day =new DayModel();
         
         int maxSessionNumber=0;
@@ -329,11 +328,11 @@ public class DataCollector{
         return days;
     }
     
-    public ArrayList<ConstraintModel> getConstraints(String pathToFolderWithFiles)
+    public ArrayList<ConstraintModel> getConstraints(ArrayList<TopicModel> topics)
     {
         ArrayList<ConstraintModel> constraints=new ArrayList<ConstraintModel>();
         
-        for(TopicModel topic : this.getTopics(pathToFolderWithFiles))
+        for(TopicModel topic : topics)
         {
             for(SessionModel session : topic.getSessions())
             {

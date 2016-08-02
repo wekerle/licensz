@@ -13,21 +13,28 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import Listener.SessionDragEventListener;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
 /**
  *
  * @author Ronaldo
  */
-public class TableCellView extends VBox 
+public class TableCellView 
 {
     private int colIndex=0;
     private int rowIndex=0;
     private MinimalSessionView minimalSessionView=null;
-    private SessionDragEventListener sessionDragEvent;
-    
+    private SessionDragEventListener sessionDragEvent;    
+    private Pane content;
+      
     public void setSessionDragEventListener(SessionDragEventListener sessionDragEvent)
     {
         this.sessionDragEvent=sessionDragEvent;
+    }
+
+    public Pane getContent() {
+        return content;
     }
     
     public int getColIndex() 
@@ -52,7 +59,7 @@ public class TableCellView extends VBox
 
     public void setContentNode(Node contentNode) 
     {
-        this.getChildren().add(contentNode);
+        content.getChildren().add(contentNode);
     }
     
     public void setMinimalSessionView(MinimalSessionView minimalSessionView) 
@@ -66,12 +73,20 @@ public class TableCellView extends VBox
         return minimalSessionView;
     }
      
-     public TableCellView(TableView table, int colIndex,int rowIndex)
+     public TableCellView(TableView table, int colIndex,int rowIndex, boolean isHbox)
      {
         this.rowIndex=rowIndex;
         this.colIndex=colIndex;
-         
-        this.setOnDragOver(new EventHandler<DragEvent>() 
+        
+        if(isHbox)
+        {
+            content=new HBox();
+        }
+        else
+        {
+            content=new VBox();
+        }
+        content.setOnDragOver(new EventHandler<DragEvent>() 
         {
             public void handle(DragEvent event) {               
                 if (event.getGestureSource() != this &&
@@ -79,34 +94,34 @@ public class TableCellView extends VBox
                 {
                     event.acceptTransferModes(TransferMode.MOVE);
                     
-                    double centerY=TableCellView.this.getLayoutBounds().getMinY()+TableCellView.this.getHeight()/2;
+                    double centerY=TableCellView.this.content.getLayoutBounds().getMinY()+TableCellView.this.content.getHeight()/2;
                     
-                    if(centerY>event.getY() && !TableCellView.this.getStyleClass().contains("tableCellDragOverBorderTop"))
+                    if(centerY>event.getY() && !TableCellView.this.content.getStyleClass().contains("tableCellDragOverBorderTop"))
                     {
-                        TableCellView.this.getStyleClass().add("tableCellDragOverBorderTop");
-                        TableCellView.this.getStyleClass().remove("tableCellDragOverBorderBottom");
-                    } else if(centerY<=event.getY() && !TableCellView.this.getStyleClass().contains("tableCellDragOverBorderBottom") )
+                        TableCellView.this.content.getStyleClass().add("tableCellDragOverBorderTop");
+                        TableCellView.this.content.getStyleClass().remove("tableCellDragOverBorderBottom");
+                    } else if(centerY<=event.getY() && !TableCellView.this.content.getStyleClass().contains("tableCellDragOverBorderBottom") )
                     {
-                        TableCellView.this.getStyleClass().add("tableCellDragOverBorderBottom");
-                        TableCellView.this.getStyleClass().remove("tableCellDragOverBorderTop");
+                        TableCellView.this.content.getStyleClass().add("tableCellDragOverBorderBottom");
+                        TableCellView.this.content.getStyleClass().remove("tableCellDragOverBorderTop");
                     }
                 }
             }
         });
                 
-        this.setOnDragExited(new EventHandler<DragEvent>() 
+        content.setOnDragExited(new EventHandler<DragEvent>() 
         {
             public void handle(DragEvent event) 
             {
                 if (event.getGestureSource() != this && event.getDragboard().hasString()) 
                 {
-                    TableCellView.this.getStyleClass().remove("tableCellDragOverBorderTop");
-                    TableCellView.this.getStyleClass().remove("tableCellDragOverBorderBottom");
+                    TableCellView.this.content.getStyleClass().remove("tableCellDragOverBorderTop");
+                    TableCellView.this.content.getStyleClass().remove("tableCellDragOverBorderBottom");
                 }
             }
         });
         
-        this.setOnDragDropped(new EventHandler<DragEvent>() 
+        content.setOnDragDropped(new EventHandler<DragEvent>() 
         {
             public void handle(DragEvent event) 
             {
@@ -121,7 +136,7 @@ public class TableCellView extends VBox
                     sourceSessionId=Integer.parseInt(db.getString());
                     destinationSessionId=TableCellView.this.getMinimalSessionView().getSessionId();
                     
-                    double centerY=TableCellView.this.getLayoutBounds().getMinY()+TableCellView.this.getHeight()/2;
+                    double centerY=TableCellView.this.content.getLayoutBounds().getMinY()+TableCellView.this.content.getHeight()/2;
                     
                     if(centerY>event.getY())
                     {

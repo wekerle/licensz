@@ -286,8 +286,8 @@ public class Licenta extends Application
 
                     String path=file.getPath();                                                    
                     aplicationModel.setTopics(dataCollector.getTopics(path));
-                    aplicationModel.setDays(dataCollector.getDays(deafultBreakDuration,days,path));
-                    aplicationModel.setConstraints(dataCollector.getConstraints(path));
+                    aplicationModel.setDays(dataCollector.getDays(deafultBreakDuration,days,aplicationModel.getTopics(),path));
+                    aplicationModel.setConstraints(dataCollector.getConstraints(aplicationModel.getTopics()));
                 }
             }                      
         }             
