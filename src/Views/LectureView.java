@@ -104,7 +104,7 @@ public class LectureView
          container.getChildren().add(titleView);
          container.getChildren().add(authorView);
          
-         titleView.setFont(new Font(16));
+         titleView.setFont(StringHelper.font16);
          container.setPadding(new Insets(10.0));
                            
          container.setOnDragDetected(new EventHandler<MouseEvent>()

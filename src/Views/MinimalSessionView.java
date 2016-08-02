@@ -6,6 +6,7 @@
 package Views;
 
 import Helpers.Enums;
+import Helpers.StringHelper;
 import Listener.TextChangeEventListener;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -40,7 +41,7 @@ public class MinimalSessionView extends VBox implements TextChangeEventListener
         this.getChildren().add(contentNode);
         this.setPadding(new Insets(10.0));
                 
-        titleView.setFont(Font.font("TimesNewRoman",18));
+        titleView.setFont(StringHelper.font18);
           
         this.setOnDragDetected(new EventHandler<MouseEvent>()
         {

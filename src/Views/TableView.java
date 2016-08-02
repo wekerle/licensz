@@ -7,6 +7,7 @@ package Views;
 
 import Adaptor.Converter;
 import Helpers.Enums;
+import Helpers.StringHelper;
 import Listener.DayChangeEventListener;
 import Listener.HourChangeEventListener;
 import Listener.SessionDragEventListener;
@@ -23,7 +24,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 /**
  *
@@ -61,7 +61,7 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
     public void populateContent(DayModel dayModel)
     {   
                 
-        day.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,22));
+        day.setFont(StringHelper.font22Bold);
         day.setAlignment(Pos.CENTER);
         day.setPadding(new Insets(16));
         
@@ -77,10 +77,8 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
              TableCellView tableCellView=new TableCellView(this,i+1, 0,false);
              tableCellView.setContentNode(textEditor);
              
-            // textEditor.getStyleClass().add("tableCellSala");
              textEditor.setAlignment(Pos.CENTER);
              textEditor.setStyle("-fx-text-fill:white;");
-             //tableCellView.getStyleClass().add("tableCellSala");
              
             this.table.add(tableCellView.getContent(), i+1, 0);
             i++;
@@ -94,24 +92,11 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
             hourEditor.setPeriodId(timeRange.getId());
             
             TableCellView tableCellView=new TableCellView(this,0,i+1,false);
-            
-          //  textEditor.setStyle("-fx-text-fill:red");
             tableCellView.setContentNode(hourEditor);
 
-            ((VBox)tableCellView.getContent()).setAlignment(Pos.CENTER);
-          //  tableCellView.setStyle("-fx-background-color: black");
-            //textEditor.setStyle("-fx-text-fill: ladder(background, white 49%, black 50%)");
-            
+            ((VBox)tableCellView.getContent()).setAlignment(Pos.CENTER);           
             this.table.add(tableCellView.getContent(),0,i+1 );
             
-            Text t= new Text("asd sfdg dfg hg sfds dsf sfdg ");
-            HBox hb=new HBox();
-            hb.setStyle("-fx-background-color: #ffc0cb");
-            hb.setAlignment(Pos.CENTER);
-            
-            hb.getChildren().add(t);
-            
-            this.table.add(hb, 1, 2, 4, 1);
             i++;
         }
         i=1;
@@ -121,15 +106,16 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
             for(LocalTimeRangeModel timeRange : dayModel.getTimes())
             {                 
                 SessionModel session=dayModel.getSessionModelTimeRoom(timeRange.getId(),room.getId());
-              //  TableCellView tableCellView=new TableCellView(this,i, j);
+                TableCellView tableCellView=new TableCellView(this,i, j,true);
 
                 boolean sameCell=true;
                     
                 if(session!=null)
                 {
-                     Converter c=new Converter();
-                     MinimalSessionView minimalSession=c.sessionToMinimalSessionView(session,this);
-                    // tableCellView.setContentNode(minimalSession); 
+                    Converter c=new Converter();
+                    MinimalSessionView minimalSession=c.sessionToMinimalSessionView(session,this);
+                    tableCellView.setMinimalSessionView(minimalSession); 
+                    tableCellView.setSessionDragEventListener(this);
 
                     if(!session.isBreak())
                     {
@@ -154,41 +140,16 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
                
                 
                 if(sameCell)
+                {                  
+                    ((HBox)tableCellView.getContent()).setStyle("-fx-background-color: #ffc0cb");
+                    ((HBox)tableCellView.getContent()).setAlignment(Pos.CENTER);
+                    
+                    this.table.add(tableCellView.getContent(), 1, j,dayModel.getRooms().size(),1);
+
+                }
+                else
                 {
-                    
-                    
-                    
-                    
-                    Text t= new Text("asd sfdg dfg hg sfds dsf sfdg ");
-            HBox hb=new HBox();
-            hb.setStyle("-fx-background-color: #ffc0cb");
-            hb.setAlignment(Pos.CENTER);
-            
-            hb.getChildren().add(t);
-            
-            //this.table.add(hb, 1, 2, 4, 1);
-                    
-                    
-                    
-                    
-                   // tableCellView.setStyle("-fx-background-color: #ffc0cb");
-                    //tableCellView.setAlignment(Pos.CENTER);
-                    //t//ableCellView.getC
-                    
-                    
-                    //ColumnConstraints col1Constraints = new ColumnConstraints();
-                   // col1Constraints.setPercentWidth(100);
-                   
-                    
-                   // this.table.add(tableCellView, 1, j,dayModel.getRooms().size(),1);
-                    
-                    // GridPane.setValignment(tableCellView,VPos.BOTTOM);
-                   // GridPane.setHalignment(tableCellView,HPos.LEFT);
-                    
-                   // tableCellView.getCo
-                }else
-                {
-                  //  this.table.add(tableCellView,i, j);
+                    this.table.add(tableCellView.getContent(),i, j);
                 }
                 
                 j++;
@@ -201,7 +162,8 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
     }
 
     @Override
-    public void notifyDataManager(int destinationSessionId, int sourceSessionId, Enums.Position position) {
+    public void notifyDataManager(int destinationSessionId, int sourceSessionId, Enums.Position position) 
+    {
         sessionDragEvent.notifyDataManager(destinationSessionId, sourceSessionId, position);
     }
 
@@ -228,7 +190,8 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
     }
 
     @Override
-    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

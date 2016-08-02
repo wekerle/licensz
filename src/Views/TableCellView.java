@@ -89,8 +89,7 @@ public class TableCellView
         content.setOnDragOver(new EventHandler<DragEvent>() 
         {
             public void handle(DragEvent event) {               
-                if (event.getGestureSource() != this &&
-                        event.getDragboard().hasString()) 
+                if (event.getGestureSource() != this && event.getDragboard().hasString()) 
                 {
                     event.acceptTransferModes(TransferMode.MOVE);
                     

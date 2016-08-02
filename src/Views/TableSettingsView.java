@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Helpers.StringHelper;
 import Models.DayModel;
 import Models.LocalTimeRangeModel;
 import javafx.scene.layout.GridPane;
@@ -34,27 +35,27 @@ public class TableSettingsView extends VBox
     public void populateContent(DayModel dayModel)
     {   
         Text textDate=new Text("Date:");
-        textDate.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,16));
+        textDate.setFont(StringHelper.font16Bold);
         grid.add(textDate, 0, 0);
         
         dayEditor.setDay(dayModel.getDay());
         grid.add(dayEditor, 1, 0);
-        dayEditor.setFont(Font.font("TimesNewRoman",16));
+        dayEditor.setFont(StringHelper.font16);
         
         Text textPeriod=new Text("Period:");
-        textPeriod.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,16));
+        textPeriod.setFont(StringHelper.font16Bold);
         grid.add(textPeriod, 0, 1);
         
         period=new HourEditor(dayModel.getTotalPeriod());
-        period.setFont(Font.font("TimesNewRoman",16));
+        period.setFont(StringHelper.font16);
         grid.add(period, 1, 1);
         
         Text textSessions=new Text("Number of paralel sessions per day:");
-        textSessions.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,16));
+        textSessions.setFont(StringHelper.font16Bold);
         grid.add(textSessions, 0, 2);
         
         numberOfSessionsPerDay.setText(Integer.toString(dayModel.getNumberOfSessionsPerDay()));
-        numberOfSessionsPerDay.setFont(Font.font("TimesNewRoman",16));
+        numberOfSessionsPerDay.setFont(StringHelper.font16);
         grid.add(numberOfSessionsPerDay, 1, 2);
         
         this.getChildren().add(grid);

@@ -5,9 +5,8 @@
  */
 package Models;
 
-import Helpers.StringHelper;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,9 +15,8 @@ import java.time.LocalDate;
 public class ConstraintModel implements Serializable
 {
     private String teacherName;
-    private LocalDate date;
-    private LocalTimeRangeModel timeRange;
-
+    private ArrayList<DateAndPeriodModel> dateAndPeriods=new ArrayList<DateAndPeriodModel>();
+    
     public String getTeacherName() 
     {
         return teacherName;
@@ -28,42 +26,14 @@ public class ConstraintModel implements Serializable
     {
         this.teacherName = teacherName;
     }
-
-    public LocalDate getDate() 
+    
+    public void addDateAndPeriod(DateAndPeriodModel dateAndPeriod)
     {
-        return date;
-    }
-
-    public void setDate(LocalDate date) 
-    {
-        this.date = date;
-    }
-
-    public LocalTimeRangeModel getTimeRange() 
-    {
-        return timeRange;
-    }
-
-    public void setTimeRange(LocalTimeRangeModel timeRange) 
-    {
-        this.timeRange = timeRange;
+        this.dateAndPeriods.add(dateAndPeriod);
     }
     
-    public String getDayAndTimeString()
+    public ArrayList<DateAndPeriodModel> getDateAndPeriod()
     {
-        if(date!=null && timeRange!=null)
-        {
-            return StringHelper.getConverter().toString(date)+" "+timeRange.toString();
-        }
-        else if(timeRange!=null)
-        {
-            return timeRange.toString();
-        }
-        else if(date!=null)
-        {
-            return StringHelper.getConverter().toString(date);
-        }
-        return "";            
+        return this.dateAndPeriods;
     }
-    
 }

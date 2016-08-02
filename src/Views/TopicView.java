@@ -6,6 +6,7 @@
 package Views;
 
 import Helpers.Enums;
+import Helpers.StringHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
@@ -69,7 +70,7 @@ public class TopicView implements LectureDragEventListener,TextChangeEventListen
         containerNode.getChildren().add(titleView);
         containerNode.getChildren().add(contentNode);
         
-        titleView.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,32));
+        titleView.setFont(StringHelper.font32Bold);
         titleView.setAlignment(Pos.CENTER);
         containerNode.setPadding(new Insets(16)); 
         

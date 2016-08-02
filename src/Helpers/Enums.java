@@ -23,7 +23,9 @@ public class Enums
         NOTHING,
         AUTHORS,
         CHAIRS,
-        TITLE     
+        TITLE,
+        ROOM_NAME,
+        BREAK_NAME
     }
     public enum TextCategory{
         NOTHING,

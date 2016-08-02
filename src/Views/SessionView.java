@@ -103,8 +103,8 @@ public class SessionView
         
         containerNode.getChildren().add(contentNode);
         
-        titleView.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,18));
-        chairView.setFont(new Font(18));
+        titleView.setFont(StringHelper.font18Bold);
+        chairView.setFont(StringHelper.font18);
         
         containerNode.setPadding(new Insets(10));
                 

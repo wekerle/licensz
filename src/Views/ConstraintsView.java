@@ -5,13 +5,16 @@
  */
 package Views;
 
+import Helpers.StringHelper;
 import Models.AplicationModel;
 import Models.ConstraintModel;
+import Models.DateAndPeriodModel;
 import Models.LocalTimeRangeModel;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -21,9 +24,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 /**
@@ -49,10 +49,10 @@ public class ConstraintsView extends ScrollPane
         for(ConstraintModel constraint : constraints)
         {
             Text textName=new Text(constraint.getTeacherName());
-            textName.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,16));
+            textName.setFont(StringHelper.font16Bold);
             
             Text restriction=new Text();
-            restriction.setFont(Font.font("TimesNewRoman",16));
+            restriction.setFont(StringHelper.font16);
             
             textName.addEventHandler(MouseEvent.MOUSE_CLICKED, 
                     new EventHandler<MouseEvent>()
@@ -62,22 +62,26 @@ public class ConstraintsView extends ScrollPane
                         {
                             GridPane editorContent=new GridPane();                           
                             
-                            Text textDate=new Text("Date:");
-                            textDate.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,16));
-                            editorContent.add(textDate, 0, 0);
+                            for(DateAndPeriodModel dateAndPeriod:constraint.getDateAndPeriod())
+                            {
+                                Text textDate=new Text("Date:");
+                                textDate.setFont(StringHelper.font16Bold);
+                                editorContent.add(textDate, 0, 0);
+                            }
+                            
                                     
                             DayEditor dayEditor=new DayEditor();
-                            dayEditor.setDay(constraint.getDate()==null ? LocalDate.now():constraint.getDate());
-                            dayEditor.setFont(Font.font("TimesNewRoman",16));
+                           // dayEditor.setDay(constraint.getDate()==null ? LocalDate.now():constraint.getDate());
+                            dayEditor.setFont(StringHelper.font16);
                             editorContent.add(dayEditor, 1, 0);
                             
                             Text textPeriod=new Text("Period:");
-                            textPeriod.setFont(Font.font("TimesNewRoman",FontWeight.BOLD,16));
+                            textPeriod.setFont(StringHelper.font16Bold);
                             editorContent.add(textPeriod, 0, 1);
                             
-                            HourEditor hourEditor=new HourEditor(constraint.getTimeRange()==null ? new LocalTimeRangeModel(0,0,0):constraint.getTimeRange());
-                            hourEditor.setFont(Font.font("TimesNewRoman",16));
-                            editorContent.add(hourEditor, 1, 1);
+                            //HourEditor hourEditor=new HourEditor(constraint.getTimeRange()==null ? new LocalTimeRangeModel(8,0,360):constraint.getTimeRange());
+                          //  hourEditor.setFont(StringHelper.font16);
+                          //  editorContent.add(hourEditor, 1, 1);
                             
                             Dialog dialog = new Dialog<>();
                             dialog.setHeaderText("Select the date and the hour:");
@@ -95,15 +99,15 @@ public class ConstraintsView extends ScrollPane
 
                             if ((result.isPresent()) && (result.get() == buttonTypeOk)) 
                             {
-                               constraint.setDate(dayEditor.getDay());
-                               constraint.setTimeRange(hourEditor.getTimeRange());
-                               restriction.setText(constraint.getDayAndTimeString());
+                             //  constraint.setDate(dayEditor.getDay());
+                             //  constraint.setTimeRange(hourEditor.getTimeRange());
+                             //  restriction.setText(constraint.getDayAndTimeString());
                             }
                         }                       
                     }
             );
             
-            restriction.setText(constraint.getDayAndTimeString());
+          //  restriction.setText(constraint.getDayAndTimeString());
                         
             table.add(textName, 0, i);
             table.add(restriction, 1, i);
@@ -114,6 +118,19 @@ public class ConstraintsView extends ScrollPane
         tg.setGraphic(ii);
         
        table.add(tg, 2,0 );*/
+        
+        /* Image imageOk=new Image(getClass().getResourceAsStream("add3.png"));
+        Button but=new Button();
+        but.setGraphic(new ImageView(imageOk));
+        table.add(but,0,3);
+        
+        Image imageOk1=new Image(getClass().getResourceAsStream("delete3.png"));
+        Button but1=new Button();
+        but1.setGraphic(new ImageView(imageOk1));
+        
+        but1.setLayoutX(500);
+        table.add(but1,0,4);*/
+        
         this.setContent(table);
         
     }
