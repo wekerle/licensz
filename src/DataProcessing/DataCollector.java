@@ -284,7 +284,7 @@ public class DataCollector{
         i=0;
         for(TopicModel topic : topics)
         {             
-            RoomModel room=new RoomModel("Sala "+i);
+            RoomModel room=new RoomModel("Sala "+i,topic.getId());
             day.addRoom(room);
             rooms.add(room);
             i++;

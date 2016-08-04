@@ -9,6 +9,7 @@ import Models.AplicationModel;
 import Models.DayModel;
 import Models.LectureWithDetailsModel;
 import Models.LocalTimeRangeModel;
+import Models.RoomModel;
 import Models.SessionModel;
 import Models.TopicModel;
 import java.time.LocalDate;
@@ -25,6 +26,48 @@ public class DataManager
     private AplicationModel aplicationModel=null;
     
     // <editor-fold desc="private region" defaultstate="collapsed">
+    
+    private void deleteSessionFromDayById(int id) 
+    {
+        for(DayModel day : aplicationModel.getDays())
+        {
+            boolean result=day.removeSession(id);
+            if(result==true)
+            {
+                break;
+            }
+        }
+    }
+    
+    
+    private RoomModel getRoomByTopicId(int topicId) 
+    {
+        for(DayModel day : aplicationModel.getDays())
+        {
+           for(RoomModel room : day.getRooms())
+           {
+               if(room.getTopicId()==topicId)
+               {
+                   return room;
+               }
+           }
+        }
+        return null;
+    }
+    
+    
+    private LocalTimeRangeModel getTimeBySessionId(int sessionId) 
+    {
+        for(DayModel day : aplicationModel.getDays())
+        {
+           LocalTimeRangeModel time=day.getTimeRangeBySessionId(sessionId);
+           if(time!=null)
+           {
+               return time;
+           };
+        }
+        return null;
+    }
     
     private TopicModel getTopicIdBySessionId(int sessionId)
     {
@@ -175,6 +218,10 @@ public class DataManager
         removeSessionFromTopicBySessionId(t2, sourceSessionId);
         addSessionToTopicBySessionId(t1, session, session1Position);
         
+        deleteSessionFromDayById(sourceSessionId);
+        RoomModel room=getRoomByTopicId(t1.getId());
+        LocalTimeRangeModel time=getTimeBySessionId(destinationSessionId);
+        
     }
     
     public void moveDestinationSessionAfterSourceSession(int destinationSessionId,int sourceSessionId)
@@ -295,4 +342,5 @@ public class DataManager
             }
         }
     }
+
 }

@@ -119,17 +119,17 @@ public class ConstraintsView extends ScrollPane
         
        table.add(tg, 2,0 );*/
         
-        /* Image imageOk=new Image(getClass().getResourceAsStream("add3.png"));
+        Image imageOk=new Image("/Icons/add3.png");
         Button but=new Button();
         but.setGraphic(new ImageView(imageOk));
         table.add(but,0,3);
         
-        Image imageOk1=new Image(getClass().getResourceAsStream("delete3.png"));
+        Image imageOk1=new Image("/Icons/delete3.png");
         Button but1=new Button();
         but1.setGraphic(new ImageView(imageOk1));
         
         but1.setLayoutX(500);
-        table.add(but1,0,4);*/
+        table.add(but1,0,4);
         
         this.setContent(table);
         

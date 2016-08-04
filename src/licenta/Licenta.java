@@ -404,19 +404,7 @@ public class Licenta extends Application
                 +"If you want to select 'new' from 'file' menu, first you must select the path to file iie_thesaurus in the 'settings' menu\n"
                 +"If you want to change the deafult break duration, you can do it from the 'settings' menu, and the change will be \napplied only if you decide to upload new files. The default break is 10 minutes\n");
         grid.add(chartSubtitle, 1, 1, 2, 1);
-        
-        Image imageOk=new Image(getClass().getResourceAsStream("add3.png"));
-        Button but=new Button();
-        but.setGraphic(new ImageView(imageOk));
-        grid.add(but,0,3);
-        
-        Image imageOk1=new Image(getClass().getResourceAsStream("delete3.png"));
-        Button but1=new Button();
-        but1.setGraphic(new ImageView(imageOk1));
-        
-        but1.setLayoutX(500);
-        grid.add(but1,0,4);
-        
+              
         return grid;
     }
  

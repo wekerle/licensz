@@ -15,12 +15,19 @@ import licenta.IdGenerator;
 public class RoomModel implements Serializable
 {
     private int id;
+    private int topicId;
     private String name;
 
-    public RoomModel(String name) 
+    public RoomModel(String name,int topicId) 
     {
         this.name = name;
+        this.topicId=topicId;
         id=IdGenerator.getNewId();
+    }
+
+    public int getTopicId() 
+    {
+        return topicId;
     }
     
     public int getId() 

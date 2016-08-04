@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import licenta.IdGenerator;
 
 /**
@@ -142,6 +143,21 @@ public class DayModel implements Serializable
         }   
     }
     
+    public SessionModel removeSessionByTimeRoom(int timeId,int roomId)
+    {
+        HashMap<Integer,SessionModel> roomTime =roomTimeMap.get(timeId);
+        SessionModel session=null;
+        
+        if(roomTime!=null)
+        {
+            session=roomTime.get(roomId);
+            roomTime.remove(roomId);
+            return session;
+        }
+        
+        return null;
+    }
+    
     public SessionModel getSessionModelTimeRoom(int timeId,int roomId)
     {
         HashMap<Integer,SessionModel> roomTime =roomTimeMap.get(timeId);
@@ -151,7 +167,7 @@ public class DayModel implements Serializable
         {
             session=roomTime.get(roomId);
         }
-           return session;
+        return session;
     }
     
     public int getRoomNumberCount()
@@ -172,6 +188,73 @@ public class DayModel implements Serializable
     public ArrayList<LocalTimeRangeModel> getTimes() 
     {
         return times;
+    }
+    
+    public boolean removeSession(int sessionId)
+    {
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
+        {
+            for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
+            {
+                boolean contain=roomSession.getValue().getId()==sessionId;
+                if(contain)
+                {
+                    timeRoomSession.getValue().remove(roomSession.getKey());
+                    return contain;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public LocalTimeRangeModel getTimeRangeBySessionId(int sessionId)
+    {
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
+        {
+            for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
+            {
+                if(roomSession.getKey()==sessionId)
+                {
+                    return getTimeRangeModelById(timeRoomSession.getKey());
+                }
+            }
+        }
+        return null;
+    }
+    
+    public void shiftDown(int timeId,int roomId)
+    {
+        int index=0;
+        for(int i=0;i<times.size();i++)
+        {
+            if(timeId==times.get(index).getId())
+            {
+               index=i;
+               break;
+            }
+           
+        }
+        
+        for(int i=times.size()-2;i>=index;i--)
+        {
+            LocalTimeRangeModel time=times.get(i);
+            LocalTimeRangeModel timeNext=times.get(i+1);
+            
+            SessionModel session=removeSessionByTimeRoom(time.getId(),roomId);
+            addSession(session, timeNext, getRoomModelById(roomId));
+        }
+    }
+    
+    public LocalTimeRangeModel getNextTimeByCurrentTimeModel(LocalTimeRangeModel currentTime)
+    {
+        for(int i=0;i<times.size();i++)
+        {
+            if(times.get(i).getId()==currentTime.getId())
+            {
+                return times.get(i+1);
+            }
+        }
+        return null;
     }
     
 }
