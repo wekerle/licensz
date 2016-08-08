@@ -78,30 +78,7 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         for(TableView tableview : tableViewList)
         {                       
             verticalLayout.getChildren().add(tableview);
-        }
-        
-       // getClas();
-      /*  System.out.println("Working Directory = " +
-              System.getProperty("user.dir"));
-        
-         Image img1 = new Image("file://C:\\Users\\Ronaldo\\Desktop\\licenszGit3\\src\\about.png");
-        // Image img2 = new Image(getClass().getResourceAsStream("close.png"));
-         
-         HBox hb = new HBox();
-                hb.setPadding(new Insets(15, 15, 15, 12));
-                hb.setSpacing(10);
-         // Adding buttons and images to buttons with no text on buttons
-                Button button1 = new Button("", new ImageView(img1));
-                hb.getChildren().add(button1);
-               // Button button2 = new Button("", new ImageView(img2));
-               // hb.getChildren().add(button2);
-                // Adding buttons and images with text on buttons
-                Button button3 = new Button("Info Button", new ImageView(img1));
-                hb.getChildren().add(button3);
-                
-                
-                verticalLayout.getChildren().add(hb);*/
-           
+        }                   
     }
     
     public ScheduleView(AplicationModel model)

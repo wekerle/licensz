@@ -17,24 +17,20 @@ public class DateAndPeriodModel
     private LocalDate date;
     private LocalTimeRangeModel timeRange;
     
-        public LocalDate getDate() 
+    public LocalDate getDate() 
     {
         return date;
     }
-
-    public void setDate(LocalDate date) 
+    
+    public DateAndPeriodModel(LocalDate date, LocalTimeRangeModel period)
     {
-        this.date = date;
+        this.date=date;
+        this.timeRange=period;
     }
-
+    
     public LocalTimeRangeModel getTimeRange() 
     {
         return timeRange;
-    }
-
-    public void setTimeRange(LocalTimeRangeModel timeRange) 
-    {
-        this.timeRange = timeRange;
     }
     
     public String getDayAndTimeString()

@@ -24,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
@@ -50,44 +51,76 @@ public class ConstraintsView extends ScrollPane
         {
             Text textName=new Text(constraint.getTeacherName());
             textName.setFont(StringHelper.font16Bold);
+                                 
+            Image imageAdd=new Image("/Icons/add3.png");
+            Button buttonAdd=new Button();
+            buttonAdd.setGraphic(new ImageView(imageAdd));
             
-            Text restriction=new Text();
-            restriction.setFont(StringHelper.font16);
+            table.add(buttonAdd,0,i);           
+            table.add(textName, 1, i);
             
-            textName.addEventHandler(MouseEvent.MOUSE_CLICKED, 
+           // GridPane constraintGrid=new GridPane();
+            //int j=0;                           
+            for(DateAndPeriodModel dateAndPeriod:constraint.getDatesAndPeriods())
+            {
+                Text restriction=new Text();
+                restriction.setFont(StringHelper.font16);
+                restriction.setText(dateAndPeriod.getDayAndTimeString());
+                
+                Image imageDelete=new Image("/Icons/delete3.png");
+                Button buttonDelete=new Button();
+                buttonDelete.setGraphic(new ImageView(imageDelete));
+
+                buttonDelete.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                        new EventHandler<MouseEvent>()
+                        {
+                            @Override
+                            public void handle(MouseEvent event) {
+                                constraint.deleteDateAndPeriod(dateAndPeriod);
+                                //constraintGrid.getChildren().remove(restriction);
+                               // constraintGrid.getChildren().remove(buttonDelete);
+                            }
+                        });
+                
+               // constraintGrid.add(restriction, 0, j);
+               // constraintGrid.add(buttonDelete,1,j);
+               // j++;
+                table.add(restriction, 2, i);
+                table.add(buttonDelete, 3, i);
+                i++;
+            }           
+            //table.add(constraintGrid, 2, i);
+                                 
+            buttonAdd.addEventHandler(MouseEvent.MOUSE_CLICKED, 
                     new EventHandler<MouseEvent>()
                     {
                         @Override
                         public void handle(MouseEvent event) 
                         {
-                            GridPane editorContent=new GridPane();                           
+                            GridPane dialogContent=new GridPane();                           
                             
-                            for(DateAndPeriodModel dateAndPeriod:constraint.getDateAndPeriod())
-                            {
-                                Text textDate=new Text("Date:");
-                                textDate.setFont(StringHelper.font16Bold);
-                                editorContent.add(textDate, 0, 0);
-                            }
-                            
-                                    
+                            Text textDate=new Text("Date:");
+                            textDate.setFont(StringHelper.font16Bold);
+                            dialogContent.add(textDate, 0, 0);
+                                
                             DayEditor dayEditor=new DayEditor();
-                           // dayEditor.setDay(constraint.getDate()==null ? LocalDate.now():constraint.getDate());
+                            dayEditor.setDay(LocalDate.now());
                             dayEditor.setFont(StringHelper.font16);
-                            editorContent.add(dayEditor, 1, 0);
-                            
+                            dialogContent.add(dayEditor, 1, 0);
+
                             Text textPeriod=new Text("Period:");
                             textPeriod.setFont(StringHelper.font16Bold);
-                            editorContent.add(textPeriod, 0, 1);
-                            
-                            //HourEditor hourEditor=new HourEditor(constraint.getTimeRange()==null ? new LocalTimeRangeModel(8,0,360):constraint.getTimeRange());
-                          //  hourEditor.setFont(StringHelper.font16);
-                          //  editorContent.add(hourEditor, 1, 1);
-                            
+                            dialogContent.add(textPeriod, 0, 1);
+
+                            HourEditor hourEditor=new HourEditor(new LocalTimeRangeModel(8,0,360));
+                            hourEditor.setFont(StringHelper.font16);
+                            dialogContent.add(hourEditor, 1, 1);
+                                           
                             Dialog dialog = new Dialog<>();
                             dialog.setHeaderText("Select the date and the hour:");
                             dialog.getDialogPane().setPrefSize(300, 225);
 
-                            dialog.getDialogPane().setContent(editorContent);
+                            dialog.getDialogPane().setContent(dialogContent);
 
                             ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
                             ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -99,37 +132,21 @@ public class ConstraintsView extends ScrollPane
 
                             if ((result.isPresent()) && (result.get() == buttonTypeOk)) 
                             {
-                             //  constraint.setDate(dayEditor.getDay());
-                             //  constraint.setTimeRange(hourEditor.getTimeRange());
-                             //  restriction.setText(constraint.getDayAndTimeString());
+                                DateAndPeriodModel dayPeriod=new DateAndPeriodModel(dayEditor.getDay(), hourEditor.getTimeRange());
+                                constraint.addDateAndPeriod(dayPeriod);
+                                
+                                Text restriction=new Text();
+                                restriction.setFont(StringHelper.font16);
+                                restriction.setText(dayPeriod.getDayAndTimeString());
+                                //constraintGrid.add(restriction, 0, 0);
                             }
                         }                       
                     }
-            );
-            
-          //  restriction.setText(constraint.getDayAndTimeString());
-                        
-            table.add(textName, 0, i);
-            table.add(restriction, 1, i);
+            );             
             i++;
         }
-        /*ToggleButton tg=new ToggleButton();
-        ImageView ii =new ImageView("file://C:\\Users\\Ronaldo\\Desktop\\licenszGit3\\src\\about.png");
-        tg.setGraphic(ii);
+   
         
-       table.add(tg, 2,0 );*/
-        
-        Image imageOk=new Image("/Icons/add3.png");
-        Button but=new Button();
-        but.setGraphic(new ImageView(imageOk));
-        table.add(but,0,3);
-        
-        Image imageOk1=new Image("/Icons/delete3.png");
-        Button but1=new Button();
-        but1.setGraphic(new ImageView(imageOk1));
-        
-        but1.setLayoutX(500);
-        table.add(but1,0,4);
         
         this.setContent(table);
         

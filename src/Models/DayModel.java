@@ -207,13 +207,29 @@ public class DayModel implements Serializable
         return false;
     }
     
+    public boolean containsSession(int sessionId)
+    {
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
+        {
+            for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
+            {
+                boolean contain=roomSession.getValue().getId()==sessionId;
+                if(contain)
+                {
+                    return contain;
+                }
+            }
+        }
+        return false;
+    }
+    
     public LocalTimeRangeModel getTimeRangeBySessionId(int sessionId)
     {
         for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
         {
             for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
             {
-                if(roomSession.getKey()==sessionId)
+                if(roomSession.getValue().getId()==sessionId)
                 {
                     return getTimeRangeModelById(timeRoomSession.getKey());
                 }
@@ -227,7 +243,7 @@ public class DayModel implements Serializable
         int index=0;
         for(int i=0;i<times.size();i++)
         {
-            if(timeId==times.get(index).getId())
+            if(timeId==times.get(i).getId())
             {
                index=i;
                break;
@@ -241,7 +257,7 @@ public class DayModel implements Serializable
             LocalTimeRangeModel timeNext=times.get(i+1);
             
             SessionModel session=removeSessionByTimeRoom(time.getId(),roomId);
-            addSession(session, timeNext, getRoomModelById(roomId));
+            addSession(session, timeNext, getRoomModelById(roomId));   
         }
     }
     

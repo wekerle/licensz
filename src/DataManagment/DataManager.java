@@ -27,19 +27,19 @@ public class DataManager
     
     // <editor-fold desc="private region" defaultstate="collapsed">
     
-    private void deleteSessionFromDayById(int id) 
+    private DayModel getDayBySessionId(int sessionId) 
     {
         for(DayModel day : aplicationModel.getDays())
         {
-            boolean result=day.removeSession(id);
+            boolean result=day.containsSession(sessionId);
             if(result==true)
             {
-                break;
+                return day;
             }
         }
+        return null;
     }
-    
-    
+        
     private RoomModel getRoomByTopicId(int topicId) 
     {
         for(DayModel day : aplicationModel.getDays())
@@ -51,20 +51,6 @@ public class DataManager
                    return room;
                }
            }
-        }
-        return null;
-    }
-    
-    
-    private LocalTimeRangeModel getTimeBySessionId(int sessionId) 
-    {
-        for(DayModel day : aplicationModel.getDays())
-        {
-           LocalTimeRangeModel time=day.getTimeRangeBySessionId(sessionId);
-           if(time!=null)
-           {
-               return time;
-           };
         }
         return null;
     }
@@ -210,29 +196,35 @@ public class DataManager
     
     public void moveDestinationSessionBeforeSourceSession(int destinationSessionId,int sourceSessionId)
     {               
-        TopicModel t1=getTopicIdBySessionId(destinationSessionId);
-        TopicModel t2=getTopicIdBySessionId(sourceSessionId);
+        TopicModel destinationTopic=getTopicIdBySessionId(destinationSessionId);
+        TopicModel sourceTopic=getTopicIdBySessionId(sourceSessionId);
         int session1Position=getSessionPositionIdBySessionId(destinationSessionId);
         SessionModel session=getSessionById(sourceSessionId);
         
-        removeSessionFromTopicBySessionId(t2, sourceSessionId);
-        addSessionToTopicBySessionId(t1, session, session1Position);
+        removeSessionFromTopicBySessionId(sourceTopic, sourceSessionId);
+        addSessionToTopicBySessionId(destinationTopic, session, session1Position);
         
-        deleteSessionFromDayById(sourceSessionId);
-        RoomModel room=getRoomByTopicId(t1.getId());
-        LocalTimeRangeModel time=getTimeBySessionId(destinationSessionId);
+        DayModel sourceDay=getDayBySessionId(sourceSessionId);
+        DayModel destinationDay=getDayBySessionId(destinationSessionId);
+        
+        RoomModel room=getRoomByTopicId(destinationTopic.getId());
+        LocalTimeRangeModel time=destinationDay.getTimeRangeBySessionId(destinationSessionId);
+        
+        sourceDay.removeSession(sourceSessionId);
+        destinationDay.shiftDown(time.getId(), room.getId());
+        destinationDay.addSession(session, time, room);
         
     }
     
     public void moveDestinationSessionAfterSourceSession(int destinationSessionId,int sourceSessionId)
     {               
-        TopicModel t1=getTopicIdBySessionId(destinationSessionId);
-        TopicModel t2=getTopicIdBySessionId(sourceSessionId);
+        TopicModel destinationTopic=getTopicIdBySessionId(destinationSessionId);
+        TopicModel sourceTopic=getTopicIdBySessionId(sourceSessionId);
         int session1Position=getSessionPositionIdBySessionId(destinationSessionId);
         SessionModel session=getSessionById(sourceSessionId);
         
-        removeSessionFromTopicBySessionId(t2, sourceSessionId);
-        addSessionToTopicBySessionId(t1, session, session1Position+1);
+        removeSessionFromTopicBySessionId(sourceTopic, sourceSessionId);
+        addSessionToTopicBySessionId(destinationTopic, session, session1Position+1);
         
     }
     
@@ -342,5 +334,4 @@ public class DataManager
             }
         }
     }
-
 }

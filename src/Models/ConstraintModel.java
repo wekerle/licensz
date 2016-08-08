@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ConstraintModel implements Serializable
 {
     private String teacherName;
-    private ArrayList<DateAndPeriodModel> dateAndPeriods=new ArrayList<DateAndPeriodModel>();
+    private ArrayList<DateAndPeriodModel> datesAndPeriods=new ArrayList<DateAndPeriodModel>();
     
     public String getTeacherName() 
     {
@@ -29,11 +29,16 @@ public class ConstraintModel implements Serializable
     
     public void addDateAndPeriod(DateAndPeriodModel dateAndPeriod)
     {
-        this.dateAndPeriods.add(dateAndPeriod);
+        this.datesAndPeriods.add(dateAndPeriod);
     }
     
-    public ArrayList<DateAndPeriodModel> getDateAndPeriod()
+    public void deleteDateAndPeriod(DateAndPeriodModel dateAndPeriod)
     {
-        return this.dateAndPeriods;
+        this.datesAndPeriods.remove(dateAndPeriod);
+    }
+    
+    public ArrayList<DateAndPeriodModel> getDatesAndPeriods()
+    {
+        return this.datesAndPeriods;
     }
 }
