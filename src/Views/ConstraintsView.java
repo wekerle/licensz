@@ -59,8 +59,8 @@ public class ConstraintsView extends ScrollPane
             table.add(buttonAdd,0,i);           
             table.add(textName, 1, i);
             
-           // GridPane constraintGrid=new GridPane();
-            //int j=0;                           
+            GridPane constraintGrid=new GridPane();
+            int j=0;                           
             for(DateAndPeriodModel dateAndPeriod:constraint.getDatesAndPeriods())
             {
                 Text restriction=new Text();
@@ -77,26 +77,30 @@ public class ConstraintsView extends ScrollPane
                             @Override
                             public void handle(MouseEvent event) {
                                 constraint.deleteDateAndPeriod(dateAndPeriod);
-                                //constraintGrid.getChildren().remove(restriction);
-                               // constraintGrid.getChildren().remove(buttonDelete);
+                                constraintGrid.getChildren().remove(restriction);
+                                constraintGrid.getChildren().remove(buttonDelete);
                             }
                         });
                 
-               // constraintGrid.add(restriction, 0, j);
-               // constraintGrid.add(buttonDelete,1,j);
-               // j++;
-                table.add(restriction, 2, i);
-                table.add(buttonDelete, 3, i);
-                i++;
+                constraintGrid.add(restriction, 0, j);
+                constraintGrid.add(buttonDelete,1,j);
+                j++;
+               // table.add(restriction, 2, i);
+               // table.add(buttonDelete, 3, i);
+               // i++;
             }           
-            //table.add(constraintGrid, 2, i);
+            table.add(constraintGrid, 2, i);
+            
+            final int jj = j;
                                  
             buttonAdd.addEventHandler(MouseEvent.MOUSE_CLICKED, 
                     new EventHandler<MouseEvent>()
                     {
+                        int ypos = -1;
                         @Override
                         public void handle(MouseEvent event) 
                         {
+                            if (ypos == -1) ypos = jj;
                             GridPane dialogContent=new GridPane();                           
                             
                             Text textDate=new Text("Date:");
@@ -138,7 +142,24 @@ public class ConstraintsView extends ScrollPane
                                 Text restriction=new Text();
                                 restriction.setFont(StringHelper.font16);
                                 restriction.setText(dayPeriod.getDayAndTimeString());
-                                //constraintGrid.add(restriction, 0, 0);
+                                constraintGrid.add(restriction, 0,ypos);
+                                
+                                Image imageDelete=new Image("/Icons/delete3.png");
+                                Button buttonDelete=new Button();
+                                buttonDelete.setGraphic(new ImageView(imageDelete));
+                                
+                                constraintGrid.add(buttonDelete, 1,ypos++);
+
+                                buttonDelete.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                                        new EventHandler<MouseEvent>()
+                                        {
+                                            @Override
+                                            public void handle(MouseEvent event) {
+                                                constraint.deleteDateAndPeriod(dayPeriod);
+                                                constraintGrid.getChildren().remove(restriction);
+                                                constraintGrid.getChildren().remove(buttonDelete);
+                                            }
+                                        });
                             }
                         }                       
                     }

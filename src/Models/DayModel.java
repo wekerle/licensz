@@ -7,6 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -241,6 +242,7 @@ public class DayModel implements Serializable
     public void shiftDown(int timeId,int roomId)
     {
         int index=0;
+        times.add(new LocalTimeRangeModel(times.get(times.size()-1).getEndTime(), 15));
         for(int i=0;i<times.size();i++)
         {
             if(timeId==times.get(i).getId())
