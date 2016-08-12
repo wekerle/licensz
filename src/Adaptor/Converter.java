@@ -48,8 +48,7 @@ public class Converter
     
     public MinimalSessionView sessionToMinimalSessionView(SessionModel session,TextChangeEventListener textChangeEvent)
     {
-        MinimalSessionView minimalSessionView=new MinimalSessionView(session.getTitle(),session.getId());
-        minimalSessionView.setTextChangeEventListener(textChangeEvent);
+        MinimalSessionView minimalSessionView=new MinimalSessionView(session.getTitle(),session.getId(),session.isBreak(),textChangeEvent);
         return minimalSessionView;
     }
     
@@ -77,12 +76,13 @@ public class Converter
        return topicViewList;
     }
     
-    public TableView dayModelToTableView(DayModel day,SessionDragEventListener sessionDragEvent,DayChangeEventListener dayChangeListener,HourChangeEventListener hourChangeListener)
+    public TableView dayModelToTableView(DayModel day,SessionDragEventListener sessionDragEvent,DayChangeEventListener dayChangeListener,HourChangeEventListener hourChangeListener,TextChangeEventListener textChangeListener)
     {
        TableView tableView=new TableView();
        tableView.setTableId(day.getId());
        tableView.setDay(day.getDay());
        tableView.setDayChangeEventListener(dayChangeListener);
+       tableView.setTextChangeEventListener(textChangeListener);
        tableView.setSessionDragEventListener(sessionDragEvent);
        tableView.setHourChangeEventListener(hourChangeListener);
        tableView.populateContent(day);
@@ -90,13 +90,13 @@ public class Converter
        return tableView;
     }
 
-    public ArrayList<TableView> dayModelListToTableViewList(ArrayList<DayModel> days, SessionDragEventListener sessionDragEvent,DayChangeEventListener dayChangeListener,HourChangeEventListener hourChangeListener) 
+    public ArrayList<TableView> dayModelListToTableViewList(ArrayList<DayModel> days, SessionDragEventListener sessionDragEvent,DayChangeEventListener dayChangeListener,HourChangeEventListener hourChangeListener, TextChangeEventListener textChangeListener) 
     {
         ArrayList<TableView> tableViews= new ArrayList<TableView>();
         
         for(DayModel day : days)
         {
-            tableViews.add(dayModelToTableView(day,sessionDragEvent,dayChangeListener,hourChangeListener));
+            tableViews.add(dayModelToTableView(day,sessionDragEvent,dayChangeListener,hourChangeListener,textChangeListener));
         }
         
         return tableViews;

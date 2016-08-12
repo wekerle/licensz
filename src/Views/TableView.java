@@ -36,6 +36,7 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
     private SessionDragEventListener sessionDragEvent;
     private DayChangeEventListener dayChangeEvent;
     private HourChangeEventListener hourChangeEvent;
+    private TextChangeEventListener textChangeEvent;
     private int tableId=0;
         
     public void setSessionDragEventListener(SessionDragEventListener sessionDragEvent)
@@ -51,8 +52,13 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
     public void setHourChangeEventListener(HourChangeEventListener hourChangeEvent)
     {
         this.hourChangeEvent=hourChangeEvent;
-    }     
+    }
     
+    public void setTextChangeEventListener(TextChangeEventListener textChangeEvent)
+    {
+        this.textChangeEvent=textChangeEvent;
+    }
+        
     public TableView()
     {
         super();         
@@ -72,13 +78,13 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
         int i=0;
         for(RoomModel room : dayModel.getRooms())
         {
-             TextEditor textEditor=new TextEditor(room.getName());
+             RoomView roomView=new RoomView(room.getName(),room.getId(),this);
              
              TableCellView tableCellView=new TableCellView(this,i+1, 0,false);
-             tableCellView.setContentNode(textEditor);
+             tableCellView.setContentNode(roomView);
              
-             textEditor.setAlignment(Pos.CENTER);
-             textEditor.setStyle("-fx-text-fill:white;");
+             roomView.setAlignment(Pos.CENTER);
+             roomView.setStyle("-fx-text-fill:white;");
              
             this.table.add(tableCellView.getContent(), i+1, 0);
             i++;
@@ -192,6 +198,6 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
     @Override
     public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        textChangeEvent.modifyText(type, category, id, newValue);
     }
 }

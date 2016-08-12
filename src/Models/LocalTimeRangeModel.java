@@ -14,7 +14,7 @@ import licenta.IdGenerator;
  *
  * @author Ronaldo
  */
-public class LocalTimeRangeModel implements Serializable
+public class LocalTimeRangeModel implements Serializable,Comparable<LocalTimeRangeModel>
 {
     private int id;
     private LocalTime startTime;
@@ -75,5 +75,15 @@ public class LocalTimeRangeModel implements Serializable
             return startTime.format(StringHelper.timeFormatter)+"-"+endTime.format(StringHelper.timeFormatter);
         }
         return "";
+    }
+
+    @Override
+    public int compareTo(LocalTimeRangeModel time) 
+    {
+        if(time.startTime==this.startTime && time.endTime==this.endTime)
+        {
+            return 0;
+        }
+        return -1;
     }
 }

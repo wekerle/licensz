@@ -11,6 +11,7 @@ import Helpers.Enums;
 import Listener.DayChangeEventListener;
 import Listener.HourChangeEventListener;
 import Listener.SessionDragEventListener;
+import Listener.TextChangeEventListener;
 import Models.AplicationModel;
 import Models.LocalTimeRangeModel;
 import java.time.LocalDate;
@@ -33,7 +34,7 @@ import javafx.util.Duration;
  *
  * @author tibor.wekerle
  */
-public class ScheduleView extends ScrollPane implements SessionDragEventListener, DayChangeEventListener,HourChangeEventListener
+public class ScheduleView extends ScrollPane implements SessionDragEventListener, DayChangeEventListener,HourChangeEventListener,TextChangeEventListener
 {  
     private double scrollDirection = 0;
     private VBox verticalLayout =  new VBox();
@@ -73,7 +74,7 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         Converter c=new Converter();       
         verticalLayout.getChildren().clear();
              
-        ArrayList<TableView> tableViewList= c.dayModelListToTableViewList(aplicationModel.getDays(),this,this,this);
+        ArrayList<TableView> tableViewList= c.dayModelListToTableViewList(aplicationModel.getDays(),this,this,this,this);
                 
         for(TableView tableview : tableViewList)
         {                       
@@ -128,5 +129,18 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
     @Override
     public void modifyHour(int periodId, LocalTimeRangeModel timeRange) {
         this.dataManager.updateHour(periodId,timeRange);
+    }
+
+    @Override
+    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+        if(type==Enums.TextType.BREAK_NAME)
+        {
+            this.dataManager.updateTimeBreakTitle(id,newValue);
+        }
+        
+        if(type==Enums.TextType.ROOM_NAME)
+        {
+            this.dataManager.updateRoomName(id,newValue);
+        }
     }
 }

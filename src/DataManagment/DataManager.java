@@ -226,6 +226,18 @@ public class DataManager
         removeSessionFromTopicBySessionId(sourceTopic, sourceSessionId);
         addSessionToTopicBySessionId(destinationTopic, session, session1Position+1);
         
+        DayModel sourceDay=getDayBySessionId(sourceSessionId);
+        DayModel destinationDay=getDayBySessionId(destinationSessionId);
+        
+        RoomModel room=getRoomByTopicId(destinationTopic.getId());
+        LocalTimeRangeModel time=destinationDay.getTimeRangeBySessionId(destinationSessionId);
+        
+        LocalTimeRangeModel nextTime=destinationDay.getNextTimeByCurrentTimeAndRoom(time.getId());
+        
+        sourceDay.removeSession(sourceSessionId);
+        destinationDay.shiftDown(nextTime.getId(), room.getId());
+        destinationDay.addSession(session, nextTime, room);
+        
     }
     
     public boolean checkIfLectureExistInSession(int sessionId,int lectureId)
@@ -333,5 +345,13 @@ public class DataManager
                 }
             }
         }
+    }
+
+    public void updateTimeBreakTitle(int id, String newValue) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void updateRoomName(int id, String newValue) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

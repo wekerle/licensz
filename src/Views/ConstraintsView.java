@@ -35,7 +35,32 @@ public class ConstraintsView extends ScrollPane
 {
     AplicationModel aplicationModel=null;
     private GridPane table=new GridPane();
-         
+    
+    private void addContraintDateAndPeriodToGrid(DateAndPeriodModel dateAndPeriod,ConstraintModel constraint, GridPane constraintGrid,int rowNumber )
+    {
+        Text restriction=new Text();
+        restriction.setFont(StringHelper.font16);
+        restriction.setText(dateAndPeriod.getDayAndTimeString());
+
+        Image imageDelete=new Image("/Icons/delete3.png");
+        Button buttonDelete=new Button();
+        buttonDelete.setGraphic(new ImageView(imageDelete));
+
+        buttonDelete.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                new EventHandler<MouseEvent>()
+                {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        constraint.deleteDateAndPeriod(dateAndPeriod);
+                        constraintGrid.getChildren().remove(restriction);
+                        constraintGrid.getChildren().remove(buttonDelete);
+                    }
+                });
+
+        constraintGrid.add(restriction, 0, rowNumber);
+        constraintGrid.add(buttonDelete,1,rowNumber);
+    }
+    
     public ConstraintsView(AplicationModel aplicationModel)
     {   
         super();     
@@ -63,32 +88,9 @@ public class ConstraintsView extends ScrollPane
             int j=0;                           
             for(DateAndPeriodModel dateAndPeriod:constraint.getDatesAndPeriods())
             {
-                Text restriction=new Text();
-                restriction.setFont(StringHelper.font16);
-                restriction.setText(dateAndPeriod.getDayAndTimeString());
-                
-                Image imageDelete=new Image("/Icons/delete3.png");
-                Button buttonDelete=new Button();
-                buttonDelete.setGraphic(new ImageView(imageDelete));
-
-                buttonDelete.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                        new EventHandler<MouseEvent>()
-                        {
-                            @Override
-                            public void handle(MouseEvent event) {
-                                constraint.deleteDateAndPeriod(dateAndPeriod);
-                                constraintGrid.getChildren().remove(restriction);
-                                constraintGrid.getChildren().remove(buttonDelete);
-                            }
-                        });
-                
-                constraintGrid.add(restriction, 0, j);
-                constraintGrid.add(buttonDelete,1,j);
+                addContraintDateAndPeriodToGrid(dateAndPeriod, constraint, constraintGrid, j);
                 j++;
-               // table.add(restriction, 2, i);
-               // table.add(buttonDelete, 3, i);
-               // i++;
-            }           
+            }     
             table.add(constraintGrid, 2, i);
             
             final int jj = j;
@@ -137,29 +139,9 @@ public class ConstraintsView extends ScrollPane
                             if ((result.isPresent()) && (result.get() == buttonTypeOk)) 
                             {
                                 DateAndPeriodModel dayPeriod=new DateAndPeriodModel(dayEditor.getDay(), hourEditor.getTimeRange());
-                                constraint.addDateAndPeriod(dayPeriod);
-                                
-                                Text restriction=new Text();
-                                restriction.setFont(StringHelper.font16);
-                                restriction.setText(dayPeriod.getDayAndTimeString());
-                                constraintGrid.add(restriction, 0,ypos);
-                                
-                                Image imageDelete=new Image("/Icons/delete3.png");
-                                Button buttonDelete=new Button();
-                                buttonDelete.setGraphic(new ImageView(imageDelete));
-                                
-                                constraintGrid.add(buttonDelete, 1,ypos++);
-
-                                buttonDelete.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                                        new EventHandler<MouseEvent>()
-                                        {
-                                            @Override
-                                            public void handle(MouseEvent event) {
-                                                constraint.deleteDateAndPeriod(dayPeriod);
-                                                constraintGrid.getChildren().remove(restriction);
-                                                constraintGrid.getChildren().remove(buttonDelete);
-                                            }
-                                        });
+                                constraint.addDateAndPeriod(dayPeriod);                               
+                                addContraintDateAndPeriodToGrid(dayPeriod, constraint, constraintGrid, ypos);
+                                ypos++;
                             }
                         }                       
                     }

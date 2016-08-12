@@ -13,6 +13,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import Listener.SessionDragEventListener;
+import Listener.TextChangeEventListener;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
@@ -20,19 +21,19 @@ import javafx.scene.layout.Pane;
  *
  * @author Ronaldo
  */
-public class TableCellView 
+public class TableCellView
 {
     private int colIndex=0;
     private int rowIndex=0;
     private MinimalSessionView minimalSessionView=null;
-    private SessionDragEventListener sessionDragEvent;    
+    private SessionDragEventListener sessionDragEvent;
     private Pane content;
       
     public void setSessionDragEventListener(SessionDragEventListener sessionDragEvent)
     {
         this.sessionDragEvent=sessionDragEvent;
     }
-
+            
     public Pane getContent() {
         return content;
     }
@@ -156,6 +157,5 @@ public class TableCellView
                 event.consume();
              }
         });        
-     }
-    
+     }    
 }

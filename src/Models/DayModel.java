@@ -53,6 +53,25 @@ public class DayModel implements Serializable
         }
         return null;
     }
+    
+    private void addNewTimeBreak()
+    {
+        LocalTimeRangeModel time=new LocalTimeRangeModel(times.get(times.size()-1).getEndTime(), 15);
+        times.add(time);
+        
+        //SessionModel session=new SessionModel();
+        //session.makeBreak("Time break");
+        
+       // addSession(session,time,rooms.get(0));
+        
+        for(RoomModel room:rooms)
+        {
+            SessionModel session=new SessionModel();
+            session.makeBreak("Time break");
+            addSession(session,time,room);
+        }
+    }
+    
      //</editor-fold>
     
     public LocalTimeRangeModel getTotalPeriod()
@@ -117,6 +136,11 @@ public class DayModel implements Serializable
         
     public void addSession(SessionModel session,LocalTimeRangeModel time,RoomModel room)
     {
+        if(session==null)
+        {
+            return;
+        }
+        
         LocalTimeRangeModel timeModel=getTimeRangeModelById(time.getId());
         RoomModel roomModel=getRoomModelById(room.getId());
         
@@ -149,11 +173,14 @@ public class DayModel implements Serializable
         HashMap<Integer,SessionModel> roomTime =roomTimeMap.get(timeId);
         SessionModel session=null;
         
-        if(roomTime!=null)
+        if(roomTime!=null && roomTime.size()>0)
         {
             session=roomTime.get(roomId);
-            roomTime.remove(roomId);
-            return session;
+            if(session!=null && !session.isBreak())
+            {
+                roomTime.remove(roomId);
+                return session;
+            }            
         }
         
         return null;
@@ -198,9 +225,10 @@ public class DayModel implements Serializable
             for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
             {
                 boolean contain=roomSession.getValue().getId()==sessionId;
-                if(contain)
+                if(contain && !roomSession.getValue().isBreak())
                 {
                     timeRoomSession.getValue().remove(roomSession.getKey());
+                    shiftUp(timeRoomSession.getKey(), roomSession.getKey());
                     return contain;
                 }
             }
@@ -242,7 +270,7 @@ public class DayModel implements Serializable
     public void shiftDown(int timeId,int roomId)
     {
         int index=0;
-        times.add(new LocalTimeRangeModel(times.get(times.size()-1).getEndTime(), 15));
+       
         for(int i=0;i<times.size();i++)
         {
             if(timeId==times.get(i).getId())
@@ -253,23 +281,65 @@ public class DayModel implements Serializable
            
         }
         
-        for(int i=times.size()-2;i>=index;i--)
+        for(int i=times.size()-3;i>=index;i--)
         {
             LocalTimeRangeModel time=times.get(i);
             LocalTimeRangeModel timeNext=times.get(i+1);
             
+            //the above if is neccesary to mange to skip the time break dureing the shifting procces
+            SessionModel nextTimeSession=getSessionModelTimeRoom(timeNext.getId(),roomId);
+            
+            if(nextTimeSession!=null && nextTimeSession.isBreak())
+            {
+                timeNext=times.get(i+2);
+            }
             SessionModel session=removeSessionByTimeRoom(time.getId(),roomId);
-            addSession(session, timeNext, getRoomModelById(roomId));   
+            addSession(session, timeNext, getRoomModelById(roomId));
+             
+        }
+        addNewTimeBreak();
+    }
+    
+    public void shiftUp(int timeId,int roomId)
+    {
+        int index=0;
+        for(int i=0;i<times.size();i++)
+        {
+            if(timeId==times.get(i).getId())
+            {
+               index=i;
+               break;
+            }
+           
+        }
+        
+        LocalTimeRangeModel lastTime=times.get(times.size()-1);
+        
+        for(int i=index;i<times.size()-1;i++)
+        {
+            LocalTimeRangeModel time=times.get(i);
+            LocalTimeRangeModel timeNext=times.get(i+1);
+            if(timeNext.compareTo(lastTime)!=0)
+            {
+                //the above if is neccesary to mange to skip the time break dureing the shifting procces
+                SessionModel nextTimeSession=getSessionModelTimeRoom(timeNext.getId(),roomId);
+                if(nextTimeSession!=null && nextTimeSession.isBreak())
+                {
+                    timeNext=times.get(i+2);
+                }
+                SessionModel session=removeSessionByTimeRoom(timeNext.getId(),roomId);
+                addSession(session, time, getRoomModelById(roomId));
+            }        
         }
     }
     
-    public LocalTimeRangeModel getNextTimeByCurrentTimeModel(LocalTimeRangeModel currentTime)
+    public LocalTimeRangeModel getNextTimeByCurrentTimeAndRoom(int currentTimeId)
     {
         for(int i=0;i<times.size();i++)
         {
-            if(times.get(i).getId()==currentTime.getId())
+            if(times.get(i).getId()==currentTimeId)
             {
-                return times.get(i+1);
+                return times.get(i+2);
             }
         }
         return null;

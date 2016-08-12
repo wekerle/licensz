@@ -15,8 +15,6 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-
 /**
  *
  * @author Ronaldo
@@ -26,22 +24,21 @@ public class MinimalSessionView extends VBox implements TextChangeEventListener
     private VBox contentNode=new VBox();
     private TextEditor titleView=new TextEditor();
     private int sessionId=0;
+    private boolean isBreak;
     private TextChangeEventListener textChangeEvent;
-    
-    public void setTextChangeEventListener(TextChangeEventListener textChangeEvent) 
-    {
-        this.textChangeEvent = textChangeEvent;
-    }
-    
-    public MinimalSessionView(String title,int id)
+        
+    public MinimalSessionView(String title,int id,boolean isBreak,TextChangeEventListener textChangeEvent)
     {
         this.sessionId=id;
+        this.isBreak=isBreak;
         titleView.setText(title);  
         this.getChildren().add(titleView);
         this.getChildren().add(contentNode);
         this.setPadding(new Insets(10.0));
                 
         titleView.setFont(StringHelper.font18);
+        titleView.setTextChangeEventListener(this);
+        this.textChangeEvent=textChangeEvent;
           
         this.setOnDragDetected(new EventHandler<MouseEvent>()
         {
@@ -69,7 +66,14 @@ public class MinimalSessionView extends VBox implements TextChangeEventListener
     }
 
     @Override
-    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
-        textChangeEvent.modifyText(Enums.TextType.TITLE, Enums.TextCategory.SESSION, sessionId, newValue);
+    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
+    {
+        if(isBreak)
+        {
+            textChangeEvent.modifyText(Enums.TextType.BREAK_NAME, category, sessionId, newValue);
+        }else
+        {
+            textChangeEvent.modifyText(Enums.TextType.TITLE, Enums.TextCategory.SESSION, sessionId, newValue);
+        }       
     }  
 }
