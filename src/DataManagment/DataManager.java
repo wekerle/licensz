@@ -214,6 +214,9 @@ public class DataManager
         destinationDay.shiftDown(time.getId(), room.getId());
         destinationDay.addSession(session, time, room);
         
+        sourceDay.cleanUpUselessBreaks();
+        destinationDay.cleanUpUselessBreaks();
+        
     }
     
     public void moveDestinationSessionAfterSourceSession(int destinationSessionId,int sourceSessionId)
@@ -237,6 +240,9 @@ public class DataManager
         sourceDay.removeSession(sourceSessionId);
         destinationDay.shiftDown(nextTime.getId(), room.getId());
         destinationDay.addSession(session, nextTime, room);
+        
+        sourceDay.cleanUpUselessBreaks();
+        destinationDay.cleanUpUselessBreaks();
         
     }
     

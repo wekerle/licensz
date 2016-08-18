@@ -59,16 +59,15 @@ public class DayModel implements Serializable
         LocalTimeRangeModel time=new LocalTimeRangeModel(times.get(times.size()-1).getEndTime(), 15);
         times.add(time);
         
-        //SessionModel session=new SessionModel();
-        //session.makeBreak("Time break");
+        LocalTimeRangeModel breakTime=new LocalTimeRangeModel(times.get(times.size()-1).getEndTime(), 15);
+        times.add(breakTime);
         
-       // addSession(session,time,rooms.get(0));
+        SessionModel session=new SessionModel();
+        session.makeBreak("Time break");
         
         for(RoomModel room:rooms)
-        {
-            SessionModel session=new SessionModel();
-            session.makeBreak("Time break");
-            addSession(session,time,room);
+        {          
+            addSession(session,breakTime,room);
         }
     }
     
@@ -343,6 +342,43 @@ public class DayModel implements Serializable
             }
         }
         return null;
+    }
+    
+    public void cleanUpUselessBreaks()
+    {
+        int index=times.size();
+        for(int i=times.size()-1;i>=0;i--)
+        {
+            LocalTimeRangeModel currentTime=times.get(i);
+            
+            boolean deleteRow=true;
+            for(RoomModel room:rooms)
+            {
+                SessionModel session=getSessionModelTimeRoom(currentTime.getId(), room.getId());
+                
+                if(session!=null && !session.isBreak())
+                {
+                    deleteRow=false;
+                    break;
+                } 
+            }
+            
+            if(deleteRow)
+            {
+                index=i;
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        for(int i=times.size()-1;i>=index;i--)
+        {
+            LocalTimeRangeModel currentTime=times.get(i);
+            roomTimeMap.remove(currentTime.getId());
+            times.remove(i);
+        }
     }
     
 }
