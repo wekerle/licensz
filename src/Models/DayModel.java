@@ -53,8 +53,10 @@ public class DayModel implements Serializable
         }
         return null;
     }
+        
+     //</editor-fold>
     
-    private void addNewTimeBreak()
+    public void addNewTimeBreak()
     {
         LocalTimeRangeModel time=new LocalTimeRangeModel(times.get(times.size()-1).getEndTime(), 15);
         times.add(time);
@@ -70,8 +72,6 @@ public class DayModel implements Serializable
             addSession(session,breakTime,room);
         }
     }
-    
-     //</editor-fold>
     
     public LocalTimeRangeModel getTotalPeriod()
     {
@@ -267,7 +267,7 @@ public class DayModel implements Serializable
     }
     
     public void shiftDown(int timeId,int roomId)
-    {
+    {      
         int index=0;
        
         for(int i=0;i<times.size();i++)
@@ -296,7 +296,6 @@ public class DayModel implements Serializable
             addSession(session, timeNext, getRoomModelById(roomId));
              
         }
-        addNewTimeBreak();
     }
     
     public void shiftUp(int timeId,int roomId)
@@ -334,7 +333,7 @@ public class DayModel implements Serializable
     
     public LocalTimeRangeModel getNextTimeByCurrentTimeAndRoom(int currentTimeId)
     {
-        for(int i=0;i<times.size();i++)
+        for(int i=0;i<times.size()-2;i++)
         {
             if(times.get(i).getId()==currentTimeId)
             {
@@ -347,7 +346,7 @@ public class DayModel implements Serializable
     public void cleanUpUselessBreaks()
     {
         int index=times.size();
-        for(int i=times.size()-1;i>=0;i--)
+        for(int i=times.size()-2;i>=0;i--)
         {
             LocalTimeRangeModel currentTime=times.get(i);
             
@@ -373,7 +372,7 @@ public class DayModel implements Serializable
             }
         }
         
-        for(int i=times.size()-1;i>=index;i--)
+        for(int i=times.size()-2;i>=index;i--)
         {
             LocalTimeRangeModel currentTime=times.get(i);
             roomTimeMap.remove(currentTime.getId());
@@ -381,4 +380,35 @@ public class DayModel implements Serializable
         }
     }
     
+    public void deleteEmptyRoom()
+    {      
+        for(int i=rooms.size()-1;i>=0;i--)
+        {
+            RoomModel currentRoom=rooms.get(i);
+            
+            boolean deleteColumn=true;
+            for(LocalTimeRangeModel time:times)
+            {
+                SessionModel session=getSessionModelTimeRoom(time.getId(), currentRoom.getId());
+                
+                if(session!=null && !session.isBreak())
+                {
+                    deleteColumn=false;
+                    break;
+                } 
+            }
+            
+            if(deleteColumn)
+            {
+                for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
+                {
+                    if(timeRoomSession.getKey()==currentRoom.getId())
+                    {
+                        timeRoomSession.getValue().remove(currentRoom.getId());
+                    }
+                }
+                rooms.remove(currentRoom);
+            }
+        }     
+    }   
 }

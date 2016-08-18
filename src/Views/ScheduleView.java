@@ -135,7 +135,7 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
     public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
         if(type==Enums.TextType.BREAK_NAME)
         {
-            this.dataManager.updateTimeBreakTitle(id,newValue);
+            this.dataManager.changeSessionTitleBySessionId(id,newValue);
         }
         
         if(type==Enums.TextType.ROOM_NAME)

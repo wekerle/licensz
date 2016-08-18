@@ -157,7 +157,18 @@ public class DataManager
         }
         return 0;
     }
-        
+    
+    private void deleteEmptyTopics()
+    {
+        for(int i=aplicationModel.getTopics().size()-1;i>=0;i--)
+        {
+            TopicModel topic=aplicationModel.getTopics().get(i);
+            if(topic.getSessions().isEmpty())
+            {
+                aplicationModel.getTopics().remove(topic);
+            }
+        }
+    }
     //</editor-fold>
     
     public DataManager(AplicationModel aplicationModel)
@@ -210,12 +221,16 @@ public class DataManager
         RoomModel room=getRoomByTopicId(destinationTopic.getId());
         LocalTimeRangeModel time=destinationDay.getTimeRangeBySessionId(destinationSessionId);
         
+        destinationDay.addNewTimeBreak();
         sourceDay.removeSession(sourceSessionId);
         destinationDay.shiftDown(time.getId(), room.getId());
         destinationDay.addSession(session, time, room);
         
         sourceDay.cleanUpUselessBreaks();
         destinationDay.cleanUpUselessBreaks();
+        
+        sourceDay.deleteEmptyRoom();
+        deleteEmptyTopics();
         
     }
     
@@ -235,14 +250,18 @@ public class DataManager
         RoomModel room=getRoomByTopicId(destinationTopic.getId());
         LocalTimeRangeModel time=destinationDay.getTimeRangeBySessionId(destinationSessionId);
         
-        LocalTimeRangeModel nextTime=destinationDay.getNextTimeByCurrentTimeAndRoom(time.getId());
-        
+        destinationDay.addNewTimeBreak();  
+        LocalTimeRangeModel nextTime=destinationDay.getNextTimeByCurrentTimeAndRoom(time.getId());        
         sourceDay.removeSession(sourceSessionId);
+        
         destinationDay.shiftDown(nextTime.getId(), room.getId());
         destinationDay.addSession(session, nextTime, room);
         
         sourceDay.cleanUpUselessBreaks();
         destinationDay.cleanUpUselessBreaks();
+        
+        sourceDay.deleteEmptyRoom();
+        deleteEmptyTopics();
         
     }
     
@@ -353,11 +372,22 @@ public class DataManager
         }
     }
 
-    public void updateTimeBreakTitle(int id, String newValue) {
+    public void updateTimeBreakTitle(int id, String newValue) 
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void updateRoomName(int id, String newValue) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateRoomName(int id, String name) 
+    {
+       for(DayModel day : aplicationModel.getDays())
+       {
+           for(RoomModel room : day.getRooms())
+           {
+               if(room.getId()==id)
+               {
+                   room.setName(name);
+               }
+           }
+       }
     }
 }

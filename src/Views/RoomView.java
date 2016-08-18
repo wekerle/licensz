@@ -22,14 +22,15 @@ public class RoomView extends HBox implements TextChangeEventListener
     public RoomView(String text,int id,TextChangeEventListener textChangeEvent)
     {
         titleView.setText(text);
-        titleView.setTextChangeEventListener(textChangeEvent);
+        titleView.setTextChangeEventListener(this);
         this.id=id;
         this.getChildren().add(titleView);
         this.textChangeEvent=textChangeEvent;
     }
 
     @Override
-    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
+    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
+    {
         textChangeEvent.modifyText(Enums.TextType.ROOM_NAME, Enums.TextCategory.NOTHING, this.id, newValue);
     }
 }
