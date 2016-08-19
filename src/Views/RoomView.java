@@ -7,30 +7,33 @@ package Views;
 
 import Helpers.Enums;
 import Listener.TextChangeEventListener;
+import Models.RoomModel;
 import javafx.scene.layout.HBox;
 
 /**
  *
  * @author tibor.wekerle
  */
-public class RoomView extends HBox implements TextChangeEventListener
+public class RoomView extends HBox
 {
     private TextEditor titleView=new TextEditor();
-    private TextChangeEventListener textChangeEvent;
     private int id;
+    private RoomModel roomModel;
     
-    public RoomView(String text,int id,TextChangeEventListener textChangeEvent)
+    public RoomView(RoomModel room)
     {
-        titleView.setText(text);
-        titleView.setTextChangeEventListener(this);
-        this.id=id;
+        this.roomModel=room;
+        titleView.setText(roomModel.getName());
+        
+        titleView.setTextChangeEventListener(new TextChangeEventListener() 
+        {
+            @Override
+            public void modifyText(String newValue) 
+            {
+                roomModel.setName(newValue);
+            }
+        });
+        this.id=room.getId();
         this.getChildren().add(titleView);
-        this.textChangeEvent=textChangeEvent;
-    }
-
-    @Override
-    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
-    {
-        textChangeEvent.modifyText(Enums.TextType.ROOM_NAME, Enums.TextCategory.NOTHING, this.id, newValue);
     }
 }

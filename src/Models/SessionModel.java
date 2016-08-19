@@ -18,7 +18,7 @@ public class SessionModel implements Serializable
     private String title;
     private ArrayList<String> chairs=new  ArrayList<String>();
     
-    private ArrayList<LectureWithDetailsModel> LectureWithDetails=new  ArrayList<LectureWithDetailsModel>();
+    private ArrayList<LectureModel> LectureWithDetails=new  ArrayList<LectureModel>();
     private int id;
     
     public SessionModel()
@@ -55,7 +55,7 @@ public class SessionModel implements Serializable
         this.title = title;
     }
 
-    public ArrayList<LectureWithDetailsModel> getLectures() 
+    public ArrayList<LectureModel> getLectures() 
     {
         return LectureWithDetails;
     }
@@ -70,7 +70,7 @@ public class SessionModel implements Serializable
         this.chairs = chairs;
     }
 
-    public void setLectureWithDetails(ArrayList<LectureWithDetailsModel> LectureWithDetails) 
+    public void setLectureWithDetails(ArrayList<LectureModel> LectureWithDetails) 
     {
         this.LectureWithDetails = LectureWithDetails;
     }

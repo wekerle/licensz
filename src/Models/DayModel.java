@@ -411,4 +411,18 @@ public class DayModel implements Serializable
             }
         }     
     }   
+
+    public SessionModel getSessionById(int id) {
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
+        {
+            for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
+            {
+                if(roomSession.getValue().getId()==id)
+                {
+                    return roomSession.getValue();
+                }
+            }
+        }
+        return null;
+    }
 }

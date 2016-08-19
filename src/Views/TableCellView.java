@@ -13,7 +13,6 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import Listener.SessionDragEventListener;
-import Listener.TextChangeEventListener;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 

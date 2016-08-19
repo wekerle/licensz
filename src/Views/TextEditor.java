@@ -5,7 +5,6 @@
  */
 package Views;
 
-import Helpers.Enums;
 import Listener.TextChangeEventListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -73,7 +72,7 @@ public class TextEditor extends VBox
                     TextEditor.this.getChildren().add(text);
                     if(textChangeListener!=null)
                     {
-                        textChangeListener.modifyText(Enums.TextType.NOTHING, Enums.TextCategory.NOTHING, 0, text.getText());
+                        textChangeListener.modifyText(text.getText());
                     }
                 }
             }

@@ -8,6 +8,7 @@ package Views;
 import Helpers.Enums;
 import Helpers.StringHelper;
 import Listener.TextChangeEventListener;
+import Models.LectureModel;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,7 +17,6 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import licenta.GlobalVaribles;
 
 /**
@@ -29,12 +29,7 @@ public class LectureView
     private TextEditor authorView=new TextEditor();
     private VBox container=new VBox();
     private int id;
-    private TextChangeEventListener textChangeEvent;
-
-    public void setTextChange(TextChangeEventListener textChange) 
-    {
-        this.textChangeEvent = textChange;
-    }
+    private LectureModel lectureModel;
     
     public int getLectureNumber() 
     {
@@ -46,58 +41,30 @@ public class LectureView
         return container;
     }
      
-     public LectureView(String title,ArrayList<String> authors,int id)
+     public LectureView(LectureModel lecture)
      {
-         this.id=id;
+         this.lectureModel=lecture;
+         this.id=lectureModel.getId();        
          GlobalVaribles.addElementToDragLectureAndNumberMap(id, this);              
          
-         titleView.setText(title);
-         authorView.setText(StringHelper.createListSeparateComma(authors));
+         titleView.setText(lectureModel.getTitle());
+         authorView.setText(StringHelper.createListSeparateComma(lectureModel.getAuthors()));
          
          titleView.setTextChangeEventListener(new TextChangeEventListener() 
          {
-            @Override
-            public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
-            {
-                if(type==Enums.TextType.NOTHING)
-                {
-                    type=Enums.TextType.TITLE;
-                }
-
-                if(category==Enums.TextCategory.NOTHING)
-                {
-                    category=Enums.TextCategory.LECTURE;
-                }
-
-                if(id==0)
-                {
-                    id=LectureView.this.id;
-                }
-                LectureView.this.textChangeEvent.modifyText(type, category, id, newValue);
-            }
+             @Override
+             public void modifyText(String newValue) {
+                lectureModel.setTitle(newValue);
+             }
          });
          
          authorView.setTextChangeEventListener(new TextChangeEventListener() 
          {
-
              @Override
-             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
+             public void modifyText(String newValue) 
              {
-                 if(type==Enums.TextType.NOTHING)
-                 {
-                     type=Enums.TextType.AUTHORS;
-                 }
-                 
-                 if(category==Enums.TextCategory.NOTHING)
-                 {
-                     category=Enums.TextCategory.LECTURE;
-                 }
-                 
-                 if(id==0)
-                 {
-                     id=LectureView.this.id;
-                 }
-                 LectureView.this.textChangeEvent.modifyText(type, category, id, newValue);
+                ArrayList<String> authors=StringHelper.createArralyListFromListSeparateComma(newValue);
+                lectureModel.setAuthors(authors);
              }
          });
          

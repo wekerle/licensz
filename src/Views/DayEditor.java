@@ -79,7 +79,7 @@ public class DayEditor extends VBox
                     text.setText(dateString); 
                     if(dayChangeListener!=null)
                     {
-                        dayChangeListener.modifyDate(0, datePicker.getValue());
+                        dayChangeListener.modifyDate(datePicker.getValue());
                     }
                     
                     DayEditor.this.getChildren().remove(datePicker);

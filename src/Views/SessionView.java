@@ -14,11 +14,10 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import licenta.GlobalVaribles;
 import Listener.LectureDragEventListener;
 import Listener.TextChangeEventListener;
+import Models.SessionModel;
 
 
 /**
@@ -34,68 +33,37 @@ public class SessionView
     private int sessionId;
     private LectureDragEventListener lectureDragEvent;
     private TextChangeEventListener textChangeEvent;
+    private SessionModel sessionModel;
 
     public void setLectureDragEventListener(LectureDragEventListener lectureDragEvent) 
     {
         this.lectureDragEvent = lectureDragEvent;
     }
-    
-    public void setTextChangeEventListener(TextChangeEventListener textChangeEvent) 
+            
+    public SessionView(SessionModel session)
     {
-        this.textChangeEvent = textChangeEvent;
-    }
-        
-    public SessionView(String title,ArrayList<String> chairs,int id)
-    {
-        this.sessionId=id;
-        titleView.setText(title);
-        chairView.setText(StringHelper.createListSeparateComma(chairs));
+        this.sessionModel=session;
+        this.sessionId=sessionModel.getId();
+        titleView.setText(sessionModel.getTitle());
+        chairView.setText(StringHelper.createListSeparateComma(sessionModel.getChairs()));
         
         titleView.setTextChangeEventListener(new TextChangeEventListener() 
         {
-
-             @Override
-             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
-             {
-                 if(type==Enums.TextType.NOTHING)
-                 {
-                     type=Enums.TextType.TITLE;
-                 }
-                 
-                 if(category==Enums.TextCategory.NOTHING)
-                 {
-                     category=Enums.TextCategory.SESSION;
-                 }
-                 
-                 if(id==0)
-                 {
-                     id=SessionView.this.sessionId;
-                 }
-                 SessionView.this.textChangeEvent.modifyText(type, category, id, newValue);
-             }
+            @Override
+            public void modifyText(String newValue) 
+            {
+                sessionModel.setTitle(newValue);
+            }
          });
         
         chairView.setTextChangeEventListener(new TextChangeEventListener() 
         {
-             @Override
-             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
-             {
-                 if(type==Enums.TextType.NOTHING)
-                 {
-                     type=Enums.TextType.CHAIRS;
-                 }
-                 
-                 if(category==Enums.TextCategory.NOTHING)
-                 {
-                     category=Enums.TextCategory.SESSION;
-                 }
-                 
-                 if(id==0)
-                 {
-                     id=SessionView.this.sessionId;
-                 }
-                 SessionView.this.textChangeEvent.modifyText(type, category, id, newValue);
-             }
+            @Override
+            public void modifyText(String newValue) 
+            {
+                ArrayList<String> chairs=StringHelper.createArralyListFromListSeparateComma(newValue);
+                sessionModel.setChairs(chairs);
+            }
          });
         
         containerNode.getChildren().add(titleView);
@@ -178,7 +146,6 @@ public class SessionView
     }
      public void addLectureView(LectureView lectureView) 
      {
-        lectureView.setTextChange(textChangeEvent);
         this.contentNode.getChildren().add(lectureView.getNode());
     }             
 

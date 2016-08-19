@@ -13,7 +13,7 @@ import licenta.IdGenerator;
  *
  * @author Ronaldo
  */
-public class LectureWithDetailsModel implements Serializable
+public class LectureModel implements Serializable
 {
     private int pageNr;
     private String title;
@@ -70,7 +70,7 @@ public class LectureWithDetailsModel implements Serializable
     {
         return generatedKeyWords;
     }
-    public LectureWithDetailsModel(String title, ArrayList<String> authors, int pageNr, String type, ArrayList<String> keyWords, ArrayList<KeyWordModel> generatedKeyWords,String topic,String abstarct) 
+    public LectureModel(String title, ArrayList<String> authors, int pageNr, String type, ArrayList<String> keyWords, ArrayList<KeyWordModel> generatedKeyWords,String topic,String abstarct) 
     {
         this.pageNr = pageNr;
         this.title = title;

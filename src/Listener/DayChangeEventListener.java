@@ -13,5 +13,5 @@ import java.time.LocalDate;
  */
 public interface DayChangeEventListener 
 {
-    void modifyDate(int dayId,LocalDate localdate);
+    void modifyDate(LocalDate localdate);
 }

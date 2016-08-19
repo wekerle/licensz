@@ -10,7 +10,7 @@ import Models.DayModel;
 import Models.KeyWordModel;
 import Models.SessionModel;
 import Models.TopicModel;
-import Models.LectureWithDetailsModel;
+import Models.LectureModel;
 import Models.LocalTimeRangeModel;
 import Models.RoomModel;
 import Models.TermModel;
@@ -34,24 +34,24 @@ public class DataCollector{
     
     // <editor-fold desc="private region" defaultstate="collapsed">
     private HashMap<String,TermModel> terms= new  HashMap<String,TermModel>();
-    private HashMap<LectureWithDetailsModel,ArrayList<String>> lectureWithSimilaritySet= new  HashMap<LectureWithDetailsModel,ArrayList<String>>();
-    private ArrayList<LectureWithDetailsModel> lectures = new  ArrayList<LectureWithDetailsModel>();
+    private HashMap<LectureModel,ArrayList<String>> lectureWithSimilaritySet= new  HashMap<LectureModel,ArrayList<String>>();
+    private ArrayList<LectureModel> lectures = new  ArrayList<LectureModel>();
     
-    private ArrayList<LectureWithDetailsModel>  getLecturesFromfiles(String pathToFolderWithFiles)
+    private ArrayList<LectureModel>  getLecturesFromfiles(String pathToFolderWithFiles)
     {
-        ArrayList<LectureWithDetailsModel> lectures=new ArrayList<LectureWithDetailsModel>();
+        ArrayList<LectureModel> lectures=new ArrayList<LectureModel>();
 
         LectureReaderFromFile lrff=new LectureReaderFromFile(pathToFolderWithFiles);
         
         while(lrff.readNext())
         {
-            LectureWithDetailsModel lecture = lrff.getCurrent();
+            LectureModel lecture = lrff.getCurrent();
             lectures.add(lecture);
         }
         return lectures;
     }
     
-    private ArrayList<String> getLectureSimiliratySet(LectureWithDetailsModel lwd,String pathToThesaurus)
+    private ArrayList<String> getLectureSimiliratySet(LectureModel lwd,String pathToThesaurus)
     {
         TreeSet<String> set=new TreeSet<String>();
         HashMap<String,TermModel> terms=getTerms(pathToThesaurus);
@@ -113,7 +113,7 @@ public class DataCollector{
         return terms;
     }
     
-    public ArrayList<LectureWithDetailsModel> getLectures(String pathToFolderWithFiles)
+    public ArrayList<LectureModel> getLectures(String pathToFolderWithFiles)
     {
         if(lectures==null)
         {
@@ -122,13 +122,13 @@ public class DataCollector{
         return lectures;
     }
     
-    public HashMap<LectureWithDetailsModel,ArrayList<String>> getLecturesWithSimilaritySets(String pathToThesaurus)
+    public HashMap<LectureModel,ArrayList<String>> getLecturesWithSimilaritySets(String pathToThesaurus)
     {
         if(lectureWithSimilaritySet==null)
         {
-            lectureWithSimilaritySet=new HashMap<LectureWithDetailsModel,ArrayList<String>>();
+            lectureWithSimilaritySet=new HashMap<LectureModel,ArrayList<String>>();
             
-            for(LectureWithDetailsModel lwd : lectures)
+            for(LectureModel lwd : lectures)
             {
                 lectureWithSimilaritySet.put(lwd, getLectureSimiliratySet(lwd,pathToThesaurus));
             }
@@ -138,25 +138,25 @@ public class DataCollector{
      // </editor-fold>   
     
 
-    private void groupByKeyWord(ArrayList<LectureWithDetailsModel> lectures)
+    private void groupByKeyWord(ArrayList<LectureModel> lectures)
     {
-        HashMap<String,ArrayList<LectureWithDetailsModel>> map=new HashMap();
-        HashMap<String,ArrayList<LectureWithDetailsModel>> map2=new HashMap();
-        for(LectureWithDetailsModel lwd :lectures)
+        HashMap<String,ArrayList<LectureModel>> map=new HashMap();
+        HashMap<String,ArrayList<LectureModel>> map2=new HashMap();
+        for(LectureModel lwd :lectures)
         {                      
             for(KeyWordModel kw:lwd.getGeneratedKeyWords())
             {
                  if(!map.containsKey(kw.getKeyWord()))
                  {
-                     map.put(kw.getKeyWord(), new ArrayList<LectureWithDetailsModel>());
+                     map.put(kw.getKeyWord(), new ArrayList<LectureModel>());
                  }
                  map.get(kw.getKeyWord()).add(lwd);
             }
            
         }
         
-        HashSet<LectureWithDetailsModel> hs=new HashSet();
-        for(Entry<String,ArrayList<LectureWithDetailsModel>> entry : map.entrySet())
+        HashSet<LectureModel> hs=new HashSet();
+        for(Entry<String,ArrayList<LectureModel>> entry : map.entrySet())
         {
             if(entry.getValue().size()>1)
             {
@@ -169,9 +169,9 @@ public class DataCollector{
         
     }
             
-    public float similarity(LectureWithDetailsModel lwd1,LectureWithDetailsModel lwd2,String pathToThesaurus)
+    public float similarity(LectureModel lwd1,LectureModel lwd2,String pathToThesaurus)
     {
-        HashMap<LectureWithDetailsModel,ArrayList<String>> hm=getLecturesWithSimilaritySets(pathToThesaurus);
+        HashMap<LectureModel,ArrayList<String>> hm=getLecturesWithSimilaritySets(pathToThesaurus);
         
         ArrayList<String> set1=hm.get(lwd1);
         ArrayList<String> set2=hm.get(lwd2);
@@ -218,9 +218,9 @@ public class DataCollector{
        // ArrayList<Session> sessions=getSessions();
        
        ArrayList<String> topicsName=new ArrayList<String>();       
-       ArrayList<LectureWithDetailsModel> lectures=getLecturesFromfiles(pathToFolderWithFiles);
+       ArrayList<LectureModel> lectures=getLecturesFromfiles(pathToFolderWithFiles);
        
-       for(LectureWithDetailsModel lwd:lectures)
+       for(LectureModel lwd:lectures)
        {
            if(!topicsName.contains(lwd.getTopic()))
            {
@@ -242,7 +242,7 @@ public class DataCollector{
            int i=1;
            s.setTitle(t.getTitle()+" "+i);
            
-           for(LectureWithDetailsModel lwd:lectures)
+           for(LectureModel lwd:lectures)
             {                
                 if(lwd.getTopic().equals(t.getTitle()))
                 {                                                        
@@ -344,7 +344,7 @@ public class DataCollector{
                     constraint.setTeacherName(name);
                     constraints.add(constraint);
                 }
-                for(LectureWithDetailsModel lecture:session.getLectures())
+                for(LectureModel lecture:session.getLectures())
                 {
                     for(String name:lecture.getAuthors())
                     {

@@ -19,20 +19,6 @@ public class Enums
         UF,
         NT       
     }
-    public enum TextType{
-        NOTHING,
-        AUTHORS,
-        CHAIRS,
-        TITLE,
-        ROOM_NAME,
-        BREAK_NAME
-    }
-    public enum TextCategory{
-        NOTHING,
-        TOPIC,
-        SESSION,
-        LECTURE   
-    }
     
     public enum Position{
         BEFORE,

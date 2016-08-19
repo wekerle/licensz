@@ -5,8 +5,6 @@
  */
 package Listener;
 
-import Helpers.Enums.TextCategory;
-import Helpers.Enums.TextType;
 
 /**
  *
@@ -14,5 +12,5 @@ import Helpers.Enums.TextType;
  */
 public interface TextChangeEventListener 
 {
-    void modifyText(TextType type,TextCategory category,int id,String newValue);
+    void modifyText(String newValue);
 }

@@ -14,56 +14,36 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import Listener.LectureDragEventListener;
 import Listener.TextChangeEventListener;
+import Models.TopicModel;
 
 /**
  *
  * @author Ronaldo
  */
-public class TopicView implements LectureDragEventListener,TextChangeEventListener 
+public class TopicView implements LectureDragEventListener 
 {
     private VBox contentNode=new VBox();
     private TextEditor titleView=new TextEditor();
     private VBox containerNode=new VBox();
-    private int topicId;
     private LectureDragEventListener lectureDragEvent;
-    private TextChangeEventListener textChangeEvent;
+    private TopicModel topicModel;
 
     public void setLectureDragEvent(LectureDragEventListener lectureDragEvent) 
     {
         this.lectureDragEvent = lectureDragEvent;
     }
     
-    public void setTextChangeEvent(TextChangeEventListener textChangeEvent) 
+    public TopicView(TopicModel topic)
     {
-        this.textChangeEvent = textChangeEvent;
-    }
-    
-    public TopicView(String title,int id)
-    {
-        this.topicId=id;
-        titleView.setText(title);
+        this.topicModel=topic;
+        titleView.setText(topic.getTitle());
         
         titleView.setTextChangeEventListener(new TextChangeEventListener() 
         {
-
              @Override
-             public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
+             public void modifyText(String newValue) 
              {
-                 if(type==Enums.TextType.NOTHING)
-                 {
-                     type=Enums.TextType.TITLE;
-                 }
-                 
-                 if(category==Enums.TextCategory.NOTHING)
-                 {
-                     category=Enums.TextCategory.TOPIC;
-                 }
-                 
-                 if(id==0)
-                 {
-                     id=TopicView.this.topicId;
-                 }
-                 TopicView.this.textChangeEvent.modifyText(type, category, id, newValue);
+                 topicModel.setTitle(newValue);
              }
          });
         
@@ -91,15 +71,6 @@ public class TopicView implements LectureDragEventListener,TextChangeEventListen
         if(lectureDragEvent!=null)
         {
             lectureDragEvent.notify(sessionid, lectureId);
-        }
-    }
-
-    @Override
-    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
-    {
-        if(textChangeEvent!=null)
-        {
-            textChangeEvent.modifyText(Enums.TextType.TITLE, category.TOPIC, this.topicId, newValue);
         }
     }
 }

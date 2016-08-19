@@ -8,25 +8,16 @@ package Views;
 import Adaptor.Converter;
 import DataManagment.DataManager;
 import Helpers.Enums;
-import Listener.DayChangeEventListener;
-import Listener.HourChangeEventListener;
 import Listener.SessionDragEventListener;
 import Listener.TextChangeEventListener;
 import Models.AplicationModel;
-import Models.LocalTimeRangeModel;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -34,7 +25,7 @@ import javafx.util.Duration;
  *
  * @author tibor.wekerle
  */
-public class ScheduleView extends ScrollPane implements SessionDragEventListener, DayChangeEventListener,HourChangeEventListener,TextChangeEventListener
+public class ScheduleView extends ScrollPane implements SessionDragEventListener
 {  
     private double scrollDirection = 0;
     private VBox verticalLayout =  new VBox();
@@ -74,7 +65,7 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         Converter c=new Converter();       
         verticalLayout.getChildren().clear();
              
-        ArrayList<TableView> tableViewList= c.dayModelListToTableViewList(aplicationModel.getDays(),this,this,this,this);
+        ArrayList<TableView> tableViewList= c.dayModelListToTableViewList(aplicationModel.getDays(),this);
                 
         for(TableView tableview : tableViewList)
         {                       
@@ -119,28 +110,5 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         {
             this.dataManager.moveDestinationSessionBeforeSourceSession(destinationSessionId,sourceSessionId);
         }    
-    }
-
-    @Override
-    public void modifyDate(int dayId, LocalDate localdate) {
-        this.dataManager.updateDay(dayId,localdate);
-    }
-
-    @Override
-    public void modifyHour(int periodId, LocalTimeRangeModel timeRange) {
-        this.dataManager.updateHour(periodId,timeRange);
-    }
-
-    @Override
-    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) {
-        if(type==Enums.TextType.BREAK_NAME)
-        {
-            this.dataManager.changeSessionTitleBySessionId(id,newValue);
-        }
-        
-        if(type==Enums.TextType.ROOM_NAME)
-        {
-            this.dataManager.updateRoomName(id,newValue);
-        }
     }
 }

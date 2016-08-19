@@ -6,7 +6,7 @@
 package DataProcessing;
 
 import Models.KeyWordModel;
-import Models.LectureWithDetailsModel;
+import Models.LectureModel;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -21,7 +21,7 @@ public class LectureReaderFromFile implements LectureReader
 {
 
     private ArrayList<File> listOfFiles = new ArrayList<File>();
-    private LectureWithDetailsModel currentLecture=null;
+    private LectureModel currentLecture=null;
     private int index=-1;
         
     private ArrayList<File> getAllFilesFromDir(String path)
@@ -62,12 +62,12 @@ public class LectureReaderFromFile implements LectureReader
     }
 
     @Override
-    public LectureWithDetailsModel getCurrent() 
+    public LectureModel getCurrent() 
     {
        return currentLecture;
     }
 
-    private LectureWithDetailsModel readLectureDetailsFromFiles(File file) 
+    private LectureModel readLectureDetailsFromFiles(File file) 
     {
         
         //roszul neveztem el a fileokat mindehol 
@@ -116,7 +116,7 @@ public class LectureReaderFromFile implements LectureReader
                 abstarct=line;
                 line = br.readLine();
             }
-           return new LectureWithDetailsModel(title, authors, pageNr,type, keyWords,  listOfKeyWords,topic,abstarct);
+           return new LectureModel(title, authors, pageNr,type, keyWords,  listOfKeyWords,topic,abstarct);
         } catch(Exception e) {
            // br.close();
             }

@@ -11,7 +11,6 @@ import Helpers.StringHelper;
 import Listener.DayChangeEventListener;
 import Listener.HourChangeEventListener;
 import Listener.SessionDragEventListener;
-import Listener.TextChangeEventListener;
 import Models.DayModel;
 import Models.LocalTimeRangeModel;
 import Models.RoomModel;
@@ -22,63 +21,41 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 /**
  *
  * @author Ronaldo
  */
-public class TableView extends VBox implements SessionDragEventListener,DayChangeEventListener,HourChangeEventListener,TextChangeEventListener
+public class TableView extends VBox implements SessionDragEventListener
 {
-    private DayEditor day=new DayEditor();
+    // <editor-fold desc="private region" defaultstate="collapsed">
+    private DayEditor dayEditor=new DayEditor();
     private GridPane table=new GridPane();
     private SessionDragEventListener sessionDragEvent;
-    private DayChangeEventListener dayChangeEvent;
-    private HourChangeEventListener hourChangeEvent;
-    private TextChangeEventListener textChangeEvent;
-    private int tableId=0;
-        
-    public void setSessionDragEventListener(SessionDragEventListener sessionDragEvent)
-    {
-        this.sessionDragEvent=sessionDragEvent;
-    }
+    private DayModel dayModel;
 
-    public void setDayChangeEventListener(DayChangeEventListener dayChangeEvent)
-    {
-        this.dayChangeEvent=dayChangeEvent;
-    }
-    
-    public void setHourChangeEventListener(HourChangeEventListener hourChangeEvent)
-    {
-        this.hourChangeEvent=hourChangeEvent;
-    }
-    
-    public void setTextChangeEventListener(TextChangeEventListener textChangeEvent)
-    {
-        this.textChangeEvent=textChangeEvent;
-    }
+    private void populateContent(DayModel dayModel)
+    {                 
+        dayEditor.setFont(StringHelper.font22Bold);
+        dayEditor.setAlignment(Pos.CENTER);
+        dayEditor.setPadding(new Insets(16));
+        dayEditor.setDay(dayModel.getDay());
         
-    public TableView()
-    {
-        super();         
-    }
-    
-    public void populateContent(DayModel dayModel)
-    {   
-                
-        day.setFont(StringHelper.font22Bold);
-        day.setAlignment(Pos.CENTER);
-        day.setPadding(new Insets(16));
+        this.getChildren().add(dayEditor);
         
-        this.getChildren().add(day);
-        
-        day.setDayChangeEventListener(this);
+        dayEditor.setDayChangeEventListener(new DayChangeEventListener() 
+        {
+            @Override
+            public void modifyDate(LocalDate localdate) 
+            {
+                dayModel.setDay(localdate);
+            }
+        });
         
         int i=0;
         for(RoomModel room : dayModel.getRooms())
         {
-             RoomView roomView=new RoomView(room.getName(),room.getId(),this);
+             RoomView roomView=new RoomView(room);
              
              TableCellView tableCellView=new TableCellView(this,i+1, 0,false);
              tableCellView.setContentNode(roomView);
@@ -94,7 +71,15 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
          for(LocalTimeRangeModel timeRange : dayModel.getTimes())
         {
             HourEditor hourEditor=new HourEditor(timeRange);
-            hourEditor.setHourChangeEventListener(this);
+            hourEditor.setHourChangeEventListener(new HourChangeEventListener() 
+            {
+                @Override
+                public void modifyHour(int periodId, LocalTimeRangeModel timeRange) 
+                {
+                    timeRange.setStartTime(timeRange.getStartTime());
+                    timeRange.setEndTime(timeRange.getEndTime());
+                }
+            });
             hourEditor.setPeriodId(timeRange.getId());
             
             TableCellView tableCellView=new TableCellView(this,0,i+1,false);
@@ -119,7 +104,7 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
                 if(session!=null)
                 {
                     Converter c=new Converter();
-                    MinimalSessionView minimalSession=c.sessionToMinimalSessionView(session,this);
+                    MinimalSessionView minimalSession=c.sessionToMinimalSessionView(session);
                     tableCellView.setMinimalSessionView(minimalSession); 
                     tableCellView.setSessionDragEventListener(this);
 
@@ -166,38 +151,22 @@ public class TableView extends VBox implements SessionDragEventListener,DayChang
         
         this.getChildren().add(table);
     }
-
+    // </editor-fold>
+    
+    public void setSessionDragEventListener(SessionDragEventListener sessionDragEvent)
+    {
+        this.sessionDragEvent=sessionDragEvent;
+    }
+        
+    public TableView(DayModel dayModel)
+    {
+        this.dayModel=dayModel;
+        populateContent(dayModel);
+    }
+    
     @Override
     public void notifyDataManager(int destinationSessionId, int sourceSessionId, Enums.Position position) 
     {
         sessionDragEvent.notifyDataManager(destinationSessionId, sourceSessionId, position);
-    }
-
-    public void setTableId(int id) 
-    {
-        this.tableId = id;
-    }
-    
-    public void setDay(LocalDate dateLocalDate)
-    {
-        day.setDay(dateLocalDate);
-    }
-
-    @Override
-    public void modifyDate(int dayId, LocalDate localdate) 
-    {
-        dayChangeEvent.modifyDate(tableId, localdate);
-    }
-
-    @Override
-    public void modifyHour(int periodId, LocalTimeRangeModel timeRange) 
-    {
-        hourChangeEvent.modifyHour(periodId, timeRange);
-    }
-
-    @Override
-    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
-    {
-        textChangeEvent.modifyText(type, category, id, newValue);
     }
 }

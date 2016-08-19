@@ -28,7 +28,7 @@ import Listener.TextChangeEventListener;
  *
  * @author Ronaldo
  */
-public class SummaryView extends ScrollPane implements LectureDragEventListener,TextChangeEventListener
+public class SummaryView extends ScrollPane implements LectureDragEventListener
 {
         
     private double scrollDirection = 0;
@@ -108,7 +108,7 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
             }
         });
         
-         ArrayList<TopicView> topicViewList= c.topicListToTopicViewList(aplicationModel.getTopics(),this,this);
+         ArrayList<TopicView> topicViewList= c.topicListToTopicViewList(aplicationModel.getTopics(),this);
         
         for(TopicView topicView : topicViewList)
         {
@@ -129,44 +129,4 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener,
     {       
         this.dataManager.moveLectureToSession(sessionId, lectureId);
     }   
-
-    @Override
-    public void modifyText(Enums.TextType type, Enums.TextCategory category, int id, String newValue) 
-    {
-        if(type==Enums.TextType.NOTHING || category==Enums.TextCategory.NOTHING || id==0)
-        {
-            return;
-        }
-        switch(category){
-            case LECTURE:
-                switch(type){
-                    case AUTHORS:
-                        ArrayList<String> authors=StringHelper.createArralyListFromListSeparateComma(newValue);
-                        this.dataManager.setLectureAuthorsByLectureId(id, authors);
-                        break;
-                    case TITLE:
-                        this.dataManager.changeLectureTitleByLectureId(id, newValue);
-                        break;
-                    default:break;
-                }
-                break;
-            case SESSION:
-                switch(type){
-                    case CHAIRS:
-                        ArrayList<String> chairs=StringHelper.createArralyListFromListSeparateComma(newValue);
-                        this.dataManager.setSessionChairsBySessionId(id, chairs);
-                        break;
-                    case TITLE:
-                        this.dataManager.changeSessionTitleBySessionId(id, newValue);
-                        break;
-                    default:break;
-                }
-                break;
-            case TOPIC:
-                this.dataManager.changeTopicTitleByTopicId(id, newValue);
-                break;
-            default:break;
-                
-        }             
-    }
 }
