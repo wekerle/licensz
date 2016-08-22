@@ -266,64 +266,86 @@ public class DataCollector{
     
     public ArrayList<DayModel> getDays(int deafultBreakDuration, ArrayList<DayModel> days, ArrayList<TopicModel> topics,String pathToFolderWithFiles)
     {
-        ArrayList<LocalTimeRangeModel> timeRanges=new ArrayList<LocalTimeRangeModel>();
-        ArrayList<RoomModel> rooms=new ArrayList<RoomModel>();
-        DayModel day =new DayModel();
-        
-        int maxSessionNumber=0;
-        int i=0;
-        for(TopicModel topic : topics)
+        for(DayModel day:days)
         {
-            if(topic.getSessions().size()>maxSessionNumber)
-           {
-               maxSessionNumber=topic.getSessions().size();
-           }
-           i++;
-        }
-        
-        i=0;
-        for(TopicModel topic : topics)
-        {             
-            RoomModel room=new RoomModel("Sala "+i,topic.getId());
-            day.addRoom(room);
-            rooms.add(room);
-            i++;
-        }
-        
-        LocalTime startTime=LocalTime.of(8, 0);
-        for(i=0; i<maxSessionNumber;i++)
-        {
-            LocalTimeRangeModel time = new LocalTimeRangeModel(startTime,50);
-            timeRanges.add(time);
-            day.addTimeRange(time);
-            
-            LocalTimeRangeModel breakTime = new LocalTimeRangeModel(time.getEndTime(),deafultBreakDuration);
-            day.addTimeRange(breakTime);
-
-            SessionModel breakSession=new SessionModel();
-            breakSession.makeBreak("Time break");
-
-            for(RoomModel room : rooms)
-            {
-                day.addSession(breakSession, breakTime, room);
+            int i=0;
+            for(TopicModel topic : topics)
+            {             
+                RoomModel room=new RoomModel("Sala "+i,topic.getId());
+                day.addRoom(room);
+                day.getRooms().add(room);
+                i++;
             }
             
-            startTime=breakTime.getEndTime();
+            LocalTime startTime=day.getTotalPeriod().getStartTime();
+            for(i=0; i<day.getNumberOfSessionsPerDay();i++)
+            {
+                LocalTimeRangeModel time = new LocalTimeRangeModel(startTime,50);
+                LocalTimeRangeModel breakTime = new LocalTimeRangeModel(time.getEndTime(),deafultBreakDuration);
+                
+                if(breakTime.getEndTime().isAfter(day.getTotalPeriod().getEndTime()))
+                {
+                    break;
+                }
+                
+                day.addTimeRange(time);
+                day.addTimeRange(breakTime);
+
+                SessionModel breakSession=new SessionModel();
+                breakSession.makeBreak("Time break");
+
+                for(RoomModel room : day.getRooms())
+                {
+                    day.addSession(breakSession, breakTime, room);
+                }
+
+                startTime=breakTime.getEndTime();
+            }
+            
         }
-        
-        i=0;
+
+        int i=0;
         for(TopicModel topic : topics)
         {             
             int j=0;
+            int dayNr=0;
             for(SessionModel session : topic.getSessions())
             {
-               day.addSession(session, timeRanges.get(j), rooms.get(i));
-               j++;
+                DayModel currentDay=days.get(dayNr);
+                
+                if(currentDay.getTimes().size()<=j)
+                {
+                    dayNr++;
+                    if(dayNr>=days.size())
+                    {
+                        dayNr--;
+                        ArrayList<LocalTimeRangeModel> allTimesOfTheDay=currentDay.getTimes();                      
+                        LocalTimeRangeModel lastTime=allTimesOfTheDay.get(allTimesOfTheDay.size()-1);
+                        
+                        LocalTimeRangeModel time = new LocalTimeRangeModel(lastTime.getEndTime(),50);
+                        LocalTimeRangeModel breakTime = new LocalTimeRangeModel(time.getEndTime(),deafultBreakDuration);
+                        
+                        currentDay.addTimeRange(time);
+                        currentDay.addTimeRange(breakTime);
+
+                        SessionModel breakSession=new SessionModel();
+                        breakSession.makeBreak("Time break");
+
+                        for(RoomModel room : currentDay.getRooms())
+                        {
+                            currentDay.addSession(breakSession, breakTime, room);
+                        }
+                    } else 
+                    {
+                       currentDay=days.get(dayNr);
+                       j=0;
+                    }
+                }
+                currentDay.addSession(session, currentDay.getTimes().get(j), currentDay.getRooms().get(i));
+                j++;
             }
             i++;
         }
-    
-        days.add(day);
         
         return days;
     }
