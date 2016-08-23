@@ -12,6 +12,7 @@ import Models.LocalTimeRangeModel;
 import Models.RoomModel;
 import Models.SessionModel;
 import Models.TopicModel;
+import java.util.ArrayList;
 /**
  *
  * @author tibor.wekerle
@@ -23,6 +24,18 @@ public class DataManager
     
     // <editor-fold desc="private region" defaultstate="collapsed">
     
+    private void deleteEmptyDays() 
+    {        
+        ArrayList<DayModel> days=aplicationModel.getDays();
+        for(int i=days.size()-1;i>=0;i--)
+        {
+            if(days.get(i).getNumberOfSessions()==0)
+            {
+                days.remove(i);
+            }
+        }
+    }
+    
     private DayModel getDayBySessionId(int sessionId) 
     {
         for(DayModel day : aplicationModel.getDays())
@@ -32,21 +45,6 @@ public class DataManager
             {
                 return day;
             }
-        }
-        return null;
-    }
-        
-    private RoomModel getRoomByTopicId(int topicId) 
-    {
-        for(DayModel day : aplicationModel.getDays())
-        {
-           for(RoomModel room : day.getRooms())
-           {
-               if(room.getTopicId()==topicId)
-               {
-                   return room;
-               }
-           }
         }
         return null;
     }
@@ -202,7 +200,7 @@ public class DataManager
         DayModel sourceDay=getDayBySessionId(sourceSessionId);
         DayModel destinationDay=getDayBySessionId(destinationSessionId);
         
-        RoomModel room=getRoomByTopicId(destinationTopic.getId());
+        RoomModel room=destinationDay.getRoomBySessionId(destinationSessionId);
         LocalTimeRangeModel time=destinationDay.getTimeRangeBySessionId(destinationSessionId);
         
         destinationDay.addNewTimeBreak();
@@ -215,6 +213,11 @@ public class DataManager
         
         sourceDay.deleteEmptyRoom();
         deleteEmptyTopics();
+        
+        sourceDay.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
+        destinationDay.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
+        
+        deleteEmptyDays();
         
     }
     
@@ -231,7 +234,7 @@ public class DataManager
         DayModel sourceDay=getDayBySessionId(sourceSessionId);
         DayModel destinationDay=getDayBySessionId(destinationSessionId);
         
-        RoomModel room=getRoomByTopicId(destinationTopic.getId());
+        RoomModel room=destinationDay.getRoomBySessionId(destinationSessionId);
         LocalTimeRangeModel time=destinationDay.getTimeRangeBySessionId(destinationSessionId);
         
         destinationDay.addNewTimeBreak();  
@@ -246,6 +249,10 @@ public class DataManager
         
         sourceDay.deleteEmptyRoom();
         deleteEmptyTopics();
+        
+        sourceDay.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
+        destinationDay.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
+        deleteEmptyDays();
         
     }
     
@@ -294,8 +301,19 @@ public class DataManager
             
             LectureModel lecture=getLectureById(lectureId);
         
-            this.removeLectureFromSession(sourceSession, lecture);
-            this.addLectureToSession(destinationSession, lecture);
+            removeLectureFromSession(sourceSession, lecture);
+            addLectureToSession(destinationSession, lecture);
+            
+            DayModel sourceDay=getDayBySessionId(sourceSession.getId());
+            DayModel destinationDay=getDayBySessionId(destinationSession.getId());
+            
+            destinationDay.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
+            
+            if(sourceDay!=destinationDay)
+            {
+                sourceDay.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
+            }
         };
     } 
+
 }

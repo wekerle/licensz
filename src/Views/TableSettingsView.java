@@ -6,7 +6,12 @@
 package Views;
 
 import Helpers.StringHelper;
+import Listener.DayChangeEventListener;
+import Listener.HourChangeEventListener;
+import Listener.TextChangeEventListener;
 import Models.DayModel;
+import Models.LocalTimeRangeModel;
+import java.time.LocalDate;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -19,7 +24,7 @@ public class TableSettingsView extends VBox
 {
     private DayEditor dayEditor=new DayEditor();
     private HourEditor period=null;
-    private TextEditor numberOfSessionsPerDay=new TextEditor();
+    private TextEditor numberOfSessionsPerRoom=new TextEditor();
     private DayModel dayModel=null;
     private GridPane grid=new GridPane();
     
@@ -28,7 +33,7 @@ public class TableSettingsView extends VBox
        this.dayModel=dayModel; 
        populateContent(this.dayModel);
     }
-    
+
     public void populateContent(DayModel dayModel)
     {   
         Text textDate=new Text("Date:");
@@ -39,6 +44,15 @@ public class TableSettingsView extends VBox
         grid.add(dayEditor, 1, 0);
         dayEditor.setFont(StringHelper.font16);
         
+        dayEditor.setDayChangeEventListener(new DayChangeEventListener() 
+        {
+            @Override
+            public void modifyDate(LocalDate localdate) 
+            {
+                dayModel.setDay(localdate);
+            }
+        });
+        
         Text textPeriod=new Text("Period:");
         textPeriod.setFont(StringHelper.font16Bold);
         grid.add(textPeriod, 0, 1);
@@ -47,14 +61,33 @@ public class TableSettingsView extends VBox
         period.setFont(StringHelper.font16);
         grid.add(period, 1, 1);
         
-        Text textSessions=new Text("Number of paralel sessions per day:");
+        period.setHourChangeEventListener(new HourChangeEventListener() 
+        {
+            @Override
+            public void modifyHour(LocalTimeRangeModel timeRange) 
+            {
+                dayModel.setTotalPeriod(timeRange);
+            }
+        });
+        
+        Text textSessions=new Text("Number of sessions per room:");
         textSessions.setFont(StringHelper.font16Bold);
         grid.add(textSessions, 0, 2);
         
-        numberOfSessionsPerDay.setText(Integer.toString(dayModel.getNumberOfSessionsPerDay()));
-        numberOfSessionsPerDay.setFont(StringHelper.font16);
-        grid.add(numberOfSessionsPerDay, 1, 2);
+        numberOfSessionsPerRoom.setText(Integer.toString(dayModel.getNumberOfSessionsPerRoom()));
+        numberOfSessionsPerRoom.setIsNumeric(true);
+        numberOfSessionsPerRoom.setFont(StringHelper.font16);
+        grid.add(numberOfSessionsPerRoom, 1, 2);
         
+        numberOfSessionsPerRoom.setTextChangeEventListener(new TextChangeEventListener() 
+        {
+            @Override
+            public void modifyText(String newValue) 
+            {
+                dayModel.setNumberOfSessionsPerDay(Integer.parseInt(newValue));                
+            }
+        });
+                
         this.getChildren().add(grid);
     }
 }

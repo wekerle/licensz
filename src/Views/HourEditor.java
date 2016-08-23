@@ -83,7 +83,7 @@ public class HourEditor extends VBox
                             {
                                 Alert alert=new Alert(AlertType.ERROR);
                                 alert.setTitle("Error");
-                                alert.setContentText("asdfas dasd ");
+                                alert.setContentText("The end time must be greater then the start time");
                                 alert.showAndWait();
                             }
                             else
@@ -93,7 +93,7 @@ public class HourEditor extends VBox
 
                                 if(hourChangeListener!=null)                           
                                 {                         
-                                    hourChangeListener.modifyHour(periodId, time);
+                                    hourChangeListener.modifyHour(time);
                                 }
                                 break;
                             }                                                                   

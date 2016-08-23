@@ -7,7 +7,6 @@ package Models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +24,7 @@ public class DayModel implements Serializable
     private ArrayList<LocalTimeRangeModel> times=new ArrayList<LocalTimeRangeModel>();
     private LocalTimeRangeModel totalPeriod;
     private LocalDate day;
-    private int numberOfSessionsPerDay;
+    private int numberOfSessionsPerRoom;
     
     //timeRange -> room -> session
     private HashMap<Integer,HashMap<Integer,SessionModel>> roomTimeMap=new HashMap<Integer,HashMap<Integer,SessionModel>>();    
@@ -83,14 +82,14 @@ public class DayModel implements Serializable
         this.totalPeriod = totalPeriod;
     }
 
-    public int getNumberOfSessionsPerDay() 
+    public int getNumberOfSessionsPerRoom() 
     {
-        return numberOfSessionsPerDay;
+        return numberOfSessionsPerRoom;
     }
 
-    public void setNumberOfSessionsPerDay(int numberOfSessionsPerDay) 
+    public void setNumberOfSessionsPerDay(int numberOfSessionsPerRoom) 
     {
-        this.numberOfSessionsPerDay = numberOfSessionsPerDay;
+        this.numberOfSessionsPerRoom = numberOfSessionsPerRoom;
     }
 
     public DayModel() 
@@ -266,6 +265,21 @@ public class DayModel implements Serializable
         return null;
     }
     
+    public RoomModel getRoomBySessionId(int sessionId)
+    {
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
+        {
+            for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
+            {
+                if(roomSession.getValue().getId()==sessionId)
+                {
+                    return getRoomModelById(roomSession.getKey());
+                }
+            }
+        }
+        return null;
+    }
+    
     public void shiftDown(int timeId,int roomId)
     {      
         int index=0;
@@ -424,5 +438,75 @@ public class DayModel implements Serializable
             }
         }
         return null;
+    }
+    
+    public void calculateTimesAccordingToLecturesDuration(int shortLectureDuration,int longLectureDuration)
+    {   
+        for(LocalTimeRangeModel time:times)
+        {
+            int maxDuration=0;
+            for(RoomModel room:rooms)
+            {
+                int duration=0;
+                SessionModel session=getSessionModelTimeRoom(time.getId(), room.getId());
+                if(session!=null && !session.isBreak())
+                {                   
+                    for(LectureModel lecture:session.getLectures())
+                    {
+                        if(lecture.getType().compareTo("S")==0)
+                        {
+                            duration+=shortLectureDuration;
+                        }
+                        
+                        if(lecture.getType().compareTo("F")==0)
+                        {
+                            duration+=longLectureDuration;
+                        }
+                    }
+                }
+                
+                if(duration>maxDuration)
+                {
+                    maxDuration=duration;
+                }
+            }
+            
+            if(maxDuration!=0)
+            {
+                time.setEndTime(time.getStartTime().plusMinutes(maxDuration));
+                recalculateTimesNextToCurrentTime(time);
+            }
+        }  
+    }
+    
+    public void recalculateTimesNextToCurrentTime(LocalTimeRangeModel currentTime)
+    {
+       int index=times.indexOf(currentTime);
+       for(int i=index;i<times.size()-2;i++)
+       {
+           LocalTimeRangeModel time=times.get(i);
+           LocalTimeRangeModel nextTime=times.get(i+1);
+           
+           int duration=nextTime.getDurationMinutes();
+                      
+           nextTime.setStartTime(time.getEndTime());
+           nextTime.setEndTime(nextTime.getStartTime().plusMinutes(duration));
+       }
+    }
+    
+    public int getNumberOfSessions()
+    {
+        int i=0;
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
+        {
+            for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
+            {
+                if(!roomSession.getValue().isBreak())
+                {
+                    i++;
+                }
+            }
+        }
+        return i;
     }
 }

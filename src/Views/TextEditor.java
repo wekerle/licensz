@@ -6,9 +6,13 @@
 package Views;
 
 import Listener.TextChangeEventListener;
+import java.util.Optional;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -24,11 +28,17 @@ public class TextEditor extends VBox
     private TextField textField=new TextField();
     private Text text=new Text();
     private TextChangeEventListener textChangeListener;
+    private boolean isNumeric=false;
 
     public void setTextChangeEventListener(TextChangeEventListener textChangeListener)
     {
         this.textChangeListener=textChangeListener;
     }
+    
+    public void setIsNumeric(boolean numeric)
+    {
+        this.isNumeric=numeric;
+    }   
     
     public TextEditor()
     {
@@ -36,24 +46,24 @@ public class TextEditor extends VBox
         
         text.setOnMouseClicked(new EventHandler<MouseEvent>() 
         {
-        @Override
-        public void handle(MouseEvent mouseEvent) {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY))
-            {
-                if(mouseEvent.getClickCount() == 2){
-                    textField.setText(text.getText());                  
-                    TextEditor.this.getChildren().remove(text);
-                    TextEditor.this.getChildren().add(textField);
-                    textField.requestFocus();                                        
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(mouseEvent.getButton().equals(MouseButton.PRIMARY))
+                {
+                    if(mouseEvent.getClickCount() == 2){
+                        textField.setText(text.getText());                  
+                        TextEditor.this.getChildren().remove(text);
+                        TextEditor.this.getChildren().add(textField);
+                        textField.requestFocus();                                        
+                    }else
+                    {
+                        text.requestFocus();
+                    }
                 }else
                 {
                     text.requestFocus();
                 }
-            }else
-            {
-                text.requestFocus();
             }
-        }
         });
         
         textField.focusedProperty().addListener(new ChangeListener<Boolean>()
@@ -63,17 +73,46 @@ public class TextEditor extends VBox
             {                                    
                 if (newPropertyValue)
                 {
-                    System.out.println("Textfield on focus");
+                    
                 }
                 else
                 {
-                    text.setText(textField.getText());
-                    TextEditor.this.getChildren().remove(textField);
-                    TextEditor.this.getChildren().add(text);
-                    if(textChangeListener!=null)
+                    if(isNumeric)
                     {
-                        textChangeListener.modifyText(text.getText());
-                    }
+                        try
+                        {
+                            Integer.parseInt(textField.getText());
+                            
+                            text.setText(textField.getText());
+                            TextEditor.this.getChildren().remove(textField);
+                            TextEditor.this.getChildren().add(text);
+                            if(textChangeListener!=null)
+                            {
+                                textChangeListener.modifyText(text.getText());
+                            }
+                        }catch(Exception e)
+                        {
+                            Alert alert=new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Error");
+                            alert.setContentText("Please insert a valid number");
+
+                            Optional<ButtonType> result = alert.showAndWait();
+
+                            if ((result.isPresent()) && (result.get() == ButtonType.OK))
+                            {
+                               textField.requestFocus();
+                            }
+                        }
+                    }else
+                    {
+                        text.setText(textField.getText());
+                        TextEditor.this.getChildren().remove(textField);
+                        TextEditor.this.getChildren().add(text);
+                        if(textChangeListener!=null)
+                        {
+                            textChangeListener.modifyText(text.getText());
+                        }
+                    }                                      
                 }
             }
         });

@@ -18,8 +18,26 @@ public class AplicationModel implements Serializable
     private ArrayList<DayModel> days=new ArrayList<DayModel>();
     private ArrayList<ConstraintModel> constraints=new ArrayList<ConstraintModel>();
     private String pathToThesaurus=null;
+    private int shortLectureDuration=15;
+    private int longLectureDuration=20;
     private boolean hasModification=true;
 
+    public int getShortLectureDuration() {
+        return shortLectureDuration;
+    }
+
+    public void setShortLectureDuration(int shortLectureDuration) {
+        this.shortLectureDuration = shortLectureDuration;
+    }
+
+    public int getLongLectureDuration() {
+        return longLectureDuration;
+    }
+
+    public void setLongLectureDuration(int longLectureDuration) {
+        this.longLectureDuration = longLectureDuration;
+    }
+  
     public String getPathToThesaurus() 
     {
         return pathToThesaurus;

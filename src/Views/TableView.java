@@ -35,7 +35,10 @@ public class TableView extends VBox implements SessionDragEventListener
     private DayModel dayModel;
 
     private void populateContent(DayModel dayModel)
-    {                 
+    {   
+        this.table.getChildren().clear();
+        this.getChildren().clear();
+        
         dayEditor.setFont(StringHelper.font22Bold);
         dayEditor.setAlignment(Pos.CENTER);
         dayEditor.setPadding(new Insets(16));
@@ -68,19 +71,20 @@ public class TableView extends VBox implements SessionDragEventListener
         }
         
         i=0;
-         for(LocalTimeRangeModel timeRange : dayModel.getTimes())
+        for(LocalTimeRangeModel time : dayModel.getTimes())
         {
-            HourEditor hourEditor=new HourEditor(timeRange);
+            HourEditor hourEditor=new HourEditor(time);
             hourEditor.setHourChangeEventListener(new HourChangeEventListener() 
             {
                 @Override
-                public void modifyHour(int periodId, LocalTimeRangeModel timeRange) 
+                public void modifyHour(LocalTimeRangeModel timeRange) 
                 {
-                    timeRange.setStartTime(timeRange.getStartTime());
-                    timeRange.setEndTime(timeRange.getEndTime());
+                    time.setStartTime(timeRange.getStartTime());
+                    time.setEndTime(timeRange.getEndTime());
+                    TableView.this.dayModel.recalculateTimesNextToCurrentTime(time);
+                    TableView.this.populateContent(dayModel);
                 }
             });
-            hourEditor.setPeriodId(timeRange.getId());
             
             TableCellView tableCellView=new TableCellView(this,0,i+1,false);
             tableCellView.setContentNode(hourEditor);

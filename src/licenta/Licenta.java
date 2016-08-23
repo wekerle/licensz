@@ -25,9 +25,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.prefs.Preferences;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -39,13 +37,10 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -128,15 +123,6 @@ public class Licenta extends Application
          
     public static void main(String[] args)throws Exception 
     {
-        
-        //Preferences prefs;
-        //prefs = Preferences.userNodeForPackage(Licenta.class);
-        
-        //prefs.put("LAST_OUTPUT_DIR", "tibi/tibisor/gh");
-        
-       // String lastOutputDir = prefs.get("LAST_OUTPUT_DIR", "");
-        //System.out.println(lastOutputDir);
-
         launch(args);
     }
     
@@ -175,9 +161,11 @@ public class Licenta extends Application
         // --- Menu Settings
         Menu menuSettings = new Menu("Settings");
         MenuItem pathToThesaurusMenuItem = new MenuItem("Path to thesaurus");
+        MenuItem lectureLenghtMenuItem = new MenuItem("Lecture lenght");
         pathToThesaurusMenuItem.setOnAction(actionEvent -> clickPathToThesaurus(newMenuItem));
+        lectureLenghtMenuItem.setOnAction(actionEvent -> clickLectureLength());
                                                                        
-        menuSettings.getItems().addAll(pathToThesaurusMenuItem);
+        menuSettings.getItems().addAll(pathToThesaurusMenuItem,lectureLenghtMenuItem);
         
         // --- Menu View
         Menu menuView = new Menu("View");
@@ -223,6 +211,57 @@ public class Licenta extends Application
         borderPane.setCenter(summaryView);
     }
     
+    private void clickLectureLength()
+    {
+        Dialog dialog = new Dialog<>();
+        dialog.setTitle("Lecture lenght");
+        dialog.setHeaderText("Set the lecture lengths in minute");
+        dialog.getDialogPane().setPrefSize(300, 150);
+
+        GridPane dialogContent=new GridPane();
+        
+        Text textShortLectureLength=new Text("Short lecture length:");
+        textShortLectureLength.setFont(StringHelper.font16Bold);
+        dialogContent.add(textShortLectureLength, 0, 0);
+        
+        TextEditor shortLectureLength=new TextEditor(Integer.toString(aplicationModel.getShortLectureDuration()));
+        shortLectureLength.setIsNumeric(true);
+        shortLectureLength.setFont(StringHelper.font16);
+        dialogContent.add(shortLectureLength, 1, 0);
+        
+        Text textLongLectureLength=new Text("Long lecture length:");
+        textLongLectureLength.setFont(StringHelper.font16Bold);
+        dialogContent.add(textLongLectureLength, 0, 1);
+        
+        TextEditor longLectureLength=new TextEditor(Integer.toString(aplicationModel.getLongLectureDuration()));
+        longLectureLength.setIsNumeric(true);
+        longLectureLength.setFont(StringHelper.font16);
+        dialogContent.add(longLectureLength, 1, 1);
+        
+        
+        dialog.getDialogPane().setContent(dialogContent);
+
+        ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+        dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
+        
+        Optional<ButtonType> result = dialog.showAndWait();
+                        
+        if ((result.isPresent()) && (result.get() == buttonTypeOk)) 
+        {
+            aplicationModel.setShortLectureDuration(Integer.parseInt(shortLectureLength.getText()));
+            aplicationModel.setLongLectureDuration(Integer.parseInt(longLectureLength.getText()));
+            
+            for(DayModel day : aplicationModel.getDays())
+            {
+                day.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
+            }
+            
+            start(stage);
+        }
+    }
+    
     private void clickNew()
     {
         int numberOfDays=2;
@@ -235,6 +274,7 @@ public class Licenta extends Application
         
         TextEditor textEditor=new TextEditor();    
         textEditor.setText(Integer.toString(deafultBreakDuration));
+        textEditor.setIsNumeric(true);
         
         dialog.setHeaderText("Insert deafult break duration:");
         dialog.getDialogPane().setPrefSize(200, 150);
@@ -290,10 +330,15 @@ public class Licenta extends Application
                     String path=file.getPath();                                                    
                     aplicationModel.setTopics(dataCollector.getTopics(path));
                     aplicationModel.setDays(dataCollector.getDays(deafultBreakDuration,days,aplicationModel.getTopics(),path));
+                    for(DayModel day : days)
+                    {
+                        day.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
+                    }
                     aplicationModel.setConstraints(dataCollector.getConstraints(aplicationModel.getTopics()));
                 }
             }                      
-        }             
+        }
+        start(stage);      
     }
     
      private void clickSave()
@@ -335,7 +380,8 @@ public class Licenta extends Application
         );
         File file = fileChooser.showOpenDialog(stage);
         
-        this.aplicationModel=fileToAplicationModel(file.getPath());            
+        this.aplicationModel=fileToAplicationModel(file.getPath());   
+        start(stage);
     }
     
     private AplicationModel fileToAplicationModel(String path)

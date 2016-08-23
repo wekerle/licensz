@@ -273,12 +273,11 @@ public class DataCollector{
             {             
                 RoomModel room=new RoomModel("Sala "+i,topic.getId());
                 day.addRoom(room);
-                day.getRooms().add(room);
                 i++;
             }
             
             LocalTime startTime=day.getTotalPeriod().getStartTime();
-            for(i=0; i<day.getNumberOfSessionsPerDay();i++)
+            for(i=0; i<day.getNumberOfSessionsPerRoom();i++)
             {
                 LocalTimeRangeModel time = new LocalTimeRangeModel(startTime,50);
                 LocalTimeRangeModel breakTime = new LocalTimeRangeModel(time.getEndTime(),deafultBreakDuration);
@@ -342,9 +341,23 @@ public class DataCollector{
                     }
                 }
                 currentDay.addSession(session, currentDay.getTimes().get(j), currentDay.getRooms().get(i));
-                j++;
+                j+=2;
             }
             i++;
+        }
+        
+        for(DayModel day : days)
+        {
+            day.cleanUpUselessBreaks();
+            day.deleteEmptyRoom();
+        }
+        
+        for(i=days.size()-1;i>=0;i--)
+        {
+            if(days.get(i).getNumberOfSessions()==0)
+            {
+                days.remove(i);
+            }
         }
         
         return days;

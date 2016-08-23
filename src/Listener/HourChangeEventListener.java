@@ -13,5 +13,5 @@ import Models.LocalTimeRangeModel;
  */
 public interface HourChangeEventListener 
 {
-    void modifyHour(int periodId,LocalTimeRangeModel timeRange);
+    void modifyHour(LocalTimeRangeModel timeRange);
 }

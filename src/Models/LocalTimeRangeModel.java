@@ -8,6 +8,8 @@ package Models;
 import Helpers.StringHelper;
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import javafx.util.Duration;
 import licenta.IdGenerator;
 
 /**
@@ -85,5 +87,11 @@ public class LocalTimeRangeModel implements Serializable,Comparable<LocalTimeRan
             return 0;
         }
         return -1;
+    }
+    
+    public int getDurationMinutes()
+    {
+        long minutes = ChronoUnit.MINUTES.between(startTime, endTime);
+        return (int)minutes;
     }
 }
