@@ -21,6 +21,7 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -33,18 +34,32 @@ public class TableView extends VBox implements SessionDragEventListener
     private GridPane table=new GridPane();
     private SessionDragEventListener sessionDragEvent;
     private DayModel dayModel;
+    private Text warningMessageContraints=new Text("WARNING:The following table contains datas wich not satisface the teacher avaiblity constraint,");
+    private Text warningMessageSameTeacher=new Text("WARNING:The teacher/chair can not be at the same time in to different rooms,");
 
     private void populateContent(DayModel dayModel)
     {   
         this.table.getChildren().clear();
         this.getChildren().clear();
         
+        HBox box = new HBox();
+        box.setStyle("-fx-padding: 10;" + 
+                  "-fx-border-style: solid inside;" + 
+                  "-fx-border-width: 2;" +
+                  "-fx-background-radius:10;"+
+                  "-fx-border-radius: 10;" + 
+                  "-fx-background-color: bisque ;" + 
+                  "-fx-border-color: chocolate ;");
+        
+        box.getChildren().add(warningMessageContraints);
+                
         dayEditor.setFont(StringHelper.font22Bold);
         dayEditor.setAlignment(Pos.CENTER);
         dayEditor.setPadding(new Insets(16));
         dayEditor.setDay(dayModel.getDay());
         
         this.getChildren().add(dayEditor);
+        this.getChildren().add(box);
         
         dayEditor.setDayChangeEventListener(new DayChangeEventListener() 
         {
