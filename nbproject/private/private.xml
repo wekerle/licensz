@@ -9,12 +9,16 @@
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Views/HourEditor.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Models/AplicationModel.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Models/LocalTimeRangeModel.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Listener/DayChangeEventListener.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/DataProcessing/DataCollector.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Views/DayEditor.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Listener/ChangeObserver.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Models/TermModel.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Listener/LectureDragEventListener.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Models/RoomModel.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Views/SessionView.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Adaptor/Converter.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Models/LectureModel.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Views/TimePicker.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Views/TableCellView.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Views/TopicView.java</file>
@@ -28,6 +32,8 @@
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Listener/SessionDragEventListener.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Helpers/Enums.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Views/ScheduleView.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Listener/HourChangeEventListener.java</file>
+            <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Models/ConstraintModel.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Models/DayModel.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Models/KeyWordModel.java</file>
             <file>file:/C:/Users/Ronaldo/Desktop/licenszGit3/src/Views/TableView.java</file>

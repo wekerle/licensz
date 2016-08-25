@@ -9,7 +9,6 @@ import Adaptor.Converter;
 import DataManagment.DataManager;
 import Helpers.Enums;
 import Listener.SessionDragEventListener;
-import Listener.TextChangeEventListener;
 import Models.AplicationModel;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
@@ -65,7 +64,7 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
         Converter c=new Converter();       
         verticalLayout.getChildren().clear();
              
-        ArrayList<TableView> tableViewList= c.dayModelListToTableViewList(aplicationModel.getDays(),this);
+        ArrayList<TableView> tableViewList= c.dayModelListToTableViewList(aplicationModel.getDays(),aplicationModel.getConstraints(),this);
                 
         for(TableView tableview : tableViewList)
         {                       

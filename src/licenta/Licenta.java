@@ -304,6 +304,7 @@ public class Licenta extends Application
                 for(int i=0; i<numberOfDays;i++)
                 {
                     DayModel day=new DayModel();
+                    day.setChangeObserver(aplicationModel);
                     day.setDay(LocalDate.now());
                     day.setTotalPeriod(new LocalTimeRangeModel(8, 0, 360));
                     day.setNumberOfSessionsPerDay(4);

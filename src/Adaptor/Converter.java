@@ -16,8 +16,10 @@ import Views.SessionView;
 import Listener.LectureDragEventListener;
 import Listener.SessionDragEventListener;
 import Listener.TextChangeEventListener;
+import Models.ConstraintModel;
 import Models.DayModel;
 import Views.TableView;
+import java.util.HashMap;
 
 /**
  *
@@ -72,21 +74,27 @@ public class Converter
        return topicViewList;
     }
     
-    public TableView dayModelToTableView(DayModel day,SessionDragEventListener sessionDragEvent)
+    public TableView dayModelToTableView(DayModel day,HashMap<String,ConstraintModel> teacherConstraintMap,SessionDragEventListener sessionDragEvent)
     {
-       TableView tableView=new TableView(day);
+       TableView tableView=new TableView(day,teacherConstraintMap);
        tableView.setSessionDragEventListener(sessionDragEvent);
        
        return tableView;
     }
 
-    public ArrayList<TableView> dayModelListToTableViewList(ArrayList<DayModel> days, SessionDragEventListener sessionDragEvent) 
+    public ArrayList<TableView> dayModelListToTableViewList(ArrayList<DayModel> days,ArrayList<ConstraintModel> constarints, SessionDragEventListener sessionDragEvent) 
     {
         ArrayList<TableView> tableViews=new ArrayList<TableView>();
+        HashMap<String,ConstraintModel> teacherConstraintMap=new HashMap();
+        
+        for(ConstraintModel constraint:constarints)
+        {
+            teacherConstraintMap.put(constraint.getTeacherName(), constraint);
+        }
         
         for(DayModel day : days)
         {
-            tableViews.add(dayModelToTableView(day,sessionDragEvent));
+            tableViews.add(dayModelToTableView(day,teacherConstraintMap,sessionDragEvent));
         }
         
         return tableViews;

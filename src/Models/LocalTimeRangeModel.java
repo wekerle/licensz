@@ -94,4 +94,31 @@ public class LocalTimeRangeModel implements Serializable,Comparable<LocalTimeRan
         long minutes = ChronoUnit.MINUTES.between(startTime, endTime);
         return (int)minutes;
     }
+    
+    public boolean contains(LocalTime time)
+    {
+        if(time.isAfter(startTime) && time.isBefore(endTime))
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean contains(LocalTimeRangeModel time)
+    {
+        if(contains(time.startTime) && contains(time.endTime))
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean intersects(LocalTimeRangeModel time)
+    {
+        if(time.contains(this) || this.contains(time) || time.contains(endTime) || time.contains(startTime))
+        {
+            return true;
+        }
+        return false;
+    }
 }

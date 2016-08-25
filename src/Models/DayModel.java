@@ -5,6 +5,7 @@
  */
 package Models;
 
+import Listener.ChangeObserver;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,9 +26,10 @@ public class DayModel implements Serializable
     private LocalTimeRangeModel totalPeriod;
     private LocalDate day;
     private int numberOfSessionsPerRoom;
+    private ChangeObserver changeObserver;
     
     //timeRange -> room -> session
-    private HashMap<Integer,HashMap<Integer,SessionModel>> roomTimeMap=new HashMap<Integer,HashMap<Integer,SessionModel>>();    
+    private HashMap<Integer,HashMap<Integer,SessionModel>> timeRoomMap=new HashMap<Integer,HashMap<Integer,SessionModel>>();    
        
     private RoomModel getRoomModelById(int id)
     {
@@ -52,6 +54,11 @@ public class DayModel implements Serializable
         }
         return null;
     }
+    
+    public void setChangeObserver(ChangeObserver changeObserver)
+    {
+        this.changeObserver=changeObserver;
+    }
         
      //</editor-fold>
     
@@ -70,6 +77,7 @@ public class DayModel implements Serializable
         {          
             addSession(session,breakTime,room);
         }
+        changeObserver.notifyChange();
     }
     
     public LocalTimeRangeModel getTotalPeriod()
@@ -80,6 +88,7 @@ public class DayModel implements Serializable
     public void setTotalPeriod(LocalTimeRangeModel totalPeriod) 
     {
         this.totalPeriod = totalPeriod;
+        changeObserver.notifyChange();
     }
 
     public int getNumberOfSessionsPerRoom() 
@@ -90,6 +99,7 @@ public class DayModel implements Serializable
     public void setNumberOfSessionsPerDay(int numberOfSessionsPerRoom) 
     {
         this.numberOfSessionsPerRoom = numberOfSessionsPerRoom;
+        changeObserver.notifyChange();
     }
 
     public DayModel() 
@@ -110,26 +120,31 @@ public class DayModel implements Serializable
     public void setDay(LocalDate day) 
     {
         this.day = day;
+        changeObserver.notifyChange();
     }
     
     public void addRoom(RoomModel room)
     {
         this.rooms.add(room);
+        changeObserver.notifyChange();
     }
     
     public void removeRoom(RoomModel room)
     {
         this.rooms.remove(room);
+        changeObserver.notifyChange();
     }
     //todo ellenorizni hogy ne tevodjon egymasra
     public void addTimeRange(LocalTimeRangeModel timeRange)
     {
         this.times.add(timeRange);
+        changeObserver.notifyChange();
     }
     
     public void removeTimeRange(LocalTimeRangeModel timeRange)
     {
         this.times.remove(timeRange);
+        changeObserver.notifyChange();
     }
         
     public void addSession(SessionModel session,LocalTimeRangeModel time,RoomModel room)
@@ -147,12 +162,12 @@ public class DayModel implements Serializable
             throw new IllegalArgumentException("The room or period is null");
         }
         
-        HashMap<Integer,SessionModel> roomSessionMap =roomTimeMap.get(time.getId());
+        HashMap<Integer,SessionModel> roomSessionMap =timeRoomMap.get(time.getId());
         
         if(roomSessionMap==null)
         {
             roomSessionMap=new HashMap<Integer,SessionModel>();
-            roomTimeMap.put(time.getId(), roomSessionMap);
+            timeRoomMap.put(time.getId(), roomSessionMap);
         }
         
         SessionModel sessionModel= roomSessionMap.get(room.getId());
@@ -163,12 +178,13 @@ public class DayModel implements Serializable
         }else
         {
            throw new IllegalArgumentException("session already exist at that place and time");
-        }   
+        }
+        changeObserver.notifyChange();
     }
     
     public SessionModel removeSessionByTimeRoom(int timeId,int roomId)
     {
-        HashMap<Integer,SessionModel> roomTime =roomTimeMap.get(timeId);
+        HashMap<Integer,SessionModel> roomTime =timeRoomMap.get(timeId);
         SessionModel session=null;
         
         if(roomTime!=null && roomTime.size()>0)
@@ -177,16 +193,16 @@ public class DayModel implements Serializable
             if(session!=null && !session.isBreak())
             {
                 roomTime.remove(roomId);
+                changeObserver.notifyChange();
                 return session;
             }            
         }
-        
         return null;
     }
     
     public SessionModel getSessionModelTimeRoom(int timeId,int roomId)
     {
-        HashMap<Integer,SessionModel> roomTime =roomTimeMap.get(timeId);
+        HashMap<Integer,SessionModel> roomTime =timeRoomMap.get(timeId);
         SessionModel session=null;
         
         if(roomTime!=null)
@@ -218,7 +234,7 @@ public class DayModel implements Serializable
     
     public boolean removeSession(int sessionId)
     {
-        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:timeRoomMap.entrySet())
         {
             for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
             {
@@ -236,7 +252,7 @@ public class DayModel implements Serializable
     
     public boolean containsSession(int sessionId)
     {
-        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:timeRoomMap.entrySet())
         {
             for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
             {
@@ -252,7 +268,7 @@ public class DayModel implements Serializable
     
     public LocalTimeRangeModel getTimeRangeBySessionId(int sessionId)
     {
-        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:timeRoomMap.entrySet())
         {
             for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
             {
@@ -267,7 +283,7 @@ public class DayModel implements Serializable
     
     public RoomModel getRoomBySessionId(int sessionId)
     {
-        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:timeRoomMap.entrySet())
         {
             for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
             {
@@ -275,6 +291,23 @@ public class DayModel implements Serializable
                 {
                     return getRoomModelById(roomSession.getKey());
                 }
+            }
+        }
+        return null;
+    }
+
+    public HashMap<Integer, HashMap<Integer, SessionModel>> getTimeRoomMap() 
+    {
+        return timeRoomMap;
+    }
+    
+    public LocalTimeRangeModel getTimeById(int timeId) 
+    {
+        for(LocalTimeRangeModel time:times)
+        {
+            if(time.getId()==timeId)
+            {
+                return time;
             }
         }
         return null;
@@ -310,6 +343,7 @@ public class DayModel implements Serializable
             addSession(session, timeNext, getRoomModelById(roomId));
              
         }
+        changeObserver.notifyChange();
     }
     
     public void shiftUp(int timeId,int roomId)
@@ -389,7 +423,7 @@ public class DayModel implements Serializable
         for(int i=times.size()-2;i>=index;i--)
         {
             LocalTimeRangeModel currentTime=times.get(i);
-            roomTimeMap.remove(currentTime.getId());
+            timeRoomMap.remove(currentTime.getId());
             times.remove(i);
         }
     }
@@ -414,7 +448,7 @@ public class DayModel implements Serializable
             
             if(deleteColumn)
             {
-                for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
+                for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:timeRoomMap.entrySet())
                 {
                     if(timeRoomSession.getKey()==currentRoom.getId())
                     {
@@ -427,7 +461,7 @@ public class DayModel implements Serializable
     }   
 
     public SessionModel getSessionById(int id) {
-        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:timeRoomMap.entrySet())
         {
             for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
             {
@@ -497,7 +531,7 @@ public class DayModel implements Serializable
     public int getNumberOfSessions()
     {
         int i=0;
-        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:roomTimeMap.entrySet())
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:timeRoomMap.entrySet())
         {
             for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
             {

@@ -11,11 +11,16 @@ import Helpers.StringHelper;
 import Listener.DayChangeEventListener;
 import Listener.HourChangeEventListener;
 import Listener.SessionDragEventListener;
+import Models.ConstraintModel;
+import Models.DateAndPeriodModel;
 import Models.DayModel;
+import Models.LectureModel;
 import Models.LocalTimeRangeModel;
 import Models.RoomModel;
 import Models.SessionModel;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
@@ -34,6 +39,7 @@ public class TableView extends VBox implements SessionDragEventListener
     private GridPane table=new GridPane();
     private SessionDragEventListener sessionDragEvent;
     private DayModel dayModel;
+    private HashMap<String,ConstraintModel> teacherConstraintMap;
     private Text warningMessageContraints=new Text("WARNING:The following table contains datas wich not satisface the teacher avaiblity constraint,");
     private Text warningMessageSameTeacher=new Text("WARNING:The teacher/chair can not be at the same time in to different rooms,");
 
@@ -177,10 +183,37 @@ public class TableView extends VBox implements SessionDragEventListener
         this.sessionDragEvent=sessionDragEvent;
     }
         
-    public TableView(DayModel dayModel)
+    public TableView(DayModel dayModel, HashMap<String,ConstraintModel> teacherConstraintMap)
     {
         this.dayModel=dayModel;
+        this.teacherConstraintMap=teacherConstraintMap;
         populateContent(dayModel);
+    }
+    
+    public void verifyConstraint()
+    {
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:dayModel.getTimeRoomMap().entrySet())
+        {
+            LocalTimeRangeModel time=dayModel.getTimeById(timeRoomSession.getKey());
+            for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
+            {
+                for(LectureModel lecture:roomSession.getValue().getLectures())
+                {
+                    for(String name:lecture.getAuthors())
+                    {
+                        ConstraintModel constraint=teacherConstraintMap.get(name);
+                        for(DateAndPeriodModel datePeriod:constraint.getDatesAndPeriods())
+                        {
+                            if(datePeriod.getDate().getDayOfYear()==dayModel.getDay().getDayOfYear() && datePeriod.getTimeRange().intersects(time))
+                            {
+                                
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
     }
     
     @Override
