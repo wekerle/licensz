@@ -5,6 +5,7 @@
  */
 package DataProcessing;
 
+import Helpers.StringHelper;
 import Models.KeyWordModel;
 import Models.LectureModel;
 import java.io.BufferedReader;
@@ -89,7 +90,7 @@ public class LectureReaderFromFile implements LectureReader
                 title=line;
                 line = br.readLine();
                 
-                authors=new ArrayList<String>(Arrays.asList(line.split(",")));
+                authors=StringHelper.createArralyListFromListSeparateComma(line);
                 line = br.readLine();
                 
                 pageNr=Integer.parseInt(line);

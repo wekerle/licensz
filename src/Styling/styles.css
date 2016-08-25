@@ -1,9 +1,10 @@
-
-.pane {
+.pane 
+{
     -fx-background-color: #8fbc8f;
 }
 
-.grid {
+.grid 
+{
     -fx-background-color: white;
     -fx-background-radius: 5.0;
     -fx-background-insets: 0.0 5.0 0.0 5.0;
@@ -12,42 +13,42 @@
     -fx-vgap: 10;
 }
 
-.vbox {
-    -fx-border-color: #2e8b57;
-    -fx-border-width: 2px;
-    -fx-padding: 10;
-    -fx-spacing: 8;
-}
-
-.hbox {
-    -fx-background-color: #2f4f4f;
-    -fx-padding: 15;
-    -fx-spacing: 10;
-}
-
-.flow-tile {
-    -fx-padding: 10.0 3.0 5.0 0.0;
-    -fx-hgap: 4;
-    -fx-vgap: 4;
-}
-
-.tableCellDragOverBorderTop {
+.tableCellDragOverBorderTop 
+{
     -fx-border-color: lightskyblue;
     -fx-border-width: 1 0 0 0
 }
 
-.tableCellDragOverBorderBottom {
+.tableCellDragOverBorderBottom 
+{
     -fx-border-color: lightskyblue;
     -fx-border-width: 0 0 1 0
 }
 
-.backGroundWhite {
-    -fx-background-color: white;
+.tableCellSala
+{
+    -fx-text-alignment:center;
+}
+.tableCellSala TextField
+{
+    -fx-text-alignment:center;
 }
 
-.tableCellSala{
-    -fx-text-alignment:center;
+.warningTableCell
+{
+    -fx-border-color: chocolate;
+    -fx-border-style: solid inside;
+    -fx-border-width: 2;
+    -fx-background-color: bisque;
 }
-.tableCellSala TextField{
-    -fx-text-alignment:center;
+
+.warningBoxCell
+{
+    -fx-padding: 10;
+    -fx-border-style: solid inside;
+    -fx-border-width: 2;
+    -fx-background-radius:10;
+    -fx-border-radius: 10;
+    -fx-background-color: bisque;
+    -fx-border-color: chocolate;
 }

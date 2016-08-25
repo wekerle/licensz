@@ -99,7 +99,7 @@ public class TableCellView
                     {
                         TableCellView.this.content.getStyleClass().add("tableCellDragOverBorderTop");
                         TableCellView.this.content.getStyleClass().remove("tableCellDragOverBorderBottom");
-                    } else if(centerY<=event.getY() && !TableCellView.this.content.getStyleClass().contains("tableCellDragOverBorderBottom") )
+                    } else if(centerY<=event.getY() && !TableCellView.this.content.getStyleClass().contains("tableCellDragOverBorderBottom"))
                     {
                         TableCellView.this.content.getStyleClass().add("tableCellDragOverBorderBottom");
                         TableCellView.this.content.getStyleClass().remove("tableCellDragOverBorderTop");
@@ -156,5 +156,21 @@ public class TableCellView
                 event.consume();
              }
         });        
-     }    
+     }
+     
+     public void markWarningBorder()
+     {
+        if(!content.getStyleClass().contains("warningTableCell"))
+        {
+            content.getStyleClass().add("warningTableCell");
+        }
+     }
+     
+     public void unMarkWarningBorder()
+     {
+        if(content.getStyleClass().contains("warningTableCell"))
+        {
+            content.getStyleClass().remove("warningTableCell");
+        }
+     }
 }

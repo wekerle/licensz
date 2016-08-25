@@ -9,7 +9,6 @@ import Helpers.StringHelper;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import javafx.util.Duration;
 import licenta.IdGenerator;
 
 /**

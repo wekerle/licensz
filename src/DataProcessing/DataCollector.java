@@ -264,7 +264,7 @@ public class DataCollector{
         return topics;
     }
     
-    public ArrayList<DayModel> getDays(int deafultBreakDuration, ArrayList<DayModel> days, ArrayList<TopicModel> topics,String pathToFolderWithFiles)
+    public ArrayList<DayModel> getDays(int deafultBreakDuration, ArrayList<DayModel> days, ArrayList<TopicModel> topics)
     {
         for(DayModel day:days)
         {

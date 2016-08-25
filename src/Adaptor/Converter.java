@@ -15,7 +15,6 @@ import Views.TopicView;
 import Views.SessionView;
 import Listener.LectureDragEventListener;
 import Listener.SessionDragEventListener;
-import Listener.TextChangeEventListener;
 import Models.ConstraintModel;
 import Models.DayModel;
 import Views.TableView;
@@ -85,7 +84,7 @@ public class Converter
     public ArrayList<TableView> dayModelListToTableViewList(ArrayList<DayModel> days,ArrayList<ConstraintModel> constarints, SessionDragEventListener sessionDragEvent) 
     {
         ArrayList<TableView> tableViews=new ArrayList<TableView>();
-        HashMap<String,ConstraintModel> teacherConstraintMap=new HashMap();
+        HashMap<String,ConstraintModel> teacherConstraintMap=new HashMap<String,ConstraintModel>();
         
         for(ConstraintModel constraint:constarints)
         {

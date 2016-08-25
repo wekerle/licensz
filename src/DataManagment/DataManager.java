@@ -215,10 +215,10 @@ public class DataManager
         deleteEmptyTopics();
         
         sourceDay.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
-        destinationDay.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
-        
+        destinationDay.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());        
         deleteEmptyDays();
         
+        aplicationModel.notifyChange();
     }
     
     public void moveDestinationSessionAfterSourceSession(int destinationSessionId,int sourceSessionId)
@@ -254,6 +254,7 @@ public class DataManager
         destinationDay.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
         deleteEmptyDays();
         
+        aplicationModel.notifyChange();
     }
     
     public boolean checkIfLectureExistInSession(int sessionId,int lectureId)
@@ -314,6 +315,7 @@ public class DataManager
                 sourceDay.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
             }
         };
+        aplicationModel.notifyChange();
     } 
 
 }

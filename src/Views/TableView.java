@@ -40,32 +40,26 @@ public class TableView extends VBox implements SessionDragEventListener
     private SessionDragEventListener sessionDragEvent;
     private DayModel dayModel;
     private HashMap<String,ConstraintModel> teacherConstraintMap;
-    private Text warningMessageContraints=new Text("WARNING:The following table contains datas wich not satisface the teacher avaiblity constraint,");
-    private Text warningMessageSameTeacher=new Text("WARNING:The teacher/chair can not be at the same time in to different rooms,");
+    private HashMap<Integer,TableCellView> sessionIdTableCellMap=new HashMap<Integer,TableCellView>();
+    private HBox messageBox = new HBox();
+    private Text warningMessageText=new Text();
 
     private void populateContent(DayModel dayModel)
     {   
         this.table.getChildren().clear();
         this.getChildren().clear();
         
-        HBox box = new HBox();
-        box.setStyle("-fx-padding: 10;" + 
-                  "-fx-border-style: solid inside;" + 
-                  "-fx-border-width: 2;" +
-                  "-fx-background-radius:10;"+
-                  "-fx-border-radius: 10;" + 
-                  "-fx-background-color: bisque ;" + 
-                  "-fx-border-color: chocolate ;");
+        messageBox.getStyleClass().add("warningBoxCell");        
+        messageBox.getChildren().add(warningMessageText);
+        messageBox.setVisible(false);
         
-        box.getChildren().add(warningMessageContraints);
-                
         dayEditor.setFont(StringHelper.font22Bold);
         dayEditor.setAlignment(Pos.CENTER);
         dayEditor.setPadding(new Insets(16));
         dayEditor.setDay(dayModel.getDay());
         
         this.getChildren().add(dayEditor);
-        this.getChildren().add(box);
+        this.getChildren().add(messageBox);
         
         dayEditor.setDayChangeEventListener(new DayChangeEventListener() 
         {
@@ -123,7 +117,11 @@ public class TableView extends VBox implements SessionDragEventListener
             {                 
                 SessionModel session=dayModel.getSessionModelTimeRoom(timeRange.getId(),room.getId());
                 TableCellView tableCellView=new TableCellView(this,i, j,true);
-
+                if(session!=null)
+                {
+                    sessionIdTableCellMap.put(session.getId(), tableCellView);
+                }
+                        
                 boolean sameCell=true;
                     
                 if(session!=null)
@@ -173,7 +171,7 @@ public class TableView extends VBox implements SessionDragEventListener
             
             i++;
         }
-        
+        verifyConstraint();
         this.getChildren().add(table);
     }
     // </editor-fold>
@@ -197,19 +195,56 @@ public class TableView extends VBox implements SessionDragEventListener
             LocalTimeRangeModel time=dayModel.getTimeById(timeRoomSession.getKey());
             for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
             {
-                for(LectureModel lecture:roomSession.getValue().getLectures())
+                SessionModel session=roomSession.getValue();
+                
+                if(!session.isBreak())
                 {
-                    for(String name:lecture.getAuthors())
+                    for(LectureModel lecture:session.getLectures())
                     {
-                        ConstraintModel constraint=teacherConstraintMap.get(name);
-                        for(DateAndPeriodModel datePeriod:constraint.getDatesAndPeriods())
+                        for(String name:lecture.getAuthors())
                         {
-                            if(datePeriod.getDate().getDayOfYear()==dayModel.getDay().getDayOfYear() && datePeriod.getTimeRange().intersects(time))
+                            ConstraintModel constraint=teacherConstraintMap.get(name);
+                            for(DateAndPeriodModel datePeriod:constraint.getDatesAndPeriods())
                             {
-                                
+                                TableCellView tableCell=sessionIdTableCellMap.get(session.getId());
+                                if(datePeriod.getDate().getDayOfYear()==dayModel.getDay().getDayOfYear() && datePeriod.getTimeRange().intersects(time))
+                                {                                   
+                                    warningMessageText=new Text("WARNING:The following table contains datas wich not satisface the teacher avaiblity constraint");
+                                    messageBox.setVisible(true);                                   
+                                    tableCell.markWarningBorder();
+                                    
+                                }else
+                                {
+                                    tableCell.unMarkWarningBorder();
+                                }
                             }
+
                         }
-                        
+                    }
+                }
+            }
+        }
+    }
+    
+    public void verifySameTeacher()
+    {
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:dayModel.getTimeRoomMap().entrySet())
+        {
+            LocalTimeRangeModel time=dayModel.getTimeById(timeRoomSession.getKey());
+            for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
+            {
+                SessionModel session=roomSession.getValue();
+                
+                if(!session.isBreak())
+                {
+                    for(LectureModel lecture:session.getLectures())
+                    {
+                        for(String name:lecture.getAuthors())
+                        {
+                            warningMessageText=new Text("WARNING:The teacher/chair can not be at the same time in to different rooms");
+                            messageBox.setVisible(true);                                   
+                            //tableCell.markWarningBorder();
+                        }
                     }
                 }
             }

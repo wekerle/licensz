@@ -5,7 +5,6 @@
  */
 package Models;
 
-import Listener.ChangeObserver;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,7 +25,6 @@ public class DayModel implements Serializable
     private LocalTimeRangeModel totalPeriod;
     private LocalDate day;
     private int numberOfSessionsPerRoom;
-    private ChangeObserver changeObserver;
     
     //timeRange -> room -> session
     private HashMap<Integer,HashMap<Integer,SessionModel>> timeRoomMap=new HashMap<Integer,HashMap<Integer,SessionModel>>();    
@@ -54,12 +52,7 @@ public class DayModel implements Serializable
         }
         return null;
     }
-    
-    public void setChangeObserver(ChangeObserver changeObserver)
-    {
-        this.changeObserver=changeObserver;
-    }
-        
+            
      //</editor-fold>
     
     public void addNewTimeBreak()
@@ -77,7 +70,6 @@ public class DayModel implements Serializable
         {          
             addSession(session,breakTime,room);
         }
-        changeObserver.notifyChange();
     }
     
     public LocalTimeRangeModel getTotalPeriod()
@@ -88,7 +80,6 @@ public class DayModel implements Serializable
     public void setTotalPeriod(LocalTimeRangeModel totalPeriod) 
     {
         this.totalPeriod = totalPeriod;
-        changeObserver.notifyChange();
     }
 
     public int getNumberOfSessionsPerRoom() 
@@ -99,7 +90,6 @@ public class DayModel implements Serializable
     public void setNumberOfSessionsPerDay(int numberOfSessionsPerRoom) 
     {
         this.numberOfSessionsPerRoom = numberOfSessionsPerRoom;
-        changeObserver.notifyChange();
     }
 
     public DayModel() 
@@ -120,31 +110,17 @@ public class DayModel implements Serializable
     public void setDay(LocalDate day) 
     {
         this.day = day;
-        changeObserver.notifyChange();
     }
     
     public void addRoom(RoomModel room)
     {
         this.rooms.add(room);
-        changeObserver.notifyChange();
     }
     
-    public void removeRoom(RoomModel room)
-    {
-        this.rooms.remove(room);
-        changeObserver.notifyChange();
-    }
     //todo ellenorizni hogy ne tevodjon egymasra
     public void addTimeRange(LocalTimeRangeModel timeRange)
     {
         this.times.add(timeRange);
-        changeObserver.notifyChange();
-    }
-    
-    public void removeTimeRange(LocalTimeRangeModel timeRange)
-    {
-        this.times.remove(timeRange);
-        changeObserver.notifyChange();
     }
         
     public void addSession(SessionModel session,LocalTimeRangeModel time,RoomModel room)
@@ -179,7 +155,6 @@ public class DayModel implements Serializable
         {
            throw new IllegalArgumentException("session already exist at that place and time");
         }
-        changeObserver.notifyChange();
     }
     
     public SessionModel removeSessionByTimeRoom(int timeId,int roomId)
@@ -193,7 +168,6 @@ public class DayModel implements Serializable
             if(session!=null && !session.isBreak())
             {
                 roomTime.remove(roomId);
-                changeObserver.notifyChange();
                 return session;
             }            
         }
@@ -343,7 +317,6 @@ public class DayModel implements Serializable
             addSession(session, timeNext, getRoomModelById(roomId));
              
         }
-        changeObserver.notifyChange();
     }
     
     public void shiftUp(int timeId,int roomId)

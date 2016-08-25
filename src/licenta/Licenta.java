@@ -15,6 +15,8 @@ import Views.ConstraintsView;
 import Views.ScheduleView;
 import Views.TableSettingsView;
 import Views.TextEditor;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -61,6 +63,7 @@ public class Licenta extends Application
     DataCollector dataCollector= new DataCollector(); 
     Scene scene=new Scene(borderPane);
     Stage stage=null;
+    ByteArrayOutputStream bos=new ByteArrayOutputStream();
     
     @Override
     public void start(Stage primaryStage) 
@@ -93,6 +96,17 @@ public class Licenta extends Application
     
     private EventHandler<WindowEvent> confirmCloseEventHandler = event -> 
     {
+        try
+        {
+            ByteArrayInputStream bis = new   ByteArrayInputStream(bos.toByteArray());
+            ObjectInputStream in = new ObjectInputStream(bis);
+            AplicationModel copied = (AplicationModel) in.readObject();
+        }catch(Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        
+        
         if(aplicationModel.hasModification())
         {
             Alert closeConfirmation = new Alert(
@@ -304,7 +318,6 @@ public class Licenta extends Application
                 for(int i=0; i<numberOfDays;i++)
                 {
                     DayModel day=new DayModel();
-                    day.setChangeObserver(aplicationModel);
                     day.setDay(LocalDate.now());
                     day.setTotalPeriod(new LocalTimeRangeModel(8, 0, 360));
                     day.setNumberOfSessionsPerDay(4);
@@ -330,7 +343,7 @@ public class Licenta extends Application
 
                     String path=file.getPath();                                                    
                     aplicationModel.setTopics(dataCollector.getTopics(path));
-                    aplicationModel.setDays(dataCollector.getDays(deafultBreakDuration,days,aplicationModel.getTopics(),path));
+                    aplicationModel.setDays(dataCollector.getDays(deafultBreakDuration,days,aplicationModel.getTopics()));
                     for(DayModel day : days)
                     {
                         day.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
@@ -339,6 +352,20 @@ public class Licenta extends Application
                 }
             }                      
         }
+        
+        try
+        {            
+            ObjectOutputStream memeoryOutStream = new ObjectOutputStream(bos);
+            memeoryOutStream.writeObject(aplicationModel);
+            
+            bos.close();
+            memeoryOutStream.close();
+        }catch(IOException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+
+        
         start(stage);      
     }
     
@@ -359,13 +386,16 @@ public class Licenta extends Application
                 String path=file.getPath();
 
                 FileOutputStream fileOut = new FileOutputStream(path);
-                ObjectOutputStream out = new ObjectOutputStream(fileOut);
-
-                out.writeObject(aplicationModel);
-                out.close();
-
-                fileOut.close();
-            } catch (IOException ex) {
+                                
+                ObjectOutputStream fileOutStream = new ObjectOutputStream(fileOut);
+                              
+                fileOutStream.writeObject(aplicationModel);
+                fileOutStream.close();
+                
+                fileOut.close();              
+                
+            } catch (IOException ex) 
+            {
                 System.out.println(ex.getMessage());
             }
         }      

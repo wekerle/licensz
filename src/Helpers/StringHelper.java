@@ -48,11 +48,11 @@ import javafx.util.StringConverter;
     public static ArrayList<String> createArralyListFromListSeparateComma(String names)
     {
         ArrayList<String> result =new ArrayList<String>();       
-        String[] temp=names.split(",");
+        String[] namesArray=names.split(",");
         
-        for(String author:temp)
+        for(String author:namesArray)
         {
-            result.add(author);
+            result.add(author.trim());
         }
         return result;
     }

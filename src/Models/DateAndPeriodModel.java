@@ -48,6 +48,5 @@ public class DateAndPeriodModel
             return StringHelper.getConverter().toString(date);
         }
         return "";            
-    }
-    
+    }  
 }
