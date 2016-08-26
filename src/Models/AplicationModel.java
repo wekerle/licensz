@@ -5,7 +5,6 @@
  */
 package Models;
 
-import Listener.ChangeObserver;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -13,12 +12,13 @@ import java.util.ArrayList;
  *
  * @author Ronaldo
  */
-public class AplicationModel implements Serializable,ChangeObserver 
+public class AplicationModel implements Serializable 
 {
     private ArrayList<TopicModel> topics=new ArrayList<TopicModel>();
     private ArrayList<DayModel> days=new ArrayList<DayModel>();
     private ArrayList<ConstraintModel> constraints=new ArrayList<ConstraintModel>();
     private String pathToThesaurus=null;
+    private String pathToTecherAffiliation=null;
     private int shortLectureDuration=15;
     private int longLectureDuration=20;
     private boolean hasModification=false;
@@ -47,6 +47,16 @@ public class AplicationModel implements Serializable,ChangeObserver
     public void setPathToThesaurus(String pathToThesaurus) 
     {
         this.pathToThesaurus = pathToThesaurus;
+    }
+    
+    public String getPathToTecherAffiliation() 
+    {
+        return pathToTecherAffiliation;
+    }
+
+    public void setPathToTecherAffiliation(String pathToTecherAffiliation) 
+    {
+        this.pathToTecherAffiliation = pathToTecherAffiliation;
     }
             
     public void setTopics(ArrayList<TopicModel> topics)
@@ -85,11 +95,6 @@ public class AplicationModel implements Serializable,ChangeObserver
 
     public void setConstraints(ArrayList<ConstraintModel> constraints) {
         this.constraints = constraints;
-    }
-
-    @Override
-    public void notifyChange() {
-        this.hasModification=true;
     }
     
 }

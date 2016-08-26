@@ -34,6 +34,7 @@ public class DataCollector{
     
     // <editor-fold desc="private region" defaultstate="collapsed">
     private HashMap<String,TermModel> terms= new  HashMap<String,TermModel>();
+    private HashMap<String,String> affiliations= new  HashMap<String,String>();
     private HashMap<LectureModel,ArrayList<String>> lectureWithSimilaritySet= new  HashMap<LectureModel,ArrayList<String>>();
     private ArrayList<LectureModel> lectures = new  ArrayList<LectureModel>();
     
@@ -102,7 +103,7 @@ public class DataCollector{
     // <editor-fold desc="lazy loading region" defaultstate="collapsed">
     public HashMap<String,TermModel> getTerms(String pathToThesaurus)
     {
-        if(terms==null)
+        if(terms.isEmpty())
         {
             HashMap<String,TermModel> terms=new HashMap<String,TermModel>();
             
@@ -115,7 +116,7 @@ public class DataCollector{
     
     public ArrayList<LectureModel> getLectures(String pathToFolderWithFiles)
     {
-        if(lectures==null)
+        if(lectures.isEmpty())
         {
             lectures=getLecturesFromfiles(pathToFolderWithFiles);        
         }
@@ -422,4 +423,14 @@ public class DataCollector{
        
        return newConstraints;
     }
+    
+     public HashMap<String,String> getTeacherAffiliations(String path)
+     {
+        if(affiliations.isEmpty())
+        {
+            File file = new File(path);
+            affiliations=new TeacherAffiliationReaderFromFile().readTeacherAffiliationFromFile(file);
+        }      
+        return affiliations;
+     }
 }

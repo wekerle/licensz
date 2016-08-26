@@ -23,10 +23,10 @@ public class TermReaderFromFile
     public HashMap<String,TermModel> readTermsFromFile(File file) 
     {
         
-        HashMap<String,TermModel> hm=new HashMap<String,TermModel>();
+        HashMap<String,TermModel> map=new HashMap<String,TermModel>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line = br.readLine();
+            BufferedReader bufferReader = new BufferedReader(new FileReader(file));
+            String line = bufferReader.readLine();
             
             TermModel term=null;
             TermModel context=null;
@@ -65,14 +65,14 @@ public class TermReaderFromFile
                     flag=ParserState.NONE;
                 }
                 
-                if(hm.containsKey(name))
+                if(map.containsKey(name))
                 {
-                    term=hm.get(name);
+                    term=map.get(name);
                 }
                 else
                 {
                     term=new TermModel(name);
-                    hm.put(name, term);
+                    map.put(name, term);
                 }
                 switch(flag){
                     case NONE:
@@ -94,12 +94,12 @@ public class TermReaderFromFile
                         context.setUSE(term);
                         break;
                 }    
-                 line = br.readLine();
+                 line = bufferReader.readLine();
             }
         } catch(Exception e) {
 
             }
-        return hm;
+        return map;
        
     }
 }

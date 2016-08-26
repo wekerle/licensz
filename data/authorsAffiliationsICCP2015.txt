@@ -1,0 +1,188 @@
+Abdelaziz Bensrhair	Institut National des Sciences Appliquées de Rouen, France
+Adela-Maria Rus	Babes-Bolyai University, Romania
+Adrian Groza	Technical University of Cluj-Napoca, Romania
+Adrian Sergiu Darabant	Babes Bolyai University Cluj-Napoca, Romania
+Aki Mäyrä	VTT Technical Research Centre of Finland, Finland
+Alecsandru Pătrașcu	Millitary Technical Academy, Romania
+Alessandra Bandrabur	Image Processing and Analysis Laboratory, University ”Politehnica” of Bucharest, Romania
+Alexander Paz	University of Nevada Las Vegas, USA
+Alexandra Bali	Technical University of Cluj-Napoca, Romania
+Alexandrina Rogozan	Institut National des Sciences Appliquées de Rouen, France
+Alexey Ignatenko	MSU, Russia
+Ali Hamie	lab-CRITC-AUL, Lebanon
+Ali Kalakech	Lebanese University, Lebanon
+Alina Sultana	University "Politehnica" of Bucharest, Romania
+Ana Bazzan	Instituto de Informatica- UFRGS, Brazil
+Anamaria Beleiu	Technical University of Cluj-Napoca, Romania
+Anastasios Doulamis	National Technical University of Athens, Greece
+Anca Ciurte	Technical University of Cluj Napoca, Romania
+Anca Marginean	Technical University of Cluj Napoca, Romania
+Andra Petrovai	Technical University of Cluj-Napoca, Romania
+Andrea Timea Salagean	Bitdefender, Romania
+Andrei Roba	UTCN, Romania
+Andrei Rusan	"Politehnica" University of Timisoara, Romania
+Andrei Vatavu	Technical University of Cluj-Napoca, Romania
+Annette Krengel	SICK, Germany
+Ari Virtanen	VTT Technical Research Centre Ltd, Finland
+Arthur Costea	Technical University of Cluj-Napoca, Romania
+Arto Kyytinen	TTS - Work Efficiency Institute, Finland
+Attila Ors Kilyen	Technical University of Cluj-Napoca, Romania
+Aurel Vlaicu	Technical University of Cluj-Napoca, Romania
+Aurelia Ciupe	Technical University of Cluj-Napoca, Romania
+Aurelian Draghia	Technical University of Civil Engineering of Bucharest, Romania
+Bazil Pârv	Babes-Bolyai University, Romania
+Bela Genge	Petru Maior University of Tg. Mures, Romania
+Béla Genge	Petru Maior University of Tg. Mures, Romania
+Bogdan Orza	Technical University of Cluj-Napoca, Romania
+Camelia Chira	Technical University of Cluj-Napoca, Romania
+Camelia Florea	Technical University of Cluj-Napoca, Romania
+Camelia Lemnaru	Universitatea Tehnica din Cluj-Napoca, Romania
+Carmen Pătraşcu	University Politehnica of Bucharest, Romania
+Catalin Golban	Technical University of Cluj-Napoca, Romania
+Catalin Negru	University Politehnica of Bucharest, Romania
+Cătălin-Constantin Ușurelu	University Politehnica of Bucharest, Romania
+Catalina Preda	"Politehnica" University of Bucharest, Romania
+Cesare Fantuzzi	DISMI, Italy
+Christian Stimming	SICK, Germany
+Christoph Rasche	University "Politehnica" of Bucharest, Romania
+Christoph Reinke	SICK, Germany
+Christos Stentoumis	National Technical University of Athens, Greece
+Cioara Tudor	TechnicalUniversity of Cluj-Napoca, Romania
+Ciprian Oprisa	Bitdefender, Romania
+Ciprian Pocol	Technical University of Cluj-Napoca, Romania
+Claudia Pop	Technical University of Cluj-Napoca, Romania
+Claudiu Decean	Technical University of Cluj-Napoca, Romania
+Constantin Nandra	Technical University of Cluj-Napoca, Romania
+Constantinos Loupos	Institute of Communications and Computer Systems, Greece
+Corneliu Florea	Image Processing and Analysis Laboratory, University ”Politehnica” of Bucharest, Romania
+Cosmin Ţoca	University Politehnica of Bucharest, Romania
+Costin Chiru	University Politehnica of Bucharest, Romania
+Costin-Gabriel Chiru	"Politehnica" University of Bucharest, Romania
+Cristian Cosmin Vancea	Technical University of Cluj-Napoca, Romania
+Cristian Secchi	University of Modena and Reggio Emilia, Italy
+Dan Valea	Technical University of Cluj-Napoca, Romania
+Danut Mihon	Technical University of Cluj-Napoca, Romania
+Davide Ronzoni	Elettric80 s.p.a., Italy
+Diana Balc	Technical University of Cluj-Napoca, Romania
+Diana Borza	Technical University of Cluj-Napoca, Romania
+Diana-Lucia Miholca	Babes-Bolyai University, Romania
+Dorian Gorgan	Technical University of Cluj-Napoca, Romania
+Dorin Moldovan	Technical University of Cluj-Napoca, Romania
+Eftychios Protopapadakis	Technical University of Crete, Greece
+Elena Cardarelli	University of Modena and Reggio Emilia, Italy
+Elli Karkalou	National Technical University of Athens, Greece
+Eneia Nicolae Todoran	Technical University Cluj-Napoca, Romania
+Eran A. Edirisinghe	Loughborough University, United Kingdom
+Ervin Sarkozi	Technical University of Cluj-Napoca, Romania
+Fabio Oleari	Elettric80, Italy
+Florin Crăciun	Universitatea Babeş-Bolyai, Romania
+Florin Oniga	Technical University of Cluj-Napoca, Romania
+Florin Pop	University Politehnica of Bucharest, Romania
+Gabriela Czibula	Department of Computer Science, Babes-Bolyai University, Romania
+Gandeevan Raghuraman	College Of Engineering Guindy, India
+George Beniamin Cabau	Universitatea Tehnica din Cluj Napoca, Romania
+George Karras	National Technical University of Athens, Greece
+Gheorghe Sebestyen	Technical University of Cluj-Napoca, Romania
+Gyorgy Szenasi	Technical University of Cluj-Napoca, Romania
+Hanns De La Fuente	Pontificia Universidad Catolica de Valparaiso, Chile
+Hassan Haidar	Lab-STICC-CERV ENIB, France
+Heather Monteiro	University of Nevada Las Vegas, USA
+Hunor Sándor	Technical University of Cluj-Napoca, Romania
+Ioan Salomie	Technical University of Cluj-Napoca, Romania
+Ioan-Gabriel Mircea	Department of Computer Science, Babes-Bolyai University, Romania
+Ioana Barbantan	Technical University of Cluj-Napoca, Romania
+Ioana Dogaru	Natural Computing Laboratory, Dept. of Applied Electronics and Information Eng. University “Politehnica”, Romania
+Ioana Faloba	Technical University of Cluj-Napoca, Romania
+Ion Giosan	Technical University of Cluj-Napoca, Romania
+Ionut Anghel	Technical University of Cluj-Napoca, Romania
+Ionut-Gabriel Raducu	University Politehnica of Bucharest, Romania
+Irene Camino García	Helmut Schmidt University, Germany
+István Kiss	Technical University of Cluj Napoca, Romania
+Iulia Maria Florea	University Politehnica of Bucharest, Romania
+Juan Ramón Antón Morillas	Helmut Schmidt University, Germany
+Kai Ojala	VTT Technical Research Centre of Finland, Finland
+Kavya Premkumar	College Of Engineering Guindy, India
+Kinga Cristina Slavescu	"Iuliu Hatieganu" University of Medicine and Pharmacy Cluj-Napoca, Romania
+Konstantinos Makantasis	Technical University of Crete, Greece
+Kristina Zipa	MSU, Russia
+Laura Diosan	Babes-Bolyai University, Romania
+Laura Florea	Image Processing and Analysis Laboratory, University ”Politehnica” of Bucharest, Romania
+Laura Gheorghe	University Politehnica of Bucharest, Romania
+Lavinia Ghica	Microchip, Romania
+Lidia Corde	Technical University of Cluj-Napoca, Romania
+Lorenzo Patras	Technical University of Cluj-Napoca, Romania
+Lorenzo Sabattini	University of Modena and Reggio Emilia, Italy
+Luiza Modorcea	Transilvania University, Romania
+Marcel Antal	Technical University of Cluj-Napoca, Romania
+Maria-Irina Barbu	Technical University of Cluj-Napoca, Romania
+Maria-Iuliana Bocicor	Department of Computer Science, Babes-Bolyai University, Romania
+Mariana Mocanu	University Politehnica of Bucharest, Romania
+Marius-Cristian Giuroiu	Technical University of Cluj-Napoca, Romania
+Markus Boehning	SICK, Germany
+Martins E. Irhebhude	Loughborough University, United Kingdom
+Massimiliano Magnani	Elettric80 s.p.a., Italy
+Matei Macri	"Politehnica" University of Bucharest, Romania
+Matei Mancas	IT Department, Faculty of Engineering (FPMs), University of Mons (UMONS), Mons, Belgium, Belgium
+Mihaela Dinsoreanu	Technical University Cluj-Napoca, Romania
+Mihaela-Cătălina Niță	University Politehnica of Bucharest, Romania
+Mihai Bucurica	Doctoral School in Electronics Telecommunications and Information Technology, University “Politehnica”, Romania
+Mihai Carabas	University Politehnica of Bucharest, Romania
+Mihai Ciuc	University Politehnica of Bucharest, Romania
+Mihai Negru	Technical University of Cluj Napoca, Romania
+Mihai Togan	Millitary Technical Academy, Romania
+Mika Aikio	VTT Technical Research Centre of Finland, Finland
+Mircea Paul Muresan	Universitatea Tehnica Cluj Napoca, Romania
+Mohammad A. Ali	Loughborough University, United Kingdom
+Naveen Veeramisti	University of Nevada Las Vegas, USA
+Nicolae Ignat	Technical University of Cluj-Napoca, Romania
+Nicolae Tapus	University Politehnica of Bucharest, Romania
+Nikolaos Doulamis	National Technical University of Athens, Greece
+Pallavi Vijay	College Of Engineering Guindy, India
+Pasi Pyykönen	VTT Technical Research Centre Ltd, Finland
+Patric Beinschob	SICK, Germany
+Paulina Mitrea	Technical University Cluj-Napoca, Romania
+Petruț Cobârzan	ETH Zürich, Romania
+Piroska Haller	Petru Maior University of Tg Mures, Romania
+Pooja Nilangekar	College Of Engineering Guindy, India
+Przemyslaw Ignaciuk	Lodz University of Technology, Poland
+Radu Danescu	Technical University of Cluj-Napoca, Romania
+Radu Dogaru	Natural Computing Laboratory, Dept. of Applied Electronics and Information Eng. University “Politehnica”, Romania
+Radu Drobot	Technical University of Civil Engineering of Bucharest, Romania
+Radu Razvan Slavescu	Technical University of Cluj-Napoca, Romania
+Radu Vasiu	"Politehnica" University of Timisoara, Romania
+Raluca Brehar	Technical University of Cluj-Napoca, Romania
+Rares Buiga	Institute of Oncology, Romania
+Raul Alexandru Persa	Technical University of Cluj-Napoca, Romania
+Razvan Itu	Technical University of Cluj-Napoca, Romania
+Riadh Bouhouchi	Enit, Tunisia
+Robert Varga	Technical University of Cluj-Napoca, Romania
+Rodica Potolea	Technical University of Cluj-Napoca, Romania
+Ronan Querrec	Lab-STICC-CERV ENIB, France
+Roxana Istrate	University Politehnica of Bucharest, Romania
+Roxana Moldovan	Technical University Cluj-Napoca, Romania
+Saida Elyengui	Enit, Tunisia
+Saswati Mukherjee	College Of Engineering Guindy, India
+Sebastian Muresan	Technical Univerity of Cluj-Napoca, Romania
+Serban Oprisescu	University "Politehnica" of Bucharest, Romania
+Sergiu Nedevschi	Technical Unversity of Cluj-Napoca, Romania
+Sergiu Prodan	Technical University of Cluj-Napoca, Romania
+Stefan Prisca	Technical University of Cluj-Napoca, Romania
+Szilard Mandici	Technical Unversity of Cluj-Napoca, Romania
+Tahar Ezzedine	Enit, Tunisia
+Teodor Stefanut	Technical University of Cluj-Napoca, Romania
+Tiberiu Marita	Technical University of Cluj-Napoca, Romania
+Tiberiu Radulescu	University "Politehnica" of Bucharest, Romania
+Tiberiu Stefan Letia	Technical University of Cluj-Napoca, Romania
+Tibor Kiss	Universitatea Babeş-Bolyai, Romania
+Udo Zölzer	Helmut Schmidt University, Germany
+Valentin Cristea	University Politehnica of Bucharest - UPB, Romania
+Valentina-Camelia Bojan	University Politehnica of Bucharest, Romania
+Valerio Digani	University of Modena and Reggio Emilia, Italy
+Victor Bacu	Technical University of Cluj-Napoca, Romania
+Victor-Valeriu Patriciu	Millitary Technical Academy, Romania
+Vlad Colceriu	Technical University of Cluj-Napoca, Romania
+Vlad Doru Colceriu	Technical University of Cluj-Napoca, Romania
+Vlad Miclea	Technical University of Cluj-Napoca, Romania
+Vlad-Sebastian Ionescu	Babes-Bolyai University, Romania
+Vladimir-Nicolae Dinu	"Politehnica" University of Bucharest, Romania
+Zoltan Baruch	UTCN, Romania

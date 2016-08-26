@@ -25,6 +25,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import javafx.application.Application;
@@ -172,14 +173,29 @@ public class Licenta extends Application
         saveMenuItem.setOnAction(actionEvent -> clickSave());
         loadMenuItem.setOnAction(actionEvent -> clickLoad());
         
+        // --- Menu Generate
+        Menu menuGenerate = new Menu("Generate");
+        MenuItem generateHtmlMenuItem = new MenuItem("Generate Html");
+        MenuItem generateLatexMenuItem = new MenuItem("Generate Latex");
+                
+        menuGenerate.getItems().addAll(generateHtmlMenuItem,generateLatexMenuItem);
+        
+        generateHtmlMenuItem.setOnAction(actionEvent -> clickgGenerateHtml());
+        generateLatexMenuItem.setOnAction(actionEvent -> clickGenerateLatex());
+        
         // --- Menu Settings
         Menu menuSettings = new Menu("Settings");
         MenuItem pathToThesaurusMenuItem = new MenuItem("Path to thesaurus");
+        MenuItem pathToTecherAffiliationMenuItem = new MenuItem("Path to teacher affiliation");
         MenuItem lectureLenghtMenuItem = new MenuItem("Lecture lenght");
         pathToThesaurusMenuItem.setOnAction(actionEvent -> clickPathToThesaurus(newMenuItem));
+        pathToTecherAffiliationMenuItem.setOnAction(actionEvent -> clickPathToTecherAffiliation(generateHtmlMenuItem,generateLatexMenuItem));
         lectureLenghtMenuItem.setOnAction(actionEvent -> clickLectureLength());
+        
+        generateHtmlMenuItem.setDisable(true);
+        generateLatexMenuItem.setDisable(true);
                                                                        
-        menuSettings.getItems().addAll(pathToThesaurusMenuItem,lectureLenghtMenuItem);
+        menuSettings.getItems().addAll(pathToThesaurusMenuItem,pathToTecherAffiliationMenuItem,lectureLenghtMenuItem);
         
         // --- Menu View
         Menu menuView = new Menu("View");
@@ -194,21 +210,44 @@ public class Licenta extends Application
         homeMenuItem.setOnAction(actionEvent -> start(stage));
         
         menuView.getItems().addAll(timeTableMenuItem,summaryMenuItem,constraintMenuItem,new SeparatorMenuItem(),homeMenuItem);
-        
-        // --- Menu Generate
-        Menu menuGenerate = new Menu("Generate");
-        MenuItem generateHtmlMenuItem = new MenuItem("Generate Html");
-        MenuItem generateLatexMenuItem = new MenuItem("Generate Latex");
-                
-        menuGenerate.getItems().addAll(generateHtmlMenuItem,generateLatexMenuItem);
+              
         menuBar.getMenus().addAll(menuFile,menuSettings, menuView,menuGenerate);
                   
         return menuBar;
 
     }
     
+    private void clickPathToTecherAffiliation(MenuItem generateHtmlMenuItem,MenuItem generateLatexMenuItem)
+    {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Path to teacher affiliation");
+
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("txt", "*.txt")
+        );
+
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+            aplicationModel.setPathToTecherAffiliation(file.getPath());
+            generateHtmlMenuItem.setDisable(false);
+            generateLatexMenuItem.setDisable(false);
+        }       
+    }
+    
+    private void clickGenerateLatex()
+    {   
+        HashMap<String,String> map = dataCollector.getTeacherAffiliations(aplicationModel.getPathToTecherAffiliation());
+        int x=0;
+        
+    }
+    
+    private void clickgGenerateHtml()
+    {   
+        
+    }
+    
     private void clickViewSchedule()
-    {             
+    {   
         ScheduleView scheduleView=new ScheduleView(aplicationModel);
         borderPane.setCenter(scheduleView);
     }

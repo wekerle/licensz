@@ -204,21 +204,23 @@ public class TableView extends VBox implements SessionDragEventListener
                         for(String name:lecture.getAuthors())
                         {
                             ConstraintModel constraint=teacherConstraintMap.get(name);
-                            for(DateAndPeriodModel datePeriod:constraint.getDatesAndPeriods())
+                            if(constraint!=null)
                             {
-                                TableCellView tableCell=sessionIdTableCellMap.get(session.getId());
-                                if(datePeriod.getDate().getDayOfYear()==dayModel.getDay().getDayOfYear() && datePeriod.getTimeRange().intersects(time))
-                                {                                   
-                                    warningMessageText=new Text("WARNING:The following table contains datas wich not satisface the teacher avaiblity constraint");
-                                    messageBox.setVisible(true);                                   
-                                    tableCell.markWarningBorder();
-                                    
-                                }else
+                                for(DateAndPeriodModel datePeriod:constraint.getDatesAndPeriods())
                                 {
-                                    tableCell.unMarkWarningBorder();
+                                    TableCellView tableCell=sessionIdTableCellMap.get(session.getId());
+                                    if(datePeriod.getDate().getDayOfYear()==dayModel.getDay().getDayOfYear() && datePeriod.getTimeRange().intersects(time))
+                                    {                                   
+                                        warningMessageText=new Text("WARNING:The following table contains datas wich not satisface the teacher avaiblity constraint");
+                                        messageBox.setVisible(true);                                   
+                                        tableCell.markWarningBorder();
+
+                                    }else
+                                    {
+                                        tableCell.unMarkWarningBorder();
+                                    }
                                 }
                             }
-
                         }
                     }
                 }
