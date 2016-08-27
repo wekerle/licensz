@@ -7,6 +7,7 @@ package licenta;
 
 import Views.SummaryView;
 import DataProcessing.DataCollector;
+import DataProcessing.LatexExporter;
 import Helpers.StringHelper;
 import Models.AplicationModel;
 import Models.DayModel;
@@ -15,11 +16,13 @@ import Views.ConstraintsView;
 import Views.ScheduleView;
 import Views.TableSettingsView;
 import Views.TextEditor;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -28,6 +31,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -63,8 +68,8 @@ public class Licenta extends Application
     AplicationModel aplicationModel=new AplicationModel();
     DataCollector dataCollector= new DataCollector(); 
     Scene scene=new Scene(borderPane);
+    private byte[] aplicationModelSerialized;
     Stage stage=null;
-    ByteArrayOutputStream bos=new ByteArrayOutputStream();
     
     @Override
     public void start(Stage primaryStage) 
@@ -97,18 +102,40 @@ public class Licenta extends Application
     
     private EventHandler<WindowEvent> confirmCloseEventHandler = event -> 
     {
+        boolean hasModification=false;
         try
         {
-            ByteArrayInputStream bis = new   ByteArrayInputStream(bos.toByteArray());
-            ObjectInputStream in = new ObjectInputStream(bis);
-            AplicationModel copied = (AplicationModel) in.readObject();
+           ByteArrayOutputStream bos=new ByteArrayOutputStream();
+           ObjectOutputStream memeoryOutStream = new ObjectOutputStream(bos);
+           memeoryOutStream.writeObject(aplicationModel);
+            
+           byte[] data=bos.toByteArray();
+           memeoryOutStream.close();
+           bos.close();
+           
+           if(data.length!=aplicationModelSerialized.length)
+           {
+               hasModification=true;
+           }else
+           {
+               for(int i=0;i<data.length;i++)
+               {
+                   if(data[i]!=aplicationModelSerialized[i])
+                   {
+                       hasModification=true;
+                       break;
+                   }
+               }
+           }
+               
+
         }catch(Exception ex)
         {
             System.out.println(ex.getMessage());
         }
         
         
-        if(aplicationModel.hasModification())
+        if(hasModification)
         {
             Alert closeConfirmation = new Alert(
                 Alert.AlertType.CONFIRMATION,                
@@ -237,7 +264,18 @@ public class Licenta extends Application
     private void clickGenerateLatex()
     {   
         HashMap<String,String> map = dataCollector.getTeacherAffiliations(aplicationModel.getPathToTecherAffiliation());
-        int x=0;
+
+        try 
+        {
+            FileWriter file=new FileWriter("C:\\Users\\Ronaldo\\Desktop\\testLatexJava.tex");
+            BufferedWriter buffer=new BufferedWriter(file);
+            LatexExporter exporter=new LatexExporter(buffer);
+            exporter.genearateLatex(aplicationModel);
+            buffer.close();
+        } catch (IOException ex) 
+        {
+            Logger.getLogger(Licenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
     
@@ -393,12 +431,14 @@ public class Licenta extends Application
         }
         
         try
-        {            
+        {   
+            ByteArrayOutputStream bos=new ByteArrayOutputStream();
             ObjectOutputStream memeoryOutStream = new ObjectOutputStream(bos);
             memeoryOutStream.writeObject(aplicationModel);
+            aplicationModelSerialized=bos.toByteArray();
             
-            bos.close();
             memeoryOutStream.close();
+            bos.close();
         }catch(IOException ex)
         {
             System.out.println(ex.getMessage());
