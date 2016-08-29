@@ -19,6 +19,7 @@ import Models.LocalTimeRangeModel;
 import Models.RoomModel;
 import Models.SessionModel;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.geometry.Insets;
@@ -35,7 +36,7 @@ import javafx.scene.text.Text;
 public class TableView extends VBox implements SessionDragEventListener
 {
     // <editor-fold desc="private region" defaultstate="collapsed">
-    private DayEditor dayEditor=new DayEditor();
+    private DayEditor dayEditor=null;
     private GridPane table=new GridPane();
     private SessionDragEventListener sessionDragEvent;
     private DayModel dayModel;
@@ -49,14 +50,13 @@ public class TableView extends VBox implements SessionDragEventListener
         this.table.getChildren().clear();
         this.getChildren().clear();
         
-        messageBox.getStyleClass().add("warningBoxCell");        
-        messageBox.getChildren().add(warningMessageText);
+        messageBox.getStyleClass().add("warningBoxCell");               
         messageBox.setVisible(false);
         
+        dayEditor=new DayEditor(dayModel.getDay());
         dayEditor.setFont(StringHelper.font22Bold);
         dayEditor.setAlignment(Pos.CENTER);
         dayEditor.setPadding(new Insets(16));
-        dayEditor.setDay(dayModel.getDay());
         
         this.getChildren().add(dayEditor);
         this.getChildren().add(messageBox);
@@ -172,6 +172,7 @@ public class TableView extends VBox implements SessionDragEventListener
             i++;
         }
         verifyConstraint();
+        verifySameTeacher();
         this.getChildren().add(table);
     }
     // </editor-fold>
@@ -212,6 +213,8 @@ public class TableView extends VBox implements SessionDragEventListener
                                     if(datePeriod.getDate().getDayOfYear()==dayModel.getDay().getDayOfYear() && datePeriod.getTimeRange().intersects(time))
                                     {                                   
                                         warningMessageText=new Text("WARNING:The following table contains datas wich not satisface the teacher avaiblity constraint");
+                                        messageBox.getChildren().clear();
+                                        messageBox.getChildren().add(warningMessageText);
                                         messageBox.setVisible(true);                                   
                                         tableCell.markWarningBorder();
 
@@ -231,24 +234,69 @@ public class TableView extends VBox implements SessionDragEventListener
     public void verifySameTeacher()
     {
         for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:dayModel.getTimeRoomMap().entrySet())
-        {
-            LocalTimeRangeModel time=dayModel.getTimeById(timeRoomSession.getKey());
+        {        
+            ArrayList<String> names=new ArrayList<String>();
+            ArrayList<TableCellView> cells=new ArrayList<TableCellView>();
+            
             for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
             {
-                SessionModel session=roomSession.getValue();
+                SessionModel session=roomSession.getValue();  
+                ArrayList<String> distinctNamesPerSession=new ArrayList<String>();
                 
                 if(!session.isBreak())
                 {
+                    TableCellView tableCell=sessionIdTableCellMap.get(session.getId());
+                    cells.add(tableCell);
+                    
+                    if(!distinctNamesPerSession.contains(session.getChair().trim()));
+                    {
+                        distinctNamesPerSession.add(session.getChair().trim());                       
+                    }
+                    
+                    if(!distinctNamesPerSession.contains(session.getCoChair().trim()));
+                    {
+                        distinctNamesPerSession.add(session.getCoChair().trim());
+                    }
+                                                       
                     for(LectureModel lecture:session.getLectures())
                     {
                         for(String name:lecture.getAuthors())
                         {
-                            warningMessageText=new Text("WARNING:The teacher/chair can not be at the same time in to different rooms");
-                            messageBox.setVisible(true);                                   
-                            //tableCell.markWarningBorder();
+                            if(!distinctNamesPerSession.contains(name.trim()))
+                            {
+                                distinctNamesPerSession.add(name.trim());
+                            }                           
                         }
                     }
-                }
+                }              
+                names.addAll(distinctNamesPerSession);
+            }
+            
+            ArrayList<String> warningNames=new ArrayList<String>();
+            for(int i=0;i<names.size()-1;i++)
+            {
+                for(int j=i+1;j<names.size()-1;j++)
+                {
+                    if(names.get(i).compareTo(names.get(j))==0)
+                    {
+                        warningNames.add(names.get(i));
+                        for(TableCellView cell :cells)
+                        {
+                            if(cell.containsName(names.get(i)))
+                            {
+                                cell.markWarningBorder();
+                            }
+                        }                        
+                    }
+                }                                    
+            }
+            
+            if(warningNames.size()>0)
+            {
+                warningMessageText=new Text("WARNING:The teacher/chair can not be at the same time in to different rooms:"+StringHelper.createListSeparateComma(warningNames));
+                messageBox.getChildren().clear();
+                messageBox.getChildren().add(warningMessageText);
+                messageBox.setVisible(true);                 
             }
         }
     }

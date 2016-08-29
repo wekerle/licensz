@@ -49,4 +49,14 @@ public class DateAndPeriodModel
         }
         return "";            
     }  
+
+    public void setDate(LocalDate day) 
+    {
+        this.date=day;
+    }
+
+    public void setPeriod(LocalTimeRangeModel timeRange) 
+    {
+        this.timeRange=timeRange;
+    }
 }

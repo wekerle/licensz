@@ -14,6 +14,8 @@ import Helpers.StringHelper;
 import Models.AplicationModel;
 import Models.DayModel;
 import Models.LocalTimeRangeModel;
+import Models.SessionModel;
+import Models.TopicModel;
 import Views.ConstraintsView;
 import Views.ScheduleView;
 import Views.TableSettingsView;
@@ -269,6 +271,11 @@ public class Licenta extends Application
     {   
         aplicationModel.setTeacherAffiliationMap(dataCollector.getTeacherAffiliations(aplicationModel.getPathToTecherAffiliation()));
         
+        for(DayModel day : aplicationModel.getDays())
+        {
+            day.calculatedPeriodForLectures(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
+        }
+                
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Generate latex");
 

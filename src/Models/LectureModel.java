@@ -22,10 +22,18 @@ public class LectureModel implements Serializable
     private ArrayList<String> authors;
     private String abstarct;
     private ArrayList<String> keyWords;
+    private LocalTimeRangeModel period;
     private ArrayList<KeyWordModel> generatedKeyWords;
     private int id;
 
+    public LocalTimeRangeModel getPeriod() {
+        return period;
+    }
 
+    public void setPeriod(LocalTimeRangeModel period) {
+        this.period = period;
+    }
+       
     public int getPageNr() 
     {
         return pageNr;

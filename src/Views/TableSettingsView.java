@@ -22,7 +22,7 @@ import javafx.scene.text.Text;
  */
 public class TableSettingsView extends VBox
 {
-    private DayEditor dayEditor=new DayEditor();
+    private DayEditor dayEditor=null;
     private HourEditor period=null;
     private TextEditor numberOfSessionsPerRoom=new TextEditor();
     private DayModel dayModel=null;
@@ -40,7 +40,7 @@ public class TableSettingsView extends VBox
         textDate.setFont(StringHelper.font16Bold);
         grid.add(textDate, 0, 0);
         
-        dayEditor.setDay(dayModel.getDay());
+        dayEditor=new DayEditor(dayModel.getDay());
         grid.add(dayEditor, 1, 0);
         dayEditor.setFont(StringHelper.font16);
         

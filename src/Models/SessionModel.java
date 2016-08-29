@@ -6,6 +6,7 @@
 package Models;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import licenta.IdGenerator;
 
@@ -20,7 +21,7 @@ public class SessionModel implements Serializable
     private String chair;
     private String coChair;
     
-    private ArrayList<LectureModel> LectureWithDetails=new  ArrayList<LectureModel>();
+    private ArrayList<LectureModel> lectures=new  ArrayList<LectureModel>();
     private int id;
     
     public SessionModel()
@@ -32,7 +33,7 @@ public class SessionModel implements Serializable
     
     public void makeBreak(String title)
     {
-        this.LectureWithDetails=null;
+        this.lectures=null;
         this.chair=null;
         this.coChair=null;
         this.title=title;
@@ -40,7 +41,7 @@ public class SessionModel implements Serializable
     
     public boolean isBreak()
     {
-        return LectureWithDetails == null && chair==null && coChair==null;
+        return lectures == null && chair==null && coChair==null;
     }
     
     public String getTitle() 
@@ -60,7 +61,7 @@ public class SessionModel implements Serializable
 
     public ArrayList<LectureModel> getLectures() 
     {
-        return LectureWithDetails;
+        return lectures;
     }
 
     public String getChair() 
@@ -83,9 +84,25 @@ public class SessionModel implements Serializable
         this.coChair = coChair;
     }
 
-    public void setLectureWithDetails(ArrayList<LectureModel> LectureWithDetails) 
+    public void calculatedPeriodForLectures(int shortLectureDuration,int longLectureDuration,LocalTimeRangeModel sessionPeriod) 
     {
-        this.LectureWithDetails = LectureWithDetails;
+        LocalTime startTime=sessionPeriod.getStartTime();
+        int duration=0;
+        for(LectureModel lecture:lectures)
+        {
+            if(lecture.getType().compareTo("S")==0)
+            {
+                duration=shortLectureDuration;
+            }
+            if(lecture.getType().compareTo("F")==0)
+            {
+                duration=longLectureDuration;
+            }
+            LocalTimeRangeModel lecturePeriod=new LocalTimeRangeModel(startTime,duration);
+            lecture.setPeriod(lecturePeriod);
+            
+            startTime=lecturePeriod.getEndTime();
+        }
     }
     
 }

@@ -13,8 +13,6 @@ import Models.LocalTimeRangeModel;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
@@ -26,10 +24,10 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 /**
  *
@@ -41,21 +39,21 @@ public class ConstraintsView extends ScrollPane
     private GridPane table=new GridPane();
     double scrollValue;
     
-     private ScrollBar getVerticalScrollbar() 
-     {
-        ScrollBar result = null;
-        for (Node n : this.lookupAll(".scroll-bar")) 
-        {
-            if (n instanceof ScrollBar) 
-            {
-                ScrollBar bar = (ScrollBar) n;
-                if (bar.getOrientation().equals(Orientation.VERTICAL)) 
-                {
-                    result = bar;
-                }
-            }
-        }        
-        return result;
+    private ScrollBar getVerticalScrollbar() 
+    {
+       ScrollBar result = null;
+       for (Node n : this.lookupAll(".scroll-bar")) 
+       {
+           if (n instanceof ScrollBar) 
+           {
+               ScrollBar bar = (ScrollBar) n;
+               if (bar.getOrientation().equals(Orientation.VERTICAL)) 
+               {
+                   result = bar;
+               }
+           }
+       }        
+       return result;
     }
     
     private void addContraintDateAndPeriodToGrid(DateAndPeriodModel dateAndPeriod,ConstraintModel constraint, GridPane constraintGrid,int rowNumber )
@@ -75,12 +73,9 @@ public class ConstraintsView extends ScrollPane
                     public void handle(MouseEvent event) {
                         ConstraintsView.this.scrollValue=ConstraintsView.this.getVvalue();
                         constraint.deleteDateAndPeriod(dateAndPeriod);
-                       // constraintGrid.getChildren().remove(restriction);
-                       // constraintGrid.getChildren().remove(buttonDelete);
+                        constraintGrid.getChildren().remove(restriction);
+                        constraintGrid.getChildren().remove(buttonDelete);
                         
-                        populateContent(aplicationModel.getConstraints());
-                        ConstraintsView.this.layout();
-                        ConstraintsView.this.layoutChildren();
                         ConstraintsView.setTimeout(new Thread()
                         {
                             public void run()
@@ -88,32 +83,98 @@ public class ConstraintsView extends ScrollPane
                                 ConstraintsView.this.getVerticalScrollbar().setValue(scrollValue);
                             }
                         },10);
-                       // ConstraintsView.this.getVerticalScrollbar().setValue(scrollValue);
                     }
                 });
+        
+        restriction.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                new EventHandler<MouseEvent>()
+                {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        if(event.getButton().equals(MouseButton.PRIMARY))
+                        {
+                            if(event.getClickCount() == 2)
+                            {
+                                ArrayList<ButtonType> buttons=new ArrayList<ButtonType>();
+                            
+                                ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+                                ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+                                buttons.add(buttonCancel);
+                                buttons.add(buttonTypeOk);
+                            
+                                DayEditor dayEditor=new DayEditor(dateAndPeriod.getDate());                            
+                                HourEditor hourEditor=new HourEditor(dateAndPeriod.getTimeRange());
 
+                                Dialog dialog = getRestrictionEditDialog(dayEditor,hourEditor ,buttons);
+
+                                Optional<ButtonType> result = dialog.showAndWait();
+
+                                if ((result.isPresent()) && (result.get() == buttonTypeOk)) 
+                                {
+                                    dateAndPeriod.setDate(dayEditor.getDay());
+                                    dateAndPeriod.setPeriod(hourEditor.getTimeRange());
+                                    restriction.setText(dateAndPeriod.getDayAndTimeString());
+                                }
+                            } 
+                        }
+                    }
+                });
+        
         constraintGrid.add(restriction, 0, rowNumber);
         constraintGrid.add(buttonDelete,1,rowNumber);
     }
     
-    public static void setTimeout(Runnable runnable, int delay){
-    new Thread(() -> {
-        try {
-            Thread.sleep(delay);
-            runnable.run();
+    private Dialog getRestrictionEditDialog(DayEditor dayEditor,HourEditor hourEditor,ArrayList<ButtonType> buttons)
+    {
+        GridPane dialogContent=new GridPane();
+        
+        Text textDate=new Text("Date:");
+        textDate.setFont(StringHelper.font16Bold);
+        dialogContent.add(textDate, 0, 0);
+      
+        dayEditor.setFont(StringHelper.font16);
+        dialogContent.add(dayEditor, 1, 0);
+
+        Text textPeriod=new Text("Period:");
+        textPeriod.setFont(StringHelper.font16Bold);
+        dialogContent.add(textPeriod, 0, 1);
+        
+        hourEditor.setFont(StringHelper.font16);
+        dialogContent.add(hourEditor, 1, 1);
+        
+        Dialog dialog = new Dialog<>();
+        dialog.setHeaderText("Select the date and the hour:");
+        dialog.getDialogPane().setPrefSize(300, 225);
+
+        dialog.getDialogPane().setContent(dialogContent);
+
+        for(ButtonType button:buttons)
+        {
+             dialog.getDialogPane().getButtonTypes().add(button);
         }
-        catch (Exception e){
-            System.err.println(e);
-        }
-    }).start();
-}
+        
+        return dialog;
+    }
+    
+    private static void setTimeout(Runnable runnable, int delay)
+    {
+        new Thread(() -> 
+        {
+            try {
+                Thread.sleep(delay);
+                runnable.run();
+            }
+            catch (Exception e){
+                System.err.println(e);
+            }
+        }).start();
+    }
     public ConstraintsView(AplicationModel aplicationModel)
     {   
         super();     
         this.aplicationModel=aplicationModel;
         
-        populateContent(aplicationModel.getConstraints());
-       // this.setVvalue(scrollValue);    
+        populateContent(aplicationModel.getConstraints());  
     }
     
     public void populateContent(ArrayList<ConstraintModel> constraints)
@@ -152,37 +213,19 @@ public class ConstraintsView extends ScrollPane
                         public void handle(MouseEvent event) 
                         {
                             if (ypos == -1) ypos = jj;
-                            GridPane dialogContent=new GridPane();                           
                             
-                            Text textDate=new Text("Date:");
-                            textDate.setFont(StringHelper.font16Bold);
-                            dialogContent.add(textDate, 0, 0);
-                                
-                            DayEditor dayEditor=new DayEditor();
-                            dayEditor.setDay(LocalDate.now());
-                            dayEditor.setFont(StringHelper.font16);
-                            dialogContent.add(dayEditor, 1, 0);
-
-                            Text textPeriod=new Text("Period:");
-                            textPeriod.setFont(StringHelper.font16Bold);
-                            dialogContent.add(textPeriod, 0, 1);
-
-                            HourEditor hourEditor=new HourEditor(new LocalTimeRangeModel(8,0,360));
-                            hourEditor.setFont(StringHelper.font16);
-                            dialogContent.add(hourEditor, 1, 1);
-                                           
-                            Dialog dialog = new Dialog<>();
-                            dialog.setHeaderText("Select the date and the hour:");
-                            dialog.getDialogPane().setPrefSize(300, 225);
-
-                            dialog.getDialogPane().setContent(dialogContent);
-
+                            ArrayList<ButtonType> buttons=new ArrayList<ButtonType>();
+                            
                             ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
                             ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-                            dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
-                            dialog.getDialogPane().getButtonTypes().add(buttonCancel);
-
+                            buttons.add(buttonCancel);
+                            buttons.add(buttonTypeOk);
+                            
+                            DayEditor dayEditor=new DayEditor(LocalDate.now());                            
+                            HourEditor hourEditor=new HourEditor(new LocalTimeRangeModel(8,0,360));
+                            
+                            Dialog dialog = getRestrictionEditDialog(dayEditor,hourEditor ,buttons);
+                            
                             Optional<ButtonType> result = dialog.showAndWait();
 
                             if ((result.isPresent()) && (result.get() == buttonTypeOk)) 
@@ -196,14 +239,7 @@ public class ConstraintsView extends ScrollPane
                     }
             );             
             i++;
-        }
-        
+        }        
         this.setContent(table);   
-        /*this.setVvalue(scrollValue);
-        
-        if(getVerticalScrollbar()!=null)
-        {
-            getVerticalScrollbar().setValue(scrollValue);
-        }*/
     }
 }

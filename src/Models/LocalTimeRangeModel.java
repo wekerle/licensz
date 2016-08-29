@@ -96,7 +96,7 @@ public class LocalTimeRangeModel implements Serializable,Comparable<LocalTimeRan
     
     public boolean contains(LocalTime time)
     {
-        if(time.isAfter(startTime) && time.isBefore(endTime))
+        if((time.isAfter(startTime) || time.compareTo(startTime)==0) && time.isBefore(endTime))
         {
             return true;
         }

@@ -33,10 +33,12 @@ public class DayEditor extends VBox
         this.dayChangeListener=dayChangeListener;
     }
     
-    public DayEditor()
+    public DayEditor(LocalDate dateLocalDate)
     {
-        this.getChildren().add(text);
+        this.text.setText(StringHelper.getConverter().toString(dateLocalDate));
+        datePicker.setValue(dateLocalDate);
         
+        this.getChildren().add(text);        
         text.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
         @Override

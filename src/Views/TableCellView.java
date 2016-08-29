@@ -13,6 +13,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import Listener.SessionDragEventListener;
+import Models.LectureModel;
 import Models.SessionModel;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -161,19 +162,50 @@ public class TableCellView
         });        
      }
      
-     public void markWarningBorder()
-     {
-        if(!content.getStyleClass().contains("warningTableCell"))
+    public void markWarningBorder()
+    {
+       if(!content.getStyleClass().contains("warningTableCell"))
+       {
+           content.getStyleClass().add("warningTableCell");
+       }
+    }
+
+    public void unMarkWarningBorder()
+    {
+       if(content.getStyleClass().contains("warningTableCell"))
+       {
+           content.getStyleClass().remove("warningTableCell");
+       }
+    }
+    
+    public boolean containsName(String name)
+    {      
+        if(this.minimalSessionView==null)
         {
-            content.getStyleClass().add("warningTableCell");
+            return false;
         }
-     }
-     
-     public void unMarkWarningBorder()
-     {
-        if(content.getStyleClass().contains("warningTableCell"))
+        
+        SessionModel session=this.minimalSessionView.getSessionModel();
+        if(session==null || session.isBreak())
         {
-            content.getStyleClass().remove("warningTableCell");
+            return false;
         }
-     }
+        
+        if(session.getChair().trim().compareTo(name)==0 || session.getCoChair().trim().compareTo(name)==0)
+        {
+           return true;
+        }
+        
+        for(LectureModel lecture : session.getLectures())
+        {
+            for(String author : lecture.getAuthors())
+            {
+                if(author.trim().compareTo(name)==0)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

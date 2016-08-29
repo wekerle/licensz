@@ -7,6 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -515,5 +516,21 @@ public class DayModel implements Serializable
             }
         }
         return i;
+    }
+
+    public void calculatedPeriodForLectures(int shortLectureDuration, int longLectureDuration) 
+    {
+        for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:timeRoomMap.entrySet())
+        {
+            LocalTimeRangeModel sessionPeriod=getTimeById(timeRoomSession.getKey());
+            for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
+            {
+                SessionModel session=roomSession.getValue();
+                if(session!=null && !session.isBreak())
+                {
+                    session.calculatedPeriodForLectures(shortLectureDuration, longLectureDuration, sessionPeriod);
+                }
+            }
+        }
     }
 }
