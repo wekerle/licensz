@@ -19,7 +19,6 @@ import Views.ScheduleView;
 import Views.TableSettingsView;
 import Views.TextEditor;
 import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -63,8 +62,7 @@ import javafx.stage.WindowEvent;
  * @author Ronaldo
  */
 public class Licenta extends Application 
-{
-    
+{   
     private BorderPane borderPane = new BorderPane();
     private AplicationModel aplicationModel=new AplicationModel();
     private DataManager dataManager=new DataManager(aplicationModel);
