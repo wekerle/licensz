@@ -5,7 +5,6 @@
  */
 package Views;
 
-import Helpers.Enums;
 import Helpers.StringHelper;
 import Listener.TextChangeEventListener;
 import Models.SessionModel;
@@ -69,5 +68,10 @@ public class MinimalSessionView extends VBox
     public int getSessionId()
     {
         return this.sessionId;
+    }
+    
+    public SessionModel getSessionModel()
+    {
+        return sessionModel;
     }
 }

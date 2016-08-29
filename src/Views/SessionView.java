@@ -5,7 +5,6 @@
  */
 package Views;
 
-import Helpers.Enums;
 import Helpers.StringHelper;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
@@ -14,7 +13,6 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
-import licenta.GlobalVaribles;
 import Listener.LectureDragEventListener;
 import Listener.TextChangeEventListener;
 import Models.SessionModel;
@@ -30,6 +28,7 @@ public class SessionView
     private TextEditor titleView=new TextEditor();
     private VBox containerNode=new VBox();
     private TextEditor chairView=new TextEditor();
+    private TextEditor coChairView=new TextEditor();
     private int sessionId;
     private LectureDragEventListener lectureDragEvent;
     private TextChangeEventListener textChangeEvent;
@@ -45,7 +44,8 @@ public class SessionView
         this.sessionModel=session;
         this.sessionId=sessionModel.getId();
         titleView.setText(sessionModel.getTitle());
-        chairView.setText(StringHelper.createListSeparateComma(sessionModel.getChairs()));
+        chairView.setText(sessionModel.getChair());
+        coChairView.setText(sessionModel.getCoChair());
         
         titleView.setTextChangeEventListener(new TextChangeEventListener() 
         {
@@ -61,18 +61,28 @@ public class SessionView
             @Override
             public void modifyText(String newValue) 
             {
-                ArrayList<String> chairs=StringHelper.createArralyListFromListSeparateComma(newValue);
-                sessionModel.setChairs(chairs);
+                sessionModel.setChair(newValue);
+            }
+         });
+        
+        coChairView.setTextChangeEventListener(new TextChangeEventListener() 
+        {
+            @Override
+            public void modifyText(String newValue) 
+            {
+                sessionModel.setCoChair(newValue);
             }
          });
         
         containerNode.getChildren().add(titleView);
         containerNode.getChildren().add(chairView);
+        containerNode.getChildren().add(coChairView);
         
         containerNode.getChildren().add(contentNode);
         
         titleView.setFont(StringHelper.font18Bold);
         chairView.setFont(StringHelper.font18);
+        coChairView.setFont(StringHelper.font18);
         
         containerNode.setPadding(new Insets(10));
                 
@@ -119,16 +129,16 @@ public class SessionView
                     if(SessionView.this.lectureDragEvent!=null){
                         lectureDragEvent.notify(sessionId, lectureId);
                         
-                        LectureView dl= GlobalVaribles.getDragLectureByNumber(Integer.parseInt(db.getString()));
+                        LectureView dl= SummaryView.getDragLectureByNumber(Integer.parseInt(db.getString()));
                         addLectureView(dl);
                         
-                        for(LectureView dragLec: GlobalVaribles.getAllSelected())
+                        for(LectureView dragLec: SummaryView.selectedDragLectures)
                         {
                             lectureDragEvent.notify(sessionId, dragLec.getLectureNumber());
                             addLectureView(dragLec);
                         }
                     }                                                          
-                    GlobalVaribles.removeAllSelected();
+                    SummaryView.removeAllSelected();
                    success = true;
                 }
                 /* let the source know whether the string was successfully 

@@ -13,19 +13,23 @@ import Models.LocalTimeRangeModel;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  *
@@ -35,6 +39,24 @@ public class ConstraintsView extends ScrollPane
 {
     AplicationModel aplicationModel=null;
     private GridPane table=new GridPane();
+    double scrollValue;
+    
+     private ScrollBar getVerticalScrollbar() 
+     {
+        ScrollBar result = null;
+        for (Node n : this.lookupAll(".scroll-bar")) 
+        {
+            if (n instanceof ScrollBar) 
+            {
+                ScrollBar bar = (ScrollBar) n;
+                if (bar.getOrientation().equals(Orientation.VERTICAL)) 
+                {
+                    result = bar;
+                }
+            }
+        }        
+        return result;
+    }
     
     private void addContraintDateAndPeriodToGrid(DateAndPeriodModel dateAndPeriod,ConstraintModel constraint, GridPane constraintGrid,int rowNumber )
     {
@@ -45,15 +67,28 @@ public class ConstraintsView extends ScrollPane
         Image imageDelete=new Image("/Icons/delete3.png");
         Button buttonDelete=new Button();
         buttonDelete.setGraphic(new ImageView(imageDelete));
-
+        
         buttonDelete.addEventHandler(MouseEvent.MOUSE_CLICKED,
                 new EventHandler<MouseEvent>()
                 {
                     @Override
                     public void handle(MouseEvent event) {
+                        ConstraintsView.this.scrollValue=ConstraintsView.this.getVvalue();
                         constraint.deleteDateAndPeriod(dateAndPeriod);
-                        constraintGrid.getChildren().remove(restriction);
-                        constraintGrid.getChildren().remove(buttonDelete);
+                       // constraintGrid.getChildren().remove(restriction);
+                       // constraintGrid.getChildren().remove(buttonDelete);
+                        
+                        populateContent(aplicationModel.getConstraints());
+                        ConstraintsView.this.layout();
+                        ConstraintsView.this.layoutChildren();
+                        ConstraintsView.setTimeout(new Thread()
+                        {
+                            public void run()
+                            {
+                                ConstraintsView.this.getVerticalScrollbar().setValue(scrollValue);
+                            }
+                        },10);
+                       // ConstraintsView.this.getVerticalScrollbar().setValue(scrollValue);
                     }
                 });
 
@@ -61,16 +96,30 @@ public class ConstraintsView extends ScrollPane
         constraintGrid.add(buttonDelete,1,rowNumber);
     }
     
+    public static void setTimeout(Runnable runnable, int delay){
+    new Thread(() -> {
+        try {
+            Thread.sleep(delay);
+            runnable.run();
+        }
+        catch (Exception e){
+            System.err.println(e);
+        }
+    }).start();
+}
     public ConstraintsView(AplicationModel aplicationModel)
     {   
         super();     
         this.aplicationModel=aplicationModel;
         
         populateContent(aplicationModel.getConstraints());
+       // this.setVvalue(scrollValue);    
     }
     
     public void populateContent(ArrayList<ConstraintModel> constraints)
     {   
+        
+        this.table.getChildren().clear();
         int i=0;
         for(ConstraintModel constraint : constraints)
         {
@@ -148,10 +197,13 @@ public class ConstraintsView extends ScrollPane
             );             
             i++;
         }
-   
         
+        this.setContent(table);   
+        /*this.setVvalue(scrollValue);
         
-        this.setContent(table);
-        
+        if(getVerticalScrollbar()!=null)
+        {
+            getVerticalScrollbar().setValue(scrollValue);
+        }*/
     }
 }

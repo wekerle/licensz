@@ -7,8 +7,6 @@ package Views;
 
 import Adaptor.Converter;
 import DataManagment.DataManager;
-import Helpers.Enums;
-import Helpers.StringHelper;
 import Models.AplicationModel;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
@@ -22,7 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import Listener.LectureDragEventListener;
-import Listener.TextChangeEventListener;
+import java.util.HashMap;
 
 /**
  *
@@ -30,13 +28,44 @@ import Listener.TextChangeEventListener;
  */
 public class SummaryView extends ScrollPane implements LectureDragEventListener
 {
+    // <editor-fold desc="static region" defaultstate="collapsed">
+    protected static HashMap<Integer,LectureView> dragLectureAndNumberMap=new HashMap<Integer,LectureView>();
+    protected static  ArrayList<LectureView> selectedDragLectures=new ArrayList<LectureView>();
+    
+    public static LectureView getDragLectureByNumber(int lectureNumber) 
+    {
+        return dragLectureAndNumberMap.get(lectureNumber);
+    }
+    
+    public static void removeAllSelected() 
+    {
+        for(LectureView dl:selectedDragLectures)
+        {
+            dl.getNode().setStyle("-fx-background-color:inherit");
+        }
+        selectedDragLectures.removeAll(selectedDragLectures);
         
+    }
+    
+    public static void addSelected(LectureView dragLecture) 
+    {
+        dragLecture.getNode().setStyle("-fx-background-color:#d6c9c9");
+        selectedDragLectures.add(dragLecture);
+    }
+    
+    public static boolean isSelected(LectureView dragLecture) 
+    {
+      return  selectedDragLectures.contains(dragLecture);
+    }
+         //</editor-fold>
+    
+    // <editor-fold desc="private region" defaultstate="collapsed">    
     private double scrollDirection = 0;
     private VBox verticalLayout =  new VBox();
     private AplicationModel aplicationModel=null;
     private Timeline scrolltimeline = new Timeline();
     private DataManager dataManager;
-    
+           
     private void dragScroll() 
     {        
         ScrollBar scrollBar = getVerticalScrollbar();
@@ -67,7 +96,7 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener
     private void SetupView()
     {
         
-        Converter c=new Converter();
+        Converter converter=new Converter();
         
         scrolltimeline.setCycleCount(Timeline.INDEFINITE);
         scrolltimeline.getKeyFrames().add(new KeyFrame(Duration.millis(20), "Scoll", (ActionEvent) -> { dragScroll();}));
@@ -108,7 +137,7 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener
             }
         });
         
-         ArrayList<TopicView> topicViewList= c.topicListToTopicViewList(aplicationModel.getTopics(),this);
+         ArrayList<TopicView> topicViewList= converter.topicListToTopicViewList(aplicationModel.getTopics(),this);
         
         for(TopicView topicView : topicViewList)
         {
@@ -116,6 +145,8 @@ public class SummaryView extends ScrollPane implements LectureDragEventListener
         }
         
     }
+         //</editor-fold>
+    
     public SummaryView(AplicationModel model)
     {
         this.aplicationModel=model;

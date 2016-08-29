@@ -5,8 +5,11 @@
  */
 package licenta;
 
+import DataManagment.DataManager;
 import Views.SummaryView;
 import DataProcessing.DataCollector;
+import DataProcessing.HtmlExporter;
+import DataProcessing.LatexExporter;
 import Helpers.StringHelper;
 import Models.AplicationModel;
 import Models.DayModel;
@@ -15,11 +18,13 @@ import Views.ConstraintsView;
 import Views.ScheduleView;
 import Views.TableSettingsView;
 import Views.TextEditor;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -28,6 +33,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -43,7 +50,6 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -59,12 +65,13 @@ import javafx.stage.WindowEvent;
 public class Licenta extends Application 
 {
     
-    BorderPane borderPane = new BorderPane();
-    AplicationModel aplicationModel=new AplicationModel();
-    DataCollector dataCollector= new DataCollector(); 
-    Scene scene=new Scene(borderPane);
-    Stage stage=null;
-    ByteArrayOutputStream bos=new ByteArrayOutputStream();
+    private BorderPane borderPane = new BorderPane();
+    private AplicationModel aplicationModel=new AplicationModel();
+    private DataManager dataManager=new DataManager(aplicationModel);
+    private DataCollector dataCollector= new DataCollector(); 
+    private Scene scene=new Scene(borderPane);
+    private byte[] aplicationModelSerialized;
+    private Stage stage=null;
     
     @Override
     public void start(Stage primaryStage) 
@@ -97,18 +104,40 @@ public class Licenta extends Application
     
     private EventHandler<WindowEvent> confirmCloseEventHandler = event -> 
     {
+        boolean hasModification=false;
         try
         {
-            ByteArrayInputStream bis = new   ByteArrayInputStream(bos.toByteArray());
-            ObjectInputStream in = new ObjectInputStream(bis);
-            AplicationModel copied = (AplicationModel) in.readObject();
+           ByteArrayOutputStream bos=new ByteArrayOutputStream();
+           ObjectOutputStream memeoryOutStream = new ObjectOutputStream(bos);
+           memeoryOutStream.writeObject(aplicationModel);
+            
+           byte[] data=bos.toByteArray();
+           memeoryOutStream.close();
+           bos.close();
+           
+           if(data.length!=aplicationModelSerialized.length)
+           {
+               hasModification=true;
+           }else
+           {
+               for(int i=0;i<data.length;i++)
+               {
+                   if(data[i]!=aplicationModelSerialized[i])
+                   {
+                       hasModification=true;
+                       break;
+                   }
+               }
+           }
+               
+
         }catch(Exception ex)
         {
             System.out.println(ex.getMessage());
         }
         
         
-        if(aplicationModel.hasModification())
+        if(hasModification)
         {
             Alert closeConfirmation = new Alert(
                 Alert.AlertType.CONFIRMATION,                
@@ -161,10 +190,10 @@ public class Licenta extends Application
                         )
                 ));
         
-        if(aplicationModel.getPathToThesaurus()==null)
-        {
-            newMenuItem.setDisable(true);
-        }
+       // if(aplicationModel.getPathToThesaurus()==null)
+        //{
+          //  newMenuItem.setDisable(true);
+       // }
 
         menuFile.getItems().addAll(newMenuItem,loadMenuItem, saveMenuItem,
         new SeparatorMenuItem(), exitMenuItem);
@@ -192,10 +221,14 @@ public class Licenta extends Application
         pathToTecherAffiliationMenuItem.setOnAction(actionEvent -> clickPathToTecherAffiliation(generateHtmlMenuItem,generateLatexMenuItem));
         lectureLenghtMenuItem.setOnAction(actionEvent -> clickLectureLength());
         
-        generateHtmlMenuItem.setDisable(true);
-        generateLatexMenuItem.setDisable(true);
+        if(aplicationModel.getPathToTecherAffiliation()==null)
+        {
+            generateHtmlMenuItem.setDisable(true);
+            generateLatexMenuItem.setDisable(true);
+        }
                                                                        
-        menuSettings.getItems().addAll(pathToThesaurusMenuItem,pathToTecherAffiliationMenuItem,lectureLenghtMenuItem);
+       // menuSettings.getItems().addAll(pathToThesaurusMenuItem,pathToTecherAffiliationMenuItem,lectureLenghtMenuItem);
+        menuSettings.getItems().addAll(pathToTecherAffiliationMenuItem,lectureLenghtMenuItem);
         
         // --- Menu View
         Menu menuView = new Menu("View");
@@ -236,14 +269,66 @@ public class Licenta extends Application
     
     private void clickGenerateLatex()
     {   
-        HashMap<String,String> map = dataCollector.getTeacherAffiliations(aplicationModel.getPathToTecherAffiliation());
-        int x=0;
+        aplicationModel.setTeacherAffiliationMap(dataCollector.getTeacherAffiliations(aplicationModel.getPathToTecherAffiliation()));
         
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Generate latex");
+
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("tex", "*.tex")
+        );
+
+        File file = fileChooser.showSaveDialog(stage);
+        if (file != null) 
+        {
+            try 
+            {
+                String path=file.getPath();
+
+                FileWriter fileWriter=new FileWriter(path);
+                                
+                BufferedWriter buffer=new BufferedWriter(fileWriter);
+                LatexExporter exporter=new LatexExporter(buffer);
+                exporter.genearateLatex(aplicationModel);
+                buffer.close();              
+                
+            } catch (IOException ex) 
+            {
+                System.out.println(ex.getMessage());
+            }
+        }        
     }
     
     private void clickgGenerateHtml()
     {   
+        aplicationModel.setTeacherAffiliationMap(dataCollector.getTeacherAffiliations(aplicationModel.getPathToTecherAffiliation()));
         
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Generate html");
+
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("html", "*.html")
+        );
+
+        File file = fileChooser.showSaveDialog(stage);
+        if (file != null) 
+        {
+            try 
+            {
+                String path=file.getPath();
+
+                FileWriter fileWriter=new FileWriter(path);
+                                
+                BufferedWriter buffer=new BufferedWriter(fileWriter);
+                HtmlExporter exporter=new HtmlExporter(buffer);
+                exporter.genearateHtml(aplicationModel);
+                buffer.close();              
+                
+            } catch (IOException ex) 
+            {
+                System.out.println(ex.getMessage());
+            }
+        }
     }
     
     private void clickViewSchedule()
@@ -253,7 +338,8 @@ public class Licenta extends Application
     }
     
     private void clickViewConstraints()
-    {             
+    {        
+        dataManager.updatedConstraints();
         ConstraintsView constraintView=new ConstraintsView(aplicationModel);
         borderPane.setCenter(constraintView);
     }
@@ -387,25 +473,29 @@ public class Licenta extends Application
                     {
                         day.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
                     }
-                    aplicationModel.setConstraints(dataCollector.getConstraints(aplicationModel.getTopics()));
+                    aplicationModel.setConstraints(dataManager.getConstraints(aplicationModel.getTopics()));
                 }
             }                      
         }
-        
+        setAplicationModelSerialized();       
+        start(stage);      
+    }
+    
+    private void setAplicationModelSerialized()
+    {
         try
-        {            
+        {   
+            ByteArrayOutputStream bos=new ByteArrayOutputStream();
             ObjectOutputStream memeoryOutStream = new ObjectOutputStream(bos);
             memeoryOutStream.writeObject(aplicationModel);
+            aplicationModelSerialized=bos.toByteArray();
             
-            bos.close();
             memeoryOutStream.close();
+            bos.close();
         }catch(IOException ex)
         {
             System.out.println(ex.getMessage());
         }
-
-        
-        start(stage);      
     }
     
      private void clickSave()
@@ -450,7 +540,11 @@ public class Licenta extends Application
         );
         File file = fileChooser.showOpenDialog(stage);
         
-        this.aplicationModel=fileToAplicationModel(file.getPath());   
+        if(file!=null)
+        {
+            this.aplicationModel=fileToAplicationModel(file.getPath()); 
+        } 
+        setAplicationModelSerialized();
         start(stage);
     }
     

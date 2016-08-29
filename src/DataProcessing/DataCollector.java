@@ -5,6 +5,8 @@
  */
 package DataProcessing;
 
+import Adaptor.Converter;
+import Models.AplicationModel;
 import Models.ConstraintModel;
 import Models.DayModel;
 import Models.KeyWordModel;
@@ -100,7 +102,6 @@ public class DataCollector{
     
     // </editor-fold>
         
-    // <editor-fold desc="lazy loading region" defaultstate="collapsed">
     public HashMap<String,TermModel> getTerms(String pathToThesaurus)
     {
         if(terms.isEmpty())
@@ -136,9 +137,7 @@ public class DataCollector{
         }
         return lectureWithSimilaritySet;
     }
-     // </editor-fold>   
-    
-
+  
     private void groupByKeyWord(ArrayList<LectureModel> lectures)
     {
         HashMap<String,ArrayList<LectureModel>> map=new HashMap();
@@ -363,67 +362,7 @@ public class DataCollector{
         
         return days;
     }
-    
-    public ArrayList<ConstraintModel> getConstraints(ArrayList<TopicModel> topics)
-    {
-        ArrayList<ConstraintModel> constraints=new ArrayList<ConstraintModel>();
-        
-        for(TopicModel topic : topics)
-        {
-            for(SessionModel session : topic.getSessions())
-            {
-                for(String name:session.getChairs())
-                {
-                    ConstraintModel constraint=new ConstraintModel();
-                    name = name.trim();
-                    
-                    constraint.setTeacherName(name);
-                    constraints.add(constraint);
-                }
-                for(LectureModel lecture:session.getLectures())
-                {
-                    for(String name:lecture.getAuthors())
-                    {
-                        ConstraintModel constraint=new ConstraintModel();                       
-                        name = name.trim();
-                        
-                        constraint.setTeacherName(name);
-                        constraints.add(constraint);
-                    }                   
-                }
-            }
-        }
-        
-        return arrangingConstraints(constraints);
-    }
-    
-    public ArrayList<ConstraintModel> arrangingConstraints(ArrayList<ConstraintModel> constraints)
-    {
-        //sort
-        Collections.sort(constraints, new Comparator<ConstraintModel>() 
-        {
-            @Override
-            public int compare(ConstraintModel constraint1, ConstraintModel constraint2)
-            {
-                return  constraint1.getTeacherName().compareTo(constraint2.getTeacherName());
-            }
-        });
-        
-        //remove dublicates
-        ArrayList<ConstraintModel> newConstraints=new ArrayList<ConstraintModel>();
-        newConstraints.add(constraints.get(0));
-        
-       for(int i=1;i<constraints.size();i++)
-       {
-           if(constraints.get(i).getTeacherName().compareTo(constraints.get(i-1).getTeacherName())!=0)
-           {
-               newConstraints.add(constraints.get(i));
-           }
-       }
-       
-       return newConstraints;
-    }
-    
+            
      public HashMap<String,String> getTeacherAffiliations(String path)
      {
         if(affiliations.isEmpty())

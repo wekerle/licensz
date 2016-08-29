@@ -13,6 +13,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import Listener.SessionDragEventListener;
+import Models.SessionModel;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
@@ -88,8 +89,10 @@ public class TableCellView
         }
         content.setOnDragOver(new EventHandler<DragEvent>() 
         {
-            public void handle(DragEvent event) {               
-                if (event.getGestureSource() != this && event.getDragboard().hasString()) 
+            public void handle(DragEvent event) { 
+                
+                SessionModel session=TableCellView.this.minimalSessionView.getSessionModel();
+                if (event.getGestureSource() != this && event.getDragboard().hasString() && session!=null && !session.isBreak() ) 
                 {
                     event.acceptTransferModes(TransferMode.MOVE);
                     

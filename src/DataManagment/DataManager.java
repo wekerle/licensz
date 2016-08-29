@@ -5,7 +5,9 @@
  */
 package DataManagment;
 
+import Adaptor.Converter;
 import Models.AplicationModel;
+import Models.ConstraintModel;
 import Models.DayModel;
 import Models.LectureModel;
 import Models.LocalTimeRangeModel;
@@ -13,6 +15,8 @@ import Models.RoomModel;
 import Models.SessionModel;
 import Models.TopicModel;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 /**
  *
  * @author tibor.wekerle
@@ -21,8 +25,64 @@ public class DataManager
 {
     
     private AplicationModel aplicationModel=null;
+    private Converter converter=new Converter();
     
     // <editor-fold desc="private region" defaultstate="collapsed">
+    
+    private ArrayList<String> arrangingNames(ArrayList<String> names)
+    {
+        if(names.size()<=1)
+        {
+            return names;
+        }
+        //sort
+        Collections.sort(names, new Comparator<String>() 
+        {
+            @Override
+            public int compare(String name1, String name2)
+            {
+                return  name1.compareTo(name2);
+            }
+        });
+        
+        //remove dublicates
+        ArrayList<String> newNames=new ArrayList<String>();
+        newNames.add(names.get(0));
+        
+       for(int i=1;i<names.size();i++)
+       {
+           if(names.get(i).compareTo(names.get(i-1))!=0)
+           {
+               newNames.add(names.get(i));
+           }
+       }
+       
+       return newNames;
+    }
+    
+    private ArrayList<String> getAllteachersAndChairs(ArrayList<TopicModel> topics)
+    {
+        ArrayList<String> names=new ArrayList<String>();
+        
+        for(TopicModel topic : topics)
+        {
+            for(SessionModel session : topic.getSessions())
+            {
+                names.add(session.getChair().trim());
+                names.add(session.getCoChair().trim());
+                                
+                for(LectureModel lecture:session.getLectures())
+                {
+                    for(String name:lecture.getAuthors())
+                    {                   
+                        names.add(name.trim());                      
+                    }                   
+                }
+            }
+        }
+         
+        return arrangingNames(names);
+    }
     
     private void deleteEmptyDays() 
     {        
@@ -35,20 +95,7 @@ public class DataManager
             }
         }
     }
-    
-    private DayModel getDayBySessionId(int sessionId) 
-    {
-        for(DayModel day : aplicationModel.getDays())
-        {
-            boolean result=day.containsSession(sessionId);
-            if(result==true)
-            {
-                return day;
-            }
-        }
-        return null;
-    }
-    
+      
     private TopicModel getTopicIdBySessionId(int sessionId)
     {
         for(TopicModel topic :aplicationModel.getTopics())
@@ -152,6 +199,19 @@ public class DataManager
         }
     }
     //</editor-fold>
+    
+    public DayModel getDayBySessionId(int sessionId) 
+    {
+        for(DayModel day : aplicationModel.getDays())
+        {
+            boolean result=day.containsSession(sessionId);
+            if(result==true)
+            {
+                return day;
+            }
+        }
+        return null;
+    }
     
     public DataManager(AplicationModel aplicationModel)
     {
@@ -312,6 +372,38 @@ public class DataManager
                 sourceDay.calculateTimesAccordingToLecturesDuration(aplicationModel.getShortLectureDuration(),aplicationModel.getLongLectureDuration());
             }
         };
-    } 
+    }
+    
+    public ArrayList<ConstraintModel> getConstraints(ArrayList<TopicModel> topics)
+    {
+        ArrayList<String> names=getAllteachersAndChairs(topics);
+        
+        return converter.namesToConstraints(names);       
+    }
+    
+    public String getAffiliationByName(String name)
+    {
+        String affiliation=aplicationModel.getTeacherAffiliationMap().get(name);
+        
+        if(affiliation==null)
+        {
+            affiliation="ICCPTBA";
+        }
+        
+        return affiliation;
+    }
 
+    public void updatedConstraints() 
+    {
+        ArrayList<String> allNames=getAllteachersAndChairs(aplicationModel.getTopics());
+        ArrayList<String> oldNames=converter.constraintsToStringList(aplicationModel.getConstraints());
+        
+        allNames.removeAll(oldNames);
+        for(String name:allNames)
+        {
+            ConstraintModel constraint=new ConstraintModel();
+            constraint.setTeacherName(name);
+            aplicationModel.getConstraints().add(constraint);
+        }        
+    }
 }

@@ -5,7 +5,6 @@
  */
 package Views;
 
-import Helpers.Enums;
 import Listener.TextChangeEventListener;
 import Models.RoomModel;
 import javafx.scene.layout.HBox;

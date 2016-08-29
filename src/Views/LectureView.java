@@ -17,7 +17,6 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
-import licenta.GlobalVaribles;
 
 /**
  *
@@ -45,7 +44,7 @@ public class LectureView
      {
          this.lectureModel=lecture;
          this.id=lectureModel.getId();        
-         GlobalVaribles.addElementToDragLectureAndNumberMap(id, this);              
+         SummaryView.dragLectureAndNumberMap.put(id, this);              
          
          titleView.setText(lectureModel.getTitle());
          authorView.setText(StringHelper.createListSeparateComma(lectureModel.getAuthors()));
@@ -78,32 +77,32 @@ public class LectureView
          {
              public void handle(MouseEvent event)
              {
-                 if(!GlobalVaribles.isSelected(LectureView.this))
-                 {
-                      GlobalVaribles.removeAllSelected();
-                 }
-                 Dragboard db =container.startDragAndDrop(TransferMode.MOVE);
-                 
-                 ClipboardContent cc =new ClipboardContent();
-                                  
-                 cc.putString(Integer.toString(id));
-                 db.setContent(cc);
+                if(!SummaryView.isSelected(LectureView.this))
+                {
+                   SummaryView.removeAllSelected();
+                }
+                Dragboard db =container.startDragAndDrop(TransferMode.MOVE);
+
+                ClipboardContent cc =new ClipboardContent();
+
+                cc.putString(Integer.toString(id));
+                db.setContent(cc);
              }
          });
                   
-         container.setOnMouseClicked(new EventHandler<MouseEvent>()
-         {          
-             @Override
-             public void handle(MouseEvent event) {
-                 if(event.isControlDown())
-                 {
-                     GlobalVaribles.addSelected(LectureView.this);
-                 }
-                 else
-                 {
-                     GlobalVaribles.removeAllSelected();
-                 }
-             }
+        container.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {          
+            @Override
+            public void handle(MouseEvent event) {
+                if(event.isControlDown())
+                {
+                    SummaryView.addSelected(LectureView.this);
+                }
+                else
+                {
+                    SummaryView.removeAllSelected();
+                }
+            }
         });
          
      }

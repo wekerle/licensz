@@ -5,13 +5,10 @@
  */
 package Views;
 
-import Helpers.Enums;
 import Helpers.StringHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import Listener.LectureDragEventListener;
 import Listener.TextChangeEventListener;
 import Models.TopicModel;

@@ -16,7 +16,9 @@ import licenta.IdGenerator;
 public class SessionModel implements Serializable
 {
     private String title;
-    private ArrayList<String> chairs=new  ArrayList<String>();
+   // private ArrayList<String> chairs=new  ArrayList<String>();
+    private String chair;
+    private String coChair;
     
     private ArrayList<LectureModel> LectureWithDetails=new  ArrayList<LectureModel>();
     private int id;
@@ -24,20 +26,21 @@ public class SessionModel implements Serializable
     public SessionModel()
     {
          id=IdGenerator.getNewId();
-         chairs.add("chair1");
-         chairs.add("chair2");
+         chair="chair";
+         coChair="co-chair";
     }
     
     public void makeBreak(String title)
     {
         this.LectureWithDetails=null;
-        this.chairs=null;
+        this.chair=null;
+        this.coChair=null;
         this.title=title;
     }
     
     public boolean isBreak()
     {
-        return LectureWithDetails == null && chairs==null;
+        return LectureWithDetails == null && chair==null && coChair==null;
     }
     
     public String getTitle() 
@@ -60,14 +63,24 @@ public class SessionModel implements Serializable
         return LectureWithDetails;
     }
 
-    public ArrayList<String> getChairs() 
+    public String getChair() 
     {
-        return chairs;
+        return chair;
+    }
+    
+    public String getCoChair() 
+    {
+        return coChair;
     }
 
-    public void setChairs(ArrayList<String> chairs) 
+    public void setChair(String chair) 
     {
-        this.chairs = chairs;
+        this.chair = chair;
+    }
+    
+    public void setCoChair(String coChair) 
+    {
+        this.coChair = coChair;
     }
 
     public void setLectureWithDetails(ArrayList<LectureModel> LectureWithDetails) 

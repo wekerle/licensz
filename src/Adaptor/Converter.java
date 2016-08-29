@@ -99,4 +99,27 @@ public class Converter
         return tableViews;
     }
     
+    public ArrayList<ConstraintModel> namesToConstraints(ArrayList<String> names)
+    {
+        ArrayList<ConstraintModel> constraints=new ArrayList<ConstraintModel>();
+        for(String name:names)
+        {
+            ConstraintModel constraintChair=new ConstraintModel();
+            constraintChair.setTeacherName(name);
+            constraints.add(constraintChair);
+        }
+        
+        return constraints;
+    }
+
+    public ArrayList<String> constraintsToStringList(ArrayList<ConstraintModel> constraints) 
+    {
+        ArrayList<String> names=new ArrayList<String>();
+        for(ConstraintModel constraint:constraints)
+        {
+            names.add(constraint.getTeacherName());
+        }
+        return names;
+    }
+    
 }

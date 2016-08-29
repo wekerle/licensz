@@ -7,6 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -17,11 +18,22 @@ public class AplicationModel implements Serializable
     private ArrayList<TopicModel> topics=new ArrayList<TopicModel>();
     private ArrayList<DayModel> days=new ArrayList<DayModel>();
     private ArrayList<ConstraintModel> constraints=new ArrayList<ConstraintModel>();
+    private HashMap<String,String> teacherAffiliationMap=null;
     private String pathToThesaurus=null;
     private String pathToTecherAffiliation=null;
     private int shortLectureDuration=15;
     private int longLectureDuration=20;
     private boolean hasModification=false;
+
+    public HashMap<String, String> getTeacherAffiliationMap() 
+    {
+        return teacherAffiliationMap;
+    }
+
+    public void setTeacherAffiliationMap(HashMap<String, String> teacherAffiliationMap) 
+    {
+        this.teacherAffiliationMap = teacherAffiliationMap;
+    }
 
     public int getShortLectureDuration() {
         return shortLectureDuration;
