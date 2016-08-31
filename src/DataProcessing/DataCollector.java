@@ -195,7 +195,8 @@ public class DataCollector{
             unio++;
         }
         
-        if(set1.size()-1==index1){
+        if(set1.size()-1==index1)
+        {
             unio+=set2.size()-index2;
         }
         if(set2.size()-1==index2)
