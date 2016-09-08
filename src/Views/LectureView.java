@@ -5,7 +5,6 @@
  */
 package Views;
 
-import Helpers.Enums;
 import Helpers.StringHelper;
 import Listener.TextChangeEventListener;
 import Models.LectureModel;

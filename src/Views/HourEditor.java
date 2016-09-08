@@ -29,16 +29,10 @@ public class HourEditor extends VBox
     private TimePicker endTimePicker;
     private Text text=new Text();
     private HourChangeEventListener hourChangeListener;
-    private int periodId;
     
     public void setHourChangeEventListener(HourChangeEventListener hourChangeListener)
     {
         this.hourChangeListener=hourChangeListener;
-    }
-    
-    public void setPeriodId(int periodId)
-    {
-        this.periodId=periodId;
     }
     
     public HourEditor(LocalTimeRangeModel time)

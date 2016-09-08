@@ -41,8 +41,10 @@ public class DayModel implements Serializable
         }
         return null;
     }
+                
+     //</editor-fold>
     
-    private LocalTimeRangeModel getTimeRangeModelById(int id)
+    public LocalTimeRangeModel getTimeRangeModelById(int id)
     {
         for(LocalTimeRangeModel timeRange : times)
         {
@@ -53,8 +55,6 @@ public class DayModel implements Serializable
         }
         return null;
     }
-            
-     //</editor-fold>
     
     public void addNewTimeBreak()
     {
@@ -275,19 +275,7 @@ public class DayModel implements Serializable
     {
         return timeRoomMap;
     }
-    
-    public LocalTimeRangeModel getTimeById(int timeId) 
-    {
-        for(LocalTimeRangeModel time:times)
-        {
-            if(time.getId()==timeId)
-            {
-                return time;
-            }
-        }
-        return null;
-    }
-    
+        
     public void shiftDown(int timeId,int roomId)
     {      
         int index=0;
@@ -307,7 +295,7 @@ public class DayModel implements Serializable
             LocalTimeRangeModel time=times.get(i);
             LocalTimeRangeModel timeNext=times.get(i+1);
             
-            //the above if is neccesary to mange to skip the time break dureing the shifting procces
+            //the above if is neccesary to manage to skip the time break dureing the shifting procces
             SessionModel nextTimeSession=getSessionModelTimeRoom(timeNext.getId(),roomId);
             
             if(nextTimeSession!=null && nextTimeSession.isBreak())
@@ -522,7 +510,7 @@ public class DayModel implements Serializable
     {
         for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:timeRoomMap.entrySet())
         {
-            LocalTimeRangeModel sessionPeriod=getTimeById(timeRoomSession.getKey());
+            LocalTimeRangeModel sessionPeriod=getTimeRangeModelById(timeRoomSession.getKey());
             for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
             {
                 SessionModel session=roomSession.getValue();

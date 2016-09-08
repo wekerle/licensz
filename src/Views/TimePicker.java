@@ -35,7 +35,6 @@ public class TimePicker extends GridPane
     public TimePicker(LocalTime time)
     {      
         hourSpinner=new Spinner<>(0, 23,time.getHour(),1);
-        hourSpinner=new Spinner<>(0, 23, time.getHour(),1);
         minutSpinner=new Spinner<>(0, 59, time.getMinute(),5);
         SetupView();
     }

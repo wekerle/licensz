@@ -63,21 +63,6 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
     {     
         Converter c=new Converter();       
         verticalLayout.getChildren().clear();
-             
-        ArrayList<TableView> tableViewList= c.dayModelListToTableViewList(aplicationModel.getDays(),aplicationModel.getConstraints(),this);
-                
-        for(TableView tableview : tableViewList)
-        {                       
-            verticalLayout.getChildren().add(tableview);
-        }                   
-    }
-    
-    public ScheduleView(AplicationModel model)
-    {
-        this.aplicationModel=model;
-        this.dataManager=new DataManager(aplicationModel);
-        SetupView();
-        this.setContent(verticalLayout);
         
         scrolltimeline.setCycleCount(Timeline.INDEFINITE);
         scrolltimeline.getKeyFrames().add(new KeyFrame(Duration.millis(20), "Scoll", (ActionEvent) -> { dragScroll();}));
@@ -98,6 +83,21 @@ public class ScheduleView extends ScrollPane implements SessionDragEventListener
             scrolltimeline.stop();
             SetupView();
         });
+        
+        ArrayList<TableView> tableViewList= c.dayModelListToTableViewList(aplicationModel.getDays(),aplicationModel.getConstraints(),this);
+                
+        for(TableView tableview : tableViewList)
+        {                       
+            verticalLayout.getChildren().add(tableview);
+        }                   
+    }
+    
+    public ScheduleView(AplicationModel model)
+    {
+        this.aplicationModel=model;
+        this.dataManager=new DataManager(aplicationModel);
+        SetupView();
+        this.setContent(verticalLayout);       
     }
 
     @Override

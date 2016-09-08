@@ -402,7 +402,7 @@ public class DataManager
         for(String name:allNames)
         {
             ConstraintModel constraint=new ConstraintModel();
-            constraint.setTeacherName(name);
+            constraint.setAuthorName(name);
             aplicationModel.getConstraints().add(constraint);
         }        
     }

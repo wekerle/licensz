@@ -88,7 +88,7 @@ public class Converter
         
         for(ConstraintModel constraint:constarints)
         {
-            teacherConstraintMap.put(constraint.getTeacherName(), constraint);
+            teacherConstraintMap.put(constraint.getAuthorName(), constraint);
         }
         
         for(DayModel day : days)
@@ -105,7 +105,7 @@ public class Converter
         for(String name:names)
         {
             ConstraintModel constraintChair=new ConstraintModel();
-            constraintChair.setTeacherName(name);
+            constraintChair.setAuthorName(name);
             constraints.add(constraintChair);
         }
         
@@ -117,7 +117,7 @@ public class Converter
         ArrayList<String> names=new ArrayList<String>();
         for(ConstraintModel constraint:constraints)
         {
-            names.add(constraint.getTeacherName());
+            names.add(constraint.getAuthorName());
         }
         return names;
     }

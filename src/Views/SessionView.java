@@ -6,7 +6,6 @@
 package Views;
 
 import Helpers.StringHelper;
-import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.input.DragEvent;
@@ -31,7 +30,6 @@ public class SessionView
     private TextEditor coChairView=new TextEditor();
     private int sessionId;
     private LectureDragEventListener lectureDragEvent;
-    private TextChangeEventListener textChangeEvent;
     private SessionModel sessionModel;
 
     public void setLectureDragEventListener(LectureDragEventListener lectureDragEvent) 

@@ -14,17 +14,17 @@ import java.util.ArrayList;
  */
 public class ConstraintModel implements Serializable
 {
-    private String teacherName;
+    private String authorName;
     private ArrayList<DateAndPeriodModel> datesAndPeriods=new ArrayList<DateAndPeriodModel>();
     
-    public String getTeacherName() 
+    public String getAuthorName() 
     {
-        return teacherName;
+        return authorName;
     }
 
-    public void setTeacherName(String teacherName) 
+    public void setAuthorName(String teacherName) 
     {
-        this.teacherName = teacherName;
+        this.authorName = teacherName;
     }
     
     public void addDateAndPeriod(DateAndPeriodModel dateAndPeriod)

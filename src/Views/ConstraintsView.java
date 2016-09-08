@@ -35,9 +35,8 @@ import javafx.scene.text.Text;
  */
 public class ConstraintsView extends ScrollPane
 {
-    AplicationModel aplicationModel=null;
     private GridPane table=new GridPane();
-    double scrollValue;
+    private double scrollValue;
     
     private ScrollBar getVerticalScrollbar() 
     {
@@ -171,9 +170,7 @@ public class ConstraintsView extends ScrollPane
     }
     public ConstraintsView(AplicationModel aplicationModel)
     {   
-        super();     
-        this.aplicationModel=aplicationModel;
-        
+        super();            
         populateContent(aplicationModel.getConstraints());  
     }
     
@@ -184,7 +181,7 @@ public class ConstraintsView extends ScrollPane
         int i=0;
         for(ConstraintModel constraint : constraints)
         {
-            Text textName=new Text(constraint.getTeacherName());
+            Text textName=new Text(constraint.getAuthorName());
             textName.setFont(StringHelper.font16Bold);
                                  
             Image imageAdd=new Image("/Icons/add3.png");

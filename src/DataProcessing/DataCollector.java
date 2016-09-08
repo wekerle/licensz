@@ -5,9 +5,6 @@
  */
 package DataProcessing;
 
-import Adaptor.Converter;
-import Models.AplicationModel;
-import Models.ConstraintModel;
 import Models.DayModel;
 import Models.KeyWordModel;
 import Models.SessionModel;
@@ -19,8 +16,6 @@ import Models.TermModel;
 import java.io.File;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
@@ -44,11 +39,11 @@ public class DataCollector{
     {
         ArrayList<LectureModel> lectures=new ArrayList<LectureModel>();
 
-        LectureReaderFromFile lrff=new LectureReaderFromFile(pathToFolderWithFiles);
+        LectureReaderFromFile reader=new LectureReaderFromFile(pathToFolderWithFiles);
         
-        while(lrff.readNext())
+        while(reader.readNext())
         {
-            LectureModel lecture = lrff.getCurrent();
+            LectureModel lecture = reader.getCurrent();
             lectures.add(lecture);
         }
         return lectures;
@@ -368,7 +363,7 @@ public class DataCollector{
         if(affiliations.isEmpty())
         {
             File file = new File(path);
-            affiliations=new TeacherAffiliationReaderFromFile().readTeacherAffiliationFromFile(file);
+            affiliations=new AuthorAffiliationReaderFromFile().readTeacherAffiliationFromFile(file);
         }      
         return affiliations;
      }

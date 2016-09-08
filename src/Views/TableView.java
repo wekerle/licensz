@@ -117,15 +117,12 @@ public class TableView extends VBox implements SessionDragEventListener
             {                 
                 SessionModel session=dayModel.getSessionModelTimeRoom(timeRange.getId(),room.getId());
                 TableCellView tableCellView=new TableCellView(this,i, j,true);
-                if(session!=null)
-                {
-                    sessionIdTableCellMap.put(session.getId(), tableCellView);
-                }
                         
                 boolean sameCell=true;
                     
                 if(session!=null)
                 {
+                     sessionIdTableCellMap.put(session.getId(), tableCellView);
                     Converter c=new Converter();
                     MinimalSessionView minimalSession=c.sessionToMinimalSessionView(session);
                     tableCellView.setMinimalSessionView(minimalSession); 
@@ -193,7 +190,7 @@ public class TableView extends VBox implements SessionDragEventListener
     {
         for(Map.Entry<Integer, HashMap<Integer, SessionModel>> timeRoomSession:dayModel.getTimeRoomMap().entrySet())
         {
-            LocalTimeRangeModel time=dayModel.getTimeById(timeRoomSession.getKey());
+            LocalTimeRangeModel time=dayModel.getTimeRangeModelById(timeRoomSession.getKey());
             for(Map.Entry<Integer, SessionModel> roomSession: timeRoomSession.getValue().entrySet())
             {
                 SessionModel session=roomSession.getValue();

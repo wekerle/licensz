@@ -24,8 +24,7 @@ import javafx.scene.layout.Pane;
  */
 public class TableCellView
 {
-    private int colIndex=0;
-    private int rowIndex=0;
+    
     private MinimalSessionView minimalSessionView=null;
     private SessionDragEventListener sessionDragEvent;
     private Pane content;
@@ -39,25 +38,7 @@ public class TableCellView
         return content;
     }
     
-    public int getColIndex() 
-    {
-        return colIndex;
-    }
-
-    public void setColIndex(int colIndex) 
-    {
-        this.colIndex = colIndex;
-    }
-
-    public int getRowIndex() 
-    {
-        return rowIndex;
-    }
-
-    public void setRowIndex(int rowIndex) 
-    {
-        this.rowIndex = rowIndex;
-    }
+   
 
     public void setContentNode(Node contentNode) 
     {
@@ -77,8 +58,7 @@ public class TableCellView
      
      public TableCellView(TableView table, int colIndex,int rowIndex, boolean isHbox)
      {
-        this.rowIndex=rowIndex;
-        this.colIndex=colIndex;
+        
         
         if(isHbox)
         {

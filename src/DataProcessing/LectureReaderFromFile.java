@@ -40,6 +40,7 @@ public class LectureReaderFromFile implements LectureReader
         }
         return files;
     }
+    
     public LectureReaderFromFile(String pathToFiles)
     {               
         ArrayList<File> files = getAllFilesFromDir(pathToFiles);

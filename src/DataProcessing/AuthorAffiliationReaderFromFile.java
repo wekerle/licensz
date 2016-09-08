@@ -15,7 +15,7 @@ import java.util.HashMap;
  *
  * @author Ronaldo
  */
-public class TeacherAffiliationReaderFromFile
+public class AuthorAffiliationReaderFromFile
 {
           
     public HashMap<String,String> readTeacherAffiliationFromFile(File file) 
