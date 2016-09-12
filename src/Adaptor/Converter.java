@@ -9,15 +9,15 @@ import Models.LectureModel;
 import Models.TopicModel;
 import Models.SessionModel;
 import java.util.ArrayList;
-import Views.LectureView;
-import Views.MinimalSessionView;
-import Views.TopicView;
-import Views.SessionView;
+import ViewModels.LectureView;
+import ViewModels.MinimalSessionView;
+import ViewModels.TopicView;
+import ViewModels.SessionView;
 import Listener.LectureDragEventListener;
 import Listener.SessionDragEventListener;
 import Models.ConstraintModel;
 import Models.DayModel;
-import Views.TableView;
+import ViewModels.TableView;
 import java.util.HashMap;
 
 /**

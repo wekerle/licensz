@@ -7,7 +7,6 @@ package Models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -478,7 +477,7 @@ public class DayModel implements Serializable
     public void recalculateTimesNextToCurrentTime(LocalTimeRangeModel currentTime)
     {
        int index=times.indexOf(currentTime);
-       for(int i=index;i<times.size()-2;i++)
+       for(int i=index;i<=times.size()-2;i++)
        {
            LocalTimeRangeModel time=times.get(i);
            LocalTimeRangeModel nextTime=times.get(i+1);

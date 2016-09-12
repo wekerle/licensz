@@ -5,6 +5,8 @@
  */
 package Views;
 
+import ViewModels.HourEditor;
+import ViewModels.DayEditor;
 import Helpers.StringHelper;
 import Models.AplicationModel;
 import Models.ConstraintModel;

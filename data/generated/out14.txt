@@ -1,5 +1,5 @@
 Instance Based Learning Approaches for predicting the height of human skeletons
-Vlad-Sebastian Ionescu, Ioan-Gabriel Mircea, Diana-Lucia Miholca, Gabriela Czibula
+Vlad-Sebastian Ionescu, Diana-Lucia Miholca, Gabriela Czibula
 8
 F
 Bioarchaeology, Stature prediction, Machine learning, Radial basis function networks, Locally-weighted regression

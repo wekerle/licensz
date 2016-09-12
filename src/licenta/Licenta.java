@@ -18,8 +18,8 @@ import Models.SessionModel;
 import Models.TopicModel;
 import Views.ConstraintsView;
 import Views.ScheduleView;
-import Views.TableSettingsView;
-import Views.TextEditor;
+import ViewModels.TableSettingsView;
+import ViewModels.TextEditor;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -526,7 +526,8 @@ public class Licenta extends Application
                 fileOutStream.writeObject(aplicationModel);
                 fileOutStream.close();
                 
-                fileOut.close();              
+                fileOut.close();
+                setAplicationModelSerialized();
                 
             } catch (IOException ex) 
             {

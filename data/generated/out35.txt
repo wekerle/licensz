@@ -1,5 +1,5 @@
 Ship Detection Based on SVM Using Color, Texture Features
-Juan Ram\'{o}n Ant\'{o}n Morillas, Irene Camino Garc\'{\i}a, Udo Z\"{o}lzer
+Juan Ramon Anton Morillas, Irene Camino Garcia, Udo Zolzer
 8
 F
 Ship detection, Support Vector Machine, High-resolution images, Color features, Texture features

@@ -5,6 +5,8 @@
  */
 package Views;
 
+import ViewModels.TopicView;
+import ViewModels.LectureView;
 import Adaptor.Converter;
 import DataManagment.DataManager;
 import Models.AplicationModel;
@@ -27,38 +29,7 @@ import java.util.HashMap;
  * @author Ronaldo
  */
 public class SummaryView extends ScrollPane implements LectureDragEventListener
-{
-    // <editor-fold desc="static region" defaultstate="collapsed">
-    protected static HashMap<Integer,LectureView> dragLectureAndNumberMap=new HashMap<Integer,LectureView>();
-    protected static  ArrayList<LectureView> selectedDragLectures=new ArrayList<LectureView>();
-    
-    public static LectureView getDragLectureByNumber(int lectureNumber) 
-    {
-        return dragLectureAndNumberMap.get(lectureNumber);
-    }
-    
-    public static void removeAllSelected() 
-    {
-        for(LectureView dl:selectedDragLectures)
-        {
-            dl.getNode().setStyle("-fx-background-color:inherit");
-        }
-        selectedDragLectures.removeAll(selectedDragLectures);
-        
-    }
-    
-    public static void addSelected(LectureView dragLecture) 
-    {
-        dragLecture.getNode().setStyle("-fx-background-color:#d6c9c9");
-        selectedDragLectures.add(dragLecture);
-    }
-    
-    public static boolean isSelected(LectureView dragLecture) 
-    {
-      return  selectedDragLectures.contains(dragLecture);
-    }
-         //</editor-fold>
-    
+{    
     // <editor-fold desc="private region" defaultstate="collapsed">    
     private double scrollDirection = 0;
     private VBox verticalLayout =  new VBox();

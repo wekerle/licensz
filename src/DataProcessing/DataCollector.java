@@ -275,7 +275,8 @@ public class DataCollector{
             LocalTime startTime=day.getTotalPeriod().getStartTime();
             for(i=0; i<day.getNumberOfSessionsPerRoom();i++)
             {
-                LocalTimeRangeModel time = new LocalTimeRangeModel(startTime,50);
+                // 80 minutes is hardcoded, it need to be calculated acording to max duration of lectures, at this hour
+                LocalTimeRangeModel time = new LocalTimeRangeModel(startTime,80);
                 LocalTimeRangeModel breakTime = new LocalTimeRangeModel(time.getEndTime(),deafultBreakDuration);
                 
                 if(breakTime.getEndTime().isAfter(day.getTotalPeriod().getEndTime()))

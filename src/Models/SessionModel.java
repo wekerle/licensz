@@ -27,8 +27,8 @@ public class SessionModel implements Serializable
     public SessionModel()
     {
          id=IdGenerator.getNewId();
-         chair="chair";
-         coChair="co-chair";
+         chair="chair"+IdGenerator.getNewId();
+         coChair="co-chair"+IdGenerator.getNewId();
     }
     
     public void makeBreak(String title)

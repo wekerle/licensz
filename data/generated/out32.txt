@@ -1,5 +1,5 @@
 Routing Enhancements based on Evolutionary Algorithm
-Iulia Maria Florea, Laura Gheorghe, Mihai Carabas, Nicolae Tapus
+Iulia Maria Florea, Laura Gheorghe, Mihai Carabas
 7
 F
 OSPF weights, traffic engineering, graph algorithms, onePK, Software Defined Networking

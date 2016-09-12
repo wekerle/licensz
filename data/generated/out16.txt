@@ -1,5 +1,5 @@
 A Q-learning Approach for Aligning Protein Sequences
-Ioan-Gabriel Mircea, Gabriela Czibula, Maria-Iuliana Bocicor
+Ioan-Gabriel Mircea, Maria-Iuliana Bocicor
 8
 F
 Bioinformatics, Protein Multiple Sequence Alignment, Machine Learning, Q-learning

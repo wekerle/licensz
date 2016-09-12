@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Views;
+package ViewModels;
 
 import Helpers.StringHelper;
 import Listener.TextChangeEventListener;
 import Models.LectureModel;
+import Views.SummaryView;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -43,7 +44,7 @@ public class LectureView
      {
          this.lectureModel=lecture;
          this.id=lectureModel.getId();        
-         SummaryView.dragLectureAndNumberMap.put(id, this);              
+         SessionView.dragLectureAndNumberMap.put(id, this);              
          
          titleView.setText(lectureModel.getTitle());
          authorView.setText(StringHelper.createListSeparateComma(lectureModel.getAuthors()));
@@ -76,9 +77,9 @@ public class LectureView
          {
              public void handle(MouseEvent event)
              {
-                if(!SummaryView.isSelected(LectureView.this))
+                if(!SessionView.isSelected(LectureView.this))
                 {
-                   SummaryView.removeAllSelected();
+                   SessionView.removeAllSelected();
                 }
                 Dragboard db =container.startDragAndDrop(TransferMode.MOVE);
 
@@ -95,11 +96,11 @@ public class LectureView
             public void handle(MouseEvent event) {
                 if(event.isControlDown())
                 {
-                    SummaryView.addSelected(LectureView.this);
+                    SessionView.addSelected(LectureView.this);
                 }
                 else
                 {
-                    SummaryView.removeAllSelected();
+                    SessionView.removeAllSelected();
                 }
             }
         });

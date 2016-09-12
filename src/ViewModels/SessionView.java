@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Views;
+package ViewModels;
 
 import Helpers.StringHelper;
 import javafx.event.EventHandler;
@@ -15,6 +15,10 @@ import javafx.scene.layout.VBox;
 import Listener.LectureDragEventListener;
 import Listener.TextChangeEventListener;
 import Models.SessionModel;
+import Views.SummaryView;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javafx.geometry.Point2D;
 
 
 /**
@@ -32,6 +36,37 @@ public class SessionView
     private LectureDragEventListener lectureDragEvent;
     private SessionModel sessionModel;
 
+        // <editor-fold desc="static region" defaultstate="collapsed">
+    protected static HashMap<Integer,LectureView> dragLectureAndNumberMap=new HashMap<Integer,LectureView>();
+    protected static  ArrayList<LectureView> selectedDragLectures=new ArrayList<LectureView>();
+    
+    public static LectureView getDragLectureByNumber(int lectureNumber) 
+    {
+        return dragLectureAndNumberMap.get(lectureNumber);
+    }
+    
+    public static void removeAllSelected() 
+    {
+        for(LectureView dl:selectedDragLectures)
+        {
+            dl.getNode().setStyle("-fx-background-color:inherit");
+        }
+        selectedDragLectures.removeAll(selectedDragLectures);
+        
+    }
+    
+    public static void addSelected(LectureView dragLecture) 
+    {
+        dragLecture.getNode().setStyle("-fx-background-color:#d6c9c9");
+        selectedDragLectures.add(dragLecture);
+    }
+    
+    public static boolean isSelected(LectureView dragLecture) 
+    {
+      return  selectedDragLectures.contains(dragLecture);
+    }
+         //</editor-fold>
+    
     public void setLectureDragEventListener(LectureDragEventListener lectureDragEvent) 
     {
         this.lectureDragEvent = lectureDragEvent;
@@ -127,16 +162,16 @@ public class SessionView
                     if(SessionView.this.lectureDragEvent!=null){
                         lectureDragEvent.notify(sessionId, lectureId);
                         
-                        LectureView dl= SummaryView.getDragLectureByNumber(Integer.parseInt(db.getString()));
+                        LectureView dl= SessionView.getDragLectureByNumber(Integer.parseInt(db.getString()));
                         addLectureView(dl);
                         
-                        for(LectureView dragLec: SummaryView.selectedDragLectures)
+                        for(LectureView dragLec: SessionView.selectedDragLectures)
                         {
                             lectureDragEvent.notify(sessionId, dragLec.getLectureNumber());
                             addLectureView(dragLec);
                         }
                     }                                                          
-                    SummaryView.removeAllSelected();
+                    SessionView.removeAllSelected();
                    success = true;
                 }
                 /* let the source know whether the string was successfully 
@@ -152,9 +187,13 @@ public class SessionView
     {
         return containerNode;
     }
-     public void addLectureView(LectureView lectureView) 
-     {
-        this.contentNode.getChildren().add(lectureView.getNode());
+    
+    public void addLectureView(LectureView lectureView) 
+    {
+        if(!this.contentNode.getChildren().contains(lectureView.getNode()))
+        {
+            this.contentNode.getChildren().add(lectureView.getNode());
+        }
     }             
 
     public int getId() 

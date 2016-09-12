@@ -1,5 +1,5 @@
 Verification of protocol specifications with separation logic
-Tibor Kiss, Florin Cr\u{a}ciun, Bazil P\^{a}rv
+Tibor Kiss, Florin Crăciun, Bazil Pârv
 8
 F
 session types, separation Logic, verification, pi calculus, linear logic, hoare logic

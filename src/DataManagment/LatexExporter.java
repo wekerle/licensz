@@ -65,7 +65,7 @@ public class LatexExporter
         out.write(session.getChair()+","+chairAffiliation+"\n");
         out.write("} \\\\ \\nopagebreak\n");
         out.write("{\\bf  Co-Chair:\n");
-        out.write(session.getCoChair()+","+coChairAffiliation+"\n");
+        out.write(session.getCoChair()+","+coChairAffiliation+"}\\\\\n");
         out.write("\\noindent\\rule{\\textwidth}{0.4pt} \\nopagebreak\n");
         out.write("\n");
 
@@ -90,7 +90,7 @@ public class LatexExporter
             out.write("            \\index{"+name+"@"+name+"}\n");           
         }
         out.write("            }\n");
-        out.write("	    {\\small 10:20 -- 10:40} \\nopagebreak\n");
+        out.write("	    {\\small "+lecture.getPeriod().toString()+"} \\nopagebreak\n");
         out.write("\\noindent \n");
         out.write("{\\bf \\small "+lecture.getTitle()+"}\n");
         out.write("\\nopagebreak\n");
